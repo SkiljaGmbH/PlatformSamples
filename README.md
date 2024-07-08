@@ -73,6 +73,9 @@ To develop a custom .NET activity, you add a reference to the STG.RT.API NuGet p
 The package is not yet available on nuget.org.
 We suggest to host it in your own NuGet repository for easy access.
 
+This samples are pointing to the private company-internal nuget repo for fetching STG.RT.API libraries.
+Please make sure to adjust the  Platform package source in the nuget.config file to point to your NuGet repository.
+
 The STG.RT.API is in most cases backwards compatible.
 For example, an activity built against STG.RT.API version 3.0.0 is guaranteed to work with 3.1.x and later systems;
 an activity built against STG.RT.API version 2.4.4 is guaranteed to work with 2.4.5, 3.0.x and 3.1.x systems.
