@@ -7,16 +7,16 @@ a system agent and of heartbeat reporting.
 
 The solution Samples.sln provides the following samples corresponding folders:
 
-- ActivitySettings - sample code to show how to implement an activity configuration
-- ActivityWebConfig - sample code for an activity that has advanced configuration settings window displayed in a separate web page
-- EDAClient - sample shows how to use the C# API to feed the platform for a process that contains an event-driven initializer activity
-- EDAConfirmWeb - sample for a thin client to use together with the event-driven notifier activity sample
-- EDAWebClient - sample for a thin client that uses the platform RestAPI to upload a stream for a event-driven initializer activity
-- SampleActivities - sample how to implement activity feature licensing and provides sample split and merge activity implementations
-- SampleActivity - sample for several document- time-driven activities and for a system agent
-- SampleEventDrivenActivity - sample for event-driven activities that can be used together with EDA Web Client, EDA Client or EDA Confirm Web applications
-- SampleImages - contains two sample images that you can use for testing
-- WebHeartbeatReporter - sample for a Web client that provides heartbeat
+- [ActivitySettings](ActivitySettings/README.md) - sample code to show how to implement an activity configuration
+- [ActivityWebConfig](ActivityWebConfig/README.md) - sample code for an activity that has advanced configuration settings window displayed in a separate web page
+- [EDAClient](EDAClient/README.md) - sample shows how to use the C# API to feed the platform for a process that contains an event-driven initializer activity
+- [EDAConfirmWeb](EDAConfirmWeb/README.md) - sample for a thin client to use together with the event-driven notifier activity sample
+- [EDAWebClient](EDAWebClient/README.md) - sample for a thin client that uses the platform RestAPI to upload a stream for a event-driven initializer activity
+- [SampleActivities](SampleActivities/README.md) - sample how to implement activity feature licensing and provides sample split and merge activity implementations
+- [SampleActivity](SampleActivity/README.md) - sample for several document- time-driven activities and for a system agent
+- [SampleEventDrivenActivity](SampleEventDrivenActivity/README.md) - sample for event-driven activities that can be used together with EDA Web Client, EDA Client or EDA Confirm Web applications
+- [WebHeartbeatReporter](WebHeartbeatReporter/README.md) - sample for a Web client that provides heartbeat
+- [WorkItemSearchAndLock](WorkItemSearchAndLock/README.md) - sample tool that simulates multiple requests to lock a work item on the Platform
 
 ## General Activity Entry Point Requirements
 
@@ -67,35 +67,15 @@ This creates important requirements:
     }
 ```
 
-## ActivitySettings
-
-This project provides sample code to show how to implement an activity configuration.
-For example, how to implement a configuration that allows you to upload a file.
-Please note that for the file upload there are two different controls, one is a string type that does not allow to put meta data,
-whereas the other `DtoFileProperty UploadedFile` allows uploading an object so that in the activity configuration you can also assign a variable for the file to upload.
-
-By default, variables are allowed to be used as an input value for an activity setting. In order to disable the use of variables, add the attribute `DisableVariableInput` to the setting:
-
-```cs
-[DisableVariableInput]
-```
-
->**Important**  Please note that you can't use an alias for enumerations in the activity configuration for a drop-down list.
-  If you import an activity configuration that uses an alias, platform throws an exception.
-
-## ActivityWebConfig
-
-An activity can have an additional configuration window for settings that are displayed in a separate web page.
-
-The web page (HTML5, JS) is either hosted on a web server or within platform in an iFrame.
-Property parameters that are entered in the window are passed to the configuration service for storage.
-Variables are also supported in custom settings.
-
 ## References
 
 To develop a custom .NET activity, you add a reference to the STG.RT.API NuGet package that is delivered with the platform.
 The package is not yet available on nuget.org.
 We suggest to host it in your own NuGet repository for easy access.
+
+This samples are pointing to the private nuget repo for platform libraries.
+Please make sure to adjust the Platform package source in the nuget.config file to point to your NuGet repository.
+Alternatively, you can request your vendor for an access token and use libraries hosted on this gitHub.
 
 The STG.RT.API is in most cases backwards compatible.
 For example, an activity built against STG.RT.API version 3.0.0 is guaranteed to work with 3.1.x and later systems;
@@ -106,7 +86,7 @@ Due to adding new features, we cannot guarantee forward compatibility.
 Please consult the API router section of the platform API documentation for an approach on how to deal with that problem.
 
 > Example: STG.RT.API 3.0.4 added a new work item search feature with new properties in the .NET classes.
-Using these new features towards a 3.0.3 or earlier {{var.ProductShort}} cannot work and may result in exceptions.
+Using these new features towards a 3.0.3 or earlier platform version cannot work and may result in exceptions.
 
 If an activity is compiled using a newer NuGet package version than the platform version used with, then the behavior depends on the activity execution context.
 If it is an external activity, then it normally runs with exactly the same STG.RT.API version, against which it has been compiled.
@@ -116,3 +96,23 @@ If the activity is hosted, then it runs with the STG.RT.API of the version that 
 
 > **Important** Especially when using the new functionality in a hosted activity, you must be aware that the activity is using the RT.API version of the running platform.
 If you use a 3.0.4 property that does not exist on 3.0.3, TypeLoadExceptions are thrown.
+
+## Building
+After cloning this repo, it is required to just the package sources as described in the [References](#references) chapter.
+After that building is straight forward.
+
+To restore all the required packages execute the following command:
+`msbuild -t:Restore all.proj`
+
+Then rerbuild all the activity and sample code in the solution by executing this command:
+`msbuild -t:Release all.proj`
+This creates the build output in the _build folder.
+
+To build websites execute the following command:
+`msbuild -t:build-websites all.proj`
+
+To generate activities out of built dlls and collect websites for hosting this command must be executed:
+`msbuild -t:package all.proj`
+
+This command creates a _publish\DemoActivities folder with activity packages and EDA websites and applications.
+

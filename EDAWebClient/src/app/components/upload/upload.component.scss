@@ -1,0 +1,23 @@
+@import '../../../sass/variables';
+@import '../../../sass/theme_settings';
+
+::ng-deep .drop-zone {
+  height: 360px !important;
+  border: 2px dashed $uploadZoneBorderColor !important;
+}
+
+::ng-deep .drop-zone.over {
+  background: $uploadZoneHoverBgColor !important;
+  border: 2px dashed $uploadZoneHoverBorderColor !important;
+}
+
+::ng-deep .content {
+  height: 360px !important;
+}
+
+::ng-deep .browse-btn {
+  background: transparent;
+  border: none;
+  color: $uploadZoneTextColor;
+  font-size: 14px;
+}

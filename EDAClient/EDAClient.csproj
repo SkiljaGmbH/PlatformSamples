@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <NoWarn>0067</NoWarn>
+    <UseWPF>true</UseWPF>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Fody" PrivateAssets="All"/>
+    <PackageReference Include="IdentityModel.OidcClient" />
+    <PackageReference Include="MaterialDesignThemes" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" />
+    <PackageReference Include="Newtonsoft.Json" />
+    <PackageReference Include="PropertyChanged.Fody" PrivateAssets="All" />
+    <PackageReference Include="Stelvio.Classification.ProjectService.Client" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" />
+    <PackageReference Include="MaterialDesignThemes.Wpf" />
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" />
+    <PackageReference Include="MaterialDesignColors" />
+    <PackageReference Include="STG.RT.API" />
+    <PackageReference Include="STG.RT.API.Signaling" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="OEM.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="app.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SampleEventDrivenActivity\SampleEventDrivenActivity.csproj" />
+    <ProjectReference Include="..\STG.RT.API.AuthExtensions\STG.RT.API.AuthExtensions.csproj" />
+  </ItemGroup>
+</Project>

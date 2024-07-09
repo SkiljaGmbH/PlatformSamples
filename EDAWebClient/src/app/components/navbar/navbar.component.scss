@@ -1,0 +1,49 @@
+@import '../../../sass/variables';
+@import '../../../sass/theme_settings';
+
+.navbar {
+  padding: 0 1rem;
+  height: $headerHeight;
+
+  .logo {
+    height: $logoHeight;
+  }
+
+  .nav-item {
+    outline: none;
+
+    span {
+      vertical-align: text-top;
+    }
+  }
+
+  ::ng-deep mat-select .mat-select-value,
+  ::ng-deep mat-select .mat-select-arrow {
+    color: $textColor !important;
+  }
+
+  ::ng-deep .mat-form-field-underline {
+    background-color: $textColor !important;
+  }
+
+  ::ng-deep .mat-focused .mat-form-field-ripple {
+    background-color: $textColor !important;
+    top: 0;
+    height: 1px;
+  }
+}
+
+@include oemized-theme {
+  .navbar {
+    background-color: mat-color($primary);
+    color: $textColor;
+  }
+
+  .fill-primary {
+    color: $textColor;
+    fill: $textColor;
+    path {
+      fill: $textColor;
+    }
+  }
+}

@@ -1,0 +1,47 @@
+<div class="results-container">
+  <div mat-dialog-title class="mb-2">Select notification to process</div>
+  <mat-dialog-content class="my-3 d-flex flex-column">
+    <div class="properties-container">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-100">
+
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()"
+                          (change)="$event ? selectedNotification.toggle(row) : null"
+                          [checked]="selectedNotification.isSelected(row)">
+            </mat-checkbox>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="CreationTime">
+          <th mat-header-cell *matHeaderCellDef> Creation time </th>
+          <td mat-cell *matCellDef="let element" title="{{element.CreationTime}}">{{element.CreationTime}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="WorkItemID">
+          <th mat-header-cell *matHeaderCellDef> Work item ID </th>
+          <td mat-cell *matCellDef="let element" title="{{element.WorkItemID}}"> {{element.WorkItemID}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="ActivityInstanceID">
+          <th mat-header-cell *matHeaderCellDef> Activity Instance ID </th>
+          <td mat-cell *matCellDef="let element" title="{{element.ActivityInstanceID}}"> {{element.ActivityInstanceID}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Message">
+          <th mat-header-cell *matHeaderCellDef> Message </th>
+          <td mat-cell *matCellDef="let element" title="{{element.Message}}"> {{element.Message}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectedNotification.toggle(row)"></tr>
+      </table>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions class="justify-content-end">
+    <button mat-raised-button color="primary" (click)="onProcess()">Output</button>
+    <button mat-button (click)="closeDialog()">Cancel</button>
+  </mat-dialog-actions>
+</div>
+
+

@@ -1,0 +1,5 @@
+<div class="logs-container p-2">
+  <div *ngFor="let log of logsList">
+    <div [innerHTML]="log | urlCustomPipe"></div>
+  </div>
+</div>

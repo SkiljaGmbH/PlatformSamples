@@ -1,0 +1,10 @@
+{
+    "machineName" : "webapp",
+    "clientId": "Web_Samples",
+    "versionSuffix": "/api/v2.1/",
+    "authService": "auth",
+    "configService": "configservice",
+    "processService": "processService",
+    "signalRUrl": "api/processService",
+    "serverUrl": "https://localhost/api/configurationservice"
+}

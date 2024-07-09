@@ -1,0 +1,18 @@
+@import '../../../sass/variables';
+@import '../../../sass/theme_settings';
+
+::ng-deep .mat-snack-bar-container .mat-simple-snackbar span {
+  word-break: break-all;
+}
+
+::ng-deep .mat-snack-bar-container.error {
+  background-color: mat-color($warn);
+  padding: 0.5rem 1rem;
+  color: $textColor;
+}
+
+::ng-deep .mat-snack-bar-container.success {
+  background-color: mat-color($primary);
+  padding: 0.5rem 1rem;
+  color: $textColor;
+}

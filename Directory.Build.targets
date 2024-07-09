@@ -1,0 +1,49 @@
+<Project>
+  <Target Name="getversion" DependsOnTargets="MinVer;"></Target>
+  <Target Name="AdjustInformationalVersion" AfterTargets="MinVer" DependsOnTargets="GitInfo;GitVersion">
+    <PropertyGroup>
+      <BetaText Condition="$(MinVerVersion.Contains('beta'))">Building a beta version: </BetaText>
+      <BetaText Condition="$(MinVerVersion.Contains('-rc'))">Building a release candidate: </BetaText>
+
+      <!--If IsRelease isn't set from the outside, let MinVer decide whether we're doing a release-->
+      <IsRelease Condition="$(IsRelease) == '' and $(BetaText) == ''">true</IsRelease>
+      <IsRelease Condition="$(IsRelease) == '' and $(BetaText) != ''">false</IsRelease>
+      <BetaText Condition="$(IsRelease) == 'true'"></BetaText>
+
+      <Major Condition="$(Major) == ''">$(MinVerMajor)</Major>
+      <Minor Condition="$(Minor) == ''">$(MinVerMinor)</Minor>
+      <Patch Condition="$(Patch) == ''">$(MinVerPatch)</Patch>
+      <HotfixVersion Condition="$(HotfixVersion) == ''">0</HotfixVersion>
+
+      <!--Fixed assembly version to 1.0.0-->
+      <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      <InformationalVersion Condition="$(InformationalVersion) == '' and $(IsRelease) == 'true'">$(MinVerMajor).$(MinVerMinor).$(MinVerPatch) - $(GitCommitHash)</InformationalVersion>
+      <InformationalVersion Condition="$(InformationalVersion) == ''">$(MinVerVersion) - $(GitCommitHash)</InformationalVersion>
+      <FileVersion>$(Major).$(Minor).$(Patch).$(GitCommits)</FileVersion>
+      <FileVersion Condition="$(FileVersionOverride) != ''">$(FileVersionOverride)</FileVersion>
+      <!-- MSI product version is [0-255].[0-255].[0-65535] (https://stackoverflow.com/questions/9312221/msi-version-numbers)
+                Can't use a fourth number!! $(GitCommits) is created by GitVersion (GitInfo nuget) and we pin it to a very early tag-->
+      <MsiVersion Condition="$(MsiVersion) == ''">$(MinVerMajor).$(MinVerMinor).$(GitCommits)</MsiVersion>
+      <!-- BuildVersion for build-output variables -->
+      <BuildVersion>$(MinVerVersion)</BuildVersion>
+      <BuildVersion Condition="$(IsRelease) == 'true'">$(MinVerMajor).$(MinVerMinor).$(MinVerPatch)</BuildVersion>
+
+      <PackageVersion Condition="$(IsRelease) == 'true'">$(MinVerMajor).$(MinVerMinor).$(MinVerPatch).$(HotfixVersion)</PackageVersion>
+      <RepositoryBranch>$(GitBranch)</RepositoryBranch>
+      <RepositoryCommit>$(GitCommit)</RepositoryCommit>
+      <RepositoryUrl>$(GitRepositoryUrl)</RepositoryUrl>
+    </PropertyGroup>
+    <Message Text="$(BetaText)File version = $(FileVersion)" Importance="high" />
+    <Message Text="$(BetaText)Product version = $(InformationalVersion)" Importance="high" />
+    <Message Text="$(BetaText)MSI version = $(MsiVersion)" Importance="high" />
+    <Message Text="$(BetaText)Package version = $(PackageVersion)" Importance="high" />
+    <Message Text="Assembly version = $(AssemblyVersion)" Importance="high" />
+    <Message Text="This is a beta version." Condition="$(IsRelease) == 'false'" Importance="high" />
+    <Message Text="This is a release version." Condition="$(IsRelease) == 'true'" Importance="high" />
+  </Target>
+  <Target Name="SetGitCommitHash" BeforeTargets="AdjustInformationalVersion">
+    <Exec Command="git rev-parse --short HEAD" ConsoleToMSBuild="true" ContinueOnError="True" Condition=" '$(GitCommitHash)' == '' ">
+      <Output TaskParameter="ConsoleOutput" PropertyName="GitCommitHash" />
+    </Exec>
+  </Target>
+</Project>

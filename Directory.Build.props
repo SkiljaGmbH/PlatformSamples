@@ -1,0 +1,59 @@
+<Project>
+  <PropertyGroup>
+    <PaketDisableGlobalRestore>true</PaketDisableGlobalRestore>
+    <BuildOutputDirectory>$(MSBuildThisFileDirectory)_build\</BuildOutputDirectory>
+    <PublishOutputDirectory>$(MSBuildThisFileDirectory)_publish\</PublishOutputDirectory>
+    <ProjectName Condition=" '$(ProjectName)' == '' ">$(MSBuildProjectName)</ProjectName>
+    <!-- Delete temporary compiler output caused by this bug:
+        https://github.com/dotnet/wpf/issues/2930#issuecomment-1487327293-->
+    <ProjectName Condition=" '$(AssemblyName)' != '' ">$(AssemblyName)</ProjectName>
+    <OutputPath>$(BuildOutputDirectory)$(ProjectName)</OutputPath>
+    <!-- BaseIntermediateOutputPath and IntermediateOutputPath need be set, otherwise there's still going to be an obj directory in the src dirs.
+    Also, PaketDisableGlobalRestore is important b/c otherwise paket does a global restore and again creates the obj dir in the src dirs (https://fsprojects.github.io/Paket/paket-and-dotnet-cli.html) -->
+    <BaseIntermediateOutputPath>$(BuildOutputDirectory)obj\$(ProjectName)\</BaseIntermediateOutputPath>
+    <IntermediateOutputPath>$(BuildOutputDirectory)obj\$(ProjectName)\</IntermediateOutputPath>
+    <!-- The MSBuildProjectExtensionsPath makes wpf project builds fail on vs2022 b/c the assets.json isn't found anymore. No compiled stuff in source dirs still seems to work, though. -->
+    <!--<MSBuildProjectExtensionsPath>$(BuildOutputDirectory)\obj\$(ProjectName)\</MSBuildProjectExtensionsPath>-->
+
+    <!-- CS7035: The specified version string does not conform to the recommended format - major.minor.build.revision
+    our build numbers exceed 65535 now, but we don't use the AssemblyVersion. So I think we can safely ignore this warning (JZ) -->
+    <NoWarn>7035</NoWarn>
+    <Company Condition="'$(Company)' == ''">Skilja GmbH</Company>
+    <Product Condition="'$(Product)' == ''">Giulia</Product>
+    <CurrYear Condition="'$(CurrYear)'==''">$([System.DateTime]::Now.Year)</CurrYear>
+    <Copyright Condition="'$(Copyright)' == ''">Copyright © Skilja GmbH 2013 - $(CurrYear). All rights reserved.</Copyright>
+    <FileVersion Condition="'$(FileVersion)' == ''">4.0.0.1337</FileVersion>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <!--InformationalVersion is set in Directory.Build.targets-->
+    <!--<InformationalVersion Condition="'$(InformationalVersion)' == ''">3.1 development build</InformationalVersion>-->
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch Condition="'$(ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch)' == ''">None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+    <Platform Condition="'$(Platform)' == ''">Any CPU</Platform>
+    <LangVersion>default</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <SigningKey>$(MSBuildThisFileDirectory)dllkey.snk</SigningKey>
+    <SignAssembly Condition="Exists('$(SigningKey)')">True</SignAssembly>
+    <AssemblyOriginatorKeyFile>$(SigningKey)</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <MinVerTagPrefix>v</MinVerTagPrefix>
+    <MinVerDefaultPreReleaseIdentifiers>beta</MinVerDefaultPreReleaseIdentifiers>
+    <!--<MinVerVerbosity>detailed</MinVerVerbosity>-->
+    <!-- releaseType defaults to patch -->
+    <MinVerAutoIncrement Condition="$(releaseType) != ''">$(releaseType)</MinVerAutoIncrement>
+    <!-- This makes GitInfo calculate the git height from tag v0.1.0. Allows us to have slowly increasing build versions -->
+    <GitTagRegex>v0.1.0</GitTagRegex>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GitInfo">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="MinVer">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,76 @@
+﻿<UserControl x:Class="EDAClient.Views.LoginView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:cnv="clr-namespace:EDAClient.Converters"
+             xmlns:local="clr-namespace:EDAClient.Views"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <cnv:BoolInverter x:Key="InvertBoolean" />
+        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignTextBox}">
+            <Setter Property="Margin" Value="0 8 0 8" />
+        </Style>
+        <Style TargetType="{x:Type PasswordBox}" BasedOn="{StaticResource MaterialDesignPasswordBox}">
+            <Setter Property="Margin" Value="0 8 0 8" />
+        </Style>
+      
+    </UserControl.Resources>
+    <Grid Margin="16" VerticalAlignment="Top">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="7"
+                   Style="{StaticResource MaterialDesignHeadline5TextBlock}">
+            Connect to Platform
+        </TextBlock>
+        <materialDesign:PackIcon Kind="Server" Grid.Row="1"
+                                 Foreground="{Binding ElementName=ServerTextBox, Path=BorderBrush}" />
+        <TextBox x:Name="ServerTextBox" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="5" Text="{Binding ConfigServiceURL}"
+                 materialDesign:HintAssist.Hint="Config Service URL"
+                 ToolTip="Via the configuration service endpoint all other endpoints can be discovered automatically. Such a URL looks like https://platform.acme.org/apis/config/ or https://platform.acme.org:8090/ (old format)"
+                IsEnabled="{Binding IsLoggedIn, Converter={StaticResource InvertBoolean}}"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+        <!-- floating action button with progress -->
+        <Button Grid.Row="1" Grid.Column="6"
+                Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                Margin="8 0 0 0"
+                IsEnabled="{Binding IsLoggingIn, Converter={StaticResource InvertBoolean}}"
+                Command="{Binding LoginCommand}"
+                CommandParameter="{Binding ElementName=PwdBox}"
+                materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding IsLoggingIn}"
+                materialDesign:ButtonProgressAssist.Value="-1"
+                materialDesign:ButtonProgressAssist.IsIndeterminate="True">
+            <!-- simple example of toggling/animating pack icon with a data trigger-->
+            <materialDesign:PackIcon Height="24" Width="24">
+                <materialDesign:PackIcon.Style>
+                    <Style TargetType="materialDesign:PackIcon"
+                           BasedOn="{StaticResource {x:Type materialDesign:PackIcon}}">
+                        <Setter Property="Kind" Value="LanConnect" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsLoggedIn}" Value="True">
+                                <Setter Property="Kind" Value="Check" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </materialDesign:PackIcon.Style>
+            </materialDesign:PackIcon>
+        </Button>
+        <Border Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="7" Padding="0 0 0 5"
+                BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0 0 0 1" />
+    </Grid>
+</UserControl>

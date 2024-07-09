@@ -1,0 +1,9 @@
+<form (ngSubmit)="loginUser()">
+  <h1 class="w-100 d-flex justify-content-center mb-4">EDA Consumer Application Demo</h1>
+
+  <mat-form-field>
+    <input [ngModel]="serverUrl" matInput name="serverUrl" readonly disabled="true" placeholder="Configuration Service URL (If the value is not correct please adjust the config.json file in assets and reload the app)" required>
+  </mat-form-field>
+
+  <button class="mt-3" mat-raised-button color="primary">Login</button>
+</form>

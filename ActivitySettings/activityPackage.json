@@ -1,0 +1,21 @@
+{
+  "PackageName": "Test Activities",
+  "Packages": [
+    {
+      "AssemblyPath": "bin\\ActivitySettings.dll",
+      "IsExternal": false,
+      "ActivityTypeGuid": '2ADF71C7-E793-4681-8EFC-AC7A6C4380D0',
+      "IsFolder": true,
+      "Name": "ActivitySettings",
+      "Description": "Demo of several activity settings.",
+      "Vendor": "Skilja GmbH",
+      "Color": "#FFFFFF",
+      "Version": null,
+      "DisableOldVersions": false,
+      "EntryPoint": null,
+      "HelpPath": null,
+      "ConfigPath": "..\\ActivityWebConfig",
+      "ConfigURL": null
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+<div class="property-update-container">
+  <div mat-dialog-title class="mb-2">Update mapping</div>
+  <mat-dialog-content class="my-3 d-flex flex-column">
+    <mat-form-field>
+      <input [(ngModel)]="destination" matInput type="text" name="destination" placeholder="Destination" required>
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions class="justify-content-end">
+    <button mat-raised-button color="primary" (click)="save()">Save</button>
+    <button mat-button (click)="closeDialog()">Cancel</button>
+  </mat-dialog-actions>
+</div>
+
+

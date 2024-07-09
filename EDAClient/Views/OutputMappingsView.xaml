@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="EDAClient.Views.OutputMappingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:EDAClient.Views"
+             mc:Ignorable="d"
+             MinWidth="500" MinHeight="450"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignTextBox}">
+            <Setter Property="Margin" Value="0 8 0 8" />
+        </Style>
+        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource MaterialDesignTextBox}">
+            <Setter Property="Margin" Value="0 8 0 8" />
+        </Style>
+        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MaterialDesignComboBox}">
+            <Setter Property="Margin" Value="0 8 0 8" />
+        </Style>
+    </UserControl.Resources>
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                   Style="{StaticResource MaterialDesignHeadline6TextBlock}">
+            Document Type Selection
+        </TextBlock>
+        <materialDesign:PackIcon Kind="RenameBox" Grid.Row="1"
+                                 Foreground="{Binding ElementName=DocumentTypeSelector, Path=BorderBrush}" />
+        <ComboBox Grid.Row="1" Grid.Column="1" x:Name="DocumentTypeSelector"
+                  materialDesign:HintAssist.Hint="Available Document Types"
+                  Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                  ItemsSource="{Binding DocumentTypes}"
+                  DisplayMemberPath="DocumentTypeName"
+                  SelectedItem="{Binding SelectedDocumentType}" />
+        <DataGrid
+            Margin="0 8 0 0"
+            Grid.Row="2" Grid.ColumnSpan="2"
+            ItemsSource="{Binding SelectedDocumentType.FieldMappings}"
+            CanUserSortColumns="True"
+            CanUserAddRows="False"
+            materialDesign:DataGridAssist.CellPadding="4 2 2 2"
+            materialDesign:DataGridAssist.ColumnHeaderPadding="4 2 2 2" />
+        <StackPanel
+            Orientation="Horizontal"
+            Grid.Row="3"
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Right">
+            <Button
+                Style="{StaticResource MaterialDesignFlatButton}"
+                IsCancel="True"
+                Margin="0 8 8 0"
+                Command="materialDesign:DialogHost.CloseDialogCommand"
+                CommandParameter="{Binding}">
+                OK
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,47 @@
+@import '../../../sass/variables';
+@import '../../../sass/theme_settings';
+
+.mappings {
+  .mappings-container {
+    position: relative;
+    max-height: 300px;
+    overflow: auto;
+  }
+
+  table {
+    width: 100%;
+
+    & th:nth-child(3) {
+      width: 100px;
+    }
+
+    & th:nth-child(3) {
+      text-align: right;
+    }
+  }
+
+  ::ng-deep mat-select .mat-select-value,
+  ::ng-deep mat-select .mat-select-arrow {
+    color: $docTypeSelectColor !important;
+  }
+
+  ::ng-deep .mat-form-field-underline {
+    background-color: $docTypeSelectColor !important;
+  }
+
+  ::ng-deep .mat-focused .mat-form-field-ripple {
+    background-color: $docTypeSelectColor !important;
+    top: 0;
+    height: 1px;
+  }
+}
+
+@include oemized-theme {
+  ::ng-deep .fill-primary {
+    color: mat-color($primary);
+    fill: mat-color($primary);
+    path {
+      fill: mat-color($primary);
+    }
+  }
+}

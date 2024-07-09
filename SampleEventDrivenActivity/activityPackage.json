@@ -1,0 +1,53 @@
+﻿{
+  "PackageName": "EDA Activities",
+  "Packages": [
+    {
+      "AssemblyPath": "..\\_build\\SampleEventDrivenActivity\\netstandard2.0\\SampleEventDrivenActivity.dll",
+      "IsExternal": false,
+      "ActivityTypeGuid": "7E7F349F-2198-47DF-A708-49BCC7724E83",
+      "IconPath": "icon\\EventNotifierStart.png",
+      "IsFolder": true,
+      "Name": "Sample EventDriven Initializer",
+      "Description": "Creates a document structure from a zip file.",
+      "Vendor": "Skilja GmbH",
+      "Color": "#5DBCD2",
+      "DisableOldVersions": false,
+      "EntryPoint": "SampleEventDrivenActivity.EventDrivenInitializer",
+      "HelpPath": null,
+      "ConfigPath": null,
+      "ConfigURL": null
+    },
+    {
+      "AssemblyPath": "..\\_build\\SampleEventDrivenActivity\\netstandard2.0\\SampleEventDrivenActivity.dll",
+      "IsExternal": false,
+      "ActivityTypeGuid": "4C3F0658-AE00-4553-BB06-24F7221C2661",
+      "IconPath": "icon\\EventNotifier.png",
+      "IsFolder": true,
+      "Name": "Sample EventDriven Notification",
+      "Description": "Returns a JSON with a list of all indexfields by name with their current text value.",
+      "Vendor": "Skilja GmbH",
+      "Color": "#5DBCD2",
+      "DisableOldVersions": false,
+      "EntryPoint": "SampleEventDrivenActivity.EventDrivenNotifier",
+      "HelpPath": null,
+      "ConfigPath": null,
+      "ConfigURL": null
+    },
+    {
+      "AssemblyPath": "..\\_build\\SampleEventDrivenActivity\\netstandard2.0\\SampleEventDrivenActivity.dll",
+      "IsExternal": false,
+      "ActivityTypeGuid": "2F74738B-AB60-4848-91BA-736008651D23",
+      "IconPath": "icon\\EventConfirm.svg",
+      "IsFolder": true,
+      "Name": "Sample EventDriven Confirmation",
+      "Description": "Serves as a placeholder and configurator for the external web based confirmation activity.",
+      "Vendor": "Skilja GmbH",
+      "Color": "#5DBCD2",
+      "DisableOldVersions": false,
+      "EntryPoint": "SampleEventDrivenActivity.EventDrivenConfirm",
+      "HelpPath": null,
+      "ConfigPath": null,
+      "ConfigURL": null
+    }
+  ]
+}

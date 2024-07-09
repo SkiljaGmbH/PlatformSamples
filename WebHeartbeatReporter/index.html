@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Heartbeat demo activity</title>
+        <script src="activity.js"></script>
+        <style type="text/css">
+
+        form  { display: table;      }
+        p     { display: table-row;  }
+        label { display: table-cell; }
+        input { display: table-cell; margin: 4px;}
+        </style>
+    </head>
+    <body>
+        <form action="javascript:void(0);">
+            <div class="container">
+                <p>
+                    <label for="uname"><b>Username</b></label>
+                    <input type="text" placeholder="Enter Username" name="uname" id="uname">
+                </p><p>
+                    <label for="psw"><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" name="psw" id="psw">
+                </p><p>
+                    <label for="pid"><b>Proccess ID</b></label>
+                    <input type="text" placeholder="Enter proccess ID" name="pid" id="pid">
+                </p><p>
+                    <label for="aid"><b>Activity type ID</b></label>
+                    <input type="text" placeholder="Enter activity type ID" name="aid" id="aid">
+                </p><p>
+                    <label for="usrtrck_yes"><b>User tracking</b></label>
+                    <input type="radio" name="usrtrck" id="usrtrck_yes" value="true" checked="true"> Enabled
+                </p><p>
+                    <label for="usrtrck_no"><b></b></label>
+                    <input type="radio" name="usrtrck" id="usrtrck_no" value="false"> Disabled
+                </p><p>
+                    <button type="submit"
+                            onclick="Run(document.getElementById('uname').value,document.getElementById('psw').value,document.getElementById('pid').value,document.getElementById('aid').value, document.getElementById('usrtrck_yes').checked)">
+                        Start
+                    </button>
+                    <button type="button" onclick="Next()">Next</button>
+                    <button type="button" onclick="Quit()">Quit</button>
+                </p>
+            </div>
+        </form>
+        <hr/>
+        <p id="_console" style="width:100%; height:100%; display:block;"></p>
+        <hr/>
+    </body>
+</html>

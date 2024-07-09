@@ -1,0 +1,15 @@
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+@media(min-width: 768px) {
+  mat-form-field, mat-checkbox {
+    min-width: 500px;
+  }
+}
+
+

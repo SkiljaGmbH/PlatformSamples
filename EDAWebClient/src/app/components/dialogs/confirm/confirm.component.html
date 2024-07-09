@@ -1,0 +1,9 @@
+<div class="confirm-container">
+  <div mat-dialog-title class="mb-2">{{data.title}}</div>
+  <mat-dialog-content class="my-2">{{data.message}}</mat-dialog-content>
+  <mat-dialog-actions class="justify-content-end">
+    <button mat-raised-button color="primary" (click)="confirm()">OK</button>
+    <button mat-button (click)="closeDialog()">Cancel</button>
+  </mat-dialog-actions>
+</div>
+
