@@ -1,0 +1,64 @@
+<Project DefaultTargets="release" Sdk="Microsoft.Build.NoTargets/3.3.0">
+  <ItemGroup>
+    <PackageReference Include="STG.Tools.ActivityPackaging"/>
+    <PackageReference Include="NuGet.CommandLine" />
+    <PackageReference Include="Node.js.redist"/>
+  </ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+  <Target AfterTargets="restore" Name="restorePackages">
+    <MSBuild Projects="Samples.sln" Targets="restore"/>
+  </Target>
+  <Target Name="debug">
+    <MSBuild Projects="Samples.sln" Targets="build" Properties="Configuration=debug"/>
+  </Target>
+  <Target Name="release">
+    <MSBuild Projects="Samples.sln" Targets="build" Properties="Configuration=release"/>
+  </Target>
+  <Target Name="package" DependsOnTargets="getversion;">
+    <PropertyGroup>
+      <stgPackagingToolExe>$(PkgSTG_Tools_ActivityPackaging)\tools\STG.ActivityPackaging.Packager.exe</stgPackagingToolExe>
+    </PropertyGroup>
+    <Exec Command="&quot;$(stgPackagingToolExe)&quot; -f &quot;ActivitiesPackage.json&quot; -version $(FileVersion) $(PublishOutputDirectory)\BenchmarkingActivities_$(FileVersion).stgpack" />
+  </Target>
+  <Target Name="build-websites" >
+    <PropertyGroup>
+        <nodePath>$(PkgNode_js_redist)\tools\win-x64\</nodePath>
+        <nodeExe>$(nodePath)node.exe</nodeExe>
+        <npmPath>$(PkgNode_js_redist)\tools\win-x64\package\bin</npmPath>
+    </PropertyGroup>
+
+    <MSBuild  Condition="!Exists('$(npmPath)')" Targets="installNPM" Properties="nodeExe=$(nodeExe)" Projects="$(MSBuildThisFileFullPath)" />
+
+    
+    <Exec WorkingDirectory="./EDAWebClient"  Command="&quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; install" />
+    <Exec WorkingDirectory="./EDAWebClient"  Command="
+        set PATH=%PATH:C:\Program Files\nodejs=%
+        set path=%PATH%;$(nodePath)
+        &quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; run ng build -- --prod --base-href ." />
+
+    <Exec WorkingDirectory="./EDAConfirmWeb"  Command="&quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; install" />
+    <Exec WorkingDirectory="./EDAConfirmWeb"  Command="
+        set PATH=%PATH:C:\Program Files\nodejs=%
+        set path=%PATH%;$(nodePath)
+        &quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; run ng build -- --prod --base-href ." />
+
+    <!-- Disabled untill upper two are upgraded to newer version -->
+    <!--<Exec WorkingDirectory="./WorkItemSearchAndLock"  Command="&quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; install" />-->
+    <!--<Exec WorkingDirectory="./WorkItemSearchAndLock"  Command="
+        set PATH=%PATH:C:\Program Files\nodejs=%
+        set path=%PATH%;$(nodePath)
+        &quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; run ng build --prod --base-href ." />-->
+  </Target>
+  <Target Name="installNPM">
+    <PropertyGroup>
+      
+    </PropertyGroup>
+    <Copy SourceFiles="NPM_install.js"
+            DestinationFolder="$(PkgNode_js_redist)\tools\win-x64" />
+
+     <Exec WorkingDirectory="$(PkgNode_js_redist)\tools\win-x64"  Command="&quot;$(nodeExe)&quot; NPM_install.js 16.12.0" />
+  </Target>
+
+</Project>

@@ -1,0 +1,73 @@
+﻿{
+  "PackageName": "EDA Activities",
+  "Packages": [
+    {
+      "AssemblyPath": "..\\..\\_build\\SampleActivities\\netstandard2.0\\SampleActivities.dll",
+      "IsExternal": false,
+      "ActivityTypeGuid": "915E89DF-8B8A-4F56-A85B-8CDAD6C81566",
+      "IconPath": "icon\\licensedActivity.png",
+      "IsFolder": true,
+      "Name": "Sample licensed activity",
+      "Description": "Writes custom values to the root document, provided the license is valid.",
+      "Vendor": "Skilja GmbH",
+      "Color": "#5DBCD2",
+      "Version": "1.0.0.1",
+      "DisableOldVersions": false,
+      "EntryPoint": "SampleActivities.LicensedActivity",
+      "HelpPath": null,
+      "ConfigPath": null,
+      "ConfigURL": null
+    },
+    {
+      "AssemblyPath": "..\\..\\_build\\SampleActivities\\netstandard2.0\\SampleActivities.dll",
+      "IsExternal": false,
+      "ActivityTypeGuid": "BC1BFB0E-9D58-4749-8799-01033C3E8DCE",
+      "IconPath": "icon\\licensedActivity.png",
+      "IsFolder": true,
+      "Name": "Sample volume counting activity",
+      "Description": "Same as the sample licensed activity, but counting volumes for counters 'totalExecutions' and 'feature_2_volume'",
+      "Vendor": "Skilja GmbH",
+      "Color": "#5DBCD2",
+      "Version": "1.0.0.1",
+      "DisableOldVersions": false,
+      "EntryPoint": "SampleActivities.LicensedActivityWithVolume",
+      "HelpPath": null,
+      "ConfigPath": null,
+      "ConfigURL": null
+    },
+    {
+      "AssemblyPath": "..\\..\\_build\\SampleActivities\\netstandard2.0\\SampleActivities.dll",
+      "IsExternal": false,
+      "ActivityTypeGuid": "275E89DF-8B8A-4F56-A85B-8CDAD6C81566",
+      "IconPath": "icon\\splitActivity.png",
+      "IsFolder": true,
+      "Name": "Sample split activity",
+      "Description": "Splits single work item into multiple children work items",
+      "Vendor": "Skilja GmbH",
+      "Color": "#FFF",
+      "Version": "1.0.0.1",
+      "DisableOldVersions": false,
+      "EntryPoint": "SampleActivities.SplitActivity",
+      "HelpPath": null,
+      "ConfigPath": null,
+      "ConfigURL": null
+    },
+    {
+      "AssemblyPath": "..\\..\\_build\\SampleActivities\\netstandard2.0\\SampleActivities.dll",
+      "IsExternal": false,
+      "ActivityTypeGuid": "345E89DF-8B8A-4F56-A85B-8CDAD6C81566",
+      "IconPath": "icon\\mergeActivity.png",
+      "IsFolder": true,
+      "Name": "Sample merge activity",
+      "Description": "Merges multiple child work items into single work item",
+      "Vendor": "Skilja GmbH",
+      "Version": "1.0.0.1",
+      "Color": "#FFF",
+      "DisableOldVersions": false,
+      "EntryPoint": "SampleActivities.MergeActivity",
+      "HelpPath": null,
+      "ConfigPath": null,
+      "ConfigURL": null
+    }
+  ]
+}

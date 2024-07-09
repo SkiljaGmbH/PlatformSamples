@@ -1,0 +1,38 @@
+@import '~bootstrap/scss/bootstrap-reboot';
+@import '~bootstrap/scss/bootstrap-grid';
+
+@import 'variables';
+@import 'scrollbar';
+
+body, html
+{
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.v-align-middle {
+  vertical-align: middle;
+}
+
+.v-align-top {
+  vertical-align: top;
+}
+
+.ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.col-m-w {
+  max-width: 100px;
+}
+
+.f-14 {
+  font-size: 14px;
+}

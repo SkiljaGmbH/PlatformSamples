@@ -1,0 +1,10 @@
+@import '../../../sass/variables';
+
+.logs-container {
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  height: 395px;
+  overflow: auto;
+  margin-bottom: 15px;
+  color: $emptyMessageColor;
+}

@@ -1,0 +1,16 @@
+@import './variables';
+@import './theme_settings';
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track  {
+  -webkit-box-shadow: inset 0 0 1px $scrollBarTrackColor;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $scrollBarThumbBgColor;
+  outline: 1px solid $scrollBarThumbOutlineColor;
+}

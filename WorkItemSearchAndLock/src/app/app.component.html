@@ -1,0 +1,78 @@
+<div>
+  <div class="mainContainer">
+    <table class="filterTable">
+      <tr><td>Runtime URL</td><td><input type="text" size="100" [(ngModel)]="queryParams.runtimeUrl" /></td></tr>
+      <tr><td>Activity instance</td><td><input type="number" [(ngModel)]="queryParams.activityInstanceID" /></td></tr>
+      <tr><td>Request count</td><td><input type="number" [(ngModel)]="queryParams.requestCount" /></td></tr>
+      <tr><td>Enable doc index filter</td><td><input type="checkbox" [(ngModel)]="queryParams.enableDocIndex"></td></tr>
+      <tr><td>Doc index name</td><td><input type="text" size="50" [(ngModel)]="queryParams.docIndexName" [disabled]="!queryParams.enableDocIndex" /></td></tr>
+      <tr><td>Doc index value</td><td><input type="text" size="50" [(ngModel)]="queryParams.docIndexValue" [disabled]="!queryParams.enableDocIndex" /></td></tr>
+      <tr><td>Order by</td><td><input type="text" size="50" [(ngModel)]="queryParams.orderBy" /></td></tr>
+      <tr><td>Enable user tracking</td><td><input type="checkbox" [(ngModel)]="queryParams.userTracking"></td></tr>
+    </table>
+    <div *ngIf="processing==0 || processing==1" style="text-align:center">
+      <h3>
+        Please Log in to the platform!
+      </h3>
+      <div>
+        <button (click)="login()" class="btn">Log In</button>
+      </div>
+    </div>
+    <div *ngIf="processing==2">
+      <button (click)="startSearchAndLock($event)" class="btn">Start Work Item Search And Lock</button>
+    </div>
+    <ul>
+      <li *ngFor="let step of steps">
+        <fa-icon *ngIf="step.status==0" icon="exclamation-circle"></fa-icon>
+        <fa-icon *ngIf="step.status==1" icon="spinner" [pulse]="true"></fa-icon>
+        <fa-icon *ngIf="step.status==2" icon="check-circle"></fa-icon>
+        <fa-icon *ngIf="step.status==3" icon="times-circle"></fa-icon>
+        {{step.text}}
+        <ul *ngIf="step.status==3">
+          <li *ngFor="let err of step.errors">{{err}}</li>
+        </ul>
+        <ul *ngIf="step.substeps?.length ?? 0 > 0" class="substepList">
+          <li *ngIf="step.showDetails">
+            <ul class="statistics">
+              <li><span class="stro">Average substep duration: </span>{{step.substepDurationAvgMs ? step.substepDurationAvgMs.toLocaleString() + " ms" : "" }}</li>
+              <li><span class="stro">StdDev: </span>{{step.substepDurationStdDevMs ? step.substepDurationStdDevMs.toLocaleString() + " ms" : "" }}</li>
+              <li><span class="stro">Total duration: </span>{{step.durationMs ? step.durationMs.toLocaleString() + " ms" : "" }}</li>
+            </ul>
+          </li>
+          <li>
+            <table class="substepTable">
+              <ng-container *ngIf="step.showDetails">
+                <tr>
+                  <th></th>
+                  <th>Operation</th>
+                  <th>Work Item</th>
+                  <th>Start Time</th>
+                  <th>Duration</th>
+                </tr>
+              </ng-container>
+              <tr *ngFor="let substep of step.substeps">
+                <td>
+                  <fa-icon *ngIf="substep.status==0" icon="exclamation-circle"></fa-icon>
+                  <fa-icon *ngIf="substep.status==1" icon="spinner" [pulse]="true"></fa-icon>
+                  <fa-icon *ngIf="substep.status==2" icon="check-circle"></fa-icon>
+                  <fa-icon *ngIf="substep.status==3" icon="times-circle"></fa-icon>
+                </td>
+                <td>{{substep.text}}</td>
+                <ng-container *ngIf="step.showDetails">
+                  <td>{{substep.relatedWi ? "ID="+substep.relatedWi.WorkItemID : (substep.status==2 ? "Not Found" : "")}}</td>
+                  <td>{{substep.startTime?.toLocaleString()}}</td>
+                  <td>{{substep.durationMs ? substep.durationMs.toLocaleString()+" ms" : ""}}</td>
+                </ng-container>
+                <td>
+                  <ul *ngIf="substep.status==3">
+                    <li *ngFor="let errsubstep of substep.errors">{{errsubstep}}</li>
+                  </ul>
+                </td>
+              </tr>
+            </table>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>

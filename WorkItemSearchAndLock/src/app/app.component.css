@@ -1,0 +1,43 @@
+.mainContainer {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.8rem;
+    margin: 0;
+    padding: 0;
+}
+
+
+.filterTable td {
+    margin: 0; 
+}
+
+.btn {
+    text-align: center;
+    padding: 7px;
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+.substepList {
+    list-style-type: none;
+}
+
+.substepTable {
+    clear: both;
+}
+
+.substepTable td, th {
+    padding-right: 20px;
+}
+
+.statistics {
+    list-style-type: none;
+}
+
+.statistics li {
+    float: left;
+    margin-right: 20px;
+}
+
+.statistics .stro {
+    font-weight: bold;
+}

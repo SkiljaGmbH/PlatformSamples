@@ -1,0 +1,56 @@
+﻿<Window x:Class="EDAClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:views="clr-namespace:EDAClient.Views"
+        xmlns:local="clr-namespace:EDAClient"
+        mc:Ignorable="d"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{StaticResource MaterialDesignFont}"
+        Title="{Binding Title}" Height="650" Width="800" MinHeight="600" MinWidth="600">
+    <Grid>
+        <materialDesign:DialogHost Identifier="RootDialog"
+                                   SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}">
+            <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
+                <!--Center View-->
+                <DockPanel>
+                    <!--Top of the Window-->
+                    <materialDesign:ColorZone Padding="16" Mode="PrimaryMid" DockPanel.Dock="Top">
+                        <DockPanel>
+                            <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges"
+                                                     StaysOpen="False">
+                                <StackPanel>
+                                    <Button Content="Exit" Command="{Binding ExitCommand}" />
+                                </StackPanel>
+                            </materialDesign:PopupBox>
+                            <TextBlock Text="{Binding Description}"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" />
+                        </DockPanel>
+                    </materialDesign:ColorZone>
+                    <!--Center of the Window-->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <views:LoginView DataContext="{Binding LoginVM}" />
+                        <views:ProcessActionsView DataContext="{Binding ProcessActionsVM}" Grid.Row="1" />
+                        <views:RuntimeView DataContext="{Binding ProcessActionsVM.RuntimeVM}" Grid.Row="2" />
+                        <views:MessagesView DataContext="{Binding MessagesVM}" Grid.Row="3" />
+                        <materialDesign:Snackbar Grid.Row="3" MessageQueue="{materialDesign:MessageQueue}"
+                                                 Name="MainSnackbar" />
+                    </Grid>
+                </DockPanel>
+            </materialDesign:DrawerHost>
+        </materialDesign:DialogHost>
+    </Grid>
+</Window>
