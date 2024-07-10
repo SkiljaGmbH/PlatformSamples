@@ -1,7 +1,7 @@
 <Project DefaultTargets="release" Sdk="Microsoft.Build.NoTargets/3.3.0">
   <PropertyGroup>
-    <!--<GitHubUsername></GitHubUsername>
-    <GitHubPAT></GitHubPAT>-->
+    <!--<GitHubInfo>pero</GitHubInfo>
+    <GitHubPAT>sero</GitHubPAT>-->
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="STG.Tools.ActivityPackaging"/>
@@ -20,8 +20,8 @@
     </Package-Tools-and-Websites>
   </ItemGroup>
   <Target Name="SetGitHubVariables" BeforeTargets="restore">
-    <XMLPoke XmlInputPath="./nuget.config" Query="/configuration/packageSourceCredentials/github/add/[@key='Username']/@value" Value="$(GitHubInfo)" />
-    <XMLPoke XmlInputPath="./nuget.config" Query="/configuration/packageSourceCredentials/github/add/[@key='ClearTextPassword']/@value" Value="$(GitHubPAT)" />
+    <XMLPoke XmlInputPath="./nuget.config" Query="/configuration/packageSourceCredentials/github/add[@key='Username']/@value" Value="$(GitHubInfo)" />
+    <XMLPoke XmlInputPath="./nuget.config" Query="/configuration/packageSourceCredentials/github/add[@key='ClearTextPassword']/@value" Value="$(GitHubPAT)" />
 
     <!-- Read the content of the source file -->
     <ReadLinesFromFile File="./nuget.config">
