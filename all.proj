@@ -20,9 +20,11 @@
     </Package-Tools-and-Websites>
   </ItemGroup>
   <Target Name="SetGitHubEnvVariables" BeforeTargets="restore">
+    <Message Text="Given GitHubPAT = $(GitHubPAT)" />
+    <Exec Command="$(PkgNuGet_CommandLine)\tools\nuget.exe setapikey -source github $(GitHubPAT)"/>
     <Message Text="Given Pero = '$(Pero)'" />
     <Message Text="Given info = '$(GitHubInfo)'" />
-    <Message Text="Given GitHubPAT = $(GitHubPAT)" />
+    
     <Exec Command="setx NUGET_GITHUB_INFO $(GitHubInfo)" Condition="$(GitHubInfo) != ''" />
     <Exec Command="setx NUGET_GITHUB_PAT $(GitHubPAT)"  Condition="$(GitHubPAT) != ''"  />
   </Target>
