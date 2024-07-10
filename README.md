@@ -108,7 +108,10 @@ Then rerbuild all the activity and sample code in the solution by executing this
 `msbuild -t:Release all.proj`
 This creates the build output in the _build folder.
 
-To generate activities out of built dlls and package websites for hosting this command must be executed:
+To build websites execute the following command:
+`msbuild -t:build-websites all.proj`
+
+To generate activities out of built dlls and collect websites for hosting this command must be executed:
 `msbuild -t:package all.proj`
 
 This command creates a _publish\DemoActivities folder with activity packages and EDA websites and applications.
