@@ -4,6 +4,9 @@
     <BuildOutputDirectory>$(MSBuildThisFileDirectory)_build\</BuildOutputDirectory>
     <PublishOutputDirectory>$(MSBuildThisFileDirectory)_publish\</PublishOutputDirectory>
     <ProjectName Condition=" '$(ProjectName)' == '' ">$(MSBuildProjectName)</ProjectName>
+    <!-- Delete temporary compiler output caused by this bug:
+        https://github.com/dotnet/wpf/issues/2930#issuecomment-1487327293-->
+    <ProjectName Condition=" '$(AssemblyName)' != '' ">$(AssemblyName)</ProjectName>
     <OutputPath>$(BuildOutputDirectory)$(ProjectName)</OutputPath>
     <!-- BaseIntermediateOutputPath and IntermediateOutputPath need be set, otherwise there's still going to be an obj directory in the src dirs.
     Also, PaketDisableGlobalRestore is important b/c otherwise paket does a global restore and again creates the obj dir in the src dirs (https://fsprojects.github.io/Paket/paket-and-dotnet-cli.html) -->
@@ -18,8 +21,8 @@
     <Company Condition="'$(Company)' == ''">Skilja GmbH</Company>
     <Product Condition="'$(Product)' == ''">Giulia</Product>
     <CurrYear Condition="'$(CurrYear)'==''">$([System.DateTime]::Now.Year)</CurrYear>
-    <Copyright Condition="'$(Copyright)' == ''">Copyright © Skilja GmbH 2013 - $(CurrYear). All rights reserved.</Copyright>
-    <FileVersion Condition="'$(FileVersion)' == ''">3.0.0.1337</FileVersion>
+    <Copyright Condition="'$(Copyright)' == ''">Copyright Â© Skilja GmbH 2013 - $(CurrYear). All rights reserved.</Copyright>
+    <FileVersion Condition="'$(FileVersion)' == ''">4.0.0.1337</FileVersion>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <!--InformationalVersion is set in Directory.Build.targets-->
     <!--<InformationalVersion Condition="'$(InformationalVersion)' == ''">3.1 development build</InformationalVersion>-->

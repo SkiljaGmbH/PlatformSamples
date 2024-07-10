@@ -289,7 +289,7 @@ namespace EDAClient.ViewModels
             {
                 try
                 {
-                    var cfg = SharedData.ClientFactory.Options;
+                    var cfg = SharedData.ClientFactory.FactoryOptions;
                     var settings = new EndpointSettings
                     {
                         ConfigurationService = cfg.ConfigurationServiceEndpoint,

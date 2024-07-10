@@ -1,9 +1,28 @@
 <Project DefaultTargets="release" Sdk="Microsoft.Build.NoTargets/3.3.0">
+  <PropertyGroup>
+    <GitHubUsername></GitHubUsername>
+    <GitHubPAT></GitHubPAT>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="STG.Tools.ActivityPackaging"/>
     <PackageReference Include="NuGet.CommandLine" />
     <PackageReference Include="Node.js.redist"/>
   </ItemGroup>
+  <ItemGroup>
+    <Package-Tools-and-Websites Include="$(BuildOutputDirectory)\EDAClient\net8.0-windows\*;" Exclude="">
+      <Subfolder>EDAClient</Subfolder>
+    </Package-Tools-and-Websites>
+    <Package-Tools-and-Websites Include=".\EDAConfirmWeb\dist\**\*;" Exclude="">
+      <Subfolder>EDAConfirmWeb</Subfolder>
+    </Package-Tools-and-Websites>
+    <Package-Tools-and-Websites Include=".\EDAWebClient\dist\**\*;" Exclude="">
+      <Subfolder>EDAWebClient</Subfolder>
+    </Package-Tools-and-Websites>
+  </ItemGroup>
+  <Target Name="SetGitHubEnvVariables" BeforeTargets="restore">
+    <Exec Command="setx NUGET_GITHUB_USERNAME $(GitHubUsername)" Condition="$(GitHubUsername) != ''" />
+    <Exec Command="setx NUGET_GITHUB_PAT $(GitHubPAT)"  Condition="$(GitHubPAT) != ''"  />
+  </Target>
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
@@ -16,11 +35,14 @@
   <Target Name="release">
     <MSBuild Projects="Samples.sln" Targets="build" Properties="Configuration=release"/>
   </Target>
-  <Target Name="package" DependsOnTargets="getversion;">
+  <Target Name="package" DependsOnTargets="getversion;build-websites">
     <PropertyGroup>
       <stgPackagingToolExe>$(PkgSTG_Tools_ActivityPackaging)\tools\STG.ActivityPackaging.Packager.exe</stgPackagingToolExe>
     </PropertyGroup>
-    <Exec Command="&quot;$(stgPackagingToolExe)&quot; -f &quot;ActivitiesPackage.json&quot; -version $(FileVersion) $(PublishOutputDirectory)\BenchmarkingActivities_$(FileVersion).stgpack" />
+    <Exec Command="&quot;$(stgPackagingToolExe)&quot; -f &quot;.\SampleEventDrivenActivity\activityPackage.json&quot; -version $(FileVersion) $(PublishOutputDirectory)\DemoActivities\SampleEventDrivenActivity.stgpack" />
+    <Exec Command="&quot;$(stgPackagingToolExe)&quot; -f &quot;.\SampleActivities\activityPackage.json&quot; -version $(FileVersion) $(PublishOutputDirectory)\DemoActivities\SampleActivities.stgpack" />
+    <Copy SourceFiles=".\SampleActivities\Readme.md" DestinationFiles="$(PublishOutputDirectory)\DemoActivities\SampleActivities_Readme.md"/>
+    <Copy SourceFiles="@(Package-Tools-and-Websites)"  DestinationFolder="$(PublishOutputDirectory)\DemoActivities\%(Package-Tools-and-Websites.Subfolder)\%(RecursiveDir)" />
   </Target>
   <Target Name="build-websites" >
     <PropertyGroup>
@@ -46,19 +68,14 @@
 
     <!-- Disabled untill upper two are upgraded to newer version -->
     <!--<Exec WorkingDirectory="./WorkItemSearchAndLock"  Command="&quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; install" />-->
-    <!--<Exec WorkingDirectory="./WorkItemSearchAndLock"  Command="
+    <!--<Exec WorkingDirectory="./WorkItemSearchAndLock"  Command=" 
         set PATH=%PATH:C:\Program Files\nodejs=%
         set path=%PATH%;$(nodePath)
-        &quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; run ng build --prod --base-href ." />-->
+        &quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; run ng build " />-->
   </Target>
   <Target Name="installNPM">
-    <PropertyGroup>
-      
-    </PropertyGroup>
-    <Copy SourceFiles="NPM_install.js"
-            DestinationFolder="$(PkgNode_js_redist)\tools\win-x64" />
-
-     <Exec WorkingDirectory="$(PkgNode_js_redist)\tools\win-x64"  Command="&quot;$(nodeExe)&quot; NPM_install.js 16.12.0" />
+    <Copy SourceFiles="NPM_install.js" DestinationFolder="$(PkgNode_js_redist)\tools\win-x64" />
+    <Exec WorkingDirectory="$(PkgNode_js_redist)\tools\win-x64"  Command="&quot;$(nodeExe)&quot; NPM_install.js 6.12.0" />
   </Target>
 
 </Project>

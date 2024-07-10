@@ -2,7 +2,7 @@
   "PackageName": "EDA Activities",
   "Packages": [
     {
-      "AssemblyPath": "..\\..\\_build\\SampleEventDrivenActivity\\netstandard2.0\\SampleEventDrivenActivity.dll",
+      "AssemblyPath": "..\\_build\\SampleEventDrivenActivity\\netstandard2.0\\SampleEventDrivenActivity.dll",
       "IsExternal": false,
       "ActivityTypeGuid": "7E7F349F-2198-47DF-A708-49BCC7724E83",
       "IconPath": "icon\\EventNotifierStart.png",
@@ -18,7 +18,7 @@
       "ConfigURL": null
     },
     {
-      "AssemblyPath": "..\\..\\_build\\SampleEventDrivenActivity\\netstandard2.0\\SampleEventDrivenActivity.dll",
+      "AssemblyPath": "..\\_build\\SampleEventDrivenActivity\\netstandard2.0\\SampleEventDrivenActivity.dll",
       "IsExternal": false,
       "ActivityTypeGuid": "4C3F0658-AE00-4553-BB06-24F7221C2661",
       "IconPath": "icon\\EventNotifier.png",
@@ -34,7 +34,7 @@
       "ConfigURL": null
     },
     {
-      "AssemblyPath": "..\\..\\_build\\SampleEventDrivenActivity\\netstandard2.0\\SampleEventDrivenActivity.dll",
+      "AssemblyPath": "..\\_build\\SampleEventDrivenActivity\\netstandard2.0\\SampleEventDrivenActivity.dll",
       "IsExternal": false,
       "ActivityTypeGuid": "2F74738B-AB60-4848-91BA-736008651D23",
       "IconPath": "icon\\EventConfirm.svg",
