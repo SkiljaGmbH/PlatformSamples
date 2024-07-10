@@ -20,7 +20,8 @@
     </Package-Tools-and-Websites>
   </ItemGroup>
   <Target Name="SetGitHubEnvVariables" BeforeTargets="restore">
-    <Message Text="Given GitHubUname = $(GitHubUsername)" />
+    <Message Text="Given artefacts = '$(ArtifactDirectoryName)'" />
+    <Message Text="Given GitHubUsername = '$(GitHubUsername)'" />
     <Message Text="Given GitHubPAT = $(GitHubPAT)" />
     <Exec Command="setx NUGET_GITHUB_USERNAME $(GitHubUsername)" Condition="$(GitHubUsername) != ''" />
     <Exec Command="setx NUGET_GITHUB_PAT $(GitHubPAT)"  Condition="$(GitHubPAT) != ''"  />
