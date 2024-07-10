@@ -8,15 +8,15 @@ a system agent and of heartbeat reporting.
 The solution Samples.sln provides the following samples corresponding folders:
 
 - [ActivitySettings](ActivitySettings/README.md) - sample code to show how to implement an activity configuration
-- ActivityWebConfig - sample code for an activity that has advanced configuration settings window displayed in a separate web page
-- EDAClient - sample shows how to use the C# API to feed the platform for a process that contains an event-driven initializer activity
-- EDAConfirmWeb - sample for a thin client to use together with the event-driven notifier activity sample
-- EDAWebClient - sample for a thin client that uses the platform RestAPI to upload a stream for a event-driven initializer activity
-- SampleActivities - sample how to implement activity feature licensing and provides sample split and merge activity implementations
-- SampleActivity - sample for several document- time-driven activities and for a system agent
-- SampleEventDrivenActivity - sample for event-driven activities that can be used together with EDA Web Client, EDA Client or EDA Confirm Web applications
-- SampleImages - contains two sample images that you can use for testing
-- WebHeartbeatReporter - sample for a Web client that provides heartbeat
+- [ActivityWebConfig](ActivityWebConfig/README.md) - sample code for an activity that has advanced configuration settings window displayed in a separate web page
+- [EDAClient](EDAClient/README.md) - sample shows how to use the C# API to feed the platform for a process that contains an event-driven initializer activity
+- [EDAConfirmWeb](EDAConfirmWeb/README.md) - sample for a thin client to use together with the event-driven notifier activity sample
+- [EDAWebClient](EDAWebClient/README.md) - sample for a thin client that uses the platform RestAPI to upload a stream for a event-driven initializer activity
+- [SampleActivities](SampleActivities/README.md) - sample how to implement activity feature licensing and provides sample split and merge activity implementations
+- [SampleActivity](SampleActivity/README.md) - sample for several document- time-driven activities and for a system agent
+- [SampleEventDrivenActivity](SampleEventDrivenActivity/README.md) - sample for event-driven activities that can be used together with EDA Web Client, EDA Client or EDA Confirm Web applications
+- [WebHeartbeatReporter](WebHeartbeatReporter/README.md) - sample for a Web client that provides heartbeat
+- [WorkItemSearchAndLock](WorkItemSearchAndLock/README.md) - sample tool that simulates multiple requests to lock a work item on the Platform
 
 ## General Activity Entry Point Requirements
 
