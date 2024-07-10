@@ -86,7 +86,7 @@ Due to adding new features, we cannot guarantee forward compatibility.
 Please consult the API router section of the platform API documentation for an approach on how to deal with that problem.
 
 > Example: STG.RT.API 3.0.4 added a new work item search feature with new properties in the .NET classes.
-Using these new features towards a 3.0.3 or earlier {{var.ProductShort}} cannot work and may result in exceptions.
+Using these new features towards a 3.0.3 or earlier platform version cannot work and may result in exceptions.
 
 If an activity is compiled using a newer NuGet package version than the platform version used with, then the behavior depends on the activity execution context.
 If it is an external activity, then it normally runs with exactly the same STG.RT.API version, against which it has been compiled.
