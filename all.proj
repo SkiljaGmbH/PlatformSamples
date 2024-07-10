@@ -26,8 +26,8 @@
     <Message Text="Given info = '$(GitHubInfo)'" />
     
     
-    <Exec Command="setx NUGET_GITHUB_INFO $(GitHubInfo)" Condition="$(GitHubInfo) != ''" />
-    <Exec Command="setx NUGET_GITHUB_PAT $(GitHubPAT)"  Condition="$(GitHubPAT) != ''"  />
+    <!--<Exec Command="setx NUGET_GITHUB_INFO $(GitHubInfo)" Condition="$(GitHubInfo) != ''" />
+    <Exec Command="setx NUGET_GITHUB_PAT $(GitHubPAT)"  Condition="$(GitHubPAT) != ''"  />-->
   </Target>
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
