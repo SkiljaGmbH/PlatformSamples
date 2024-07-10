@@ -1,7 +1,5 @@
 <Project DefaultTargets="release" Sdk="Microsoft.Build.NoTargets/3.3.0">
   <PropertyGroup>
-    <!--<GitHubInfo>pero</GitHubInfo>
-    <GitHubPAT>sero</GitHubPAT>-->
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="STG.Tools.ActivityPackaging"/>
@@ -20,18 +18,8 @@
     </Package-Tools-and-Websites>
   </ItemGroup>
   <Target Name="SetGitHubVariables" BeforeTargets="restore">
-    <XMLPoke XmlInputPath="./nuget.config" Query="/configuration/packageSourceCredentials/github/add[@key='Username']/@value" Value="$(GitHubInfo)" />
-    <XMLPoke XmlInputPath="./nuget.config" Query="/configuration/packageSourceCredentials/github/add[@key='ClearTextPassword']/@value" Value="$(GitHubPAT)" />
-
-    <!-- Read the content of the source file -->
-    <ReadLinesFromFile File="./nuget.config">
-      <Output TaskParameter="Lines" ItemName="FileContent" />
-    </ReadLinesFromFile>
-
-    <!-- Output each line of the file content as a message -->
-    <Message Text="%(FileContent.Identity)" Importance="high" />
-    <!--<Exec Command="setx NUGET_GITHUB_INFO $(GitHubInfo)" Condition="$(GitHubInfo) != ''" />
-    <Exec Command="setx NUGET_GITHUB_PAT $(GitHubPAT)"  Condition="$(GitHubPAT) != ''"  />-->
+    <XMLPoke XmlInputPath="./nuget.config" Query="/configuration/packageSourceCredentials/github/add[@key='Username']/@value" Value="$(GitHubInfo)" Condition="$(GitHubInfo) != ''" />
+    <XMLPoke XmlInputPath="./nuget.config" Query="/configuration/packageSourceCredentials/github/add[@key='ClearTextPassword']/@value" Value="$(GitHubPAT)" Condition="$(GitHubPAT) != ''"/>
   </Target>
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -45,7 +33,7 @@
   <Target Name="release">
     <MSBuild Projects="Samples.sln" Targets="build" Properties="Configuration=release"/>
   </Target>
-  <Target Name="package" DependsOnTargets="getversion;build-websites">
+  <Target Name="package" DependsOnTargets="getversion">
     <PropertyGroup>
       <stgPackagingToolExe>$(PkgSTG_Tools_ActivityPackaging)\tools\STG.ActivityPackaging.Packager.exe</stgPackagingToolExe>
     </PropertyGroup>
