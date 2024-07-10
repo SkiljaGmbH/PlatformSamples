@@ -19,15 +19,17 @@
       <Subfolder>EDAWebClient</Subfolder>
     </Package-Tools-and-Websites>
   </ItemGroup>
-  <Target Name="SetGitHubEnvVariables" BeforeTargets="restore">
-    <Message Text="Given GitHubPAT = $(GitHubPAT)" />
+  <Target Name="SetGitHubVariables" BeforeTargets="restore">
+    <XMLPoke XmlInputPath="./nuget.config" Query="/configuration/packageSourceCredentials/github/add/[@key='Username']/@value" Value="$(GitHubInfo)" />
+    <XMLPoke XmlInputPath="./nuget.config" Query="/configuration/packageSourceCredentials/github/add/[@key='ClearTextPassword']/@value" Value="$(GitHubPAT)" />
 
-    <Message Text="Given Pero = '$(Pero)'" />
-    <Message Text="Given info = '$(GitHubInfo)'" />
+    <!-- Read the content of the source file -->
+    <ReadLinesFromFile File="./nuget.config">
+      <Output TaskParameter="Lines" ItemName="FileContent" />
+    </ReadLinesFromFile>
 
-    <Exec Command='cmd /c echo %NUGET_GITHUB_INFO%' />
-    <Exec Command='cmd /c echo %NUGET_GITHUB_PAT%' />
-    
+    <!-- Output each line of the file content as a message -->
+    <Message Text="%(FileContent.Identity)" Importance="high" />
     <!--<Exec Command="setx NUGET_GITHUB_INFO $(GitHubInfo)" Condition="$(GitHubInfo) != ''" />
     <Exec Command="setx NUGET_GITHUB_PAT $(GitHubPAT)"  Condition="$(GitHubPAT) != ''"  />-->
   </Target>
