@@ -1,7 +1,7 @@
 <Project DefaultTargets="release" Sdk="Microsoft.Build.NoTargets/3.3.0">
   <PropertyGroup>
-    <GitHubUsername></GitHubUsername>
-    <GitHubPAT></GitHubPAT>
+    <!--<GitHubUsername></GitHubUsername>
+    <GitHubPAT></GitHubPAT>-->
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="STG.Tools.ActivityPackaging"/>
