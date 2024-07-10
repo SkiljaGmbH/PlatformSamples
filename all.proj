@@ -24,7 +24,9 @@
 
     <Message Text="Given Pero = '$(Pero)'" />
     <Message Text="Given info = '$(GitHubInfo)'" />
-    
+
+    <Exec Command='cmd /c echo %NUGET_GITHUB_INFO%' />
+    <Exec Command='cmd /c echo %NUGET_GITHUB_PAT%' />
     
     <!--<Exec Command="setx NUGET_GITHUB_INFO $(GitHubInfo)" Condition="$(GitHubInfo) != ''" />
     <Exec Command="setx NUGET_GITHUB_PAT $(GitHubPAT)"  Condition="$(GitHubPAT) != ''"  />-->
