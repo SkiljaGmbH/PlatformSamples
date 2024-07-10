@@ -7,7 +7,7 @@ a system agent and of heartbeat reporting.
 
 The solution Samples.sln provides the following samples corresponding folders:
 
-- ActivitySettings - sample code to show how to implement an activity configuration
+- [ActivitySettings](ActivitySettings/README.md) - sample code to show how to implement an activity configuration
 - ActivityWebConfig - sample code for an activity that has advanced configuration settings window displayed in a separate web page
 - EDAClient - sample shows how to use the C# API to feed the platform for a process that contains an event-driven initializer activity
 - EDAConfirmWeb - sample for a thin client to use together with the event-driven notifier activity sample
