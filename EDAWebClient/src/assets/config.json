@@ -5,6 +5,6 @@
     "authService": "auth",
     "configService": "configservice",
     "processService": "processService",
-    "signalRUrl": "api/processService",
+    "signalRUrl": "api/processService/signalr",
     "serverUrl": "https://localhost/api/configurationservice"
 }

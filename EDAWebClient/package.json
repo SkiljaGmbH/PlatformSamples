@@ -29,7 +29,7 @@
     "file-saver": "^2.0.1",
     "jquery": "^3.3.1",
     "jszip": "^3.2.0",
-    "ng2-signalr": "^10.1.0",
+    "@microsoft/signalr": "~8.0.7",
     "ngx-file-drop": "^10.1.1",
     "rxjs": "~6.6.7",
     "rxjs-compat": "^6.4.0",
