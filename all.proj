@@ -52,13 +52,19 @@
     <MSBuild  Condition="!Exists('$(npmPath)')" Targets="installNPM" Properties="nodeExe=$(nodeExe)" Projects="$(MSBuildThisFileFullPath)" />
 
     
-    <Exec WorkingDirectory="./EDAWebClient"  Command="&quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; install" />
+    <Exec WorkingDirectory="./EDAWebClient"  Command="
+		set PATH=%PATH:C:\Program Files\nodejs=%
+        set path=%PATH%;$(nodePath)
+		&quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; install" />
     <Exec WorkingDirectory="./EDAWebClient"  Command="
         set PATH=%PATH:C:\Program Files\nodejs=%
         set path=%PATH%;$(nodePath)
         &quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; run ng build -- --prod --base-href ." />
 
-    <Exec WorkingDirectory="./EDAConfirmWeb"  Command="&quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; install" />
+    <Exec WorkingDirectory="./EDAConfirmWeb"  Command="
+		set PATH=%PATH:C:\Program Files\nodejs=%
+        set path=%PATH%;$(nodePath)
+		&quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; install" />
     <Exec WorkingDirectory="./EDAConfirmWeb"  Command="
         set PATH=%PATH:C:\Program Files\nodejs=%
         set path=%PATH%;$(nodePath)

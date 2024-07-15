@@ -56,7 +56,7 @@ export class AuthService {
             var id = JSON.parse(a1);
             this.userMetaSubject.next({
                 serverUrl:  this.configService.config.getValue()?.serverUrl,
-                username : id.sub,
+                username : id.name ?? id. username,
             });
 
         }
