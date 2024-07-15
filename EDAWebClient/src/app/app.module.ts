@@ -23,8 +23,6 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
-import { SignalRModule } from 'ng2-signalr';
-import { SignalRConfiguration } from 'ng2-signalr';
 
 import { AuthGuard } from './guards/auth-guard.service';
 import { LoginBanGuard } from './guards/login-ban.guard';
@@ -58,12 +56,6 @@ import { AuthModule, ConfigResult, OidcConfigService, OidcSecurityService, OpenI
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/');
-}
-
-export function createConfig(): SignalRConfiguration {
-  const c = new SignalRConfiguration();
-  c.logging = true;
-  return c;
 }
 
 export function loadConfig(oidcConfigService: OidcConfigService, configService: ConfigService, http: HttpClient) {
@@ -108,8 +100,7 @@ export function loadConfig(oidcConfigService: OidcConfigService, configService: 
     MatIconModule,
     MatSnackBarModule,
     NgxFileDropModule ,
-    AuthModule.forRoot(),
-    SignalRModule.forRoot(createConfig)
+    AuthModule.forRoot()
   ],
   declarations: [
     AppComponent,

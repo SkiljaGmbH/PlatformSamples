@@ -9,7 +9,7 @@
   <div class="collapse navbar-collapse">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item mr-4" *ngIf="isLogged">
-        <span>{{serverUrl}}/{{username}}</span>
+        <span>{{username}}</span>
       </li>
       <li *ngIf="isLogged" class="nav-item">
         <mat-icon class="fill-primary cursor-pointer" svgIcon="exit_ico" (click)="logout()" ></mat-icon>
