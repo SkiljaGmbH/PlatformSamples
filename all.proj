@@ -2,9 +2,9 @@
   <PropertyGroup>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="STG.Tools.ActivityPackaging"/>
+    <PackageReference Include="STG.Tools.ActivityPackaging" />
     <PackageReference Include="NuGet.CommandLine" />
-    <PackageReference Include="Node.js.redist"/>
+    <PackageReference Include="Node.js.redist" />
   </ItemGroup>
   <ItemGroup>
     <Package-Tools-and-Websites Include="$(BuildOutputDirectory)\EDAClient\net8.0-windows\*;" Exclude="">
@@ -19,53 +19,57 @@
   </ItemGroup>
   <Target Name="SetGitHubVariables" BeforeTargets="restore">
     <XMLPoke XmlInputPath="./nuget.config" Query="/configuration/packageSourceCredentials/github/add[@key='Username']/@value" Value="$(GitHubInfo)" Condition="$(GitHubInfo) != ''" />
-    <XMLPoke XmlInputPath="./nuget.config" Query="/configuration/packageSourceCredentials/github/add[@key='ClearTextPassword']/@value" Value="$(GitHubPAT)" Condition="$(GitHubPAT) != ''"/>
+    <XMLPoke XmlInputPath="./nuget.config" Query="/configuration/packageSourceCredentials/github/add[@key='ClearTextPassword']/@value" Value="$(GitHubPAT)" Condition="$(GitHubPAT) != ''" />
   </Target>
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <Target AfterTargets="restore" Name="restorePackages">
-    <MSBuild Projects="Samples.sln" Targets="restore"/>
+    <MSBuild Projects="Samples.sln" Targets="restore" />
   </Target>
   <Target Name="debug">
-    <MSBuild Projects="Samples.sln" Targets="build" Properties="Configuration=debug"/>
+    <MSBuild Projects="Samples.sln" Targets="build" Properties="Configuration=debug" />
   </Target>
   <Target Name="release">
-    <MSBuild Projects="Samples.sln" Targets="build" Properties="Configuration=release"/>
+    <MSBuild Projects="Samples.sln" Targets="build" Properties="Configuration=release" />
   </Target>
   <Target Name="package" DependsOnTargets="getversion">
     <PropertyGroup>
       <stgPackagingToolExe>$(PkgSTG_Tools_ActivityPackaging)\tools\STG.ActivityPackaging.Packager.exe</stgPackagingToolExe>
     </PropertyGroup>
+    <!--Package the event driven sample activities-->
     <Exec Command="&quot;$(stgPackagingToolExe)&quot; -f &quot;.\SampleEventDrivenActivity\activityPackage.json&quot; -version $(FileVersion) $(PublishOutputDirectory)\DemoActivities\SampleEventDrivenActivity.stgpack" />
+    <!--Package sample activities that show-case licensing as well as splitting/merging-->
     <Exec Command="&quot;$(stgPackagingToolExe)&quot; -f &quot;.\SampleActivities\activityPackage.json&quot; -version $(FileVersion) $(PublishOutputDirectory)\DemoActivities\SampleActivities.stgpack" />
-    <Copy SourceFiles=".\SampleActivities\Readme.md" DestinationFiles="$(PublishOutputDirectory)\DemoActivities\SampleActivities_Readme.md"/>
-    <Copy SourceFiles="@(Package-Tools-and-Websites)"  DestinationFolder="$(PublishOutputDirectory)\DemoActivities\%(Package-Tools-and-Websites.Subfolder)\%(RecursiveDir)" />
+    <!--Sample demonstrating how to package .NET Framework and .NET8 compatible activity packages-->
+    <Exec Command="&quot;$(stgPackagingToolExe)&quot; -f &quot;.\SampleActivities\backwardsCompatibility.json&quot; -version $(FileVersion) $(PublishOutputDirectory)\DemoActivities\BackwardsCompatibilitySample.stgpack" />
+    <Copy SourceFiles=".\SampleActivities\Readme.md" DestinationFiles="$(PublishOutputDirectory)\DemoActivities\SampleActivities_Readme.md" />
+    <Copy SourceFiles="@(Package-Tools-and-Websites)" DestinationFolder="$(PublishOutputDirectory)\DemoActivities\%(Package-Tools-and-Websites.Subfolder)\%(RecursiveDir)" />
   </Target>
-  <Target Name="build-websites" >
+  <Target Name="build-websites">
     <PropertyGroup>
-        <nodePath>$(PkgNode_js_redist)\tools\win-x64\</nodePath>
-        <nodeExe>$(nodePath)node.exe</nodeExe>
-        <npmPath>$(PkgNode_js_redist)\tools\win-x64\package\bin</npmPath>
+      <nodePath>$(PkgNode_js_redist)\tools\win-x64\</nodePath>
+      <nodeExe>$(nodePath)node.exe</nodeExe>
+      <npmPath>$(PkgNode_js_redist)\tools\win-x64\package\bin</npmPath>
     </PropertyGroup>
 
-    <MSBuild  Condition="!Exists('$(npmPath)')" Targets="installNPM" Properties="nodeExe=$(nodeExe)" Projects="$(MSBuildThisFileFullPath)" />
+    <MSBuild Condition="!Exists('$(npmPath)')" Targets="installNPM" Properties="nodeExe=$(nodeExe)" Projects="$(MSBuildThisFileFullPath)" />
 
-    
-    <Exec WorkingDirectory="./EDAWebClient"  Command="
+
+    <Exec WorkingDirectory="./EDAWebClient" Command="
 		set PATH=%PATH:C:\Program Files\nodejs=%
         set path=%PATH%;$(nodePath)
 		&quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; install" />
-    <Exec WorkingDirectory="./EDAWebClient"  Command="
+    <Exec WorkingDirectory="./EDAWebClient" Command="
         set PATH=%PATH:C:\Program Files\nodejs=%
         set path=%PATH%;$(nodePath)
         &quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; run ng build -- --prod --base-href ." />
 
-    <Exec WorkingDirectory="./EDAConfirmWeb"  Command="
+    <Exec WorkingDirectory="./EDAConfirmWeb" Command="
 		set PATH=%PATH:C:\Program Files\nodejs=%
         set path=%PATH%;$(nodePath)
 		&quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; install" />
-    <Exec WorkingDirectory="./EDAConfirmWeb"  Command="
+    <Exec WorkingDirectory="./EDAConfirmWeb" Command="
         set PATH=%PATH:C:\Program Files\nodejs=%
         set path=%PATH%;$(nodePath)
         &quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; run ng build -- --prod --base-href ." />
@@ -79,7 +83,7 @@
   </Target>
   <Target Name="installNPM">
     <Copy SourceFiles="NPM_install.js" DestinationFolder="$(PkgNode_js_redist)\tools\win-x64" />
-    <Exec WorkingDirectory="$(PkgNode_js_redist)\tools\win-x64"  Command="&quot;$(nodeExe)&quot; NPM_install.js 6.12.0" />
+    <Exec WorkingDirectory="$(PkgNode_js_redist)\tools\win-x64" Command="&quot;$(nodeExe)&quot; NPM_install.js 6.12.0" />
   </Target>
 
 </Project>

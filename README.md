@@ -13,7 +13,9 @@ The solution Samples.sln provides the following samples corresponding folders:
 - [EDAConfirmWeb](EDAConfirmWeb/README.md) - sample for a thin client to use together with the event-driven notifier activity sample
 - [EDAWebClient](EDAWebClient/README.md) - sample for a thin client that uses the platform RestAPI to upload a stream for a event-driven initializer activity
 - [SampleActivities](SampleActivities/README.md) - sample how to implement activity feature licensing and provides sample split and merge activity implementations
-- [SampleActivity](SampleActivity/README.md) - sample for several document- time-driven activities and for a system agent
+- [SampleActivity](SampleActivity/README.md)
+  - sample for several document- time-driven activities and for a system agent
+  - sample for backwards compatible packaging (if .NET Standard 2.0 is not an option) so that Platforms 3.0/3.1/4.0 can use the same activity package, and upgrading the platform immediately let's you continue on Linux.
 - [SampleEventDrivenActivity](SampleEventDrivenActivity/README.md) - sample for event-driven activities that can be used together with EDA Web Client, EDA Client or EDA Confirm Web applications
 - [WebHeartbeatReporter](WebHeartbeatReporter/README.md) - sample for a Web client that provides heartbeat
 - [WorkItemSearchAndLock](WorkItemSearchAndLock/README.md) - sample tool that simulates multiple requests to lock a work item on the Platform
@@ -98,13 +100,14 @@ If the activity is hosted, then it runs with the STG.RT.API of the version that 
 If you use a 3.0.4 property that does not exist on 3.0.3, TypeLoadExceptions are thrown.
 
 ## Building
+
 After cloning this repo, it is required to just the package sources as described in the [References](#references) chapter.
 After that building is straight forward.
 
 To restore all the required packages execute the following command:
 `msbuild -t:Restore all.proj`
 
-Then rerbuild all the activity and sample code in the solution by executing this command:
+Then rebuild all the activity and sample code in the solution by executing this command:
 `msbuild -t:Release all.proj`
 This creates the build output in the _build folder.
 
@@ -115,4 +118,3 @@ To generate activities out of built dlls and collect websites for hosting this c
 `msbuild -t:package all.proj`
 
 This command creates a _publish\DemoActivities folder with activity packages and EDA websites and applications.
-

@@ -1,0 +1,27 @@
+﻿{
+  "PackageName": "Demo Activities",
+  "Packages": [
+    {
+      "AssemblyPath": "..\\_build\\SampleActivities\\net472\\SampleActivities.dll",
+      "AlternativePaths": [
+        {
+          "AssemblyPath": "..\\_build\\SampleActivities\\net8.0\\SampleActivities.dll"
+        }
+      ],
+      "IsExternal": false,
+      "ActivityTypeGuid": "915E89DF-8B8A-4F56-A85B-8CDAD6C81566",
+      "IconPath": "icon\\licensedActivity.png",
+      "IsFolder": true,
+      "Name": "Sample licensed activity (multi-target)",
+      "Description": "Demonstrates how to package an activity for multiple platform versions",
+      "Vendor": "Skilja GmbH",
+      "Color": "#5DBCD2",
+      "Version": "1.0.0.1",
+      "DisableOldVersions": false,
+      "EntryPoint": "SampleActivities.LicensedActivity",
+      "HelpPath": null,
+      "ConfigPath": null,
+      "ConfigURL": null
+    }
+  ]
+}
