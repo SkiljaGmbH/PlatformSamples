@@ -1,0 +1,1309 @@
+{
+  "info": {
+    "_postman_id": "144d20d6-a922-48b7-af1a-564e614e1d95",
+    "name": "CD Adjust Configuration",
+    "description": "# Overview\n\nThis Postman collection, **CD Adjust Configuration**, contains a set of requests designed to automate and test various API functionalities, such as loading, locking, and adjusting configuration processes.  \nThe purpose of this script is to demonstrate how an API can be used to adjust activity configurations and synchronize the changes with the runtime environment. The script follows a comprehensive workflow:\n\n- **Locking the Process**: Ensures that the process is ready for configuration changes by locking it for edits.\n    \n- **Loading Activity Configuration**: Fetches and loads the current activity settings for further adjustments.\n    \n- **Creating and Assigning Document Types**: Generates document types and assigns them to the activity configuration.\n    \n- **Creating and Assigning Variables**: Defines variables and integrates them into the activity configuration.\n    \n- **Publishing the Process**: Pushes the updated process configuration to the designated environment.\n    \n\nAdditionally, the script adjusts the activity settings and updates the runtime environment with only the changes made to the activity. Finally, it demonstrates how to modify variable values and synchronize them with the runtime so that activities can use the updated values effectively.\n\nPlease note that adjusting activity configuration is activity-specific, so the script implementer must understand the data structure of the activity settings.\n\n**Key Features:**\n\n- **API Authorization**: Uses OAuth 2.0 for authorization with client credentials flow.\n    \n- **Configuration Adjustments**: Adjusts settings, document types, and variables at global and process-specific levels.\n    \n- **Process and Instance Management**: Includes endpoints for locking/unlocking processes, fetching instances, and syncing variables with environments.\n    \n- **Validation**: Contains pre-request and test scripts to validate responses and ensure proper API interaction.\n    \n\n## Collection Structure\n\nThe collection includes multiple requests organized into different categories:\n\n1. **Process Management:**\n    - **Load Process**: Load a specific process based on ProcessID.\n    - **Lock Process**: Locks a draft version of the process for editing.\n    - **Unlock Process**: Unlocks a process version for further edits.\n    - **Update Process To Runtime**: Publishes process changes to the runtime environment.\n        \n2. **Document Type Management:**\n    - **Create Global Doc Type**: Creates a global document type.\n    - **Assign Global Doc Type**: Assigns the created document type to a process or activity.\n        \n3. **Instance Management:**\n    - **Find Instance**: Locates an activity instance that matches the given criteria.\n    - **Load Instance Settings**: Retrieves configuration settings for a specific instance.\n    - **Save Adjusted Settings**: Updates the instance configuration with adjusted settings.\n        \n4. **Variable Management:**\n    - **Create Global Variable**: Defines and configures global variables.\n    - **Override Variable Values**: Sets and overrides variable values at the process level.\n    - **Synchronize Variables To Environment**: Syncs the variable values with the selected runtime environment.\n        \n5. **Environment Management:**\n    - **Find Environment**: Detects the target environment for deployment and validation.\n        \n\n## How to Use\n\n### Step 1: Set Up Environment Variables\n\n- Define the required environment variables before running the collection:\n    - `APIHeader`: The authorization header key.\n    - `APIKey`: The API key or token.\n    - `DTUrl`: The base URL of the API.\n    - `ProcessID`: The process ID for specific requests.\n        \n### Step 2: Run the Collection\n\n1. Open the Postman collection and set your environment variables (or use the environment file if provided).\n    \n2. Run the requests in sequence using the Collection Runner for proper validation and workflow.\n    \n\n### Step 3: Customize as Needed\n\nYou can modify requests, URLs, or pre-request/test scripts to fit your specific API and process requirements. ",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "1043042"
+  },
+  "item": [
+    {
+      "name": "Load Process",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if(pm.response.code === 200){\r",
+              "    let process = pm.response.json();\r",
+              "    if(process.IsDraft){\r",
+              "        pm.collectionVariables.set(\"Process\", JSON.stringify(process));\r",
+              "        pm.test(\"Loaded Process \" + process.Name + \" with ID \" +   process.ID + \" in version \" +  process.Version , () => {\r",
+              "            pm.expect(true).to.be.true;  \r",
+              "        });\r",
+              "    } else {\r",
+              "        pm.test(\"Only draft versions can be edited in this sample.\", () => {\r",
+              "            pm.expect(false).to.be.true; \r",
+              "        });\r",
+              "        pm.execution.setNextRequest(null);\r",
+              "    }\r",
+              "} else {\r",
+              "     pm.test(\"Process with the defined ID can't be loaded.\", () => {\r",
+              "        pm.expect(false).to.be.true; \r",
+              "    });\r",
+              "    pm.execution.setNextRequest(null);\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "{{APIHeader}}",
+            "value": "{{APIKey}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{DTUrl}}/processVersions/{{ProcessID}}",
+          "host": ["{{DTUrl}}"],
+          "path": ["processVersions", "{{ProcessID}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Lock Process",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "let process = pm.collectionVariables.get(\"Process\");\r",
+              "\r",
+              "if(process){\r",
+              "    process = JSON.parse(process);\r",
+              "    if(process.IsLocked){\r",
+              "        if(process.IsLockedByMe){\r",
+              "            pm.test(\"Process is already locked; nothing to do\" , () => {\r",
+              "            pm.expect(true).to.be.true;  \r",
+              "            });\r",
+              "            pm.execution.skipRequest();\r",
+              "        } \r",
+              "    } else {\r",
+              "        pm.test(\"Process is locked by someone else; can't proceed\" , () => {\r",
+              "            pm.expect(false).to.be.true;  \r",
+              "        });\r",
+              "        pm.execution.setNextRequest(null)\r",
+              "    }\r",
+              "} else {\r",
+              "    pm.test(\"No process defined\" , () => {\r",
+              "        pm.expect(false).to.be.true;  \r",
+              "    });\r",
+              "    pm.execution.setNextRequest(null)\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if(pm.response.code === 200){\r",
+              "    let process = pm.response.json();\r",
+              "    pm.collectionVariables.set(\"Process\", JSON.stringify(process));\r",
+              "    pm.test(\"Locked Process \" + process.Name + \" with ID \" +   process.ID + \" in version \" +  process.Version , () => {\r",
+              "        pm.expect(true).to.be.true;  \r",
+              "    });\r",
+              "} else {\r",
+              "     pm.test(\"Process with the defined ID can't be locked.\", () => {\r",
+              "        pm.expect(false).to.be.true; \r",
+              "    });\r",
+              "    pm.execution.setNextRequest(null);\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "{{APIHeader}}",
+            "value": "{{APIKey}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{DTUrl}}/processVersions/{{ProcessID}}/lock",
+          "host": ["{{DTUrl}}"],
+          "path": ["processVersions", "{{ProcessID}}", "lock"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Find Instance",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if(pm.response.code === 200){\r",
+              "    let instances = pm.response.json();\r",
+              "    if(instances && instances.length >0){\r",
+              "        if(instances.length > 1) {\r",
+              "            pm.test(\"Multiple instances matches the given criteria; Can't detect which one to take.\", () => {\r",
+              "                pm.expect(false).to.be.true; \r",
+              "            });\r",
+              "            pm.execution.setNextRequest(null);    \r",
+              "        } else {\r",
+              "            let instance = instances[0]\r",
+              "            pm.test(\"Find instance \"+ instance.ActivityInstanceName +\" with ID \" + instance.ActivityInstanceID + \" that matches the given criteria.\", () => {\r",
+              "                pm.expect(true).to.be.true; \r",
+              "            });\r",
+              "            pm.collectionVariables.set(\"InstanceID\", instance.ActivityInstanceID);\r",
+              "        }\r",
+              "    } else {\r",
+              "        pm.test(\"No instances matches the given criteria.\", () => {\r",
+              "            pm.expect(false).to.be.true; \r",
+              "        });\r",
+              "        pm.execution.setNextRequest(null);\r",
+              "    }\r",
+              "} else {\r",
+              "    pm.test(\"Failed to fetch instances.\", () => {\r",
+              "        pm.expect(false).to.be.true;  \r",
+              "    });\r",
+              "    pm.execution.setNextRequest(null);\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "{{APIHeader}}",
+            "value": "{{APIKey}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{DTUrl}}/activityInstances/query?ProcessId={{ProcessID}}&ActivityName=SampleExternalS*",
+          "host": ["{{DTUrl}}"],
+          "path": ["activityInstances", "query"],
+          "query": [
+            {
+              "key": "ProcessId",
+              "value": "{{ProcessID}}"
+            },
+            {
+              "key": "ActivityName",
+              "value": "SampleExternalS*"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Load Instance Settings",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if(pm.response.code === 200){\r",
+              "    let config = pm.response.json();\r",
+              "    pm.test(\"Loaded config for the requested instance\",  () => {\r",
+              "        pm.expect(true).to.be.true; \r",
+              "    });\r",
+              "    pm.collectionVariables.set(\"InstanceConfig\", JSON.stringify(config));\r",
+              "   \r",
+              "} else {\r",
+              "    pm.test(\"Failed to fetch config for the given instance.\", () => {\r",
+              "        pm.expect(false).to.be.true; \r",
+              "    });\r",
+              "    pm.execution.setNextRequest(null);\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "{{APIHeader}}",
+            "value": "{{APIKey}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{DTUrl}}/activityInstances/{{InstanceID}}/config",
+          "host": ["{{DTUrl}}"],
+          "path": ["activityInstances", "{{InstanceID}}", "config"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Global Doc Type",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if(pm.response.code === 200){\r",
+              "    let doc = pm.response.json();\r",
+              "    pm.test(\"Created a global document type\",  () => {\r",
+              "        pm.expect(true).to.be.true; \r",
+              "    });\r",
+              "    pm.collectionVariables.set(\"globalDoc\", JSON.stringify(doc));\r",
+              "} else {\r",
+              "    pm.test(\"Failed to create global document type.\", () => {\r",
+              "        pm.expect(false).to.be.true; \r",
+              "    });\r",
+              "    pm.execution.setNextRequest(null);\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "{{APIHeader}}",
+            "value": "{{APIKey}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"Name\": \"CI_Globo\",\r\n    \"Description\": \"Demo Global Document Type\",\r\n    \"FieldDefinitions\": [\r\n        {\r\n            \"FieldType\": 0,\r\n            \"IsIndexed\": false,\r\n            \"Name\": \"StringForGlobo\"\r\n        }\r\n    ],\r\n    \"TableDefinitions\": [],\r\n    \"Scope\": 1\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{DTUrl}}/documentTypes",
+          "host": ["{{DTUrl}}"],
+          "path": ["documentTypes"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Assign Global Doc Type",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "let toAssign = pm.collectionVariables.get(\"globalDoc\");\r",
+              "\r",
+              "if(!toAssign){\r",
+              "    pm.test(\"Global document type to assign can't be found.\", () => {\r",
+              "        pm.expect(false).to.be.true;  \r",
+              "    });\r",
+              "    pm.execution.setNextRequest(null);\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if(pm.response.code === 200){\r",
+              "    let doc = pm.response.json();\r",
+              "    let settings = JSON.parse(pm.collectionVariables.get(\"InstanceConfig\")); \r",
+              "    //NOTE: This is activity specific and one must know the structure of configuration JSON.\r",
+              "    settings.Configuration.NestedClassProperty.SelectedField.DocumentType = doc.Name;\r",
+              "    settings.Configuration.NestedClassProperty.SelectedField.SelectedFields.push(doc.FieldDefinitions[0].Name);\r",
+              "    pm.test(\"Assigned global document type to process and assigned it to be used by activity\",  () => {\r",
+              "        pm.expect(true).to.be.true; \r",
+              "    });\r",
+              "    pm.collectionVariables.set(\"InstanceConfig\", JSON.stringify(settings));\r",
+              "} else {\r",
+              "    pm.test(\"Failed to assign global document type to process.\", () => {\r",
+              "        pm.expect(false).to.be.true; \r",
+              "    });\r",
+              "    pm.execution.setNextRequest(null);\r",
+              "}\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "{{APIHeader}}",
+            "value": "{{APIKey}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{{globalDoc}}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{DTUrl}}/process/{{ProcessID}}/documentTypes",
+          "host": ["{{DTUrl}}"],
+          "path": ["process", "{{ProcessID}}", "documentTypes"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Process Doc Type",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if(pm.response.code === 200){\r",
+              "    let doc = pm.response.json();\r",
+              "    let settings = JSON.parse(pm.collectionVariables.get(\"InstanceConfig\")); \r",
+              "    //NOTE: This is activity-specific and one must know the structure of configuration JSON.\r",
+              "    settings.Configuration.DocumentTypeSelection = doc.Name;\r",
+              "    pm.test(\"Created, assigned and configured settings to use a process level document type\",  () => {\r",
+              "        pm.expect(true).to.be.true; \r",
+              "    });\r",
+              "    pm.collectionVariables.set(\"InstanceConfig\", JSON.stringify(settings));\r",
+              "} else {\r",
+              "    pm.test(\"Failed to create process level document type.\", () => {\r",
+              "        pm.expect(false).to.be.true; \r",
+              "    });\r",
+              "    pm.execution.setNextRequest(null);\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "{{APIHeader}}",
+            "value": "{{APIKey}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"Name\": \"CI_Process\",\r\n    \"Description\": \"Demo Process Level Document Type\",\r\n    \"FieldDefinitions\": [],\r\n    \"TableDefinitions\": [],\r\n    \"Scope\": 8,\r\n    \"ScopeId\": {{ProcessID}}\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{DTUrl}}/documentTypes",
+          "host": ["{{DTUrl}}"],
+          "path": ["documentTypes"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Global Variable",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if(pm.response.code === 200){\r",
+              "    let variable = pm.response.json();\r",
+              "    let settings = JSON.parse(pm.collectionVariables.get(\"InstanceConfig\"));\r",
+              "    //NOTE: This is activity-specific and one must know the structure of configuration JSON.\r",
+              "    settings.ActivityConfigurationVariable.PropertyVariables.push({\r",
+              "        Key: \"StringProperty\",\r",
+              "        Value: variable\r",
+              "    });\r",
+              "    pm.test(\"Created, assigned and configured settings to use a global variable\",  () => {\r",
+              "        pm.expect(true).to.be.true; \r",
+              "    });\r",
+              "    pm.collectionVariables.set(\"InstanceConfig\", JSON.stringify(settings));\r",
+              "} else {\r",
+              "    pm.test(\"Failed to create global variable.\", () => {\r",
+              "        pm.expect(false).to.be.true; \r",
+              "    });\r",
+              "    pm.execution.setNextRequest(null);\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "{{APIHeader}}",
+            "value": "{{APIKey}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"Variable\": {\r\n        \"Name\": \"CI_Global\",\r\n        \"Description\": null,\r\n        \"Type\": 0,\r\n        \"VariableValues\": []\r\n    },\r\n    \"Value\": \"Global Value\",\r\n    \"VariableLevel\": 1\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{DTUrl}}/variableValues",
+          "host": ["{{DTUrl}}"],
+          "path": ["variableValues"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Process Variable",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "let process = pm.collectionVariables.get(\"Process\");\r",
+              "\r",
+              "if(process){\r",
+              "    process = JSON.parse(process);\r",
+              "    let variableDef = {\r",
+              "        Variable: {\r",
+              "            Name: \"CI_Process\",\r",
+              "            Description: \"numeric value\",\r",
+              "            Type: 1,\r",
+              "            VariableValues: []\r",
+              "        },\r",
+              "        Value: 10,\r",
+              "        ClientOrganizationID: process.ClientID,\r",
+              "        ProjectID: process.ProjectID,\r",
+              "        ProcessVersionID: process.ID,\r",
+              "        ScopeName: process.Name\r",
+              "    }   \r",
+              "    pm.variables.set(\"processVar\", JSON.stringify(variableDef));\r",
+              "} else {\r",
+              "     pm.test(\"No process defined\" , () => {\r",
+              "            pm.expect(false).to.be.true;  \r",
+              "    });\r",
+              "    pm.execution.setNextRequest(null)\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if(pm.response.code === 200){\r",
+              "    let variable = pm.response.json();\r",
+              "    let settings = JSON.parse(pm.collectionVariables.get(\"InstanceConfig\"));\r",
+              "    //NOTE: This is activity-specific and one must know the structure of configuration JSON.\r",
+              "    settings.ActivityConfigurationVariable.PropertyVariables.push({\r",
+              "        Key: \"DoubleProperty\",\r",
+              "        Value: variable\r",
+              "    });\r",
+              "    pm.test(\"Created, assigned and configured settings to use a process level variable\",  () => {\r",
+              "        pm.expect(true).to.be.true; \r",
+              "    });\r",
+              "    pm.collectionVariables.set(\"InstanceConfig\", JSON.stringify(settings));\r",
+              "} else {\r",
+              "    pm.test(\"Failed to create process level variable.\", () => {\r",
+              "        pm.expect(false).to.be.true; \r",
+              "    });\r",
+              "    pm.execution.setNextRequest(null);\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "{{APIHeader}}",
+            "value": "{{APIKey}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{{processVar}}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{DTUrl}}/variableValues",
+          "host": ["{{DTUrl}}"],
+          "path": ["variableValues"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Save Adjusted Settings",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if(pm.response.code === 200){\r",
+              "    let config = pm.response.json();\r",
+              "    pm.test(\"Updated config for the requested instance\",  () => {\r",
+              "        pm.expect(true).to.be.true; \r",
+              "    });\r",
+              "    pm.collectionVariables.set(\"InstanceConfig\", JSON.stringify(config));\r",
+              "} else {\r",
+              "    pm.test(\"Failed to update activity instance settings.\", () => {\r",
+              "        pm.expect(false).to.be.true;  \r",
+              "    });\r",
+              "    pm.execution.setNextRequest(null);\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "{{APIHeader}}",
+            "value": "{{APIKey}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{{InstanceConfig}}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{DTUrl}}/activityInstances/{{InstanceID}}/config",
+          "host": ["{{DTUrl}}"],
+          "path": ["activityInstances", "{{InstanceID}}", "config"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Find Environment",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if(pm.response.code === 200){\r",
+              "    let environments = pm.response.json();\r",
+              "    let envId = pm.collectionVariables.get(\"envToPublish\");\r",
+              "    //define your own logic on how to detect environment to publish or provide ID via variable\r",
+              "    let toPublish = environments.find(e => e.Name === 'local') ;\r",
+              "    if(envId){\r",
+              "        toPublish = environments.find(e => e.ID === envId) ;\r",
+              "    } \r",
+              "    if(toPublish){\r",
+              "        if(!toPublish.IsDevelopment){\r",
+              "            pm.test(\"Upgrading on non-dev Environment is not possible\", () => {\r",
+              "            pm.expect(false).to.be.true;  \r",
+              "            });\r",
+              "            pm.execution.setNextRequest(null);\r",
+              "        } else {\r",
+              "            pm.collectionVariables.set(\"envToPublish\", toPublish.ID);\r",
+              "            pm.test(\"Environment with ID \" + toPublish.ID + \" is set as environment for draft updated\", () => {\r",
+              "                pm.expect(true).to.be.true;  \r",
+              "            });\r",
+              "        }\r",
+              "    } else {\r",
+              "        pm.test(\"Environment can't be found\", () => {\r",
+              "            pm.expect(false).to.be.true;  \r",
+              "        });\r",
+              "        pm.execution.setNextRequest(null);\r",
+              "    }\r",
+              "} else {\r",
+              "    pm.test(\"Failed to fetch environment info.\", () => {\r",
+              "        pm.expect(false).to.be.true; \r",
+              "    });\r",
+              "    pm.execution.setNextRequest(null);\r",
+              "}\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "{{APIHeader}}",
+            "value": "{{APIKey}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{DTUrl}}/Environment",
+          "host": ["{{DTUrl}}"],
+          "path": ["Environment"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Process To Runtime",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "// Get the stored process\r",
+              "let toPublish = pm.collectionVariables.get(\"Process\");\r",
+              "\r",
+              "// create publish data\r",
+              "if (toPublish) {\r",
+              "    toPublish = JSON.parse(toPublish);\r",
+              "    let envId = pm.collectionVariables.get(\"envToPublish\");\r",
+              "    let pubData = {\r",
+              "        ProcessVersionId: toPublish.ID,\r",
+              "        ApiVersion: \"2.1\",\r",
+              "        ProcessType: toPublish.ProcessType,\r",
+              "        EnvironmentId: envId,\r",
+              "        Subscriber: \"anything- relevant for signalR\",\r",
+              "        DefaultStorageID: -1, //default one \r",
+              "        UpdateOnly: true,\r",
+              "        UpdateStorageNameForProcess: false\r",
+              "    };\r",
+              "    pm.variables.set(\"publishData\", JSON.stringify(pubData));\r",
+              "} else {\r",
+              "    console.error(\"No process to publish can be found.\");\r",
+              "    pm.test(\"No process to publish can be found.\", () => {\r",
+              "        pm.expect(false).to.be.true; \r",
+              "    });\r",
+              "    pm.execution.setNextRequest(null);\r",
+              "}\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if(pm.response.code === 200){\r",
+              "    let published = pm.response.json();\r",
+              "    pm.test(\"Published Process \" + published.Name + \" with ID \" +   published.ID + \" in version \" +  published.Version , () => {\r",
+              "        pm.expect(true).to.be.true;  \r",
+              "    });\r",
+              "    pm.collectionVariables.set(\"Process\", JSON.stringify(published));\r",
+              "} else {\r",
+              "    pm.test(\"Failed to update process on the selected runtime.\", () => {\r",
+              "        pm.expect(false).to.be.true;\r",
+              "    });\r",
+              "    pm.execution.setNextRequest(null);\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "{{APIHeader}}",
+            "value": "{{APIKey}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{{publishData}}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{DTUrl}}/processVersions/publish",
+          "host": ["{{DTUrl}}"],
+          "path": ["processVersions", "publish"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Modify Settings",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              " let settings = pm.collectionVariables.get(\"InstanceConfig\");\r",
+              " if(settings){\r",
+              "    settings = JSON.parse(settings);\r",
+              "    //NOTE: This is activity-specific and one must know the structure of configuration JSON.\r",
+              "    settings.Configuration.LongStringProperty = \"This is a value that we forgot to assign before publishing\";\r",
+              "    pm.collectionVariables.set(\"InstanceConfig\", JSON.stringify(settings));\r",
+              " } else {\r",
+              "    pm.test(\"Settings can't be found\" , () => {\r",
+              "        pm.expect(false).to.be.true;  \r",
+              "    });\r",
+              "    pm.execution.setNextRequest(null)\r",
+              " }"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if(pm.response.code === 200){\r",
+              "    let config = pm.response.json();\r",
+              "    pm.test(\"Updated config for the requested instance\",  () => {\r",
+              "        pm.expect(true).to.be.true; \r",
+              "    });\r",
+              "    pm.collectionVariables.set(\"InstanceConfig\", JSON.stringify(config));\r",
+              "} else {\r",
+              "    pm.test(\"Failed to update activity instance settings.\", () => {\r",
+              "        pm.expect(false).to.be.true;  \r",
+              "    });\r",
+              "    pm.execution.setNextRequest(null);\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "{{APIHeader}}",
+            "value": "{{APIKey}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{{InstanceConfig}}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{DTUrl}}/activityInstances/{{InstanceID}}/config",
+          "host": ["{{DTUrl}}"],
+          "path": ["activityInstances", "{{InstanceID}}", "config"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Single Instance To Runtime",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if(pm.response.code === 200){\r",
+              "    pm.test(\"Updated config for the requested instance on the selected environment\",  () => {\r",
+              "        pm.expect(true).to.be.true; \r",
+              "    });\r",
+              "} else {\r",
+              "    pm.test(\"Failed to update single activity instance for the selected environment.\", () => {\r",
+              "        pm.expect(false).to.be.true; \r",
+              "    });\r",
+              "    pm.execution.setNextRequest(null);\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "{{APIHeader}}",
+            "value": "{{APIKey}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"EnvironmentId\": {{envToPublish}},\r\n    \"Subscriber\": \"anything- relevant for signalR\",\r\n    \"ActivityInstanceId\": {{InstanceID}},\r\n    \"ProcessVersionId\": {{ProcessID}}\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{DTUrl}}/processVersions/publish/updateSingleInstance",
+          "host": ["{{DTUrl}}"],
+          "path": ["processVersions", "publish", "updateSingleInstance"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Unlock Process",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if(pm.response.code === 200){\r",
+              "    let process = pm.response.json();\r",
+              "    pm.collectionVariables.set(\"Process\", JSON.stringify(process));\r",
+              "    pm.test(\"Unlocked Process \" + process.Name + \" with ID \" +   process.ID + \" in version \" +  process.Version , () => {\r",
+              "        pm.expect(true).to.be.true;  \r",
+              "    });\r",
+              "} else {\r",
+              "    pm.test(\"Process with the defined ID can't be unlocked.\", () => {\r",
+              "        pm.expect(false).to.be.true; \r",
+              "    });\r",
+              "    pm.execution.setNextRequest(null);\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "{{APIHeader}}",
+            "value": "{{APIKey}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{DTUrl}}/processVersions/{{ProcessID}}/unlock",
+          "host": ["{{DTUrl}}"],
+          "path": ["processVersions", "{{ProcessID}}", "unlock"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Fetch Variables",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "let process = pm.collectionVariables.get(\"Process\");\r",
+              "\r",
+              "if(process){\r",
+              "    process = JSON.parse(process);\r",
+              "    let queryData = {\r",
+              "        ClientOrganizationID: process.ClientID,\r",
+              "        ProjectID: process.ProjectID,\r",
+              "        ProcessVersionID: process.ID,\r",
+              "    }\r",
+              "    pm.variables.set(\"variablesQuery\", JSON.stringify(queryData));\r",
+              "} else {\r",
+              "    pm.test(\"No process defined\" , () => {\r",
+              "            pm.expect(false).to.be.true;  \r",
+              "    });\r",
+              "    pm.execution.setNextRequest(null)\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if(pm.response.code === 200){\r",
+              "    let variables = pm.response.json();\r",
+              "    let process = JSON.parse(pm.collectionVariables.get(\"Process\"));\r",
+              "    let global = variables.find(v => v.Variable.Name === \"CI_Global\");\r",
+              "    if(global) {\r",
+              "        let variableDef = {\r",
+              "            Variable: global.Variable,\r",
+              "            Value: \"Process Override\",\r",
+              "            ClientOrganizationID: process.ClientID,\r",
+              "            ProjectID: process.ProjectID,\r",
+              "            ProcessVersionID: process.ID,\r",
+              "            ScopeName: process.Name\r",
+              "        }   \r",
+              "        pm.collectionVariables.set(\"varValOverride\", JSON.stringify(variableDef));\r",
+              "        pm.test(\"Fetched and prepared variable with value override\", () => {\r",
+              "            pm.expect(true).to.be.true;  \r",
+              "        });\r",
+              "    } else {\r",
+              "        pm.test(\"Variable with name 'CI_Global' can't be found.\", () => {\r",
+              "            pm.expect(false).to.be.true; \r",
+              "        });\r",
+              "    }\r",
+              "} else {\r",
+              "    pm.test(\"Fetching of variables failed.\", () => {\r",
+              "        pm.expect(false).to.be.true;  \r",
+              "    });\r",
+              "    pm.execution.setNextRequest(null);\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "{{APIHeader}}",
+            "value": "{{APIKey}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{{variablesQuery}}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{DTUrl}}/variableValues/fetch/all",
+          "host": ["{{DTUrl}}"],
+          "path": ["variableValues", "fetch", "all"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Override Variable Values",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if(pm.response.code === 200){\r",
+              "    pm.test(\"Created a new value on the process level for the existing  variable\",  () => {\r",
+              "        pm.expect(true).to.be.true; \r",
+              "    });\r",
+              "    pm.collectionVariables.unset(\"varValOverride\");\r",
+              "} else {\r",
+              "    pm.test(\"Failed to create process level value for existing variable.\", () => {\r",
+              "        pm.expect(false).to.be.true; \r",
+              "    });\r",
+              "    pm.execution.setNextRequest(null);\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "{{APIHeader}}",
+            "value": "{{APIKey}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{{varValOverride}}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{DTUrl}}/variableValues",
+          "host": ["{{DTUrl}}"],
+          "path": ["variableValues"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Synchronize Variables To Environment",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if(pm.response.code === 200){\r",
+              "    pm.test(\"Successfully updated variables for the selected runtime\", () => {\r",
+              "        pm.expect(true).to.be.true;  \r",
+              "    });\r",
+              "} else {\r",
+              "    pm.test(\"Failed to sync variables for the selected environment.\", () => {\r",
+              "        pm.expect(false).to.be.true; \r",
+              "    });\r",
+              "    pm.execution.setNextRequest(null);\r",
+              "}\r",
+              "\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "{{APIHeader}}",
+            "value": "{{APIKey}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"EnvironmentId\": {{envToPublish}},\r\n  \"BypassCache\": true\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{DTUrl}}/environment/variables/sync?processVersionId={{ProcessID}}",
+          "host": ["{{DTUrl}}"],
+          "path": ["environment", "variables", "sync"],
+          "query": [
+            {
+              "key": "processVersionId",
+              "value": "{{ProcessID}}"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Cleanup",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.collectionVariables.clear();\r",
+              "pm.execution.skipRequest();"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "{{APIHeader}}",
+            "value": "{{APIKey}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{DTUrl}}",
+          "host": ["{{DTUrl}}"]
+        }
+      },
+      "response": []
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "clientSecret",
+        "value": "{{ClientSecret}}",
+        "type": "string"
+      },
+      {
+        "key": "clientId",
+        "value": "{{ClientId}}",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "{{AuthUrl}}",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials",
+        "type": "string"
+      },
+      {
+        "key": "tokenName",
+        "value": "GToken",
+        "type": "string"
+      },
+      {
+        "key": "addTokenTo",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ]
+}
