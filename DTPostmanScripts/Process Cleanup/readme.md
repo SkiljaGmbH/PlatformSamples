@@ -21,7 +21,22 @@ This collection is divided into two main sections:
 Since there might be multiple process versions to be deleted, this section iterates until all deletable processes are deleted. 
 The chart below shows the logical flow of this section:
 
-![Cleanup By Process Type](./../resources/Cleanup_by_Type.jpg)
+```mermaid
+  flowchart TB;
+      s((start))-->cpt(Check Process Type);
+      cpt-->tv[/Take Version/];
+      tv-->spv("`Sync Process 
+      Version`");
+      spv-->dr{"`Is Deleted
+      On Runtime`"};
+      dr --yes-->dpv("`Delete Process
+      Version`");
+      dpv-->apc{"`All Processes
+      Checked`"};
+      dr--no -->apc;
+      apc--no -->tv
+      apc--yes-->e(((end)));
+```
 
 > **Note**: This sample works only if all registered environments are available 
 
@@ -35,7 +50,25 @@ The chart below shows the logical flow of this section:
 Since there might be multiple process versions to be deleted, this section iterates until all deletable processes are deleted. 
 The chart below shows the logical flow of this section:
 
-![Cleanup By Environment](./../resources/Cleanup_by_Environment.jpg)
+```mermaid
+  flowchart TD;
+  s((Start)) --> FE(Find Environment);
+  FE --> FPV("`Find Process
+  Versions`");
+  FPV --> SD(Sync Environment);
+  SD --> /gpv/[/"`Get Old Version
+  Published to 
+  Environment`"/];
+  /gpv/ --> ?idr{"`Is Deleted
+  On Runtime`"};
+  ?idr --yes--> DP(Delete Process);
+  ?idr --no --> ?mp{"`Has More 
+  Processes`"}
+  DP --> ?mp;
+  ?mp --yes--> /gpv/
+  ?mp --no --> e.(((End)))
+
+```
 
 ## How to Use
 

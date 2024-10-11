@@ -1,0 +1,1524 @@
+{
+	"info": {
+		"_postman_id": "6e438fae-5afb-4d8d-8f2f-144f26d349cd",
+		"name": "CD Upgrade Activities Demo",
+		"description": "## Overview\n\nThe **CD Upgrade Activities Demo** collection demonstrates how to manage and upgrade activity packages across processes in an automated manner. The collection allows for uploading new activity packages, creating drafts, releasing them to different environments, and upgrading existing activity instances within processes.\n\n### Key Features\n\n- **Activity Package Upload and Validation**: Upload and validate activity packages.\n    \n- **Draft Creation**: Automates the creation of drafts for released processes where the activity is used.\n    \n- **Upgrade Process**: Supports upgrading activities in processes and their instances.\n    \n- **Release and Publish**: Publishes drafts to environments and ensures all instances are updated.\n    \n\n## Collection Structure\n\nThis collection is divided into several workflows:\n\n### 1\\. **Register Activity**\n\n### 2\\. **Create Drafts**\n\n### 3\\. **Release and Publish**\n\nPlease check the detailed explanation for each workflow in its folder overview.\n\n## How to Use\n\n### Step 1: Set Up Environment Variables\n\nDefine the required environment variables before running the collection:\n\n- `APIHeader`: The authorization header key.\n    \n- `APIKey`: The API key or token.\n    \n- `DTUrl`: The base URL of the API.\n    \n- `envToPublis`: The environment ID to which the draft will be published.\n    \n\n### Step 2: Run the Collection\n\n1. Open the Postman collection and ensure your environment variables are set.\n    \n2. Use the **Collection Runner** to execute the requests in sequence for proper workflow execution.\n    \n\n### Step 3: Customize as Needed\n\nModify the requests, scripts, or workflow based on your specific use case for activities, processes, and environments.\n\n## Conclusion\n\nThis collection provides an automated way to manage activity upgrades across processes, from uploading new packages to final release and publishing in the environment. Modify it as needed for your specific workflows.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1043042"
+	},
+	"item": [
+		{
+			"name": "RegisterActivity",
+			"item": [
+				{
+					"name": "Upload New Package",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {\r",
+									"    // Get the response body and parse it as JSON\r",
+									"    let response = pm.response.json();\r",
+									"\r",
+									"    // Get the Activities array from the response\r",
+									"    let activities = response.Activities;\r",
+									"\r",
+									"    // Check if the activities array is not empty\r",
+									"    if (activities && activities.length > 0) {\r",
+									"        let hasValidActivity = false;  // Track if there's at least one activity with ValidationResult = 0\r",
+									"        \r",
+									"        // Iterate through the activities array\r",
+									"        activities.forEach(activity => {\r",
+									"            // If ValidationResult is 0, mark it as selected\r",
+									"            if (activity.ValidationResult === 0) {\r",
+									"                hasValidActivity = true;\r",
+									"                activity.IsSelected = true;  // Update IsSelected to true\r",
+									"            }\r",
+									"        });\r",
+									"        \r",
+									"        // Update the modified Activities array back to the response (if you need it later)\r",
+									"        response.Activities = activities;\r",
+									"        \r",
+									"        // If there were no activities with ValidationResult = 0, fail the test\r",
+									"        if (!hasValidActivity) {\r",
+									"            pm.test(\"No activities with ValidationResult = 0\", () => {\r",
+									"                pm.expect(false).to.be.true;  // Force test failure\r",
+									"            });\r",
+									"            pm.execution.setNextRequest(null);\r",
+									"        } else {\r",
+									"            pm.collectionVariables.set(\"uploadedActivityPackage\", JSON.stringify(response)); // Store updated response if needed\r",
+									"            pm.test(\"Uploaded the activity package \" + response.Name + \"with \" + response.Activities.length, () => {\r",
+									"                pm.expect(true).to.be.true;  \r",
+									"            });\r",
+									"        }\r",
+									"\r",
+									"    } else {\r",
+									"        // Fail the test if Activities array is empty\r",
+									"        pm.test(\"Activities array is empty\", () => {\r",
+									"            pm.expect(false).to.be.true;  // Force test failure\r",
+									"        });\r",
+									"        pm.execution.setNextRequest(null);\r",
+									"    }\r",
+									"} else {\r",
+									"    pm.test(\"Failed to upload.\", () => {\r",
+									"        pm.expect(false).to.be.true;  // Force test failure\r",
+									"    });\r",
+									"    pm.execution.setNextRequest(null);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "{{APIHeader}}",
+								"value": "{{APIKey}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "",
+									"type": "file",
+									"src": "postman-cloud:///1ef75033-7177-42d0-befe-2ceb6580e6fc"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{DTUrl}}/activitypackage/check",
+							"host": [
+								"{{DTUrl}}"
+							],
+							"path": [
+								"activitypackage",
+								"check"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Confirm Uploaded Package",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Check if the current response status is 200\r",
+									"if (pm.response.code === 200) {\r",
+									"\r",
+									"    let activities = pm.response.json();\r",
+									"\r",
+									"    // Create a new array with only the required fields fields\r",
+									"    let registeredActivities = activities.map(activity => {\r",
+									"        return {\r",
+									"            Name: activity.Name,\r",
+									"            ActivityTypeGuid: activity.ActivityTypeGuid,\r",
+									"            TypeID: activity.ID,\r",
+									"            Version: activity.Version,\r",
+									"            Upgraded: false,\r",
+									"            Drafts:[],\r",
+									"            Released: [],\r",
+									"            ToPublish:[]\r",
+									"        };\r",
+									"    });\r",
+									"\r",
+									"    // Store the filtered array in a new collection variable\r",
+									"    pm.collectionVariables.set(\"registeredActivities\", JSON.stringify(registeredActivities));\r",
+									"     pm.test(registeredActivities.length +  \" activities registered; Upgrade pending \" , () => {\r",
+									"        pm.expect(true).to.be.true;  \r",
+									"    });\r",
+									"} else {\r",
+									"    pm.test(\"Previous response not found in collection variables.\", () => {\r",
+									"        pm.expect(false).to.be.true;  // Force test failure\r",
+									"    });\r",
+									"    pm.execution.setNextRequest(null);\r",
+									"}\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "{{APIHeader}}",
+								"value": "{{APIKey}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{uploadedActivityPackage}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DTUrl}}/activitypackage/Confirm",
+							"host": [
+								"{{DTUrl}}"
+							],
+							"path": [
+								"activitypackage",
+								"Confirm"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "This workflow is linear, as it uploads the activity package, confirms the uploaded activities, and collects registered activities for further processing.\n\nThe workflow consists of the following requests:\n- **Upload New Package**: Uploads a new activity package for validation.\n- **Confirm Uploaded Package**: Confirms the uploaded activity package and prepares it for use."
+		},
+		{
+			"name": "CreateDrafts",
+			"item": [
+				{
+					"name": "Find Released Processes",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Get the stored array of selected activities\r",
+									"let selectedActivities = pm.collectionVariables.get(\"registeredActivities\");\r",
+									"\r",
+									"// Parse the JSON data\r",
+									"if (selectedActivities) {\r",
+									"    selectedActivities = JSON.parse(selectedActivities);\r",
+									"\r",
+									"    //find first activity that is not upgraded yet\r",
+									"    const activity =  selectedActivities.find(a => a.Upgraded === false);\r",
+									"    if (activity) {\r",
+									"        pm.collectionVariables.set(\"registeredType\", activity.ActivityTypeGuid); // Set the variable for the current request to the activity GUID\r",
+									"    } else {\r",
+									"        // All activities are upgraded\r",
+									"        let toRelease = []\r",
+									"        //prepare array with processes for releaseing by concatenating all processes where activity has been upgraded into a released version\r",
+									"        selectedActivities.forEach(item => {\r",
+									"            // Check if \"ToPublish\" exists and is an array\r",
+									"            if (item.ToPublish) {\r",
+									"                // Add the \"ToPublish\" items to the new combined array\r",
+									"                toRelease = toRelease.concat(item.ToPublish);\r",
+									"            }\r",
+									"        });\r",
+									"        pm.collectionVariables.set(\"toReleaseProcesses\", JSON.stringify(toRelease));\r",
+									"        pm.execution.setNextRequest(\"Drafts Done\");\r",
+									"        pm.test(\"all activities are upgraded, Proceede to process release..\", () => {\r",
+									"            pm.expect(false).to.be.false; \r",
+									"        });\r",
+									"    }\r",
+									"} else {\r",
+									"     pm.test(\"Previous response not found in collection variables.\", () => {\r",
+									"        pm.expect(false).to.be.true;  // Force test failure\r",
+									"    });\r",
+									"    pm.execution.setNextRequest(null);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {\r",
+									"    // Get the response body and parse it as JSON\r",
+									"    let response = pm.response.json();\r",
+									"    let filteredActivities = JSON.parse(pm.collectionVariables.get(\"registeredActivities\"));\r",
+									"    let currentIndex = filteredActivities.findIndex(a => a.ActivityTypeGuid === pm.collectionVariables.get(\"registeredType\"));\r",
+									"    let current = filteredActivities[currentIndex];\r",
+									"    // Store the processes where the current activity is used\r",
+									"    response.forEach(process => {\r",
+									"        //make sure to skip drafts that have been created from released versions\r",
+									"        if (process.IsDraft && current.ToPublish.findIndex(p=> p.ID === process.ID) < 0) {\r",
+									"            current.Drafts.push({\r",
+									"                ID: process.ID,\r",
+									"                Name: process.Name\r",
+									"            });\r",
+									"        } else {\r",
+									"            current.Released.push({\r",
+									"                ID: process.ID,\r",
+									"                Name: process.Name\r",
+									"            });\r",
+									"        }\r",
+									"    });\r",
+									"\r",
+									"    // Update the variable with the drafts and released arrays in collection variables\r",
+									"    filteredActivities.splice(currentIndex, 1, current)\r",
+									"    pm.collectionVariables.set(\"registeredActivities\", JSON.stringify(filteredActivities));\r",
+									"    pm.test(\"Activity \" + current.Name + \" is used in \" + current.Drafts.length + \" drafts and \" + current.Released.length + \" released processes. Creation of drafts for released pending \", () => {\r",
+									"        pm.expect(true).to.be.true;  \r",
+									"    });\r",
+									"} else {\r",
+									"    pm.test(\"Failed to fetch released processes for activity.\", () => {\r",
+									"        pm.expect(false).to.be.true;  // Force test failure\r",
+									"    });\r",
+									"    pm.execution.setNextRequest(null);\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "{{APIHeader}}",
+								"value": "{{APIKey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{DTUrl}}/processVersions/search?ActivityTypeGuid={{registeredType}}",
+							"host": [
+								"{{DTUrl}}"
+							],
+							"path": [
+								"processVersions",
+								"search"
+							],
+							"query": [
+								{
+									"key": "ActivityTypeGuid",
+									"value": "{{registeredType}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Prepare Draft versions",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Assuming the 'released' array is available as a collection variable\r",
+									"let filteredActivities  = JSON.parse(pm.collectionVariables.get(\"registeredActivities\"));\r",
+									"let currentIndex = filteredActivities.findIndex(a => a.ActivityTypeGuid === pm.collectionVariables.get(\"registeredType\"));\r",
+									"let current = filteredActivities[currentIndex];\r",
+									"//Current activity to upgrade is used in released version; we must create draft\r",
+									"if (current.Released.length > 0) {\r",
+									"    //Gt the first relased process\r",
+									"    const process =  current.Released[0];\r",
+									"    pm.collectionVariables.set(\"releasedProcessId\", process.ID); // Set the variable for the current request to the process ID\r",
+									"} else {\r",
+									"    pm.test(\"All released process versions have a draft now; Preparing Upgrade Data\", () => {\r",
+									"        pm.expect(false).to.be.false; \r",
+									"    });\r",
+									"    pm.execution.setNextRequest(\"Prepare Upgrade Data\")\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {\r",
+									"    // Fetch the drafts response\r",
+									"    let drafts = pm.response.json();\r",
+									"\r",
+									"    // Find the desired draft (YOu can define your own strategy here; we firstly create minor and if not possible major)\r",
+									"    let selectedDraft = drafts.find(d => d.Type === 2) || drafts.find(d => d.Type === 1);\r",
+									"\r",
+									"    if (selectedDraft) {\r",
+									"        // Set the draft details to a variable for the next request\r",
+									"        pm.collectionVariables.set(\"selectedDraft\", JSON.stringify(selectedDraft));\r",
+									"        pm.test(\"For the released process with ID \" +  pm.collectionVariables.get(\"releasedProcessId\") + \" a new draft with version \" +  selectedDraft.Version + \" selected to be created\", () => {\r",
+									"                pm.expect(true).to.be.true;  \r",
+									"            });\r",
+									"    } else {\r",
+									"        console.error(\"No suitable draft found.\");\r",
+									"        pm.test(\"No Drafts found.\", () => {\r",
+									"            pm.expect(false).to.be.true;  // Force test failure\r",
+									"        });\r",
+									"        pm.execution.setNextRequest(null);\r",
+									"    }\r",
+									"} else {\r",
+									"    pm.test(\"Failed to prepare draft for requested ID.\", () => {\r",
+									"        pm.expect(false).to.be.true;  // Force test failure\r",
+									"    });\r",
+									"    pm.execution.setNextRequest(null);\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "{{APIHeader}}",
+								"value": "{{APIKey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{DTUrl}}/processVersions/drafts/{{releasedProcessId}}",
+							"host": [
+								"{{DTUrl}}"
+							],
+							"path": [
+								"processVersions",
+								"drafts",
+								"{{releasedProcessId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Draft",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {\r",
+									"    let draft = pm.response.json();\r",
+									"\r",
+									"    //Get the activity being upgraded\r",
+									"    let filteredActivities = JSON.parse(pm.collectionVariables.get(\"registeredActivities\"));\r",
+									"    let currentIndex = filteredActivities.findIndex(a => a.ActivityTypeGuid === pm.collectionVariables.get(\"registeredType\"));\r",
+									"    let current = filteredActivities[currentIndex];\r",
+									"\r",
+									"    // Remove the released process from array, and add newly created draft into array for publishing \r",
+									"    let toRemove = current.Released.findIndex(r => r.ID = pm.collectionVariables.get(\"releasedProcessId\"));\r",
+									"    current.Released.splice(toRemove, 1);\r",
+									"    current.ToPublish.push({\r",
+									"        ID: draft.ID,\r",
+									"        Name: draft.Name,\r",
+									"        Type: draft.ProcessType\r",
+									"    });\r",
+									"\r",
+									"    pm.collectionVariables.set(\"registeredActivities\", JSON.stringify(filteredActivities));\r",
+									"    pm.test(\"Draft for processs \" + draft.Name + \" created with ID \" +   draft.ID + \" with version \" +  draft.Version + \" and queued for upgrade\", () => {\r",
+									"        pm.expect(true).to.be.true;  \r",
+									"    });\r",
+									"    //iterate back to create draft for another published version\r",
+									"    pm.execution.setNextRequest(\"Prepare Draft versions\");\r",
+									"} else {\r",
+									"    // Fail to create draft\r",
+									"    pm.test(\"Draft creation failed\", () => {\r",
+									"        pm.expect(false).to.be.true;  // Force test failure\r",
+									"    });\r",
+									"    pm.execution.setNextRequest(null);\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "{{APIHeader}}",
+								"value": "{{APIKey}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{selectedDraft}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DTUrl}}/processVersions/drafts",
+							"host": [
+								"{{DTUrl}}"
+							],
+							"path": [
+								"processVersions",
+								"drafts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Prepare Upgrade Data",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {\r",
+									"    // Initialize an empty array to store all ActivityInstanceIDs\r",
+									"    let activityInstanceIDs = [];\r",
+									"\r",
+									"    // Assuming the response is an array, iterate over each object\r",
+									"    pm.response.json().forEach(processObject => {\r",
+									"        // Get the activities array from the object\r",
+									"        let activities = processObject.Activities;\r",
+									"\r",
+									"        // Iterate over each activity in the activities array\r",
+									"        activities.forEach(activity => {\r",
+									"            // Push the ActivityInstanceID into the activityInstanceIDs array\r",
+									"            activityInstanceIDs.push(activity.ActivityInstanceID);\r",
+									"        });\r",
+									"    });\r",
+									"\r",
+									"    //Fill the Instance IDs to be upgraded\r",
+									"    let filteredActivities = JSON.parse(pm.collectionVariables.get(\"registeredActivities\"));\r",
+									"    let currentIndex = filteredActivities.findIndex(a => a.ActivityTypeGuid === pm.collectionVariables.get(\"registeredType\"));\r",
+									"    let current = filteredActivities[currentIndex];\r",
+									"    current.InstancesToUpgrade = activityInstanceIDs;\r",
+									"\r",
+									"    pm.test(activityInstanceIDs.length +  \" activity instances of an old version found to be upgraded for activity \" + current.Name , () => {\r",
+									"        pm.expect(true).to.be.true;  \r",
+									"    });\r",
+									"\r",
+									"    // Store the activity with instances for upgrade\r",
+									"    filteredActivities.splice(currentIndex, 1, current)\r",
+									"    pm.collectionVariables.set(\"registeredActivities\", JSON.stringify(filteredActivities));\r",
+									"} else {\r",
+									"    pm.test(\"Failed to fetch instances for upgrade for the given activity type.\", () => {\r",
+									"        pm.expect(false).to.be.true;  // Force test failure\r",
+									"    });\r",
+									"    pm.execution.setNextRequest(null);\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "{{APIHeader}}",
+								"value": "{{APIKey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{DTUrl}}/processVersions/search?ActivityTypeGuid={{registeredType}}&OnlyUpgradeable=true",
+							"host": [
+								"{{DTUrl}}"
+							],
+							"path": [
+								"processVersions",
+								"search"
+							],
+							"query": [
+								{
+									"key": "ActivityTypeGuid",
+									"value": "{{registeredType}}"
+								},
+								{
+									"key": "OnlyUpgradeable",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upgrade All",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Get the stored array of selected activities\r",
+									"let selectedActivities = pm.collectionVariables.get(\"registeredActivities\");\r",
+									"\r",
+									"// Parse the JSON data\r",
+									"if (selectedActivities) {\r",
+									"    filteredActivities = JSON.parse(selectedActivities);\r",
+									"    let currentIndex = filteredActivities.findIndex(a => a.ActivityTypeGuid === pm.collectionVariables.get(\"registeredType\"));\r",
+									"    let current = filteredActivities[currentIndex];\r",
+									"    \r",
+									"    if(current.InstancesToUpgrade.length > 0){\r",
+									"        //there are instances for upgrade; store variables\r",
+									"        pm.collectionVariables.set(\"activityTypeID\", current.TypeID);\r",
+									"        pm.collectionVariables.set(\"instanceList\", JSON.stringify(current.InstancesToUpgrade));\r",
+									"    } else {\r",
+									"        //All instances for type are upgraded; Mark activity as upgraded and iterate to next\r",
+									"        current.Upgraded = true;\r",
+									"        filteredActivities.splice(currentIndex, 1, current)\r",
+									"        pm.collectionVariables.set(\"registeredActivities\", JSON.stringify(filteredActivities));\r",
+									"        pm.test(\"All instances are upgraded. iterating for the next one\", () => {\r",
+									"            pm.expect(true).to.be.true;\r",
+									"        });\r",
+									"        pm.execution.setNextRequest(\"Find Released Processes\")\r",
+									"    }\r",
+									"} else {\r",
+									"    pm.test(\"No selected activities found.\", () => {\r",
+									"        pm.expect(false).to.be.true;  // Force test failure\r",
+									"    });\r",
+									"    pm.execution.setNextRequest(null);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Check if the current response status is 200\r",
+									"if (pm.response.code === 200) {\r",
+									"\r",
+									"    let filteredActivities = JSON.parse(pm.collectionVariables.get(\"registeredActivities\"));\r",
+									"    let currentIndex = filteredActivities.findIndex(a => a.ActivityTypeGuid === pm.collectionVariables.get(\"registeredType\"));\r",
+									"    //Get activity we are upgrading\r",
+									"    let current = filteredActivities[currentIndex];\r",
+									"    \r",
+									"    //mark activiy as upgraded\r",
+									"    current.Upgraded = true;\r",
+									"    filteredActivities.splice(currentIndex, 1, current)\r",
+									"    pm.collectionVariables.set(\"registeredActivities\", JSON.stringify(filteredActivities));\r",
+									"    pm.test(\"Activity \" + current.Name + \" is now upgraded to latest version in all processes\", () => {\r",
+									"        pm.expect(true).to.be.true;  \r",
+									"    });\r",
+									"    //Iterate back to pick next activity for upgrade\r",
+									"    pm.execution.setNextRequest(\"Find Released Processes\")\r",
+									"} else {\r",
+									"    pm.test(\"Failed to upgrade all instances to type.\", () => {\r",
+									"        pm.expect(false).to.be.true;  // Force test failure\r",
+									"    });\r",
+									"    pm.execution.setNextRequest(null);\r",
+									"}\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "{{APIHeader}}",
+								"value": "{{APIKey}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{instanceList}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DTUrl}}//Activities/UpgradeTo/{{activityTypeID}}",
+							"host": [
+								"{{DTUrl}}"
+							],
+							"path": [
+								"",
+								"Activities",
+								"UpgradeTo",
+								"{{activityTypeID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Drafts Done",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.execution.skipRequest();"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "{{APIHeader}}",
+								"value": "{{APIKey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{DTUrl}}",
+							"host": [
+								"{{DTUrl}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "This is the most complex workflow in the current collection. It iterates through all registered activities. For each activity, it finds the process versions that use the registered activity in an older version. For released processes, it creates drafts and performs upgrades of the old activity versions to the newly registered one across all processes. The result is a list of all process versions where activities have been upgraded.\n\nThe workflow utilizes the following requests:\n\n- **Find Released Processes**: Locates all released processes where the activity is used.\n- **Prepare Draft Versions**: Prepares draft versions of released processes where the activity needs to be updated.\n- **Create Draft**: Creates a draft process for each released version.\n- **Prepare Upgrade Data**: Gathers instances of the activity to upgrade.\n- **Upgrade All**: Upgrades all instances of the old activity versions in the selected processes.\n"
+		},
+		{
+			"name": "Release and publish",
+			"item": [
+				{
+					"name": "Load Draft",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"//find all processes that we created a draft for\r",
+									"let toReleaseVar = pm.collectionVariables.get(\"toReleaseProcesses\");\r",
+									"\r",
+									"if(toReleaseVar){\r",
+									"    let toRelease = JSON.parse(toReleaseVar);\r",
+									"    if(toRelease.length === 0){\r",
+									"        pm.test(\"All processes have been released. let's publish them now.\", () => {\r",
+									"            pm.expect(true).to.be.true;\r",
+									"        });\r",
+									"        pm.execution.setNextRequest(\"Find Environment\"); \r",
+									"    } else {\r",
+									"        //set the current request variable to a draft ID to be released\r",
+									"        pm.collectionVariables.set(\"draftId\", toRelease[0].ID);\r",
+									"    }\r",
+									"} else {\r",
+									"     pm.test(\"Nothing to release, go to update of drafts.\", () => {\r",
+									"        pm.expect(true).to.be.true;\r",
+									"    });\r",
+									"    pm.execution.setNextRequest(\"Find Environment\");\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {\r",
+									"    // Fetch the  response and set the draft process object into a variable\r",
+									"    let draft = pm.response.json();\r",
+									"    pm.collectionVariables.set(\"selectedDraft\", JSON.stringify(draft));\r",
+									"    pm.test(\"A Draft for processs \" + draft.Name + \" with ID \" +   draft.ID + \" with version \" +  draft.Version + \" is selected for release\", () => {\r",
+									"        pm.expect(true).to.be.true;  \r",
+									"    });\r",
+									"} else {\r",
+									"    pm.test(\"Failed to fetch process version for the requested ID.\", () => {\r",
+									"        pm.expect(false).to.be.true;  // Force test failure\r",
+									"    });\r",
+									"    pm.execution.setNextRequest(null);\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "{{APIHeader}}",
+								"value": "{{APIKey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{DTUrl}}/processVersions/{{draftId}}",
+							"host": [
+								"{{DTUrl}}"
+							],
+							"path": [
+								"processVersions",
+								"{{draftId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Release Draft",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"if (pm.response.code === 200) {\r",
+									"    //We have released the process version; remove it from list of processes for release\r",
+									"    let toRelease = JSON.parse(pm.collectionVariables.get(\"toReleaseProcesses\"));\r",
+									"    let currentIndex = toRelease.findIndex(a => a.ID === pm.collectionVariables.get(\"draftId\"));\r",
+									"    toRelease.splice(currentIndex, 1)\r",
+									"    pm.collectionVariables.set(\"toReleaseProcesses\", JSON.stringify(toRelease));\r",
+									"    pm.test(\"processs draft with ID \" +   pm.collectionVariables.get(\"draftId\") + \" is now released\", () => {\r",
+									"        pm.expect(true).to.be.true;  \r",
+									"    });\r",
+									"    //Go back and pick another process\r",
+									"    pm.execution.setNextRequest(\"Load Draft\");\r",
+									"} else {\r",
+									"    pm.test(\"Failed to fetch released processes for activity.\", () => {\r",
+									"        pm.expect(false).to.be.true;  // Force test failure\r",
+									"    });\r",
+									"    pm.execution.setNextRequest(null);\r",
+									"}\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "{{APIHeader}}",
+								"value": "{{APIKey}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{selectedDraft}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DTUrl}}/processVersions",
+							"host": [
+								"{{DTUrl}}"
+							],
+							"path": [
+								"processVersions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Environment",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"let envId = pm.collectionVariables.get(\"envToPublis\");\r",
+									"if(envId){\r",
+									"     pm.test(\"environment to be published to is set, procede to publish.\", () => {\r",
+									"        pm.expect(true).to.be.true;\r",
+									"    });\r",
+									"    pm.execution.skipRequest()\r",
+									"} "
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {\r",
+									"    let environments = pm.response.json();\r",
+									"\r",
+									"    //define your own logic on how to detect environemnt to publish or provide ID via variable; This sample publishes to environment with the name 'local'\r",
+									"    let toPublish = environments.find(e => e.Name === 'local') ;\r",
+									"    if(toPublish){\r",
+									"        pm.collectionVariables.set(\"envToPublis\", toPublish.ID);\r",
+									"        pm.test(\"Environment with ID \" + toPublish.ID + \" is set as environment for publishing\", () => {\r",
+									"            pm.expect(true).to.be.true;  \r",
+									"        });\r",
+									"    } else {\r",
+									"        pm.test(\"Environment can't be found\", () => {\r",
+									"            pm.expect(false).to.be.true;  // Force test failure\r",
+									"        });\r",
+									"        pm.execution.setNextRequest(null);\r",
+									"    }\r",
+									"} else {\r",
+									"    pm.test(\"Failed to fetch environments.\", () => {\r",
+									"        pm.expect(false).to.be.true;  // Force test failure\r",
+									"    });\r",
+									"    pm.execution.setNextRequest(null);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "{{APIHeader}}",
+								"value": "{{APIKey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{DTUrl}}/Environment",
+							"host": [
+								"{{DTUrl}}"
+							],
+							"path": [
+								"Environment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Publish Release",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Get the stored array of selected activities\r",
+									"let selectedActivities = pm.collectionVariables.get(\"registeredActivities\");\r",
+									"\r",
+									"//find activity that has processes to be published\r",
+									"if (selectedActivities) {\r",
+									"    selectedActivities = JSON.parse(selectedActivities);\r",
+									"    console.log(selectedActivities);\r",
+									"    const activityWithProcessToPublish =  selectedActivities.find(a => a.ToPublish && a.ToPublish.length > 0);\r",
+									"    if(activityWithProcessToPublish) {\r",
+									"        let theOne = activityWithProcessToPublish.ToPublish[0];\r",
+									"        let pubData = {\r",
+									"            ProcessVersionId: theOne.ID,\r",
+									"            ApiVersion: \"2.1\",\r",
+									"            ProcessType: theOne.Type,\r",
+									"            EnvironmentId: pm.collectionVariables.get(\"envToPublis\"),\r",
+									"            Subscriber: \"anything- relevant for signalR\",\r",
+									"            DefaultStorageID: -1, //default one\r",
+									"            UpdateOnly: false,\r",
+									"            UpdateStorageNameForProcess: false\r",
+									"        };\r",
+									"        //publish data created\r",
+									"        pm.variables.set(\"publishData\", JSON.stringify(pubData));\r",
+									"        \r",
+									"    } else {\r",
+									"        pm.test(\"nothing to publish; procede to update\", () => {\r",
+									"            pm.expect(true).to.be.true; \r",
+									"        });\r",
+									"        pm.execution.skipRequest();\r",
+									"    }\r",
+									"} else {\r",
+									"    pm.test(\"Environment can't be found\", () => {\r",
+									"        pm.expect(false).to.be.true;  // Force test failure\r",
+									"    });\r",
+									"    pm.execution.setNextRequest(null);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Check if the current response status is 200\r",
+									"if (pm.response.code === 200) {\r",
+									"    // Get the stored array of activities\r",
+									"    let selectedActivities = JSON.parse(pm.collectionVariables.get(\"registeredActivities\"));\r",
+									"    //get the publish data\r",
+									"    let pubData = JSON.parse(pm.variables.get(\"publishData\"));\r",
+									"    //remove published process from all activities \r",
+									"    selectedActivities.forEach(activity => {\r",
+									"        if (activity.ToPublish && activity.ToPublish.length > 0) {\r",
+									"            let index = activity.ToPublish.findIndex(p => p.ID === pubData.ProcessVersionId );\r",
+									"            if(index >= 0){\r",
+									"                activity.ToPublish.splice(index, 1);\r",
+									"            }\r",
+									"        }\r",
+									"    });\r",
+									"    //update variable and call yourself iteratively until there are activities with processes to be published\r",
+									"    pm.collectionVariables.set(\"registeredActivities\", JSON.stringify(selectedActivities));\r",
+									"    let info = pm.response.json()\r",
+									"    pm.test(\"processs \" + info.ProcessName + \" with ID \" +   info.ProcessID + \" published into enironment \", () => {\r",
+									"        pm.expect(true).to.be.true;  \r",
+									"    });\r",
+									"    pm.execution.setNextRequest(\"Publish Release\");\r",
+									"\r",
+									"} else {\r",
+									"    pm.test(\"Publishing fails.\", () => {\r",
+									"        pm.expect(false).to.be.true;  // Force test failure\r",
+									"    });\r",
+									"    pm.execution.setNextRequest(null);\r",
+									"}\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "{{APIHeader}}",
+								"value": "{{APIKey}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{publishData}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DTUrl}}/processVersions/publish",
+							"host": [
+								"{{DTUrl}}"
+							],
+							"path": [
+								"processVersions",
+								"publish"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find and Check Environment",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {\r",
+									"    let environments = pm.response.json();\r",
+									"    //find environment for updating the remaining drafts\r",
+									"    let envId = pm.collectionVariables.get(\"envToPublis\");\r",
+									"    //define your own logic on how to detect environemnt to publish or provide ID via variable\r",
+									"    let toPublish = environments.find(e => e.Name === 'local') ;\r",
+									"    if(envId){\r",
+									"        toPublish = environments.find(e => e.ID === envId) ;\r",
+									"    } \r",
+									"\r",
+									"    //draft processes can be upgraded only to a dev environment\r",
+									"    if(toPublish){\r",
+									"        if(!toPublish.IsDevelopment){\r",
+									"            pm.test(\"Upgrading on non-dev Environment is not possible\", () => {\r",
+									"                pm.expect(false).to.be.true;  // Force test failure\r",
+									"            });\r",
+									"            pm.execution.setNextRequest(null);\r",
+									"        } else {\r",
+									"            pm.collectionVariables.set(\"envToPublis\", toPublish.ID);\r",
+									"            pm.test(\"Environment with ID \" + toPublish.ID + \" is set as environment for updating drafts\", () => {\r",
+									"                pm.expect(true).to.be.true;  \r",
+									"            });\r",
+									"            pm.execution.setNextRequest(\"Prepare Update Data\");\r",
+									"        }\r",
+									"    } else {\r",
+									"        pm.test(\"Environment can't be found\", () => {\r",
+									"            pm.expect(false).to.be.true;  // Force test failure\r",
+									"        });\r",
+									"        pm.execution.setNextRequest(null);\r",
+									"    }\r",
+									"} else {\r",
+									"    pm.test(\"Failed to fetch environments.\", () => {\r",
+									"        pm.expect(false).to.be.true;  // Force test failure\r",
+									"    });\r",
+									"    pm.execution.setNextRequest(null);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "{{APIHeader}}",
+								"value": "{{APIKey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{DTUrl}}/Environment",
+							"host": [
+								"{{DTUrl}}"
+							],
+							"path": [
+								"Environment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Prepare Update Data",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"let selectedActivities = pm.collectionVariables.get(\"registeredActivities\");\r",
+									"\r",
+									"// Parse the JSON data\r",
+									"if (selectedActivities) {\r",
+									"    selectedActivities = JSON.parse(selectedActivities);\r",
+									"    //find activities that contains draft verions to be updated\r",
+									"    const activityWithProcessToUpdate =  selectedActivities.find(a => a.Drafts && a.Drafts.length > 0);\r",
+									"    if(activityWithProcessToUpdate) {\r",
+									"        let theOne = activityWithProcessToUpdate.Drafts[0];\r",
+									"        //Set the ID for the current process to the first process of matched activity\r",
+									"        pm.collectionVariables.set(\"draftId\", theOne.ID )\r",
+									"    } else {\r",
+									"        pm.test(\"All drafts have been updated\", () => {\r",
+									"            pm.expect(true).to.be.true;\r",
+									"        });\r",
+									"        pm.execution.setNextRequest(\"Publish Done\");\r",
+									"    }\r",
+									"} else {\r",
+									"    pm.test(\"No selected activities found\", () => {\r",
+									"        pm.expect(false).to.be.true;  // Force test failure\r",
+									"    });\r",
+									"    pm.execution.setNextRequest(null);\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {\r",
+									"    // Fetch the  response\r",
+									"    let draft = pm.response.json();\r",
+									"    pm.collectionVariables.set(\"selectedDraft\", JSON.stringify(draft));\r",
+									"    pm.test(\"A Draft for processs \" + draft.Name + \" with ID \" +   draft.ID + \" with version \" +  draft.Version + \" is selected for update\", () => {\r",
+									"        pm.expect(true).to.be.true;  \r",
+									"    });\r",
+									"} else {\r",
+									"    pm.test(\"Failed to fetch processs version for the given ID.\", () => {\r",
+									"        pm.expect(false).to.be.true;  // Force test failure\r",
+									"    });\r",
+									"    pm.execution.setNextRequest(null);\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "{{APIHeader}}",
+								"value": "{{APIKey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{DTUrl}}/processVersions/{{draftId}}",
+							"host": [
+								"{{DTUrl}}"
+							],
+							"path": [
+								"processVersions",
+								"{{draftId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Draft",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Get the loaded process version\r",
+									"let currentDraft = pm.collectionVariables.get(\"selectedDraft\");\r",
+									"\r",
+									"// Parse the JSON data\r",
+									"if (currentDraft) {\r",
+									"    currentDraft = JSON.parse(currentDraft);\r",
+									"    let envId = pm.collectionVariables.get(\"envToPublis\");\r",
+									"    let updateOnly = false;\r",
+									"    //We can update draft only if it is published allready, else we must publish it\r",
+									"    if(currentDraft.PublishedVersions && currentDraft.PublishedVersions.length > 0){\r",
+									"       let index =  currentDraft.PublishedVersions.findIndex(pv => pv.EnvironmentID === envId && pv.ProcessVersionID === currentDraft.ID );\r",
+									"       updateOnly = index >= 0;\r",
+									"    }\r",
+									"    let pubData = {\r",
+									"        ProcessVersionId: currentDraft.ID,\r",
+									"        ApiVersion: \"2.1\",\r",
+									"        ProcessType: currentDraft.ProcessType,\r",
+									"        EnvironmentId: envId,\r",
+									"        Subscriber: \"anything- relevant for signalR\",\r",
+									"        DefaultStorageID: -1, //default one\r",
+									"        UpdateOnly: updateOnly,\r",
+									"        UpdateStorageNameForProcess: false\r",
+									"    };\r",
+									"    pm.variables.set(\"publishData\", JSON.stringify(pubData)); //set the publish data for the current request\r",
+									"} else {\r",
+									"    pm.test(\"No drafts found\", () => {\r",
+									"        pm.expect(false).to.be.true;  // Force test failure\r",
+									"    });\r",
+									"    pm.execution.setNextRequest(null);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Check if the current response status is 200\r",
+									"if (pm.response.code === 200) {\r",
+									"    // Get the stored array of selected activities\r",
+									"    let selectedActivities = JSON.parse(pm.collectionVariables.get(\"registeredActivities\"));\r",
+									"    let pubData = JSON.parse(pm.variables.get(\"publishData\"));\r",
+									"    //remove the draft been published/updated from all registered activities\r",
+									"    selectedActivities.forEach(activity => {\r",
+									"        if (activity.Drafts && activity.Drafts.length > 0) {\r",
+									"            let index = activity.Drafts.findIndex(p => p.ID === pubData.ProcessVersionId );\r",
+									"            if(index >= 0){\r",
+									"                activity.Drafts.splice(index, 1);\r",
+									"            }\r",
+									"        }\r",
+									"    });\r",
+									"    pm.collectionVariables.set(\"registeredActivities\", JSON.stringify(selectedActivities));\r",
+									"    //iterate untill all drafts are updated\r",
+									"    let draft = pm.response.json()\r",
+									"    pm.test(\"A Draft for processs \" + draft.ProcessName + \" with ID \" +   pubData.ProcessVersionId + \" with version \" +  draft.Version + \" was\" + (pubData.UpdateOnly ? \" updated\" : \" published\") + \" on environment\", () => {\r",
+									"            pm.expect(true).to.be.true;  \r",
+									"        });\r",
+									"    pm.execution.setNextRequest(\"Prepare Update Data\");\r",
+									"\r",
+									"} else {\r",
+									"    pm.test(\"Publishing fails.\", () => {\r",
+									"        pm.expect(false).to.be.true;  // Force test failure\r",
+									"    });\r",
+									"     pm.execution.setNextRequest(null);\r",
+									"}\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "{{APIHeader}}",
+								"value": "{{APIKey}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{publishData}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DTUrl}}/processVersions/publish",
+							"host": [
+								"{{DTUrl}}"
+							],
+							"path": [
+								"processVersions",
+								"publish"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Publish Done",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.execution.skipRequest();"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "{{APIHeader}}",
+								"value": "{{APIKey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{DTUrl}}",
+							"host": [
+								"{{DTUrl}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "This workflow iterates over all the process versions where the registered activity has been upgraded. For process versions that have a draft, it creates a released version and performs a publish to the selected runtime environment. The process versions that were in draft are updated in the selected runtime, but not released. This iteration continues until all processes are published.\n\nThe following requests are used:\n\n- **Load Draft**: Loads the draft process to be released.\n- **Release Draft**: Releases the draft process to make it available in the target environment.\n- **Finds Environment**: Identifies a runtime environment for publishing the draft version..\n- **Publish Release**: Publishes the released draft to the environment for production use.\n- **Finds and Check Environment**: Defines the runtime environment for updating a draft process and checks if the update is supported (runtime is a development environment).\n- **Prepare Update Data**: Defines parameters for updating a draft version in the runtime environment..\n- **Update Drafts**: Updates a remaining draft version that is not yet released.\n"
+		},
+		{
+			"name": "done",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.clear();\r",
+							"pm.execution.skipRequest();"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "{{APIHeader}}",
+						"value": "{{APIKey}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{DTUrl}}",
+					"host": [
+						"{{DTUrl}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "clientSecret",
+				"value": "{{ClientSecret}}",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "{{ClientId}}",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "{{AuthUrl}}",
+				"type": "string"
+			},
+			{
+				"key": "grant_type",
+				"value": "client_credentials",
+				"type": "string"
+			},
+			{
+				"key": "tokenName",
+				"value": "GToken",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "uploadedActivityPackage",
+			"value": ""
+		},
+		{
+			"key": "registeredActivities",
+			"value": ""
+		},
+		{
+			"key": "registeredType",
+			"value": ""
+		},
+		{
+			"key": "releasedProcessId",
+			"value": ""
+		},
+		{
+			"key": "selectedDraft",
+			"value": ""
+		},
+		{
+			"key": "activityTypeID",
+			"value": ""
+		},
+		{
+			"key": "instanceList",
+			"value": ""
+		},
+		{
+			"key": "toReleaseProcesses",
+			"value": ""
+		},
+		{
+			"key": "draftId",
+			"value": ""
+		},
+		{
+			"key": "envToPublis",
+			"value": ""
+		}
+	]
+}
