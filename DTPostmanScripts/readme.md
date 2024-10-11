@@ -6,6 +6,7 @@ There are multiple Postman collections available:
 
 - **CD Adjust Configuration**: Demonstrates how to manipulate activity settings and deploy the modified activity into a runtime environment.
 - **CD Process Cleanup**: Demonstrates how to delete old process versions that are no longer used in registered runtime environments.
+- **CD Upgrade Activities**: Demonstrates how to manage and upgrade activity packages across processes in an automated manner. 
 
 Please check the detailed description for each collection in its respective README file.
 
