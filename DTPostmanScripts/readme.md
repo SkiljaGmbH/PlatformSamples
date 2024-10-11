@@ -5,7 +5,7 @@ This folder contains a set of Postman scripts that demonstrate how users can uti
 There are multiple Postman collections available:
 
 - **CD Adjust Configuration**: Demonstrates how to manipulate activity settings and deploy the modified activity into a runtime environment.
-
+- **CD Process Cleanup**: Demonstrates how to delete old process versions that are no longer used in registered runtime environments.
 
 Please check the detailed description for each collection in its respective README file.
 

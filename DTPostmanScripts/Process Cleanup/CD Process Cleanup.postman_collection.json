@@ -1,0 +1,860 @@
+{
+	"info": {
+		"_postman_id": "10db17da-e719-4e63-b2c8-63af1b6f8cee",
+		"name": "CD Process Cleanup",
+		"description": "# Overview\n\nThe **CD Process Cleanup** Postman collection provides an automated solution for cleaning up outdated process versions in your environment. The collection includes requests for identifying process versions by type or environment and removing those no longer in use. This ensures that your environment remains clean and optimized.\n\n## Key Features\n\n- **Process Version Cleanup**: Detects and deletes outdated process versions based on type and environment.\n    \n- **Environment Synchronization**: Ensures synchronization between process versions and their published states in different environments.\n    \n- **API Authorization**: Uses OAuth 2.0 for authorization via client credentials.\n    \n\n## Collection Structure\n\nThis collection is divided into two main sections:\n\n1. **Cleanup by Process Type**:\n    \n2. **Cleanup by Environment**:\n    \n\nRefer to the section overview for more details about each section.\n\n## How to Use\n\n### Step 1: Set Up Environment Variables\n\n- Define the required environment variables before running the collection:\n    \n    - `APIHeader`: The authorization header key.\n        \n    - `APIKey`: The API key or token.\n        \n    - `DTUrl`: The base URL of the API.\n        \n    - `processType`: The GUID of the process type to be cleaned.\n        \n    - `environmentID`: The ID of the environment for environment-specific cleanup.\n        \n\n### Step 2: Run the Collection\n\n1. Open the Postman collection and ensure your environment variables are correctly configured.\n    \n2. Run the requests in sequence using the **Collection Runner** to ensure proper process detection and deletion.\n    \n\n### Step 3: Customize as Needed\n\nYou can modify the scripts to handle specific edge cases or adjust the cleanup logic based on your process and environment structure.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1043042"
+	},
+	"item": [
+		{
+			"name": "Cleanup By Process Type",
+			"item": [
+				{
+					"name": "Check Process Type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if(pm.response.code === 200){\r",
+									"    let processes = pm.response.json();\r",
+									"    let type =  pm.collectionVariables.get(\"processType\");\r",
+									"    if(processes.length === 0){\r",
+									"        pm.test(\"No process types with the given Guid \" + type + \" can't be found.\", () => {\r",
+									"            pm.expect(false).to.be.true; \r",
+									"        });\r",
+									"        pm.execution.setNextRequest(null);\r",
+									"    } else if(processes.length === 1){\r",
+									"        pm.test(\"There is only one process version (\" + processes[0].Version + \") with this type (\" + type + \"); Nothing to Clean Up.\", () => {\r",
+									"            pm.expect(false).to.be.true;  \r",
+									"        });\r",
+									"        pm.execution.setNextRequest(null);\r",
+									"    } else {\r",
+									"        let processVersionsToClean = processes.map(process => {\r",
+									"            return {\r",
+									"                Name: process.Name,\r",
+									"                ProcessID: process.ID,\r",
+									"                Version: process.Version,\r",
+									"                PublishedInfo: process.PublishedVersions.map(ppv=> {\r",
+									"                    return {\r",
+									"                        ID: ppv.ID,\r",
+									"                        EnvID: ppv.EnvironmentID,\r",
+									"                        EnvName: ppv.EnvironmentName\r",
+									"                    };\r",
+									"                })\r",
+									"            };\r",
+									"        });\r",
+									"        pm.collectionVariables.set(\"processVersionsToClean\", JSON.stringify(processVersionsToClean));\r",
+									"        pm.test(\"There are  \" + processes.length + \" process versions for the requested type (\" + type + \"); Proceeding to Cleanup\", () => {\r",
+									"            pm.expect(true).to.be.true;  \r",
+									"        });\r",
+									"    }\r",
+									"} else {\r",
+									"     pm.test(\"Processes with the defined Guid (\" + pm.collectionVariables.get(\"processType\") + \") can't be loaded.\", () => {\r",
+									"        pm.expect(false).to.be.true; \r",
+									"    });\r",
+									"    pm.execution.setNextRequest(null);\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "{{APIHeader}}",
+								"value": "{{APIKey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{DTUrl}}/ProcessVersions/{{processType}}",
+							"host": [
+								"{{DTUrl}}"
+							],
+							"path": [
+								"ProcessVersions",
+								"{{processType}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sync Process Version",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if(pm.response.code === 200){\r",
+									"    let processVersionsToClean = JSON.parse(pm.collectionVariables.get(\"processVersionsToClean\"));\r",
+									"    let process = pm.response.json();\r",
+									"   \r",
+									"    if(process?.PublishedVersions.length > 0) {\r",
+									"        //the process is still published, proceed to the next process version    \r",
+									"        let index = processVersionsToClean.findIndex(pv => pv.ProcessID === pm.variables.get(\"versionId\"));\r",
+									"        processVersionsToClean.splice(index, 1);\r",
+									"        pm.collectionVariables.set(\"processVersionsToClean\", JSON.stringify(processVersionsToClean));\r",
+									"        pm.test(\"The process version (\" + process.Version + \") can't be deleted as it contains versions published to runtime environment(s), taking the next one....\", () => {\r",
+									"            pm.expect(true).to.be.true;  // We'll not fail here, but iterate to the next version\r",
+									"        });\r",
+									"        pm.execution.setNextRequest(\"Sync Process Version\"); //call itself again to proceed with next version\r",
+									"    } else {\r",
+									"        pm.collectionVariables.set(\"versionIdToDelete\", pm.variables.get(\"versionId\"));\r",
+									"        pm.test(\"This version (\" + process.Version + \") has is no longer published to any environment; will be deleted\", () => {\r",
+									"            pm.expect(true).to.be.true;  \r",
+									"        });\r",
+									"    }\r",
+									"} else {\r",
+									"     pm.test(\"Sync of the process version can't be performed. Check Error log for more details.\", () => {\r",
+									"        pm.expect(false).to.be.true; \r",
+									"    });\r",
+									"    pm.execution.setNextRequest(\"null\");\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									" var processVersionsToClean =  pm.collectionVariables.get(\"processVersionsToClean\");\r",
+									" if(processVersionsToClean){\r",
+									"    processVersionsToClean = JSON.parse(processVersionsToClean);\r",
+									"    if(processVersionsToClean.length > 1){ \r",
+									"        let theOne = processVersionsToClean[processVersionsToClean.length -1]; //Get the last one; they are ordered by version on server\r",
+									"        if(theOne.PublishedInfo.length === 0){\r",
+									"            //this version is not published to any environment; proceed to deletion\r",
+									"            pm.collectionVariables.set(\"versionIdToDelete\", theOne.ProcessID);\r",
+									"            pm.execution.setNextRequest(\"Delete Process Version\")\r",
+									"        } else {\r",
+									"            //sync the publish info \r",
+									"            pm.variables.set(\"versionId\", theOne.ProcessID);\r",
+									"        }\r",
+									"    } else {\r",
+									"        //only latest remained; stop deletion\r",
+									"        pm.execution.setNextRequest(\"Stop Process Cleanup\")\r",
+									"    }\r",
+									" } else {\r",
+									"    pm.test(\"processVersionsToClean can't be found\" , () => {\r",
+									"        pm.expect(false).to.be.true;  \r",
+									"    });\r",
+									"    pm.execution.setNextRequest(null)\r",
+									" }"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "{{APIHeader}}",
+								"value": "{{APIKey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{DTUrl}}/ProcessVersions/{{versionId}}/sync",
+							"host": [
+								"{{DTUrl}}"
+							],
+							"path": [
+								"ProcessVersions",
+								"{{versionId}}",
+								"sync"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Process Version",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if(pm.response.code === 200){\r",
+									"    let processVersionsToClean =  JSON.parse(pm.collectionVariables.get(\"processVersionsToClean\"));\r",
+									"    \r",
+									"    let index = processVersionsToClean.findIndex(pv => pv.ProcessID === pm.variables.get(\"versionIdToDelete\"));\r",
+									"    let item =  processVersionsToClean[index];\r",
+									"    processVersionsToClean.splice(index, 1);\r",
+									"    pm.collectionVariables.set(\"processVersionsToClean\", JSON.stringify(processVersionsToClean));\r",
+									"    pm.test(\"Process version deleted (\" + item.Version + \"), taking the next one....\", () => {\r",
+									"        pm.expect(true).to.be.true; \r",
+									"    });\r",
+									"    pm.execution.setNextRequest(\"Sync Process Version\"); //call back the Sync request to iterate next version\r",
+									"} else {\r",
+									"     pm.test(\"Deletion of the process version can't be performed.\", () => {\r",
+									"        pm.expect(false).to.be.true;\r",
+									"    });\r",
+									"    pm.execution.setNextRequest(null);\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "{{APIHeader}}",
+								"value": "{{APIKey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{DTUrl}}/ProcessVersions/{{versionIdToDelete}}",
+							"host": [
+								"{{DTUrl}}"
+							],
+							"path": [
+								"ProcessVersions",
+								"{{versionIdToDelete}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Stop Process Cleanup",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									" \r",
+									"pm.test(\"All old process versions for the requested type (\" + pm.collectionVariables(\"processType\") + \") cleaned up or contains versions published to environment(s)\" , () => {\r",
+									"    pm.expect(true).to.be.true;  \r",
+									"});\r",
+									"pm.collectionVariables.unset(\"processVersionsToClean\")\r",
+									"pm.collectionVariables.unset(\"versionIdToDelete\")\r",
+									"pm.execution.skipRequest();\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "{{APIHeader}}",
+								"value": "{{APIKey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{DTUrl}}/ProcessVersions",
+							"host": [
+								"{{DTUrl}}"
+							],
+							"path": [
+								"ProcessVersions"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "# Cleanup by Process Type\n\nThis section describes how to clean old process versions by checking all the runtime environments managed by the platform\n\nThe section consists of the following endpoints:\n\n- **Check Process Type**: Checks for process versions based on a specified process type (`processType`). The script ensures no cleanup is attempted on processes that are the only version for a given type.\n    \n- **Sync Process Version**: Syncs the information for each process version to determine whether it can be deleted.\n    \n- **Delete Process Version**: Deletes a process version if it is not published to any environment.\n    \n- **Stop Process Cleanup**: Stops the cleanup once all unnecessary versions have been removed.\n    \n\nSince multiple process versions might need to be deleted, this section iterates until all deletable processes are deleted.  \n> **Note**: This sample works only if all registered environments are available"
+		},
+		{
+			"name": "Cleanup By Environment",
+			"item": [
+				{
+					"name": "Find Environment",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if(pm.response.code === 200){\r",
+									"    let environment = pm.response.json();\r",
+									"    if(!environment){\r",
+									"        pm.test(\"Environment with the specified ID (\" + pm.collectionVariables.get(\"environmentID\") + \") can't be found\", () => {\r",
+									"            pm.expect(false).to.be.true;  \r",
+									"        });\r",
+									"        pm.execution.setNextRequest(null);\r",
+									"    } else {\r",
+									"        pm.test(\"Found environment '\" +  environment.Name + \"' for the specified ID (\" + pm.collectionVariables.get(\"environmentID\") + \")\", () => {\r",
+									"            pm.expect(true).to.be.true;  \r",
+									"        });\r",
+									"    }\r",
+									"} else {\r",
+									"    pm.test(\"Environment with the specified ID (\" + pm.collectionVariables.get(\"environmentID\") + \") can't be found\", () => {\r",
+									"        pm.expect(false).to.be.true;\r",
+									"    });\r",
+									"    pm.execution.setNextRequest(null);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "{{APIHeader}}",
+								"value": "{{APIKey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{DTUrl}}/Environment/{{environmentID}}",
+							"host": [
+								"{{DTUrl}}"
+							],
+							"path": [
+								"Environment",
+								"{{environmentID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Process Versions",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if(pm.response.code === 200){\r",
+									"    let processes = pm.response.json();\r",
+									"    //order processes by type and version\r",
+									"    let ordered = processes.sort(function(left, right){\r",
+									"        var typeOrder = left.ProcessType.localeCompare(right.ProcessType);\r",
+									"        var majorOrder = left.Major - right.Major;\r",
+									"        var minorOrder = left.Minor - right.Minor;\r",
+									"        var revOrder = left.Revision - right.Revision;\r",
+									"        return typeOrder || -majorOrder || -minorOrder || -revOrder\r",
+									"    })\r",
+									"    //reduce the amount of data we need\r",
+									"    let reduced = ordered.map(p => { return {\r",
+									"            id: p.ID,\r",
+									"            type: p.ProcessType,\r",
+									"            maj: p.Major,\r",
+									"            min: p.Minor,\r",
+									"            rev: p.Revision,\r",
+									"            ver: p.Version,\r",
+									"            pub: p.PublishedVersions.map(ppv=> {\r",
+									"                return {\r",
+									"                    id: ppv.ID,\r",
+									"                    eid: ppv.EnvironmentID\r",
+									"                };\r",
+									"            })\r",
+									"        }\r",
+									"    });\r",
+									"    //group processes by type\r",
+									"    let grouped = Object.groupBy(reduced, ({type}) => type);\r",
+									"    //fetch candidates for deletion\r",
+									"    let candidates2Delete = [];\r",
+									"    for(const type in grouped){ //iterate all groups\r",
+									"        let versionArray = grouped[type];\r",
+									"        //skip items with only one (last) version, we don't delete last version\r",
+									"        if(versionArray.length > 1){\r",
+									"            versionArray.forEach((version, index) => {\r",
+									"                //candidate to delete is only the item that is not the latest version, and is published to our environment only!!\r",
+									"                if(index > 0 && version.pub.length === 1 && version.pub[0].eid == pm.collectionVariables.get(\"environmentID\")){\r",
+									"                    candidates2Delete.push(version);\r",
+									"                }\r",
+									"            });\r",
+									"        }\r",
+									"    }\r",
+									"    if(candidates2Delete.length > 0){\r",
+									"        pm.collectionVariables.set(\"candidates\", JSON.stringify(candidates2Delete));\r",
+									"        pm.test(\"Collected \"+ candidates2Delete.length +\" candidates for deletion. proceeding to sync-up\", () => {\r",
+									"            pm.expect(true).to.be.true;\r",
+									"        });\r",
+									"    } else {\r",
+									"        pm.test(\"Nothing to clean-up; finishing execution\", () => {\r",
+									"            pm.expect(true).to.be.true;\r",
+									"        });\r",
+									"        pm.setNextRequest(\"Stop Environment Cleanup\");\r",
+									"    }\r",
+									"} else {\r",
+									"    pm.test(\"Failed to fetch process versions.\", () => {\r",
+									"        pm.expect(false).to.be.true;\r",
+									"    });\r",
+									"    pm.execution.setNextRequest(null);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "{{APIHeader}}",
+								"value": "{{APIKey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{DTUrl}}/processversions",
+							"host": [
+								"{{DTUrl}}"
+							],
+							"path": [
+								"processversions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sync Environment",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if(pm.response.code === 200){\r",
+									"    let environment = pm.response.json();\r",
+									"    let candidates = JSON.parse(pm.collectionVariables.get(\"candidates\"));\r",
+									"    for (let i = candidates.length - 1; i >= 0; i--) {\r",
+									"        if(environment.PublishedProcessVersions.findIndex(ppv => ppv.ProcessVersionID == candidates[i].id && ppv.EnvironmentID == pm.collectionVariables.get(\"environmentID\")) >=0 ){\r",
+									"            //process is still published, can't delete it so remove it\r",
+									"            candidates.splice(i, 1);\r",
+									"        }\r",
+									"    }\r",
+									"    if(candidates.length == 0){\r",
+									"        pm.test(\"All versions are still published; stopping the environment cleanup\", () => {\r",
+									"            pm.expect(true).to.be.true;  \r",
+									"        });\r",
+									"        pm.execution.setNextRequest(\"Stop Environment Cleanup\");\r",
+									"    } else {\r",
+									"        pm.environment.set(\"candidates\", JSON.stringify(candidates));\r",
+									"        pm.test(candidates.length + \"process versions detected to be deleted \", () => {\r",
+									"            pm.expect(true).to.be.true;  \r",
+									"        });\r",
+									"    }\r",
+									"} else {\r",
+									"    pm.test(\"Can't sync data for the environment with the specified ID (\" + pm.collectionVariables.get(\"environmentID\") + \"). Please check error details for more info\", () => {\r",
+									"        pm.expect(false).to.be.true;\r",
+									"    });\r",
+									"    pm.execution.setNextRequest(null);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "{{APIHeader}}",
+								"value": "{{APIKey}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"EnvironmentId\": {{environmentID}},\r\n  \"BypassCache\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DTUrl}}/Environment/sync",
+							"host": [
+								"{{DTUrl}}"
+							],
+							"path": [
+								"Environment",
+								"sync"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Process Version",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if(pm.response.code === 200){\r",
+									"    let candidates = JSON.parse(pm.collectionVariables.get(\"candidates\"));\r",
+									"    \r",
+									"    let index = candidates.findIndex(pv => pv.id === pm.variables.get(\"versionId\"));\r",
+									"    candidates.splice(index, 1);\r",
+									"    pm.collectionVariables.set(\"candidates\", JSON.stringify(candidates));\r",
+									"    pm.test(\"Process version deleted (\" + item.ver + \"), taking the next one....\", () => {\r",
+									"        pm.expect(true).to.be.true; \r",
+									"    });\r",
+									"    pm.execution.setNextRequest(\"Delete Process Version\"); //call back the itself to iterate next version\r",
+									"} else {\r",
+									"     pm.test(\"Deletion of the process version can't be performed.\", () => {\r",
+									"        pm.expect(false).to.be.true;\r",
+									"    });\r",
+									"    pm.execution.setNextRequest(null);\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"let candidates = JSON.parse(pm.collectionVariables.get(\"candidates\"));\r",
+									"if(candidates.length > 0){\r",
+									"    pm.variables.set(\"versionId\", candidates[0].id);\r",
+									"} else {\r",
+									"     //all deleted stop cleanup\r",
+									"    pm.execution.setNextRequest(\"Stop Environment Cleanup\")\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "{{APIHeader}}",
+								"value": "{{APIKey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{DTUrl}}/ProcessVersions/{{versionId}}",
+							"host": [
+								"{{DTUrl}}"
+							],
+							"path": [
+								"ProcessVersions",
+								"{{versionId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Stop Environment Cleanup",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									" \r",
+									"pm.test(\"All old process versions for the requested environment (\" + pm.collectionVariables(\"environmentID\") + \") cleaned up or contains versions published to environment(s)\" , () => {\r",
+									"    pm.expect(true).to.be.true;  \r",
+									"});\r",
+									"pm.collectionVariables.unset(\"candidates\")\r",
+									"pm.execution.skipRequest();\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "{{APIHeader}}",
+								"value": "{{APIKey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{DTUrl}}/ProcessVersions",
+							"host": [
+								"{{DTUrl}}"
+							],
+							"path": [
+								"ProcessVersions"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "# Cleanup by Environment\n\nThis section describes how to clean old process versions by checking their presence on a single environment\n\nThe section consists of the following endpoints:\n\n- **Find Environment**: Retrieves information about the specified environment.\n    \n- **Find Process Versions**: Identifies all process versions published to a specific environment.\n    \n    - **Sync Environment**: Syncs the process versions with the environment to ensure no published versions are deleted.\n        \n- **Delete Process Version**: Deletes process versions from the environment if they are no longer required.\n    \n- **Stop Environment Cleanup**: Ends the cleanup process once outdated versions have been removed.\n    \n\nSince there might be multiple process versions to be deleted, this section iterates until all deletable processes are deleted."
+		},
+		{
+			"name": "Register",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"An access token is returned\", () => {",
+							"    pm.expect(pm.response.json()).to.have.property('token')",
+							"    pm.expect(pm.response.json().token).to.be.a('string')",
+							"    // Set the collection-scope \"token\" variable to the token received from the API",
+							"    // This lets us use it in other requests",
+							"    pm.collectionVariables.set('token', pm.response.json().token)",
+							"})",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/register",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"A name is returned\", () => {",
+							"    pm.expect(pm.response.json()).to.have.property('name');",
+							"    pm.expect(pm.response.json().name).to.be.a('string');",
+							"})"
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/my-name?token={{token}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"my-name"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unregister",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Returns 200 OK status\", () => {",
+							"    pm.response.to.have.status(200)",
+							"})"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"token\": \"{{token}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/unregister",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"unregister"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "clientSecret",
+				"value": "{{ClientSecret}}",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "{{ClientId}}",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "{{AuthUrl}}",
+				"type": "string"
+			},
+			{
+				"key": "grant_type",
+				"value": "client_credentials",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "processType",
+			"value": "0b773e60-3809-40af-acd1-b8feec401e33",
+			"type": "string"
+		},
+		{
+			"key": "environmentID",
+			"value": "2012",
+			"type": "string"
+		},
+		{
+			"key": "candidates",
+			"value": ""
+		}
+	]
+}
