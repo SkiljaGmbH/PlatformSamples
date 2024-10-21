@@ -16,14 +16,42 @@
   <ItemGroup>
     <PackageReference Include="System.ComponentModel.Annotations" />
     <PackageReference Include="System.Drawing.Common" />
-    <PackageReference Include="STG.RT.API" />
+    <!--<PackageReference Include="STG.RT.API" />-->
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="STG.RT.API">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Giulia\git\_build\STG.RT.API\netstandard2.0\STG.RT.API.dll</HintPath>
+    </Reference>
+    <Reference Include="STG.Common.Interfaces">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Giulia\git\_build\STG.RT.API\netstandard2.0\STG.Common.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="STG.Common.Utilities">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Giulia\git\_build\STG.RT.API\netstandard2.0\STG.Common.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="STG.Common.DTO">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Giulia\git\_build\STG.RT.API\netstandard2.0\STG.Common.DTO.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.de.resx">
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.de.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <Compile Update="Properties\Resources.de.Designer.cs">
+      <DependentUpon>Resources.de.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
@@ -32,6 +60,12 @@
     <None Include="samples.snk" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Settings\upload.svg" />
+    <Content Include="icon\import.svg" />
+    <Content Include="icon\convert.svg" />
+    <Content Include="icon\export.svg" />
+    <Content Include="icon\overdue.svg" />
+    <Content Include="icon\transfer.svg" />
+    <Content Include="icon\validation.svg" />
+    <Content Include="icon\watermark.svg" />
   </ItemGroup>
 </Project>

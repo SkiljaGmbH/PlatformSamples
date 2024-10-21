@@ -118,238 +118,250 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AppSettingsSettings.AppSettingsToOutput.Description" xml:space="preserve">
-    <value>Comma separated list of AppSettings to output.</value>
+    <value>Comma separated list of AppSettings to output.-DE</value>
   </data>
   <data name="AppSettingsSettings.AppSettingsToOutput.Name" xml:space="preserve">
-    <value>AppSettings</value>
+    <value>AppSettings-DE</value>
   </data>
   <data name="AppSettingsSettings.OutputCustomValue.Description" xml:space="preserve">
-    <value>Custom value where to output AppSettings.</value>
+    <value>Custom value where to output AppSettings.-DE</value>
   </data>
   <data name="AppSettingsSettings.OutputCustomValue.Name" xml:space="preserve">
-    <value>Output Custom Value</value>
+    <value>Output Custom Value-DE</value>
   </data>
   <data name="CommonSettings.FilteringCustomValueName.Description" xml:space="preserve">
-    <value>Filtering custom value name.</value>
+    <value>Filtering custom value name.-DE</value>
   </data>
   <data name="CommonSettings.FilteringCustomValueName.Name" xml:space="preserve">
-    <value>Filtering Custom Value Name</value>
+    <value>Filtering Custom Value Name-DE</value>
   </data>
   <data name="CommonSettings.RoutingCustomValueName.Description" xml:space="preserve">
-    <value>Routing custom value name.</value>
+    <value>Routing custom value name.-DE</value>
   </data>
   <data name="CommonSettings.RoutingCustomValueName.Name" xml:space="preserve">
-    <value>Routing Custom Value Name</value>
+    <value>Routing Custom Value Name-DE</value>
   </data>
   <data name="ConfigurationValidationSettings.FilePath.Description" xml:space="preserve">
-    <value>Just a path to a file</value>
+    <value>Just a path to a file-DE</value>
   </data>
   <data name="ConfigurationValidationSettings.FilePath.Name" xml:space="preserve">
-    <value>File Path</value>
+    <value>File Path-DE</value>
   </data>
   <data name="ConfigurationValidationSettings.IfThisIsTrue.Description" xml:space="preserve">
-    <value>If IfThisIsTrue is true, then ThisMustNotBeEmpty must not be empty</value>
+    <value>If IfThisIsTrue is true, then ThisMustNotBeEmpty must not be empty-DE</value>
   </data>
   <data name="ConfigurationValidationSettings.IfThisIsTrue.GroupName" xml:space="preserve">
-    <value>Just a Group</value>
+    <value>Just a Group-DE</value>
   </data>
   <data name="ConfigurationValidationSettings.IfThisIsTrue.Name" xml:space="preserve">
-    <value>If This Is True</value>
+    <value>If This Is True-DE</value>
   </data>
   <data name="ConfigurationValidationSettings.ThisMustBeInTheFuture.Description" xml:space="preserve">
-    <value>This Date Must Be In The Future</value>
+    <value>This Date Must Be In The Future-DE</value>
   </data>
   <data name="ConfigurationValidationSettings.ThisMustBeInTheFuture.GroupName" xml:space="preserve">
-    <value>Just another Group</value>
+    <value>Just another Group-DE</value>
   </data>
   <data name="ConfigurationValidationSettings.ThisMustBeInTheFuture.Name" xml:space="preserve">
-    <value>This Must Be In The Future</value>
+    <value>This Must Be In The Future-DE</value>
   </data>
   <data name="ConfigurationValidationSettings.ThisMustBeInThePast.Description" xml:space="preserve">
-    <value>This Date Must Be In The Past</value>
+    <value>This Date Must Be In The Past-DE</value>
   </data>
   <data name="ConfigurationValidationSettings.ThisMustBeInThePast.GroupName" xml:space="preserve">
-    <value>Just another Group</value>
+    <value>Just another Group-DE</value>
   </data>
   <data name="ConfigurationValidationSettings.ThisMustBeInThePast.Name" xml:space="preserve">
-    <value>This Must Be In The Past</value>
+    <value>This Must Be In The Past-DE</value>
   </data>
   <data name="ConfigurationValidationSettings.ThisMustNotBeEmpty.Description" xml:space="preserve">
-    <value>If IfThisIsTrue is true, then ThisMustNotBeEmpty must not be empty</value>
+    <value>If IfThisIsTrue is true, then ThisMustNotBeEmpty must not be empty-DE</value>
   </data>
   <data name="ConfigurationValidationSettings.ThisMustNotBeEmpty.GroupName" xml:space="preserve">
-    <value>Just a Group</value>
+    <value>Just a Group-DE</value>
   </data>
   <data name="ConfigurationValidationSettings.ThisMustNotBeEmpty.Name" xml:space="preserve">
-    <value>This Must Not Be Empty</value>
+    <value>This Must Not Be Empty-DE</value>
   </data>
   <data name="ExportSettings.Common.Name" xml:space="preserve">
-    <value>Routing and Filtering Settings</value>
+    <value>Routing and Filtering Settings-DE</value>
   </data>
   <data name="ExportSettings.ExportMediaMappings.Description" xml:space="preserve">
-    <value>Maps media to be exported to the extensions of exported files</value>
+    <value>Maps media to be exported to the extensions of exported files-DE</value>
   </data>
   <data name="ExportSettings.ExportMediaMappings.Name" xml:space="preserve">
-    <value>Media Mapping</value>
+    <value>Media Mapping-DE</value>
   </data>
   <data name="ExportSettings.ExportPath.Description" xml:space="preserve">
-    <value>Path to where the files are going to be exported</value>
+    <value>Path to where the files are going to be exported-DE</value>
   </data>
   <data name="ExportSettings.ExportPath.Name" xml:space="preserve">
-    <value>Export Path</value>
+    <value>Export Path-DE</value>
   </data>
   <data name="ExportSettings.FlatExport.Description" xml:space="preserve">
-    <value>All the files are put in the same (export) folder</value>
+    <value>All the files are put in the same (export) folder-DE</value>
   </data>
   <data name="ExportSettings.FlatExport.Name" xml:space="preserve">
-    <value>Flat Export</value>
+    <value>Flat Export-DE-DE</value>
   </data>
   <data name="ImportSettings.Common.Description" xml:space="preserve">
-    <value>Common settings.</value>
+    <value>Common settings.-DE</value>
   </data>
   <data name="ImportSettings.Common.Name" xml:space="preserve">
-    <value>Common Settings</value>
+    <value>Common Settings-DE</value>
   </data>
   <data name="ImportSettings.DocumentType.Description" xml:space="preserve">
-    <value>Name of the document type</value>
+    <value>Name of the document type-DE</value>
   </data>
   <data name="ImportSettings.DocumentType.Name" xml:space="preserve">
-    <value>Document Type</value>
+    <value>Document Type-DE</value>
   </data>
   <data name="ImportSettings.ImportPath.Description" xml:space="preserve">
-    <value>Import path.</value>
+    <value>Import path.-DE</value>
   </data>
   <data name="ImportSettings.ImportPath.Name" xml:space="preserve">
-    <value>Import Path</value>
+    <value>Import Path-DE</value>
   </data>
   <data name="ImportSettings.JpegFilter.Description" xml:space="preserve">
-    <value>Jpeg filter.</value>
+    <value>Jpeg filter.-DE</value>
   </data>
   <data name="ImportSettings.JpegFilter.Name" xml:space="preserve">
-    <value>Jpeg Filter</value>
+    <value>Jpeg Filter-DE</value>
   </data>
   <data name="ImportSettings.TiffFilter.Description" xml:space="preserve">
-    <value>Tiff filter.</value>
+    <value>Tiff filter.-DE</value>
   </data>
   <data name="ImportSettings.TiffFilter.Name" xml:space="preserve">
-    <value>Tiff Filter</value>
+    <value>Tiff Filter-DE</value>
   </data>
   <data name="OverdueAgentSettings.DaysOverdue.Description" xml:space="preserve">
-    <value>Number of days the work item must be in the overdue SLA status in order to be counted for notification.</value>
+    <value>Number of days the work item must be in the overdue SLA status in order to be counted for notification.-DE</value>
+  </data>
+  <data name="OverdueAgentSettings.DaysOverdue.Enum.Val2" xml:space="preserve">
+    <value>Two Days or more-DE</value>
+  </data>
+  <data name="OverdueAgentSettings.DaysOverdue.Enum.Val3" xml:space="preserve">
+    <value>Three days or more-DE</value>
+  </data>
+  <data name="OverdueAgentSettings.DaysOverdue.Enum.Val5" xml:space="preserve">
+    <value>Five days or more-DE</value>
+  </data>
+  <data name="OverdueAgentSettings.DaysOverdue.Enum.Val7" xml:space="preserve">
+    <value>A week or more-DE</value>
   </data>
   <data name="OverdueAgentSettings.DaysOverdue.GroupName" xml:space="preserve">
-    <value>02 - Notification</value>
+    <value>02 - Notification-DE</value>
   </data>
   <data name="OverdueAgentSettings.DaysOverdue.Name" xml:space="preserve">
-    <value>Days Overdue</value>
+    <value>Days Overdue-DE</value>
   </data>
   <data name="OverdueAgentSettings.DaysOverdue.Values.1" xml:space="preserve">
-    <value>One day or more</value>
+    <value>DE-One day or more</value>
   </data>
   <data name="OverdueAgentSettings.DaysOverdue.Values.2" xml:space="preserve">
-    <value>Two Days or more</value>
+    <value>Two Days or more - DE</value>
   </data>
   <data name="OverdueAgentSettings.DaysOverdue.Values.3" xml:space="preserve">
-    <value>Three Days or more</value>
+    <value>Three Days or more -DE</value>
   </data>
   <data name="OverdueAgentSettings.DaysOverdue.Values.5" xml:space="preserve">
-    <value>Five Days or more</value>
+    <value>Five Days or more - DE</value>
   </data>
   <data name="OverdueAgentSettings.DaysOverdue.Values.7" xml:space="preserve">
-    <value>A week or more</value>
+    <value>A week or more - DE</value>
   </data>
   <data name="OverdueAgentSettings.IncludeCloseTo.Description" xml:space="preserve">
-    <value>If this option is selected, the agent will count also work items that are in the CloseTo status.</value>
+    <value>If this option is selected, the agent will count also work items that are in the CloseTo status.-DE</value>
   </data>
   <data name="OverdueAgentSettings.IncludeCloseTo.GroupName" xml:space="preserve">
-    <value>02 - Notification</value>
+    <value>02 - Notification-DE</value>
   </data>
   <data name="OverdueAgentSettings.IncludeCloseTo.Name" xml:space="preserve">
-    <value>Including CloseTo</value>
+    <value>Including CloseTo-DE</value>
   </data>
   <data name="OverdueAgentSettings.Readme.Description" xml:space="preserve">
-    <value>Explains what this system agent does.</value>
+    <value>Explains what this system agent does.-DE</value>
   </data>
   <data name="OverdueAgentSettings.Readme.GroupName" xml:space="preserve">
-    <value>01 - Description</value>
+    <value>01 - Description-DE</value>
   </data>
   <data name="OverdueAgentSettings.Readme.Name" xml:space="preserve">
-    <value>ReadMe</value>
+    <value>ReadMe-DE</value>
   </data>
   <data name="OverdueAgentSettings.Readme.Prompt" xml:space="preserve">
-    <value>This system agent ticks as configured on the process settings tab. 
-With every tick it counts the number of work items that have the SLA status in Overdue (and alternatively in Close To, depending on the configuration) and that they are in this status for longer than configured number of days. If there are such work items the agent will compose a mail like this: 'Dear &lt;Send To&gt;. We have detected that the process &lt;name of the process&gt; have &lt;number of work items&gt; work items in Overdue for more than &lt;Days Overdue&gt;. Kind regards.' This e-mail will be sent on the e-mail configured in Send To Address property using SMTP server as configured in SMTP Server Settings property. Please make sure you do not tick too often, or this agent will spam the receiver.</value>
+    <value>This system agent ticks as configured on the process settings tab.
+With every tick it counts the number of work items that have the SLA status in Overdue (and alternatively in Close To, depending on the configuration) and that they are in this status for longer than configured number of days. If there are such work items the agent will compose a mail like this: 'Dear &lt;Send To&gt;. We have detected that the process &lt;name of the process&gt; have &lt;number of work items&gt; work items in Overdue for more than &lt;Days Overdue&gt;. Kind regards.' This e-mail will be sent on the e-mail configured in Send To Address property using SMTP server as configured in SMTP Server Settings property. Please make sure you do not tick too often, or this agent will spam the receiver.-DE</value>
   </data>
   <data name="OverdueAgentSettings.SendTo.Description" xml:space="preserve">
-    <value>The name of the receiver.</value>
+    <value>The name of the receiver.-DE</value>
   </data>
   <data name="OverdueAgentSettings.SendTo.GroupName" xml:space="preserve">
-    <value>03 - E-Mail Settings</value>
+    <value>03 - E-Mail Settings-DE</value>
   </data>
   <data name="OverdueAgentSettings.SendTo.Name" xml:space="preserve">
-    <value>Send To</value>
+    <value>Send To-DE</value>
   </data>
   <data name="OverdueAgentSettings.SendToMail.Description" xml:space="preserve">
-    <value>The E-mail address where the notification mail will be sent to.</value>
+    <value>The E-mail address where the notification mail will be sent to.-DE</value>
   </data>
   <data name="OverdueAgentSettings.SendToMail.GroupName" xml:space="preserve">
-    <value>03 - E-Mail Settings</value>
+    <value>03 - E-Mail Settings-DE</value>
   </data>
   <data name="OverdueAgentSettings.SendToMail.Name" xml:space="preserve">
-    <value>Send To Address</value>
+    <value>Send To Address-DE</value>
   </data>
   <data name="OverdueAgentSettings.ServerSettings.Description" xml:space="preserve">
-    <value>Configuration of the SMTP server to be used for sending notification e-mails.</value>
+    <value>Configuration of the SMTP server to be used for sending notification e-mails.-DE</value>
   </data>
   <data name="OverdueAgentSettings.ServerSettings.GroupName" xml:space="preserve">
-    <value>03 - E-Mail Settings</value>
+    <value>03 - E-Mail Settings-DE</value>
   </data>
   <data name="OverdueAgentSettings.ServerSettings.Name" xml:space="preserve">
-    <value>SMTP Server Settings</value>
+    <value>SMTP Server Settings-DE</value>
   </data>
   <data name="SmtpSettings.From.Description" xml:space="preserve">
-    <value>The e mail address of the sender. If not set the UserName will be used."</value>
+    <value>The e mail address of the sender. If not set the UserName will be used."-DE</value>
   </data>
   <data name="SmtpSettings.From.Name" xml:space="preserve">
-    <value>from e-mail address</value>
+    <value>from e-mail address-DE</value>
   </data>
   <data name="SmtpSettings.Password.Description" xml:space="preserve">
-    <value>The password for the user to authorize on SMTP server.</value>
+    <value>The password for the user to authorize on SMTP server.-DE</value>
   </data>
   <data name="SmtpSettings.Password.Name" xml:space="preserve">
-    <value>Password</value>
+    <value>Password-DE</value>
   </data>
   <data name="SmtpSettings.ServerAddress.Description" xml:space="preserve">
-    <value>The address of the SMTP server.</value>
+    <value>The address of the SMTP server.-DE</value>
   </data>
   <data name="SmtpSettings.ServerAddress.Name" xml:space="preserve">
-    <value>Server Address</value>
+    <value>Server Address-DE</value>
   </data>
   <data name="SmtpSettings.ServerPort.Description" xml:space="preserve">
-    <value>The port of the SMTP server.</value>
+    <value>The port of the SMTP server.-DE</value>
   </data>
   <data name="SmtpSettings.ServerPort.Name" xml:space="preserve">
-    <value>Server Port</value>
+    <value>Server Port-DE</value>
   </data>
   <data name="SmtpSettings.UserName.Description" xml:space="preserve">
-    <value>The user for authorizing on SMTP server.</value>
+    <value>The user for authorizing on SMTP server.-DE</value>
   </data>
   <data name="SmtpSettings.UserName.Name" xml:space="preserve">
-    <value>User Name</value>
+    <value>User Name-DE</value>
   </data>
   <data name="SmtpSettings.UseSSL.Description" xml:space="preserve">
-    <value>Use SSL for establishing connection.</value>
+    <value>Use SSL for establishing connection.-DE</value>
   </data>
   <data name="SmtpSettings.UseSSL.Name" xml:space="preserve">
-    <value>Use SSL</value>
+    <value>Use SSL-DE</value>
   </data>
   <data name="WatermarkSettings.Common.Name" xml:space="preserve">
-    <value>Routing and Filtering Settings</value>
+    <value>Routing and Filtering Settings-DE</value>
   </data>
   <data name="WatermarkSettings.WatermarkText.Description" xml:space="preserve">
-    <value> </value>
+    <value> -DE</value>
   </data>
   <data name="WatermarkSettings.WatermarkText.Name" xml:space="preserve">
-    <value>Watermark Text</value>
+    <value>Watermark Text-DE</value>
   </data>
 </root>

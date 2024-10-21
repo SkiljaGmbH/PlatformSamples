@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using SampleActivity.Properties;
 using STG.Common.DTO.Metadata;
 using STG.RT.API.Activity;
 
@@ -9,13 +11,7 @@ namespace SampleActivity.Settings
 
         public OverdueAgentSettings()
         {
-            ReadMe = "This system agent ticks as configured on the process settings tab. " +
-                "With every tick it counts the number of work items that have the SLA status in Overdue " +
-                "(and alternatively in Close To, depending on the configuration) and that they are in this status for longer than configured number of days." +
-                " If there are such work items the agent will compose a mail like this:  " +
-                "'Dear <Send To>. We have detected that the process <name of the process> have <number of work items> work items in Overdue for more than <Days Overdue>. Kind regards." +
-                "This e-mail will be sent on the e-mail configured in Send To Address property using SMTP server as configured in SMTP Server Settings property." +
-                "Please make sure you do not tick too often, or this agent will spam the receiver.";
+            ReadMe = Resources.OverdueAgentSettings_Readme_Prompt;
 
             DaysOverdue = 7;
             IncludeCloseTo = false;
@@ -24,33 +20,34 @@ namespace SampleActivity.Settings
 
         }
 
-        [Display(Name = "ReadMe", Description = "Explains what this system agent does.", GroupName = "01 - Description", Order = 1)]
+        [Display(Name = nameof(Resources.OverdueAgentSettings_Readme_Name), Description = nameof(Resources.OverdueAgentSettings_Readme_Description), GroupName = nameof(Resources.OverdueAgentSettings_Readme_GroupName), Prompt = nameof(Resources.OverdueAgentSettings_Readme_Prompt),  Order = 1, ResourceType = typeof(Resources))]
         [InputType(InputType.textarea)]
         [Required]
         public string ReadMe { get; set; }
 
-        [Display(Name = "Days Overdue", Description = "Number of days the work item must be in the overdue SLA status in order to be counted for notification.", GroupName = "02 - Notification", Order = 2)]
+        [Display(Name = nameof(Resources.OverdueAgentSettings_DaysOverdue_Name), Description = nameof(Resources.OverdueAgentSettings_DaysOverdue_Description), GroupName = nameof(Resources.OverdueAgentSettings_DaysOverdue_GroupName), Order = 2, ResourceType = typeof(Resources))]
         [InputType(InputType.enumeration, @"[{'Key':1,'Value':'One day or more'},{'Key':2,'Value':'Two Days or more'},{'Key':3,'Value':'Three days or more'},{'Key':5,'Value':'Five days or more'},{'Key':7,'Value':'A week or more'}]")]
+        //[LocalizedValueProvider(KeyPattern = "OverdueAgentSettings_DaysOverdue_Values_{0}", ResourceType = typeof(Resources))]
         [Required]
         public int DaysOverdue { get; set; }
 
-        [Display(Name = "Including CloseTo", Description = "If this option is selected, the agent will count also work items that are in the CloseTo status.", GroupName = "02 - Notification", Order = 3)]
+        [Display(Name = nameof(Resources.OverdueAgentSettings_IncludeCloseTo_Name), Description = nameof(Resources.OverdueAgentSettings_IncludeCloseTo_Description), GroupName = nameof(Resources.OverdueAgentSettings_IncludeCloseTo_GroupName), Order = 3, ResourceType = typeof(Resources))]
         [InputType(InputType.checkbox)]
         [Required]
         public bool IncludeCloseTo { get; set; }
 
-        [Display(Name = "Send To", Description = "The name of the receiver.", GroupName = "03 - E-Mail Settings", Order = 4)]
+        [Display(Name = nameof(Resources.OverdueAgentSettings_SendTo_Name), Description = nameof(Resources.OverdueAgentSettings_SendTo_Description), GroupName = nameof(Resources.OverdueAgentSettings_SendTo_GroupName), Order = 4, ResourceType = typeof(Resources))]
         [InputType(InputType.text)]
         [Required]
         public string SendTo { get; set; }
 
 
-        [Display(Name = "Send To Address", Description = "The E-mail address where the notification mail will be sent to.", GroupName = "03 - E-Mail Settings", Order = 5)]
+        [Display(Name = nameof(Resources.OverdueAgentSettings_SendToMail_Name), Description = nameof(Resources.OverdueAgentSettings_SendToMail_Description), GroupName = nameof(Resources.OverdueAgentSettings_SendToMail_GroupName), Order = 5, ResourceType = typeof(Resources))]
         [InputType(InputType.email)]
         [Required]
         public string SendToMail { get; set; }
 
-        [Display(Name = "SMTP Server Settings", Description = "Configuration of the SMTP server to be used for sending notification e-mails.", GroupName = "03 - E-Mail Settings", Order = 6)]
+        [Display(Name = nameof(Resources.OverdueAgentSettings_ServerSettings_Name), Description = nameof(Resources.OverdueAgentSettings_ServerSettings_Description), GroupName = nameof(Resources.OverdueAgentSettings_ServerSettings_GroupName), Order = 6, ResourceType = typeof(Resources))]
         [InputType(InputType.nestedClass)]
         [Required]
         public SmtpSettings ServerSettings { get; set; }
@@ -65,32 +62,32 @@ namespace SampleActivity.Settings
         }
 
 
-        [Display(Name = "Server Address", Description = "The address of the SMTP server.", Order = 1)]
+        [Display(Name = nameof(Resources.SmtpSettings_ServerAddress_Name), Description = nameof(Resources.SmtpSettings_ServerAddress_Description), Order = 1, ResourceType = typeof(Resources))]
         [InputType(InputType.text)]
         [Required]
         public string ServerAddress { get; set; }
 
-        [Display(Name = "Server Port", Description = "The port of the SMTP server.", Order = 2)]
+        [Display(Name = nameof(Resources.SmtpSettings_ServerPort_Name), Description = nameof(Resources.SmtpSettings_ServerPort_Description), Order = 2, ResourceType = typeof(Resources))]
         [InputType(InputType.number)]
         [Required]
         public int ServerPort { get; set; }
 
-        [Display(Name = "Use SSL", Description = "Use SSL for establishing connection.", Order = 3)]
+        [Display(Name = nameof(Resources.SmtpSettings_UseSSL_Name), Description = nameof(Resources.SmtpSettings_UseSSL_Description), Order = 3, ResourceType = typeof(Resources))]
         [InputType(InputType.checkbox)]
         [Required]
         public bool UseSSL { get; set; }
 
 
-        [Display(Name = "User Name", Description = " The user for authorizing on SMTP server.", Order = 4)]
+        [Display(Name = nameof(Resources.SmtpSettings_UserName_Name), Description = nameof(Resources.SmtpSettings_UserName_Description), Order = 4, ResourceType = typeof(Resources))]
         [InputType(InputType.text)]
         [Required]
         public string UserName { get; set; }
 
-        [Display(Name = "from e-mail address", Description = "The e mail address of the sender. If not set the UserName will be used.", Order = 5)]
+        [Display(Name = nameof(Resources.SmtpSettings_From_Name), Description = nameof(Resources.SmtpSettings_From_Description), Order = 5, ResourceType = typeof(Resources))]
         [InputType(InputType.email)]
         public string From { get; set; }
 
-        [Display(Name = "Password", Description = "The password for the user to authorize on SMTP server.", Order = 6)]
+        [Display(Name = nameof(Resources.SmtpSettings_Password_Name), Description = nameof(Resources.SmtpSettings_Password_Description), Order = 6, ResourceType = typeof(Resources))]
         [InputType(InputType.password)]
         [Required]
         public string Password { get; set; }

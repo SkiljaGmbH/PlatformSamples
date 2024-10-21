@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using SampleActivity.Properties;
 using STG.Common.DTO;
 using STG.Common.DTO.Metadata;
 using STG.RT.API.Activity;
@@ -8,21 +9,21 @@ namespace SampleActivity.Settings
 {
     public class ExportSettings : ActivityConfigBase<ExportSettings>
     {
-        [Display(Name = "Routing and Filtering Settings", Order = 4), InputType(InputType.nestedClass)]
+        [Display(Name = nameof(Resources.ExportSettings_Common_Name), Order = 4, ResourceType =typeof(Resources)), InputType(InputType.nestedClass)]
         public CommonSettings Common { get; set; }
 
         [Required]
-        [Display(Name = "Export Path", Description = "Path to where the files are going to be exported", Order = 1)]
+        [Display(Name = nameof(Resources.ExportSettings_ExportPath_Name), Description = nameof(Resources.ExportSettings_ExportPath_Description), Order = 1, ResourceType = typeof(Resources))]
         [InputType(InputType.text)]
         public string ExportPath { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        [Display(Name = "Media Mapping", Description = "Maps media to be exported to the extensions of exported files", Order = 2)]
+        [Display(Name = nameof(Resources.ExportSettings_ExportMediaMappings_Name), Description = nameof(Resources.ExportSettings_ExportMediaMappings_Description), Order = 2, ResourceType = typeof(Resources))]
         [InputType(InputType.dictionary)]
         public SerializableDictionary<string, string> ExportMediaMappings { get; set; }
 
-        [Display(Name = "Flat Export", Description = "All the files are put in the same (export) folder", Order = 3)]
+        [Display(Name = nameof(Resources.ExportSettings_FlatExport_Name), Description = nameof(Resources.ExportSettings_FlatExport_Description), Order = 3, ResourceType = typeof(Resources))]
         [InputType(InputType.checkbox)]
         public Boolean FlatExport { get; set; }
 
