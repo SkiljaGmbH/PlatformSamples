@@ -2,6 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <!-- CopyLocalLockFileAssemblies is required when compiling against netstandard2.0 and nuget package libraries must be included in the activity package-->
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
   <PropertyGroup>
@@ -16,7 +17,10 @@
   <ItemGroup>
     <PackageReference Include="System.ComponentModel.Annotations" />
     <PackageReference Include="System.Drawing.Common" />
-    <PackageReference Include="STG.RT.API" />
+    <PackageReference Include="STG.RT.API">
+      <!-- Exclude the STG.RT.API nuget libraries from the output -->
+      <ExcludeAssets>runtime;</ExcludeAssets>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">

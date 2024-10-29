@@ -31,6 +31,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "STG.RT.API.AuthExtensions",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleActivity.Tests", "SampleActivity.Tests\SampleActivity.Tests.csproj", "{29E49845-A7CB-46BF-9EA2-78F34651CDB6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleActivityWithDependency", "SampleActivityWithDependency\SampleActivityWithDependency.csproj", "{869F326B-9681-4221-A9D3-E5CF0FDC33C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,10 @@ Global
 		{29E49845-A7CB-46BF-9EA2-78F34651CDB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29E49845-A7CB-46BF-9EA2-78F34651CDB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29E49845-A7CB-46BF-9EA2-78F34651CDB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{869F326B-9681-4221-A9D3-E5CF0FDC33C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{869F326B-9681-4221-A9D3-E5CF0FDC33C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{869F326B-9681-4221-A9D3-E5CF0FDC33C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{869F326B-9681-4221-A9D3-E5CF0FDC33C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

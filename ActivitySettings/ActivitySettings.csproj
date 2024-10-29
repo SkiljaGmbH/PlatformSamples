@@ -1,11 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <TargetFramework>net8.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.ComponentModel.Annotations" />
     <PackageReference Include="System.Data.SqlClient" />
-    <PackageReference Include="STG.RT.API" />
+    <PackageReference Include="STG.RT.API">
+      <!-- Exclude the STG.RT.API nuget libraries from the output -->
+      <ExcludeAssets>runtime;</ExcludeAssets>
+    </PackageReference>
   </ItemGroup>
 </Project>

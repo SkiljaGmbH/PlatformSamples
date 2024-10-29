@@ -1,0 +1,21 @@
+﻿{
+  "PackageName": "Demo Activities",
+  "Packages": [
+    {
+      "AssemblyPath": "..\\_build\\SampleActivityWithDependency\\net8.0\\SampleActivityWithDependency.dll",
+      "IsExternal": false,
+      "ActivityTypeGuid": "4d90e9a8-2f01-4067-8ee8-5625ac8b1d57",
+      "IsFolder": true,
+      "Name": "Mssql Connection Test",
+      "Description": "Tests if an SQL connection to a MSSQL server can be established.",
+      "Vendor": "Skilja GmbH",
+      "Color": "#5DBCD2",
+      "Version": "1.0.0.0",
+      "DisableOldVersions": false,
+      "EntryPoint": "SampleActivityWithDependency.SQLClientCheck",
+      "HelpPath": null,
+      "ConfigPath": null,
+      "ConfigURL": null
+    }
+  ]
+}
