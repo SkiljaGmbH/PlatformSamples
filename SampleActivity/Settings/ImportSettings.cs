@@ -29,7 +29,7 @@ namespace SampleActivity.Settings
         [Display(Name = nameof(Resources.ImportSettings_TiffFilter_Name), Description = nameof(Resources.ImportSettings_TiffFilter_Description), Order = 3, ResourceType = typeof(Resources))]
         public string TiffFilter { get; set; }
 
-        [Display(Name = nameof(Resources.ImportSettings_DocumentType_Name), Description = nameof(Resources.ImportSettings_DocumentType_Description), Order = 4, ResourceType = typeof(Resources))]
+        [Display(Name = nameof(Resources.ImportSettings_DocumentType_Name), Order = 4, ResourceType = typeof(Resources))]
         public string DocumentType { get; set; }
 
         [InputType(InputType.nestedClass)]

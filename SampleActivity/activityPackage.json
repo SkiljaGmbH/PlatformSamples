@@ -16,7 +16,13 @@
       "EntryPoint": "SampleActivity.SampleAppSettings",
       "HelpPath": null,
       "ConfigPath": null,
-      "ConfigURL": null
+      "ConfigURL": null,
+      "LocalizedResources": {
+        "de": {
+          "Name": "Settings2CV",
+          "Description": "Füllt den konfigurierten benutzerdefinierten Wert mit definierten Einstellungen."
+        }
+      }
     },
     {
       "AssemblyPath": "..\\_build\\SampleActivity\\netstandard2.0\\SampleActivity.dll",
@@ -33,7 +39,13 @@
       "EntryPoint": "SampleActivity.SampleConfigurationValidator",
       "HelpPath": null,
       "ConfigPath": null,
-      "ConfigURL": null
+      "ConfigURL": null,
+      "LocalizedResources": {
+        "de": {
+          "Name": "Aktivitätsvalidator",
+          "Description": "Zeigt, wie man die serverseitige Validierung für die Aktivitätseinstellungen implementiert."
+        }
+      }
     },
     {
       "AssemblyPath": "..\\_build\\SampleActivity\\netstandard2.0\\SampleActivity.dll",
@@ -50,7 +62,13 @@
       "EntryPoint": "SampleActivity.SampleImportTimer",
       "HelpPath": null,
       "ConfigPath": null,
-      "ConfigURL": null
+      "ConfigURL": null,
+      "LocalizedResources": {
+        "de": {
+          "Name": "BeispielimportAktivität",
+          "Description": "Zeigt, wie man den Import von Dateien in die Plattform implementiert."
+        }
+      }
     },
     {
       "AssemblyPath": "..\\_build\\SampleActivity\\netstandard2.0\\SampleActivity.dll",
@@ -67,7 +85,13 @@
       "EntryPoint": "SampleActivity.SampleExporter",
       "HelpPath": null,
       "ConfigPath": null,
-      "ConfigURL": null
+      "ConfigURL": null,
+      "LocalizedResources": {
+        "de": {
+          "Name": "Beispiel Export Aktivität",
+          "Description": "Zeigt, wie man Daten von der Plattform exportiert."
+        }
+      }
     },
     {
       "AssemblyPath": "..\\_build\\SampleActivity\\netstandard2.0\\SampleActivity.dll",
@@ -84,7 +108,13 @@
       "EntryPoint": "SampleActivity.SampleJpgToTiffConverter",
       "HelpPath": null,
       "ConfigPath": null,
-      "ConfigURL": null
+      "ConfigURL": null,
+      "LocalizedResources": {
+        "de": {
+          "Name": "Beispielbildkonverter",
+          "Description": "Zeigt, wie man Bilder von einem Format in ein anderes konvertiert."
+        }
+      }
     },
     {
       "AssemblyPath": "..\\_build\\SampleActivity\\netstandard2.0\\SampleActivity.dll",
@@ -101,7 +131,13 @@
       "EntryPoint": "SampleActivity.SampleOverdueNotifier",
       "HelpPath": null,
       "ConfigPath": null,
-      "ConfigURL": null
+      "ConfigURL": null,
+      "LocalizedResources": {
+        "de": {
+          "Name": "Muster Überfälliger Agent",
+          "Description": "Zeigt, wie man einen Systemagenten erstellt, der Benutzer benachrichtigt, wenn die SLA-Zeit überfällig ist."
+        }
+      }
     },
     {
       "AssemblyPath": "..\\_build\\SampleActivity\\netstandard2.0\\SampleActivity.dll",
@@ -118,7 +154,13 @@
       "EntryPoint": "SampleActivity.SampleWaterMarker",
       "HelpPath": null,
       "ConfigPath": null,
-      "ConfigURL": null
+      "ConfigURL": null,
+      "LocalizedResources": {
+        "de": {
+          "Name": "Beispiel wasserzeichen aktivität",
+          "Description": "Zeigt, wie man eine zeitgesteuerte Aktivität erstellt, die ein Wasserzeichen auf das Bild setzt."
+        }
+      }
     }
   ]
 }

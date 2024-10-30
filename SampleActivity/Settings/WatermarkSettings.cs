@@ -17,7 +17,7 @@ namespace SampleActivity.Settings
         public CommonSettings Common { get; set; }
 
         [Required]
-        [Display(Name = nameof(Resources.WatermarkSettings_WatermarkText_Name), Description = nameof(Resources.WatermarkSettings_WatermarkText_Description), Order = 1, ResourceType = typeof(Resources))]
+        [Display(Name = nameof(Resources.WatermarkSettings_WatermarkText_Name), Order = 1, ResourceType = typeof(Resources))]
         [InputType(InputType.text)]
         public string WatermarkText { get; set; }
     }

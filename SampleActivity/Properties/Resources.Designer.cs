@@ -65,7 +65,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string AppSettingsSettings_AppSettingsToOutput_Description {
             get {
-                return ResourceManager.GetString("AppSettingsSettings.AppSettingsToOutput.Description", resourceCulture);
+                return ResourceManager.GetString("AppSettingsSettings_AppSettingsToOutput_Description", resourceCulture);
             }
         }
         
@@ -74,7 +74,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string AppSettingsSettings_AppSettingsToOutput_Name {
             get {
-                return ResourceManager.GetString("AppSettingsSettings.AppSettingsToOutput.Name", resourceCulture);
+                return ResourceManager.GetString("AppSettingsSettings_AppSettingsToOutput_Name", resourceCulture);
             }
         }
         
@@ -83,7 +83,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string AppSettingsSettings_OutputCustomValue_Description {
             get {
-                return ResourceManager.GetString("AppSettingsSettings.OutputCustomValue.Description", resourceCulture);
+                return ResourceManager.GetString("AppSettingsSettings_OutputCustomValue_Description", resourceCulture);
             }
         }
         
@@ -92,7 +92,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string AppSettingsSettings_OutputCustomValue_Name {
             get {
-                return ResourceManager.GetString("AppSettingsSettings.OutputCustomValue.Name", resourceCulture);
+                return ResourceManager.GetString("AppSettingsSettings_OutputCustomValue_Name", resourceCulture);
             }
         }
         
@@ -101,7 +101,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string CommonSettings_FilteringCustomValueName_Description {
             get {
-                return ResourceManager.GetString("CommonSettings.FilteringCustomValueName.Description", resourceCulture);
+                return ResourceManager.GetString("CommonSettings_FilteringCustomValueName_Description", resourceCulture);
             }
         }
         
@@ -110,7 +110,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string CommonSettings_FilteringCustomValueName_Name {
             get {
-                return ResourceManager.GetString("CommonSettings.FilteringCustomValueName.Name", resourceCulture);
+                return ResourceManager.GetString("CommonSettings_FilteringCustomValueName_Name", resourceCulture);
             }
         }
         
@@ -119,7 +119,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string CommonSettings_RoutingCustomValueName_Description {
             get {
-                return ResourceManager.GetString("CommonSettings.RoutingCustomValueName.Description", resourceCulture);
+                return ResourceManager.GetString("CommonSettings_RoutingCustomValueName_Description", resourceCulture);
             }
         }
         
@@ -128,7 +128,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string CommonSettings_RoutingCustomValueName_Name {
             get {
-                return ResourceManager.GetString("CommonSettings.RoutingCustomValueName.Name", resourceCulture);
+                return ResourceManager.GetString("CommonSettings_RoutingCustomValueName_Name", resourceCulture);
             }
         }
         
@@ -137,7 +137,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string ConfigurationValidationSettings_FilePath_Description {
             get {
-                return ResourceManager.GetString("ConfigurationValidationSettings.FilePath.Description", resourceCulture);
+                return ResourceManager.GetString("ConfigurationValidationSettings_FilePath_Description", resourceCulture);
             }
         }
         
@@ -146,7 +146,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string ConfigurationValidationSettings_FilePath_Name {
             get {
-                return ResourceManager.GetString("ConfigurationValidationSettings.FilePath.Name", resourceCulture);
+                return ResourceManager.GetString("ConfigurationValidationSettings_FilePath_Name", resourceCulture);
             }
         }
         
@@ -155,7 +155,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string ConfigurationValidationSettings_IfThisIsTrue_Description {
             get {
-                return ResourceManager.GetString("ConfigurationValidationSettings.IfThisIsTrue.Description", resourceCulture);
+                return ResourceManager.GetString("ConfigurationValidationSettings_IfThisIsTrue_Description", resourceCulture);
             }
         }
         
@@ -164,7 +164,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string ConfigurationValidationSettings_IfThisIsTrue_GroupName {
             get {
-                return ResourceManager.GetString("ConfigurationValidationSettings.IfThisIsTrue.GroupName", resourceCulture);
+                return ResourceManager.GetString("ConfigurationValidationSettings_IfThisIsTrue_GroupName", resourceCulture);
             }
         }
         
@@ -173,7 +173,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string ConfigurationValidationSettings_IfThisIsTrue_Name {
             get {
-                return ResourceManager.GetString("ConfigurationValidationSettings.IfThisIsTrue.Name", resourceCulture);
+                return ResourceManager.GetString("ConfigurationValidationSettings_IfThisIsTrue_Name", resourceCulture);
             }
         }
         
@@ -182,7 +182,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string ConfigurationValidationSettings_ThisMustBeInTheFuture_Description {
             get {
-                return ResourceManager.GetString("ConfigurationValidationSettings.ThisMustBeInTheFuture.Description", resourceCulture);
+                return ResourceManager.GetString("ConfigurationValidationSettings_ThisMustBeInTheFuture_Description", resourceCulture);
             }
         }
         
@@ -191,7 +191,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string ConfigurationValidationSettings_ThisMustBeInTheFuture_GroupName {
             get {
-                return ResourceManager.GetString("ConfigurationValidationSettings.ThisMustBeInTheFuture.GroupName", resourceCulture);
+                return ResourceManager.GetString("ConfigurationValidationSettings_ThisMustBeInTheFuture_GroupName", resourceCulture);
             }
         }
         
@@ -200,7 +200,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string ConfigurationValidationSettings_ThisMustBeInTheFuture_Name {
             get {
-                return ResourceManager.GetString("ConfigurationValidationSettings.ThisMustBeInTheFuture.Name", resourceCulture);
+                return ResourceManager.GetString("ConfigurationValidationSettings_ThisMustBeInTheFuture_Name", resourceCulture);
             }
         }
         
@@ -209,7 +209,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string ConfigurationValidationSettings_ThisMustBeInThePast_Description {
             get {
-                return ResourceManager.GetString("ConfigurationValidationSettings.ThisMustBeInThePast.Description", resourceCulture);
+                return ResourceManager.GetString("ConfigurationValidationSettings_ThisMustBeInThePast_Description", resourceCulture);
             }
         }
         
@@ -218,7 +218,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string ConfigurationValidationSettings_ThisMustBeInThePast_GroupName {
             get {
-                return ResourceManager.GetString("ConfigurationValidationSettings.ThisMustBeInThePast.GroupName", resourceCulture);
+                return ResourceManager.GetString("ConfigurationValidationSettings_ThisMustBeInThePast_GroupName", resourceCulture);
             }
         }
         
@@ -227,7 +227,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string ConfigurationValidationSettings_ThisMustBeInThePast_Name {
             get {
-                return ResourceManager.GetString("ConfigurationValidationSettings.ThisMustBeInThePast.Name", resourceCulture);
+                return ResourceManager.GetString("ConfigurationValidationSettings_ThisMustBeInThePast_Name", resourceCulture);
             }
         }
         
@@ -236,7 +236,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string ConfigurationValidationSettings_ThisMustNotBeEmpty_Description {
             get {
-                return ResourceManager.GetString("ConfigurationValidationSettings.ThisMustNotBeEmpty.Description", resourceCulture);
+                return ResourceManager.GetString("ConfigurationValidationSettings_ThisMustNotBeEmpty_Description", resourceCulture);
             }
         }
         
@@ -245,7 +245,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string ConfigurationValidationSettings_ThisMustNotBeEmpty_GroupName {
             get {
-                return ResourceManager.GetString("ConfigurationValidationSettings.ThisMustNotBeEmpty.GroupName", resourceCulture);
+                return ResourceManager.GetString("ConfigurationValidationSettings_ThisMustNotBeEmpty_GroupName", resourceCulture);
             }
         }
         
@@ -254,7 +254,43 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string ConfigurationValidationSettings_ThisMustNotBeEmpty_Name {
             get {
-                return ResourceManager.GetString("ConfigurationValidationSettings.ThisMustNotBeEmpty.Name", resourceCulture);
+                return ResourceManager.GetString("ConfigurationValidationSettings_ThisMustNotBeEmpty_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The file specified in FilePath does not exist..
+        /// </summary>
+        public static string ConfigurationValidationSettings_Validations_FilePath_Missing {
+            get {
+                return ResourceManager.GetString("ConfigurationValidationSettings_Validations_FilePath_Missing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThisMustBeInTheFuture must be in the future!.
+        /// </summary>
+        public static string ConfigurationValidationSettings_Validations_ThisMustBeInTheFuture_NotInFuture {
+            get {
+                return ResourceManager.GetString("ConfigurationValidationSettings_Validations_ThisMustBeInTheFuture_NotInFuture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThisMustBeInThePast must be in the past!.
+        /// </summary>
+        public static string ConfigurationValidationSettings_Validations_ThisMustBeInThePast_NotInPast {
+            get {
+                return ResourceManager.GetString("ConfigurationValidationSettings_Validations_ThisMustBeInThePast_NotInPast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IfThisIsTrue is true, but ThisMustNotBeEmpty is empty!.
+        /// </summary>
+        public static string ConfigurationValidationSettings_Validations_ThisMustNotBeEmpty_Empty {
+            get {
+                return ResourceManager.GetString("ConfigurationValidationSettings_Validations_ThisMustNotBeEmpty_Empty", resourceCulture);
             }
         }
         
@@ -263,7 +299,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string ExportSettings_Common_Name {
             get {
-                return ResourceManager.GetString("ExportSettings.Common.Name", resourceCulture);
+                return ResourceManager.GetString("ExportSettings_Common_Name", resourceCulture);
             }
         }
         
@@ -272,7 +308,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string ExportSettings_ExportMediaMappings_Description {
             get {
-                return ResourceManager.GetString("ExportSettings.ExportMediaMappings.Description", resourceCulture);
+                return ResourceManager.GetString("ExportSettings_ExportMediaMappings_Description", resourceCulture);
             }
         }
         
@@ -281,7 +317,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string ExportSettings_ExportMediaMappings_Name {
             get {
-                return ResourceManager.GetString("ExportSettings.ExportMediaMappings.Name", resourceCulture);
+                return ResourceManager.GetString("ExportSettings_ExportMediaMappings_Name", resourceCulture);
             }
         }
         
@@ -290,7 +326,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string ExportSettings_ExportPath_Description {
             get {
-                return ResourceManager.GetString("ExportSettings.ExportPath.Description", resourceCulture);
+                return ResourceManager.GetString("ExportSettings_ExportPath_Description", resourceCulture);
             }
         }
         
@@ -299,7 +335,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string ExportSettings_ExportPath_Name {
             get {
-                return ResourceManager.GetString("ExportSettings.ExportPath.Name", resourceCulture);
+                return ResourceManager.GetString("ExportSettings_ExportPath_Name", resourceCulture);
             }
         }
         
@@ -308,7 +344,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string ExportSettings_FlatExport_Description {
             get {
-                return ResourceManager.GetString("ExportSettings.FlatExport.Description", resourceCulture);
+                return ResourceManager.GetString("ExportSettings_FlatExport_Description", resourceCulture);
             }
         }
         
@@ -317,7 +353,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string ExportSettings_FlatExport_Name {
             get {
-                return ResourceManager.GetString("ExportSettings.FlatExport.Name", resourceCulture);
+                return ResourceManager.GetString("ExportSettings_FlatExport_Name", resourceCulture);
             }
         }
         
@@ -326,7 +362,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string ImportSettings_Common_Description {
             get {
-                return ResourceManager.GetString("ImportSettings.Common.Description", resourceCulture);
+                return ResourceManager.GetString("ImportSettings_Common_Description", resourceCulture);
             }
         }
         
@@ -335,16 +371,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string ImportSettings_Common_Name {
             get {
-                return ResourceManager.GetString("ImportSettings.Common.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Name of the document type.
-        /// </summary>
-        public static string ImportSettings_DocumentType_Description {
-            get {
-                return ResourceManager.GetString("ImportSettings.DocumentType.Description", resourceCulture);
+                return ResourceManager.GetString("ImportSettings_Common_Name", resourceCulture);
             }
         }
         
@@ -353,7 +380,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string ImportSettings_DocumentType_Name {
             get {
-                return ResourceManager.GetString("ImportSettings.DocumentType.Name", resourceCulture);
+                return ResourceManager.GetString("ImportSettings_DocumentType_Name", resourceCulture);
             }
         }
         
@@ -362,7 +389,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string ImportSettings_ImportPath_Description {
             get {
-                return ResourceManager.GetString("ImportSettings.ImportPath.Description", resourceCulture);
+                return ResourceManager.GetString("ImportSettings_ImportPath_Description", resourceCulture);
             }
         }
         
@@ -371,43 +398,43 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string ImportSettings_ImportPath_Name {
             get {
-                return ResourceManager.GetString("ImportSettings.ImportPath.Name", resourceCulture);
+                return ResourceManager.GetString("ImportSettings_ImportPath_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Jpeg filter..
+        ///   Looks up a localized string similar to Jpeg filetr..
         /// </summary>
         public static string ImportSettings_JpegFilter_Description {
             get {
-                return ResourceManager.GetString("ImportSettings.JpegFilter.Description", resourceCulture);
+                return ResourceManager.GetString("ImportSettings_JpegFilter_Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Jpeg Filter.
+        ///   Looks up a localized string similar to Jpeg Filetr.
         /// </summary>
         public static string ImportSettings_JpegFilter_Name {
             get {
-                return ResourceManager.GetString("ImportSettings.JpegFilter.Name", resourceCulture);
+                return ResourceManager.GetString("ImportSettings_JpegFilter_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tiff filter..
+        ///   Looks up a localized string similar to Tiff filetr..
         /// </summary>
         public static string ImportSettings_TiffFilter_Description {
             get {
-                return ResourceManager.GetString("ImportSettings.TiffFilter.Description", resourceCulture);
+                return ResourceManager.GetString("ImportSettings_TiffFilter_Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tiff Filter.
+        ///   Looks up a localized string similar to Tiff Filetr.
         /// </summary>
         public static string ImportSettings_TiffFilter_Name {
             get {
-                return ResourceManager.GetString("ImportSettings.TiffFilter.Name", resourceCulture);
+                return ResourceManager.GetString("ImportSettings_TiffFilter_Name", resourceCulture);
             }
         }
         
@@ -416,7 +443,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string OverdueAgentSettings_DaysOverdue_Description {
             get {
-                return ResourceManager.GetString("OverdueAgentSettings.DaysOverdue.Description", resourceCulture);
+                return ResourceManager.GetString("OverdueAgentSettings_DaysOverdue_Description", resourceCulture);
             }
         }
         
@@ -425,7 +452,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string OverdueAgentSettings_DaysOverdue_GroupName {
             get {
-                return ResourceManager.GetString("OverdueAgentSettings.DaysOverdue.GroupName", resourceCulture);
+                return ResourceManager.GetString("OverdueAgentSettings_DaysOverdue_GroupName", resourceCulture);
             }
         }
         
@@ -434,7 +461,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string OverdueAgentSettings_DaysOverdue_Name {
             get {
-                return ResourceManager.GetString("OverdueAgentSettings.DaysOverdue.Name", resourceCulture);
+                return ResourceManager.GetString("OverdueAgentSettings_DaysOverdue_Name", resourceCulture);
             }
         }
         
@@ -443,7 +470,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string OverdueAgentSettings_DaysOverdue_Values_1 {
             get {
-                return ResourceManager.GetString("OverdueAgentSettings.DaysOverdue.Values.1", resourceCulture);
+                return ResourceManager.GetString("OverdueAgentSettings_DaysOverdue_Values_1", resourceCulture);
             }
         }
         
@@ -452,25 +479,25 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string OverdueAgentSettings_DaysOverdue_Values_2 {
             get {
-                return ResourceManager.GetString("OverdueAgentSettings.DaysOverdue.Values.2", resourceCulture);
+                return ResourceManager.GetString("OverdueAgentSettings_DaysOverdue_Values_2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Three Days or more.
+        ///   Looks up a localized string similar to Three days or more.
         /// </summary>
         public static string OverdueAgentSettings_DaysOverdue_Values_3 {
             get {
-                return ResourceManager.GetString("OverdueAgentSettings.DaysOverdue.Values.3", resourceCulture);
+                return ResourceManager.GetString("OverdueAgentSettings_DaysOverdue_Values_3", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Five Days or more.
+        ///   Looks up a localized string similar to Five days or more.
         /// </summary>
         public static string OverdueAgentSettings_DaysOverdue_Values_5 {
             get {
-                return ResourceManager.GetString("OverdueAgentSettings.DaysOverdue.Values.5", resourceCulture);
+                return ResourceManager.GetString("OverdueAgentSettings_DaysOverdue_Values_5", resourceCulture);
             }
         }
         
@@ -479,7 +506,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string OverdueAgentSettings_DaysOverdue_Values_7 {
             get {
-                return ResourceManager.GetString("OverdueAgentSettings.DaysOverdue.Values.7", resourceCulture);
+                return ResourceManager.GetString("OverdueAgentSettings_DaysOverdue_Values_7", resourceCulture);
             }
         }
         
@@ -488,7 +515,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string OverdueAgentSettings_IncludeCloseTo_Description {
             get {
-                return ResourceManager.GetString("OverdueAgentSettings.IncludeCloseTo.Description", resourceCulture);
+                return ResourceManager.GetString("OverdueAgentSettings_IncludeCloseTo_Description", resourceCulture);
             }
         }
         
@@ -497,7 +524,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string OverdueAgentSettings_IncludeCloseTo_GroupName {
             get {
-                return ResourceManager.GetString("OverdueAgentSettings.IncludeCloseTo.GroupName", resourceCulture);
+                return ResourceManager.GetString("OverdueAgentSettings_IncludeCloseTo_GroupName", resourceCulture);
             }
         }
         
@@ -506,34 +533,34 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string OverdueAgentSettings_IncludeCloseTo_Name {
             get {
-                return ResourceManager.GetString("OverdueAgentSettings.IncludeCloseTo.Name", resourceCulture);
+                return ResourceManager.GetString("OverdueAgentSettings_IncludeCloseTo_Name", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Explains what this system agent does..
         /// </summary>
-        public static string OverdueAgentSettings_Readme_Description {
+        public static string OverdueAgentSettings_ReadMe_Description {
             get {
-                return ResourceManager.GetString("OverdueAgentSettings.Readme.Description", resourceCulture);
+                return ResourceManager.GetString("OverdueAgentSettings_ReadMe_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to 01 - Description.
         /// </summary>
-        public static string OverdueAgentSettings_Readme_GroupName {
+        public static string OverdueAgentSettings_ReadMe_GroupName {
             get {
-                return ResourceManager.GetString("OverdueAgentSettings.Readme.GroupName", resourceCulture);
+                return ResourceManager.GetString("OverdueAgentSettings_ReadMe_GroupName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to ReadMe.
         /// </summary>
-        public static string OverdueAgentSettings_Readme_Name {
+        public static string OverdueAgentSettings_ReadMe_Name {
             get {
-                return ResourceManager.GetString("OverdueAgentSettings.Readme.Name", resourceCulture);
+                return ResourceManager.GetString("OverdueAgentSettings_ReadMe_Name", resourceCulture);
             }
         }
         
@@ -543,7 +570,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string OverdueAgentSettings_Readme_Prompt {
             get {
-                return ResourceManager.GetString("OverdueAgentSettings.Readme.Prompt", resourceCulture);
+                return ResourceManager.GetString("OverdueAgentSettings_Readme_Prompt", resourceCulture);
             }
         }
         
@@ -552,7 +579,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string OverdueAgentSettings_SendTo_Description {
             get {
-                return ResourceManager.GetString("OverdueAgentSettings.SendTo.Description", resourceCulture);
+                return ResourceManager.GetString("OverdueAgentSettings_SendTo_Description", resourceCulture);
             }
         }
         
@@ -561,7 +588,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string OverdueAgentSettings_SendTo_GroupName {
             get {
-                return ResourceManager.GetString("OverdueAgentSettings.SendTo.GroupName", resourceCulture);
+                return ResourceManager.GetString("OverdueAgentSettings_SendTo_GroupName", resourceCulture);
             }
         }
         
@@ -570,7 +597,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string OverdueAgentSettings_SendTo_Name {
             get {
-                return ResourceManager.GetString("OverdueAgentSettings.SendTo.Name", resourceCulture);
+                return ResourceManager.GetString("OverdueAgentSettings_SendTo_Name", resourceCulture);
             }
         }
         
@@ -579,7 +606,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string OverdueAgentSettings_SendToMail_Description {
             get {
-                return ResourceManager.GetString("OverdueAgentSettings.SendToMail.Description", resourceCulture);
+                return ResourceManager.GetString("OverdueAgentSettings_SendToMail_Description", resourceCulture);
             }
         }
         
@@ -588,7 +615,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string OverdueAgentSettings_SendToMail_GroupName {
             get {
-                return ResourceManager.GetString("OverdueAgentSettings.SendToMail.GroupName", resourceCulture);
+                return ResourceManager.GetString("OverdueAgentSettings_SendToMail_GroupName", resourceCulture);
             }
         }
         
@@ -597,7 +624,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string OverdueAgentSettings_SendToMail_Name {
             get {
-                return ResourceManager.GetString("OverdueAgentSettings.SendToMail.Name", resourceCulture);
+                return ResourceManager.GetString("OverdueAgentSettings_SendToMail_Name", resourceCulture);
             }
         }
         
@@ -606,7 +633,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string OverdueAgentSettings_ServerSettings_Description {
             get {
-                return ResourceManager.GetString("OverdueAgentSettings.ServerSettings.Description", resourceCulture);
+                return ResourceManager.GetString("OverdueAgentSettings_ServerSettings_Description", resourceCulture);
             }
         }
         
@@ -615,7 +642,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string OverdueAgentSettings_ServerSettings_GroupName {
             get {
-                return ResourceManager.GetString("OverdueAgentSettings.ServerSettings.GroupName", resourceCulture);
+                return ResourceManager.GetString("OverdueAgentSettings_ServerSettings_GroupName", resourceCulture);
             }
         }
         
@@ -624,7 +651,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string OverdueAgentSettings_ServerSettings_Name {
             get {
-                return ResourceManager.GetString("OverdueAgentSettings.ServerSettings.Name", resourceCulture);
+                return ResourceManager.GetString("OverdueAgentSettings_ServerSettings_Name", resourceCulture);
             }
         }
         
@@ -633,7 +660,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string SmtpSettings_From_Description {
             get {
-                return ResourceManager.GetString("SmtpSettings.From.Description", resourceCulture);
+                return ResourceManager.GetString("SmtpSettings_From_Description", resourceCulture);
             }
         }
         
@@ -642,7 +669,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string SmtpSettings_From_Name {
             get {
-                return ResourceManager.GetString("SmtpSettings.From.Name", resourceCulture);
+                return ResourceManager.GetString("SmtpSettings_From_Name", resourceCulture);
             }
         }
         
@@ -651,7 +678,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string SmtpSettings_Password_Description {
             get {
-                return ResourceManager.GetString("SmtpSettings.Password.Description", resourceCulture);
+                return ResourceManager.GetString("SmtpSettings_Password_Description", resourceCulture);
             }
         }
         
@@ -660,7 +687,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string SmtpSettings_Password_Name {
             get {
-                return ResourceManager.GetString("SmtpSettings.Password.Name", resourceCulture);
+                return ResourceManager.GetString("SmtpSettings_Password_Name", resourceCulture);
             }
         }
         
@@ -669,7 +696,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string SmtpSettings_ServerAddress_Description {
             get {
-                return ResourceManager.GetString("SmtpSettings.ServerAddress.Description", resourceCulture);
+                return ResourceManager.GetString("SmtpSettings_ServerAddress_Description", resourceCulture);
             }
         }
         
@@ -678,7 +705,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string SmtpSettings_ServerAddress_Name {
             get {
-                return ResourceManager.GetString("SmtpSettings.ServerAddress.Name", resourceCulture);
+                return ResourceManager.GetString("SmtpSettings_ServerAddress_Name", resourceCulture);
             }
         }
         
@@ -687,7 +714,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string SmtpSettings_ServerPort_Description {
             get {
-                return ResourceManager.GetString("SmtpSettings.ServerPort.Description", resourceCulture);
+                return ResourceManager.GetString("SmtpSettings_ServerPort_Description", resourceCulture);
             }
         }
         
@@ -696,7 +723,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string SmtpSettings_ServerPort_Name {
             get {
-                return ResourceManager.GetString("SmtpSettings.ServerPort.Name", resourceCulture);
+                return ResourceManager.GetString("SmtpSettings_ServerPort_Name", resourceCulture);
             }
         }
         
@@ -705,7 +732,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string SmtpSettings_UserName_Description {
             get {
-                return ResourceManager.GetString("SmtpSettings.UserName.Description", resourceCulture);
+                return ResourceManager.GetString("SmtpSettings_UserName_Description", resourceCulture);
             }
         }
         
@@ -714,7 +741,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string SmtpSettings_UserName_Name {
             get {
-                return ResourceManager.GetString("SmtpSettings.UserName.Name", resourceCulture);
+                return ResourceManager.GetString("SmtpSettings_UserName_Name", resourceCulture);
             }
         }
         
@@ -723,7 +750,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string SmtpSettings_UseSSL_Description {
             get {
-                return ResourceManager.GetString("SmtpSettings.UseSSL.Description", resourceCulture);
+                return ResourceManager.GetString("SmtpSettings_UseSSL_Description", resourceCulture);
             }
         }
         
@@ -732,7 +759,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string SmtpSettings_UseSSL_Name {
             get {
-                return ResourceManager.GetString("SmtpSettings.UseSSL.Name", resourceCulture);
+                return ResourceManager.GetString("SmtpSettings_UseSSL_Name", resourceCulture);
             }
         }
         
@@ -741,16 +768,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string WatermarkSettings_Common_Name {
             get {
-                return ResourceManager.GetString("WatermarkSettings.Common.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to  .
-        /// </summary>
-        public static string WatermarkSettings_WatermarkText_Description {
-            get {
-                return ResourceManager.GetString("WatermarkSettings.WatermarkText.Description", resourceCulture);
+                return ResourceManager.GetString("WatermarkSettings_Common_Name", resourceCulture);
             }
         }
         
@@ -759,7 +777,7 @@ namespace SampleActivity.Properties {
         /// </summary>
         public static string WatermarkSettings_WatermarkText_Name {
             get {
-                return ResourceManager.GetString("WatermarkSettings.WatermarkText.Name", resourceCulture);
+                return ResourceManager.GetString("WatermarkSettings_WatermarkText_Name", resourceCulture);
             }
         }
     }

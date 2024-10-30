@@ -11,7 +11,7 @@ namespace SampleActivity.Settings
 
         public OverdueAgentSettings()
         {
-            ReadMe = Resources.OverdueAgentSettings_Readme_Prompt;
+            //ReadMe = Resources.OverdueAgentSettings_Readme_Prompt;
 
             DaysOverdue = 7;
             IncludeCloseTo = false;
@@ -20,14 +20,13 @@ namespace SampleActivity.Settings
 
         }
 
-        [Display(Name = nameof(Resources.OverdueAgentSettings_Readme_Name), Description = nameof(Resources.OverdueAgentSettings_Readme_Description), GroupName = nameof(Resources.OverdueAgentSettings_Readme_GroupName), Prompt = nameof(Resources.OverdueAgentSettings_Readme_Prompt),  Order = 1, ResourceType = typeof(Resources))]
+        [Display(Name = nameof(Resources.OverdueAgentSettings_ReadMe_Name), Description = nameof(Resources.OverdueAgentSettings_ReadMe_Description), GroupName = nameof(Resources.OverdueAgentSettings_ReadMe_GroupName), Prompt = nameof(Resources.OverdueAgentSettings_Readme_Prompt),  Order = 1, ResourceType = typeof(Resources))]
         [InputType(InputType.textarea)]
-        [Required]
+        [ReadOnly(true)]
         public string ReadMe { get; set; }
 
         [Display(Name = nameof(Resources.OverdueAgentSettings_DaysOverdue_Name), Description = nameof(Resources.OverdueAgentSettings_DaysOverdue_Description), GroupName = nameof(Resources.OverdueAgentSettings_DaysOverdue_GroupName), Order = 2, ResourceType = typeof(Resources))]
         [InputType(InputType.enumeration, @"[{'Key':1,'Value':'One day or more'},{'Key':2,'Value':'Two Days or more'},{'Key':3,'Value':'Three days or more'},{'Key':5,'Value':'Five days or more'},{'Key':7,'Value':'A week or more'}]")]
-        //[LocalizedValueProvider(KeyPattern = "OverdueAgentSettings_DaysOverdue_Values_{0}", ResourceType = typeof(Resources))]
         [Required]
         public int DaysOverdue { get; set; }
 

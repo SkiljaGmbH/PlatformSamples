@@ -50,7 +50,7 @@ namespace SampleActivity.Settings
                 {
                     Level = options.IsDesigntimeEnvironment ? DtoActivityConfigurationValidationLevel.Info : DtoActivityConfigurationValidationLevel.Error,
                     PropertyName = nameof(FilePath),
-                    Message = "The file specified in FilePath does not exist!"
+                    Message = Resources.ConfigurationValidationSettings_Validations_FilePath_Missing
                 });
             }
 
@@ -61,7 +61,7 @@ namespace SampleActivity.Settings
                 {
                     Level = DtoActivityConfigurationValidationLevel.Error,
                     PropertyName = nameof(ThisMustNotBeEmpty),
-                    Message = "IfThisIsTrue is true, but ThisMustNotBeEmpty is empty!"
+                    Message = Resources.ConfigurationValidationSettings_Validations_ThisMustNotBeEmpty_Empty
                 });
             }
 
@@ -71,7 +71,7 @@ namespace SampleActivity.Settings
                 {
                     Level = DtoActivityConfigurationValidationLevel.Warning,
                     PropertyName = nameof(ThisMustBeInThePast),
-                    Message = "ThisMustBeInThePast must be in the past!"
+                    Message = Resources.ConfigurationValidationSettings_Validations_ThisMustBeInThePast_NotInPast
                 });
             }
 
@@ -81,7 +81,7 @@ namespace SampleActivity.Settings
                 {
                     Level = DtoActivityConfigurationValidationLevel.Warning,
                     PropertyName = nameof(ThisMustBeInTheFuture),
-                    Message = "ThisMustBeInTheFuture must be in the future!"
+                    Message = Resources.ConfigurationValidationSettings_Validations_ThisMustBeInTheFuture_NotInFuture
                 });
             }
 
