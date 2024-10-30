@@ -298,6 +298,13 @@ namespace STG.RT.API.AuthExtensions
                 throw;
             }
         }
+
+        public ValueTask<string> GetUsernameAsync()
+        {
+            // this is not supported on 3.1/4.0 anymore - 3.0 returns the username differently.
+            return new ValueTask<string>(_authenticationResult?.Name ?? "Unknown");
+        }
+
         /// <summary>
         /// Content class for data in strings larger than 65520 characters.
         /// Use instead of FormUrlEncodedContent when content is too big
