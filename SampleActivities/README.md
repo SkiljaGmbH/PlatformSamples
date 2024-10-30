@@ -32,7 +32,13 @@ Usually, you achieve backwards compatibility by compiling activities against .NE
 .NET Standard 2.0 is a language specification that can be executed by both .NET Framework and .NET 8 runtimes.
 It can be executed on Windows and Linux alike, provided the .NET 8 runtime is chosen.
 
-In case you cannot compile against .NET STandard 2.0 due to your own requirements or a thirdparty library that does not support .NET Standard 2.0, the solution is slightly more complex.
+> **Note** that .NET Standard sometimes uses [reference assemblies](https://learn.microsoft.com/en-us/dotnet/standard/assembly/reference-assemblies).
+A reference assembly does not contain the implementation of methods, but only contains empty methods.
+When the activity has third-party dependencies that depend on functionality that cannot be provided by .NET Standard, you have to package both target frameworks.  
+Unfortunately, this requirement is hard to see since it oftentimes happens deep in a dependency stack.
+An example nuget package that uses reference and implementation assemblies is Microsoft.Data.SqlClient.
+
+In case you cannot compile against .NET STandard 2.0 due to your own requirements or a third-party library that does not support .NET Standard 2.0, the solution is slightly more complex.
 In this case, backwards compatibility is achieved by packaging activity DLLs of multiple target frameworks.
 The root directory that is searched for the activity by platforms before platform version 4.0 contains the .NET Framework 4.7.2 activity dll.
 A subfolder (`net8`) is added by the packaging tool for the .NET 8 version of the activity.
