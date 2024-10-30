@@ -24,10 +24,15 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <Compile Update="Properties\Resources.de.Designer.cs">
+      <DependentUpon>Resources.de.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
@@ -36,6 +41,12 @@
     <None Include="samples.snk" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Settings\upload.svg" />
+    <Content Include="icon\import.svg" />
+    <Content Include="icon\convert.svg" />
+    <Content Include="icon\export.svg" />
+    <Content Include="icon\overdue.svg" />
+    <Content Include="icon\transfer.svg" />
+    <Content Include="icon\validation.svg" />
+    <Content Include="icon\watermark.svg" />
   </ItemGroup>
 </Project>

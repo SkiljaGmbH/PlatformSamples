@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SampleActivity.Properties;
 using STG.RT.API.Activity;
 
 namespace SampleActivity.Settings
@@ -12,11 +13,11 @@ namespace SampleActivity.Settings
     {
 
         [Required]
-        [Display(Name = "AppSettings", Description = "Comma separated list of AppSettings to output.", Order = 1)]
+        [Display(Name = nameof(Resources.AppSettingsSettings_AppSettingsToOutput_Name), Description = nameof(Resources.AppSettingsSettings_AppSettingsToOutput_Description), Order = 1, ResourceType = typeof(Resources))]
         public string AppSettingsToOutput { get; set; }
 
         [Required]
-        [Display(Name = "Output Custom Value", Description = "Custom value where to output AppSettings.", Order = 2)]
+        [Display(Name = nameof(Resources.AppSettingsSettings_OutputCustomValue_Name), Description = nameof(Resources.AppSettingsSettings_OutputCustomValue_Description), Order = 2, ResourceType = typeof(Resources))]
         public string OutputCustomValue { get; set; }
     }
 }

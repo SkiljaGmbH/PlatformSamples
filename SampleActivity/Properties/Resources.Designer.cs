@@ -19,10 +19,10 @@ namespace SampleActivity.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace SampleActivity.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SampleActivity.Properties.Resources", typeof(Resources).Assembly);
@@ -51,12 +51,733 @@ namespace SampleActivity.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comma separated list of AppSettings to output..
+        /// </summary>
+        public static string AppSettingsSettings_AppSettingsToOutput_Description {
+            get {
+                return ResourceManager.GetString("AppSettingsSettings_AppSettingsToOutput_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AppSettings.
+        /// </summary>
+        public static string AppSettingsSettings_AppSettingsToOutput_Name {
+            get {
+                return ResourceManager.GetString("AppSettingsSettings_AppSettingsToOutput_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom value where to output AppSettings..
+        /// </summary>
+        public static string AppSettingsSettings_OutputCustomValue_Description {
+            get {
+                return ResourceManager.GetString("AppSettingsSettings_OutputCustomValue_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Output Custom Value.
+        /// </summary>
+        public static string AppSettingsSettings_OutputCustomValue_Name {
+            get {
+                return ResourceManager.GetString("AppSettingsSettings_OutputCustomValue_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filtering custom value name..
+        /// </summary>
+        public static string CommonSettings_FilteringCustomValueName_Description {
+            get {
+                return ResourceManager.GetString("CommonSettings_FilteringCustomValueName_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filtering Custom Value Name.
+        /// </summary>
+        public static string CommonSettings_FilteringCustomValueName_Name {
+            get {
+                return ResourceManager.GetString("CommonSettings_FilteringCustomValueName_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Routing custom value name..
+        /// </summary>
+        public static string CommonSettings_RoutingCustomValueName_Description {
+            get {
+                return ResourceManager.GetString("CommonSettings_RoutingCustomValueName_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Routing Custom Value Name.
+        /// </summary>
+        public static string CommonSettings_RoutingCustomValueName_Name {
+            get {
+                return ResourceManager.GetString("CommonSettings_RoutingCustomValueName_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Just a path to a file.
+        /// </summary>
+        public static string ConfigurationValidationSettings_FilePath_Description {
+            get {
+                return ResourceManager.GetString("ConfigurationValidationSettings_FilePath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File Path.
+        /// </summary>
+        public static string ConfigurationValidationSettings_FilePath_Name {
+            get {
+                return ResourceManager.GetString("ConfigurationValidationSettings_FilePath_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If IfThisIsTrue is true, then ThisMustNotBeEmpty must not be empty.
+        /// </summary>
+        public static string ConfigurationValidationSettings_IfThisIsTrue_Description {
+            get {
+                return ResourceManager.GetString("ConfigurationValidationSettings_IfThisIsTrue_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Just a Group.
+        /// </summary>
+        public static string ConfigurationValidationSettings_IfThisIsTrue_GroupName {
+            get {
+                return ResourceManager.GetString("ConfigurationValidationSettings_IfThisIsTrue_GroupName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If This Is True.
+        /// </summary>
+        public static string ConfigurationValidationSettings_IfThisIsTrue_Name {
+            get {
+                return ResourceManager.GetString("ConfigurationValidationSettings_IfThisIsTrue_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This Date Must Be In The Future.
+        /// </summary>
+        public static string ConfigurationValidationSettings_ThisMustBeInTheFuture_Description {
+            get {
+                return ResourceManager.GetString("ConfigurationValidationSettings_ThisMustBeInTheFuture_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Just another Group.
+        /// </summary>
+        public static string ConfigurationValidationSettings_ThisMustBeInTheFuture_GroupName {
+            get {
+                return ResourceManager.GetString("ConfigurationValidationSettings_ThisMustBeInTheFuture_GroupName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This Must Be In The Future.
+        /// </summary>
+        public static string ConfigurationValidationSettings_ThisMustBeInTheFuture_Name {
+            get {
+                return ResourceManager.GetString("ConfigurationValidationSettings_ThisMustBeInTheFuture_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This Date Must Be In The Past.
+        /// </summary>
+        public static string ConfigurationValidationSettings_ThisMustBeInThePast_Description {
+            get {
+                return ResourceManager.GetString("ConfigurationValidationSettings_ThisMustBeInThePast_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Just another Group.
+        /// </summary>
+        public static string ConfigurationValidationSettings_ThisMustBeInThePast_GroupName {
+            get {
+                return ResourceManager.GetString("ConfigurationValidationSettings_ThisMustBeInThePast_GroupName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This Must Be In The Past.
+        /// </summary>
+        public static string ConfigurationValidationSettings_ThisMustBeInThePast_Name {
+            get {
+                return ResourceManager.GetString("ConfigurationValidationSettings_ThisMustBeInThePast_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If IfThisIsTrue is true, then ThisMustNotBeEmpty must not be empty.
+        /// </summary>
+        public static string ConfigurationValidationSettings_ThisMustNotBeEmpty_Description {
+            get {
+                return ResourceManager.GetString("ConfigurationValidationSettings_ThisMustNotBeEmpty_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Just a Group.
+        /// </summary>
+        public static string ConfigurationValidationSettings_ThisMustNotBeEmpty_GroupName {
+            get {
+                return ResourceManager.GetString("ConfigurationValidationSettings_ThisMustNotBeEmpty_GroupName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This Must Not Be Empty.
+        /// </summary>
+        public static string ConfigurationValidationSettings_ThisMustNotBeEmpty_Name {
+            get {
+                return ResourceManager.GetString("ConfigurationValidationSettings_ThisMustNotBeEmpty_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The file specified in FilePath does not exist..
+        /// </summary>
+        public static string ConfigurationValidationSettings_Validations_FilePath_Missing {
+            get {
+                return ResourceManager.GetString("ConfigurationValidationSettings_Validations_FilePath_Missing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThisMustBeInTheFuture must be in the future!.
+        /// </summary>
+        public static string ConfigurationValidationSettings_Validations_ThisMustBeInTheFuture_NotInFuture {
+            get {
+                return ResourceManager.GetString("ConfigurationValidationSettings_Validations_ThisMustBeInTheFuture_NotInFuture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThisMustBeInThePast must be in the past!.
+        /// </summary>
+        public static string ConfigurationValidationSettings_Validations_ThisMustBeInThePast_NotInPast {
+            get {
+                return ResourceManager.GetString("ConfigurationValidationSettings_Validations_ThisMustBeInThePast_NotInPast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IfThisIsTrue is true, but ThisMustNotBeEmpty is empty!.
+        /// </summary>
+        public static string ConfigurationValidationSettings_Validations_ThisMustNotBeEmpty_Empty {
+            get {
+                return ResourceManager.GetString("ConfigurationValidationSettings_Validations_ThisMustNotBeEmpty_Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Routing and Filtering Settings.
+        /// </summary>
+        public static string ExportSettings_Common_Name {
+            get {
+                return ResourceManager.GetString("ExportSettings_Common_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maps media to be exported to the extensions of exported files.
+        /// </summary>
+        public static string ExportSettings_ExportMediaMappings_Description {
+            get {
+                return ResourceManager.GetString("ExportSettings_ExportMediaMappings_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Media Mapping.
+        /// </summary>
+        public static string ExportSettings_ExportMediaMappings_Name {
+            get {
+                return ResourceManager.GetString("ExportSettings_ExportMediaMappings_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Path to where the files are going to be exported.
+        /// </summary>
+        public static string ExportSettings_ExportPath_Description {
+            get {
+                return ResourceManager.GetString("ExportSettings_ExportPath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export Path.
+        /// </summary>
+        public static string ExportSettings_ExportPath_Name {
+            get {
+                return ResourceManager.GetString("ExportSettings_ExportPath_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All the files are put in the same (export) folder.
+        /// </summary>
+        public static string ExportSettings_FlatExport_Description {
+            get {
+                return ResourceManager.GetString("ExportSettings_FlatExport_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Flat Export.
+        /// </summary>
+        public static string ExportSettings_FlatExport_Name {
+            get {
+                return ResourceManager.GetString("ExportSettings_FlatExport_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Common settings..
+        /// </summary>
+        public static string ImportSettings_Common_Description {
+            get {
+                return ResourceManager.GetString("ImportSettings_Common_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Common Settings.
+        /// </summary>
+        public static string ImportSettings_Common_Name {
+            get {
+                return ResourceManager.GetString("ImportSettings_Common_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Document Type.
+        /// </summary>
+        public static string ImportSettings_DocumentType_Name {
+            get {
+                return ResourceManager.GetString("ImportSettings_DocumentType_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import path..
+        /// </summary>
+        public static string ImportSettings_ImportPath_Description {
+            get {
+                return ResourceManager.GetString("ImportSettings_ImportPath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import Path.
+        /// </summary>
+        public static string ImportSettings_ImportPath_Name {
+            get {
+                return ResourceManager.GetString("ImportSettings_ImportPath_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jpeg filetr..
+        /// </summary>
+        public static string ImportSettings_JpegFilter_Description {
+            get {
+                return ResourceManager.GetString("ImportSettings_JpegFilter_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jpeg Filetr.
+        /// </summary>
+        public static string ImportSettings_JpegFilter_Name {
+            get {
+                return ResourceManager.GetString("ImportSettings_JpegFilter_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tiff filetr..
+        /// </summary>
+        public static string ImportSettings_TiffFilter_Description {
+            get {
+                return ResourceManager.GetString("ImportSettings_TiffFilter_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tiff Filetr.
+        /// </summary>
+        public static string ImportSettings_TiffFilter_Name {
+            get {
+                return ResourceManager.GetString("ImportSettings_TiffFilter_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of days the work item must be in the overdue SLA status in order to be counted for notification..
+        /// </summary>
+        public static string OverdueAgentSettings_DaysOverdue_Description {
+            get {
+                return ResourceManager.GetString("OverdueAgentSettings_DaysOverdue_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 02 - Notification.
+        /// </summary>
+        public static string OverdueAgentSettings_DaysOverdue_GroupName {
+            get {
+                return ResourceManager.GetString("OverdueAgentSettings_DaysOverdue_GroupName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Days Overdue.
+        /// </summary>
+        public static string OverdueAgentSettings_DaysOverdue_Name {
+            get {
+                return ResourceManager.GetString("OverdueAgentSettings_DaysOverdue_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to One day or more.
+        /// </summary>
+        public static string OverdueAgentSettings_DaysOverdue_Values_1 {
+            get {
+                return ResourceManager.GetString("OverdueAgentSettings_DaysOverdue_Values_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Two Days or more.
+        /// </summary>
+        public static string OverdueAgentSettings_DaysOverdue_Values_2 {
+            get {
+                return ResourceManager.GetString("OverdueAgentSettings_DaysOverdue_Values_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Three days or more.
+        /// </summary>
+        public static string OverdueAgentSettings_DaysOverdue_Values_3 {
+            get {
+                return ResourceManager.GetString("OverdueAgentSettings_DaysOverdue_Values_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Five days or more.
+        /// </summary>
+        public static string OverdueAgentSettings_DaysOverdue_Values_5 {
+            get {
+                return ResourceManager.GetString("OverdueAgentSettings_DaysOverdue_Values_5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A week or more.
+        /// </summary>
+        public static string OverdueAgentSettings_DaysOverdue_Values_7 {
+            get {
+                return ResourceManager.GetString("OverdueAgentSettings_DaysOverdue_Values_7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If this option is selected, the agent will count also work items that are in the CloseTo status..
+        /// </summary>
+        public static string OverdueAgentSettings_IncludeCloseTo_Description {
+            get {
+                return ResourceManager.GetString("OverdueAgentSettings_IncludeCloseTo_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 02 - Notification.
+        /// </summary>
+        public static string OverdueAgentSettings_IncludeCloseTo_GroupName {
+            get {
+                return ResourceManager.GetString("OverdueAgentSettings_IncludeCloseTo_GroupName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Including CloseTo.
+        /// </summary>
+        public static string OverdueAgentSettings_IncludeCloseTo_Name {
+            get {
+                return ResourceManager.GetString("OverdueAgentSettings_IncludeCloseTo_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Explains what this system agent does..
+        /// </summary>
+        public static string OverdueAgentSettings_ReadMe_Description {
+            get {
+                return ResourceManager.GetString("OverdueAgentSettings_ReadMe_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 01 - Description.
+        /// </summary>
+        public static string OverdueAgentSettings_ReadMe_GroupName {
+            get {
+                return ResourceManager.GetString("OverdueAgentSettings_ReadMe_GroupName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ReadMe.
+        /// </summary>
+        public static string OverdueAgentSettings_ReadMe_Name {
+            get {
+                return ResourceManager.GetString("OverdueAgentSettings_ReadMe_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This system agent ticks as configured on the process settings tab. 
+        ///With every tick it counts the number of work items that have the SLA status in Overdue (and alternatively in Close To, depending on the configuration) and that they are in this status for longer than configured number of days. If there are such work items the agent will compose a mail like this: &apos;Dear &lt;Send To&gt;. We have detected that the process &lt;name of the process&gt; have &lt;number of work items&gt; work items in Overdue for more than &lt;Days Ove [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string OverdueAgentSettings_Readme_Prompt {
+            get {
+                return ResourceManager.GetString("OverdueAgentSettings_Readme_Prompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name of the receiver..
+        /// </summary>
+        public static string OverdueAgentSettings_SendTo_Description {
+            get {
+                return ResourceManager.GetString("OverdueAgentSettings_SendTo_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 03 - E-Mail Settings.
+        /// </summary>
+        public static string OverdueAgentSettings_SendTo_GroupName {
+            get {
+                return ResourceManager.GetString("OverdueAgentSettings_SendTo_GroupName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send To.
+        /// </summary>
+        public static string OverdueAgentSettings_SendTo_Name {
+            get {
+                return ResourceManager.GetString("OverdueAgentSettings_SendTo_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The E-mail address where the notification mail will be sent to..
+        /// </summary>
+        public static string OverdueAgentSettings_SendToMail_Description {
+            get {
+                return ResourceManager.GetString("OverdueAgentSettings_SendToMail_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 03 - E-Mail Settings.
+        /// </summary>
+        public static string OverdueAgentSettings_SendToMail_GroupName {
+            get {
+                return ResourceManager.GetString("OverdueAgentSettings_SendToMail_GroupName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send To Address.
+        /// </summary>
+        public static string OverdueAgentSettings_SendToMail_Name {
+            get {
+                return ResourceManager.GetString("OverdueAgentSettings_SendToMail_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configuration of the SMTP server to be used for sending notification e-mails..
+        /// </summary>
+        public static string OverdueAgentSettings_ServerSettings_Description {
+            get {
+                return ResourceManager.GetString("OverdueAgentSettings_ServerSettings_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 03 - E-Mail Settings.
+        /// </summary>
+        public static string OverdueAgentSettings_ServerSettings_GroupName {
+            get {
+                return ResourceManager.GetString("OverdueAgentSettings_ServerSettings_GroupName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SMTP Server Settings.
+        /// </summary>
+        public static string OverdueAgentSettings_ServerSettings_Name {
+            get {
+                return ResourceManager.GetString("OverdueAgentSettings_ServerSettings_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The e mail address of the sender. If not set the UserName will be used.&quot;.
+        /// </summary>
+        public static string SmtpSettings_From_Description {
+            get {
+                return ResourceManager.GetString("SmtpSettings_From_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to from e-mail address.
+        /// </summary>
+        public static string SmtpSettings_From_Name {
+            get {
+                return ResourceManager.GetString("SmtpSettings_From_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The password for the user to authorize on SMTP server..
+        /// </summary>
+        public static string SmtpSettings_Password_Description {
+            get {
+                return ResourceManager.GetString("SmtpSettings_Password_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        public static string SmtpSettings_Password_Name {
+            get {
+                return ResourceManager.GetString("SmtpSettings_Password_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The address of the SMTP server..
+        /// </summary>
+        public static string SmtpSettings_ServerAddress_Description {
+            get {
+                return ResourceManager.GetString("SmtpSettings_ServerAddress_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Server Address.
+        /// </summary>
+        public static string SmtpSettings_ServerAddress_Name {
+            get {
+                return ResourceManager.GetString("SmtpSettings_ServerAddress_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The port of the SMTP server..
+        /// </summary>
+        public static string SmtpSettings_ServerPort_Description {
+            get {
+                return ResourceManager.GetString("SmtpSettings_ServerPort_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Server Port.
+        /// </summary>
+        public static string SmtpSettings_ServerPort_Name {
+            get {
+                return ResourceManager.GetString("SmtpSettings_ServerPort_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The user for authorizing on SMTP server..
+        /// </summary>
+        public static string SmtpSettings_UserName_Description {
+            get {
+                return ResourceManager.GetString("SmtpSettings_UserName_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User Name.
+        /// </summary>
+        public static string SmtpSettings_UserName_Name {
+            get {
+                return ResourceManager.GetString("SmtpSettings_UserName_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use SSL for establishing connection..
+        /// </summary>
+        public static string SmtpSettings_UseSSL_Description {
+            get {
+                return ResourceManager.GetString("SmtpSettings_UseSSL_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use SSL.
+        /// </summary>
+        public static string SmtpSettings_UseSSL_Name {
+            get {
+                return ResourceManager.GetString("SmtpSettings_UseSSL_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Routing and Filtering Settings.
+        /// </summary>
+        public static string WatermarkSettings_Common_Name {
+            get {
+                return ResourceManager.GetString("WatermarkSettings_Common_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Watermark Text.
+        /// </summary>
+        public static string WatermarkSettings_WatermarkText_Name {
+            get {
+                return ResourceManager.GetString("WatermarkSettings_WatermarkText_Name", resourceCulture);
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using SampleActivity.Properties;
 using STG.Common.DTO.Metadata;
 using STG.RT.API.Activity;
 
@@ -17,22 +18,22 @@ namespace SampleActivity.Settings
         }
 
         [Required]
-        [Display(Name = "Import Path", Description = "Import path.", Order = 1)]
+        [Display(Name = nameof(Resources.ImportSettings_ImportPath_Name), Description = nameof(Resources.ImportSettings_ImportPath_Description), Order = 1, ResourceType = typeof(Resources))]
         public string ImportPath { get; set; }
 
         [Required]
-        [Display(Name = "Jpeg Filetr", Description = "Jpeg filetr.", Order = 2)]
+        [Display(Name = nameof(Resources.ImportSettings_JpegFilter_Name), Description = nameof(Resources.ImportSettings_JpegFilter_Description), Order = 2, ResourceType = typeof(Resources))]
         public string JpegFilter { get; set; }
 
         [Required]
-        [Display(Name = "Tiff Filetr", Description = "Tiff filetr.", Order = 3)]
+        [Display(Name = nameof(Resources.ImportSettings_TiffFilter_Name), Description = nameof(Resources.ImportSettings_TiffFilter_Description), Order = 3, ResourceType = typeof(Resources))]
         public string TiffFilter { get; set; }
 
-        [Display(Name = "Document Type", Description = "", Order = 4)]
+        [Display(Name = nameof(Resources.ImportSettings_DocumentType_Name), Order = 4, ResourceType = typeof(Resources))]
         public string DocumentType { get; set; }
 
         [InputType(InputType.nestedClass)]
-        [Display(Name = "Common Settings", Description = "Common settings.", Order = 5)]
+        [Display(Name = nameof(Resources.ImportSettings_Common_Name), Description = nameof(Resources.ImportSettings_Common_Description), Order = 5, ResourceType = typeof(Resources))]
         public CommonSettings Common { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
+using SampleActivity.Properties;
 using STG.Common.DTO.Configuration;
 using STG.Common.DTO.Metadata;
 using STG.Common.Interfaces.Activities;
@@ -12,23 +13,23 @@ namespace SampleActivity.Settings
     public class ConfigurationValidationSettings : ActivityConfigBase<ConfigurationValidationSettings>, IActivityConfigurationValidation
     {
         [Required]
-        [Display(Name = "File Path", Description = "Just a path to a file", Order = 1)]
+        [Display(Name = nameof(Resources.ConfigurationValidationSettings_FilePath_Name), Description = nameof(Resources.ConfigurationValidationSettings_FilePath_Description), Order = 1, ResourceType = typeof(Resources))]
         [InputType(InputType.text)]
         public string FilePath { get; set; }
 
-        [Display(Name = "If This Is True", Description = "If IfThisIsTrue is true, then ThisMustNotBeEmpty must not be empty", GroupName = "Just a Group", Order = 2)]
+        [Display(Name = nameof(Resources.ConfigurationValidationSettings_IfThisIsTrue_Name), Description = nameof(Resources.ConfigurationValidationSettings_IfThisIsTrue_Description), GroupName = nameof(Resources.ConfigurationValidationSettings_IfThisIsTrue_GroupName), Order = 2, ResourceType = typeof(Resources))]
         [InputType(InputType.checkbox)]
         public bool IfThisIsTrue { get; set; }
 
-        [Display(Name = "This Must Not Be Empty", Description = "If IfThisIsTrue is true, then ThisMustNotBeEmpty must not be empty", GroupName = "Just a Group", Order = 3)]
+        [Display(Name = nameof(Resources.ConfigurationValidationSettings_ThisMustNotBeEmpty_Name), Description = nameof(Resources.ConfigurationValidationSettings_ThisMustNotBeEmpty_Description), GroupName = nameof(Resources.ConfigurationValidationSettings_ThisMustNotBeEmpty_GroupName), Order = 3, ResourceType = typeof(Resources))]
         [InputType(InputType.text)]
         public string ThisMustNotBeEmpty { get; set; }
 
-        [Display(Name = "This Must Be In The Past", Description = "This Date Must Be In The Past", GroupName = "Just another Group", Order = 4)]
+        [Display(Name = nameof(Resources.ConfigurationValidationSettings_ThisMustBeInThePast_Name), Description = nameof(Resources.ConfigurationValidationSettings_ThisMustBeInThePast_Description), GroupName = nameof(Resources.ConfigurationValidationSettings_ThisMustBeInThePast_GroupName), Order = 4, ResourceType = typeof(Resources))]
         [InputType(InputType.date)]
         public DateTime ThisMustBeInThePast { get; set; }
 
-        [Display(Name = "This Must Be In The Future", Description = "This Date Must Be In The Future", GroupName = "Just another Group", Order = 5)]
+        [Display(Name = nameof(Resources.ConfigurationValidationSettings_ThisMustBeInTheFuture_Name), Description = nameof(Resources.ConfigurationValidationSettings_ThisMustBeInTheFuture_Description), GroupName = nameof(Resources.ConfigurationValidationSettings_ThisMustBeInTheFuture_GroupName), Order = 5, ResourceType = typeof(Resources))]
         [InputType(InputType.date)]
         public DateTime ThisMustBeInTheFuture { get; set; }
 
@@ -49,7 +50,7 @@ namespace SampleActivity.Settings
                 {
                     Level = options.IsDesigntimeEnvironment ? DtoActivityConfigurationValidationLevel.Info : DtoActivityConfigurationValidationLevel.Error,
                     PropertyName = nameof(FilePath),
-                    Message = "The file specified in FilePath does not exist!"
+                    Message = Resources.ConfigurationValidationSettings_Validations_FilePath_Missing
                 });
             }
 
@@ -60,7 +61,7 @@ namespace SampleActivity.Settings
                 {
                     Level = DtoActivityConfigurationValidationLevel.Error,
                     PropertyName = nameof(ThisMustNotBeEmpty),
-                    Message = "IfThisIsTrue is true, but ThisMustNotBeEmpty is empty!"
+                    Message = Resources.ConfigurationValidationSettings_Validations_ThisMustNotBeEmpty_Empty
                 });
             }
 
@@ -70,7 +71,7 @@ namespace SampleActivity.Settings
                 {
                     Level = DtoActivityConfigurationValidationLevel.Warning,
                     PropertyName = nameof(ThisMustBeInThePast),
-                    Message = "ThisMustBeInThePast must be in the past!"
+                    Message = Resources.ConfigurationValidationSettings_Validations_ThisMustBeInThePast_NotInPast
                 });
             }
 
@@ -80,7 +81,7 @@ namespace SampleActivity.Settings
                 {
                     Level = DtoActivityConfigurationValidationLevel.Warning,
                     PropertyName = nameof(ThisMustBeInTheFuture),
-                    Message = "ThisMustBeInTheFuture must be in the future!"
+                    Message = Resources.ConfigurationValidationSettings_Validations_ThisMustBeInTheFuture_NotInFuture
                 });
             }
 

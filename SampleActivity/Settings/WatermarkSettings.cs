@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using SampleActivity.Properties;
 using STG.Common.DTO.Metadata;
 using STG.RT.API.Activity;
 
@@ -12,11 +13,11 @@ namespace SampleActivity.Settings
             Common = new CommonSettings();
         }
 
-        [Display(Name = "Routing and Filtering Settings", Order = 4), InputType(InputType.nestedClass)]
+        [Display(Name = nameof(Resources.WatermarkSettings_Common_Name), Order = 4, ResourceType = typeof(Resources)), InputType(InputType.nestedClass)]
         public CommonSettings Common { get; set; }
 
         [Required]
-        [Display(Name = "Watermark Text", Description = "", Order = 1)]
+        [Display(Name = nameof(Resources.WatermarkSettings_WatermarkText_Name), Order = 1, ResourceType = typeof(Resources))]
         [InputType(InputType.text)]
         public string WatermarkText { get; set; }
     }
