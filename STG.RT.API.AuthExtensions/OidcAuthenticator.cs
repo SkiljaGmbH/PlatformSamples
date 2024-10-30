@@ -307,5 +307,12 @@ namespace STG.RT.API.AuthExtensions
             };
             return new ValueTask<AuthenticationResult>(t);
         }
+
+        public async ValueTask<string> GetUsernameAsync()
+        {
+            var authResult = await GetAuthenticationResultAsync();
+            var idToken = authResult?.GetIdentityToken();
+            return idToken?.Username ?? "unknown";
+        }
     }
 }
