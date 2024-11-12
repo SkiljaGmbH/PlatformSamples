@@ -1,0 +1,114 @@
+{
+    "title": "Demo Web editor for activity configuration",
+    "DependentItems": "Dependant items",
+    "BinaryItem": "Binary Json",
+    "DatabaseLookups": "Database Lookups",
+    "PlatformData": "Platform Data",
+    "DocTypeEditor": "Document Type Editor",
+    "PlatformProvidedData": "Platform Provided Data",
+    "MediaTypes": "Media Types",
+    "AvailableDocumentTypes": "Available Document Types",
+    "SelectDocumentType":  "Select the document type from the combo above to fill the index fields.",
+    "SelectDocumentTypeTbl": "Select the document type from the combo above to fill the tables.",
+    "AddDatabaseLookup": "Add Database Lookup",
+    "JsonSettings": "Json Settings",
+    "JSONFile": "JSON file",
+    "GeneralSettings": "General Settings",
+    "CheckBox": "CheckBox",
+    "addVar" : {
+        "title": "Variables"
+    } ,
+    "remVar": {
+        "title": "Remove"
+    },
+    "CheckBoxDependent" : "Check Box Dependent",
+    "CheckBoxDependentList" : "Check Box Dependent List",
+    "AddNewItem" : "Add New Item" ,
+    "NoVariable": "There is no available variables for the current field.",
+    "Name" : "Name",
+    "Description": "Description",	
+    "Type": "Type",
+    "IsIndexed" : "Is Indexed",
+    "input": {
+        "txtUploadedFile": {
+            "placeholder": "User name"
+        },
+        "assignedVar": {
+            "title": "Assigned Variable"
+        },
+        "confirmValid": {
+            "title": "Confirm that entered data is valid."
+        },
+        "enterValue": {
+            "title": "Enter Value."
+        },
+        "dataValidityConfirmed":{
+            "title": "Data validity confirmed"
+        }
+    },
+    "varDialog": {
+        "assign": "Assign",
+        "cancel": "Cancel",
+        "title": "Assign Variable"
+    },
+    "docTypeDialog": {
+        "ok": "OK",
+        "cancel": "Cancel",
+        "title": "Document Type Editor"
+    },
+    "fieldDialog": {
+        "ok": "OK",
+        "cancel": "Cancel",
+        "title": "Field Editor"
+    },
+    "tableDialog": {
+        "ok": "OK",
+        "cancel": "Cancel",
+        "title": "Table Editor"
+    },
+    "columnDialog": {
+        "ok": "OK",
+        "cancel": "Cancel",
+        "title": "Column Editor"
+    },
+    "jsonDialog": {
+        "cancel": "Cancel",
+        "titleInstance": "Activity Instance Preview",
+        "titleMedia": "Media Type Preview",
+        "titleDocType": "Document Type Preview"
+    },
+    "alerts": {
+        "docTypeWithNameExists": "Document type can not be created, a document type with the same name is already assigned to the process.",
+        "assign":  "Please select a variable to assign to a field",
+        "featureNotSupported":  "This feature is not supported on the current platform version!",
+        "uncaughtError":  "Uuups, something went wrong. Please check your console for error details.",
+        "processVersions":  "The current process ('{0}') has {1} versions. Note that this information was fetched by issuing the GET request to the designer service."
+    },
+    "confirms": {
+        "delFiled": "Are you sure you want to delete the field '{0}' from the document type '{1}'?",
+        "delColumn": "Are you sure you want to delete the column '{0}' from the table '{1}' of the document type '{2}'?",
+        "delTable": "Are you sure you want to delete the table '{0}' from the document type '{1}'?"
+    }, 
+    "contextMenus": {
+        "workItems": "Work Items",
+        "docTypes": "Document Types",
+        "mediaTypes": "Media Types",
+        "versions": "Count process versions"
+    },
+    "validation": "Please check the 'Data validity confirmed' check-box to close the dialog",
+    "DatabaseLookup": "Database Lookup",
+    "DatabaseConnection": "Database Connection",
+    "ServerName": "Server name",
+    "DatabaseName": "Database name",
+    "IntegratedSecurity": "Integrated security",
+    "Username": "Username",
+    "Password": "Password",
+    "LookupName": "Lookup name",
+    "TableName": "Table name",
+    "Columns": "Columns",
+    "FullTextSearch": "Allow full text search",
+    "FullTextColumns": "Full text search columns",
+    "MaxResults": "Max returned results"
+
+
+}

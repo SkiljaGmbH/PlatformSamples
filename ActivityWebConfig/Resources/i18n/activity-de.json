@@ -1,0 +1,114 @@
+{
+    "title": "Demo-Web-Editor für Aktivitätskonfiguration“",
+    "DependentItems": "Abhängige Elemente",
+    "BinaryItem": "Binäres Json",
+    "DatabaseLookups": "Datenbank-Lookups",
+    "PlatformData": "Plattform-Daten",
+    "DocTypeEditor": "Dokumenttyp-Editor",
+    "PlatformProvidedData": "Von der Plattform bereitgestellte Daten",
+    "MediaTypes": "Medientypen",
+    "AvailableDocumentTypes": "Verfügbare Dokumenttypen",
+    "SelectDocumentType":  "Wählen Sie den Dokumenttyp aus der obigen Kombination aus, um die Indexfelder zu füllen.",
+    "SelectDocumentTypeTbl": "Wählen Sie die Dokumentart aus der obigen Kombination aus, um die Tabellen zu füllen.",
+    "AddDatabaseLookup": "Datenbank-Lookup hinzufügen",
+    "JsonSettings": "Json-Einstellungen",
+    "JSONFile": "JSON-Datei",
+    "GeneralSettings": "Allgemeine Einstellungen",
+    "CheckBox": "Kontrollkästchen",
+    "addVar" : {
+        "title": "Variablen"
+    },
+    "remVar":  {
+        "title": "Entfernen"
+    },
+    "CheckBoxDependent" : "Kontrollkästchenabhängig",
+    "CheckBoxDependentList" : "Kontrollkästchenabhängige Liste",
+    "AddNewItem" : "Neues Element hinzufügen" ,
+    "NoVariable": "Es gibt keine verfügbaren Variablen für das aktuelle Feld.",
+    "Name" : "Name",
+    "Description": "Beschreibung",	
+    "Type": "Typ",
+    "IsIndexed" : "Ist indiziert",
+    "input": {
+        "txtUploadedFile": {
+            "placeholder": "DE - No file selected"
+        },
+        "assignedVar": {
+            "title": "Zugewiesene Variable"
+        },
+        "confirmValid": {
+            "title": "Bestätigen Sie, dass die eingegebenen Daten gültig sind."
+        },
+        "enterValue": {
+            "title": "Wert eingeben"
+        },
+        "dataValidityConfirmed":{
+            "title": "Datengültigkeit bestätigt"
+        }
+    },
+    "varDialog": {
+        "assign": "Zuweisen",
+        "cancel": "Abbrechen",
+        "title": "Zugewiesene Variable"
+    },
+    "docTypeDialog": {
+        "ok": "OK",
+        "cancel": "Abbrechen",
+        "title": "Dokumenttyp-Editor"
+    },
+    "fieldDialog": {
+        "ok": "OK",
+        "cancel": "Abbrechen",
+        "title": "Feld-Editor"
+    },
+    "tableDialog": {
+        "ok": "OK",
+        "cancel": "Abbrechen",
+        "title": "Tabellen-Editor"
+    },
+    "columnDialog": {
+        "ok": "OK",
+        "cancel": "Abbrechen",
+        "title": "Spalten-Editor"
+    },
+    "jsonDialog": {
+        "cancel": "Abbrechen",
+        "titleInstance": "Instanz-Preview",
+        "titleMedia": "Mediatyp-Preview",
+        "titleDocType": "Dokumenttyp-Preview"
+    },
+    "alerts": {
+        "docTypeWithNameExists": "Dokumenttyp kann nicht erstellt werden, ein Dokumenttyp mit demselben Namen ist dem Prozess bereits zugewiesen.",
+        "assign":  "Bitte wählen Sie eine Variable aus, die Sie einem Feld zuweisen möchten",
+        "featureNotSupported":  "Diese Funktion wird von der aktuellen Plattformversion nicht unterstützt!",
+        "uncaughtError":  "Uuups, etwas ist schief gelaufen. Bitte prüfen Sie Ihre Konsole auf Fehlerdetails",
+        "processVersions":  "Der aktuelle Prozess ('{0}') hat {1} Versionen. Beachten Sie, dass diese Informationen durch eine GET-Anfrage an den Designer-Dienst abgerufen wurden."
+    },
+    "confirms": {
+        "delFiled": "Sind Sie sicher, dass Sie das Feld '{0}' aus dem Dokumenttyp '{1}' löschen wollen?",
+        "delColumn": "Sind Sie sicher, dass Sie die Spalte '{0}' aus der Tabelle '{1}' des Dokumenttyps '{2}' löschen wollen?",
+        "delTable": "Sind Sie sicher, dass Sie die Tabelle '{0}' aus dem Dokumenttyp '{1}' löschen wollen?"
+    }, 
+    "contextMenus": {
+        "workItems": "Arbeitsaufgaben",
+        "docTypes": "Dokumenttypen",
+        "mediaTypes": "Medientypen",
+        "versions": "Prozessversionen zählen"
+    },
+    "validation": "Bitte aktivieren Sie das Kontrollkästchen 'Datengültigkeit bestätigt', um den Dialog zu schließen",
+    "DatabaseLookup": "Datenbank-Lookup",
+    "DatabaseConnection": "Datenbankverbindung",
+    "ServerName": "Servername",
+    "DatabaseName": "Datenbankname",
+    "IntegratedSecurity": "Integrierte Sicherheit",
+    "Username": "Benutzername",
+    "Password": "Kennwort",
+    "LookupName": "LookupName",
+    "TableName": "Tabellenname",
+    "Columns": "Columns",
+    "FullTextSearch": "Volltextsuche zulassen",
+    "FullTextColumns": "Volltext-Suchspalten",
+    "MaxResults": "Max. zurückgegebene Ergebnisse"
+
+
+}

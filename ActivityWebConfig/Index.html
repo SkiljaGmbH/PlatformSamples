@@ -1,245 +1,249 @@
 ﻿<!DOCTYPE html>
-<html>
-<head>
-    <script src="Scripts/jquery-3.1.1.min.js"></script>
-    <script src="Scripts/jquery-ui.min.js"></script>
-    <script src="Scripts/jsoneditor.min.js"></script>
-    <script src="Scripts/jquery.contextMenu.min.js"></script>
-    <script src="Scripts/jquery.tagsinput.min.js"></script>
-    <script src="Scripts/APIBundle.min.js"></script>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title data-localize="title">ActivityWebConfig</title>
     
-    <link href="Resources/jquery-ui.min.css" rel="stylesheet" />
-    <link href="Resources/jsoneditor.min.css" rel="stylesheet" />
-    <link href="Resources/jquery.tagsinput.min.css" rel="stylesheet" />
-    <link href="Resources/jquery.contextMenu.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" type="text/css" href="Resources/activity.css">
-</head>
-<body>
-
-    <div id="tabs">
-        <ul>
-            <li><a href="#DependentItems">Dependant items</a></li>
-            <li><a href="#BinaryItem">Binary Json</a></li>
-            <li><a href="#DatabaseLookups">Database Lookups</a></li>
-            <li><a href="#PlatformData">Platform Data</a></li>
-            <li><a href="#DocTypeEditor">Document Type Editor</a></li>
-        </ul>
-        <div id="PlatformData" class="tabcontent main">
-            <h3>Platform Provided Data</h3>
-            <div class="block form-row">
-                <label for="selMediaTypes">Media Types</label>
-                <select name="selMediaTypes" id="selMediaTypes"></select>
-            </div>
-
-            <div class="block form-row">
-                <label for="selDocTypes">Available Document Types</label>
-                <select name="selDocTypes" id="selDocTypes" onchange="docTypeChange(event)"></select>
-            </div>
-            <hr />
-            <div class="block form-row">
-                <div class="ui-widget noFields">
-                    <div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
-                        <p>
-                            <span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-                            Select the document type from the combo above to fill the index fields.
-                        </p>
-                    </div>
-                </div>
-                <div id="fieldSet">
-                </div>
-            </div>
-        </div>
-        <div id="DatabaseLookups" class="tabcontent main">
-            <h3>Database Lookups</h3>
-
-            <div>
-                <button class="addDbBtn" onclick="addDatabaseLookup();">Add Database Lookup</button>
-            </div>
-
-            <div class="divDatabaseLookupsContainer">
-
-            </div>
-        </div>
-        <div id="BinaryItem" class="tabcontent main">
-            <div id="JSON">
-                <h3>Json Settings</h3>
+        <script src="Scripts/jquery-3.1.1.min.js"></script>
+        <script src="Scripts/jquery-ui.min.js"></script>
+        <script src="Scripts/jsoneditor.min.js"></script>
+        <script src="Scripts/jquery.contextMenu.min.js"></script>
+        <script src="Scripts/jquery.tagsinput.min.js"></script>
+        <script src="Scripts/jquery.localize.min.js"></script>
+        <script src="Scripts/APIBundle.min.js"></script>
+        
+        <link href="Resources/jquery-ui.min.css" rel="stylesheet"/>
+        <link href="Resources/jsoneditor.min.css" rel="stylesheet"/>
+        <link href="Resources/jquery.tagsinput.min.css" rel="stylesheet"/>
+        <link href="Resources/jquery.contextMenu.min.css" rel="stylesheet"/>
+        <link rel="stylesheet" type="text/css" href="Resources/activity.css"/>
+    </head>
+    <body>
+        <div id="tabs">
+            <ul>
+                <li><a href="#DependentItems" data-localize="DependentItems">Dependant items</a></li>
+                <li><a href="#BinaryItem" data-localize="BinaryItem">Binary Json</a></li>
+                <li><a href="#DatabaseLookups" data-localize="DatabaseLookups">Database Lookups</a></li>
+                <li><a href="#PlatformData" data-localize="PlatformData">Platform Data</a></li>
+                <li><a href="#DocTypeEditor" data-localize="DocTypeEditor">Document Type Editor</a></li>
+            </ul>
+            <div id="PlatformData" class="tabcontent main">
+                <h3 data-localize="PlatformProvidedData">Platform Provided Data</h3>
                 <div class="block form-row">
-                    <label for="fileJson">JSON file</label>
-                    <input type="file" name="JSONFile" id="fileJson" accept=".json" onclick="fileClick(event)" onchange="fileChange(event)" value="">
-                    <input type="text" disabled name="JSONFileName" id="txtUploadedFile" value="">
-                    <br />
-                    <div id="jsoneditor"></div>
-                </div>
-            </div>
-        </div>
-        <div id="DependentItems" class="tabcontent main">
-            <div id="General">
-                <h3>General Settings</h3>
-                <div class="block form-row">
-                    <div class="edit">
-                        <label for="chbCheckBox">CheckBox</label>
-                        <input type="checkbox" onchange="cbChange(event)" name="CheckBox" id="chbCheckBox" value="">
-                        <input type="text" disabled name="CheckBox" id="chbCheckBoxVar" value="">
-                        <button type="button" id="chbCheckBoxVarBtn" class="addVar">Variables</button>
-                        <button type="button" id="chbCheckBoxVarRemBtn" class="remVar">Remove</button>
-                    </div>
+                    <label for="selMediaTypes" data-localize="MediaTypes">Media Types</label>
+                    <select name="selMediaTypes" id="selMediaTypes"></select>
                 </div>
 
                 <div class="block form-row">
-                    <label for="numCBDependent">Check Box Dependent</label>
-                    <input type="number" name="CheckBoxDependent" id="numCBDependent" onclick="fileClick(event)" onchange="fileChange(event)" value="">
-                    <input type="text" disabled name="CheckBoxDependent" id="numCBDependentVar" value="">
-                    <button type="button" id="numCBDependentVarBtn" class="addVar">Variables</button>
-                    <button type="button" id="numCBDependentVarRemBtn" class="remVar">Remove</button>
+                    <label for="selDocTypes" data-localize="AvailableDocumentTypes">Available Document Types</label>
+                    <select name="selDocTypes" id="selDocTypes" onchange="docTypeChange(event)"></select>
                 </div>
+                <hr>
                 <div class="block form-row">
-                    <label for="listCBDependent">Check Box Dependent List</label>
-                    <table id="listCBDependent" >
-                        <tbody id="listTblBody">
-
-                        </tbody>
-                    </table>
-                    <button type="button" class="addListItemBtn" id="listCBDependentAddBtn">Add New Item</button>
-                </div>
-            </div>
-        </div>
-        <div id="DocTypeEditor" class="tabcontent main">
-            <h3>Document Type Editor</h3>
-            <div class="block form-row">
-                <label for="selDocTypesEditor">Available Document Types</label>
-                <select name="selDocTypesEditor" id="selDocTypesEditor" onchange="docTypeChangeEditor(event)"></select>
-                <button class="addDocTypeBtn" onclick="openAddDocTypeDialog();">&#10010;</button>
-            </div>
-            <hr />
-            <div class="block form-row">
-                <div class="ui-widget noFieldsEditor">
-                    <div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
-                        <p>
-                            <span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-                            Select the document type from the combo above to fill the index fields.
-                        </p>
+                    <div class="ui-widget noFields">
+                        <div class="ui-state-highlight ui-corner-all margin20padding07">
+                            <p data-localize="SelectDocumentType">
+                                <span class="ui-icon ui-icon-info floatLeftLMargin03"></span>
+                                Select the document type from the combo above to fill the index fields.
+                            </p>
+                        </div>
+                    </div>
+                    <div id="fieldSet">
                     </div>
                 </div>
-                <div id="fieldSetEditor">
+            </div>
+            <div id="DatabaseLookups" class="tabcontent main">
+                <h3 data-localize="DatabaseLookups">Database Lookups</h3>
+
+                <div>
+                    <button class="addDbBtn" onclick="addDatabaseLookup();" data-localize="AddDatabaseLookup">Add Database Lookup</button>
                 </div>
-                <hr />
-                <div class="ui-widget noTables">
-                    <div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
-                        <p>
-                            <span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-                            Select the document type from the combo above to fill the tables.
-                        </p>
+
+                <div class="divDatabaseLookupsContainer">
+
+                </div>
+            </div>
+            <div id="BinaryItem" class="tabcontent main">
+                <div id="JSON">
+                    <h3 data-localize="JsonSettings">Json Settings</h3>
+                    <div class="block form-row">
+                        <label for="fileJson" data-localize="JSONFile">JSON file</label>
+                        <input type="file" name="JSONFile" id="fileJson" accept=".json" onclick="fileClick(event)" onchange="fileChange(event)" value="">
+                        <input type="text" disabled name="JSONFileName" id="txtUploadedFile" data-localize="input.txtUploadedFile" placeholder="No file selected">
+                        <br>
+                        <div id="jsoneditor"></div>
                     </div>
                 </div>
-                <div id="tableSet">
-                </div>
-                <hr />
-                <div id="columnSet">
+            </div>
+            <div id="DependentItems" class="tabcontent main">
+                <div id="General">
+                    <h3 data-localize="GeneralSettings">General Settings</h3>
+                    <div class="block form-row">
+                        <div class="edit">
+                            <label for="chbCheckBox" data-localize="CheckBox">CheckBox</label>
+                            <input type="checkbox" onchange="cbChange(event)" name="CheckBox" id="chbCheckBox" value="">
+                            <input type="text" disabled name="CheckBox" id="chbCheckBoxVar" value="" data-localize="input.assignedVar" title="Assigned Variable" >
+                            <button type="button" id="chbCheckBoxVarBtn" class="addVar" data-localize="addVar">Variables</button>
+                            <button type="button" id="chbCheckBoxVarRemBtn" class="remVar" data-localize="remVar">Remove</button>
+                        </div>
+                    </div>
 
+                    <div class="block form-row">
+                        <label for="numCBDependent" data-localize="CheckBoxDependent">Check Box Dependent</label>
+                        <input type="number" name="CheckBoxDependent" id="numCBDependent" onclick="fileClick(event)" onchange="fileChange(event)" value="">
+                        <input type="text" disabled name="CheckBoxDependent" id="numCBDependentVar" value="" data-localize="input.assignedVar" title="Assigned Variable" >
+                        <button type="button" id="numCBDependentVarBtn" class="addVar" data-localize="addVar">Variables</button>
+                        <button type="button" id="numCBDependentVarRemBtn" class="remVar" data-localize="remVar">Remove</button>
+                    </div>
+                    <div class="block form-row">
+                        <label for="listCBDependent" data-localize="CheckBoxDependentList">Check Box Dependent List</label>
+                        <table id="listCBDependent">
+                            <tbody id="listTblBody">
+
+                            </tbody>
+                        </table>
+                        <button type="button" class="addListItemBtn" id="listCBDependentAddBtn" data-localize="AddNewItem">Add New Item</button>
+                    </div>
+                </div>
+            </div>
+            <div id="DocTypeEditor" class="tabcontent main">
+                <h3 data-localize="DocTypeEditor">Document Type Editor</h3>
+                <div class="block form-row">
+                    <label for="selDocTypesEditor" data-localize="AvailableDocumentTypes">Available Document Types</label>
+                    <select name="selDocTypesEditor" id="selDocTypesEditor" onchange="docTypeChangeEditor(event)"></select>
+                    <button class="addDocTypeBtn" onclick="openAddDocTypeDialog();">✚</button>
+                </div>
+                <hr>
+                <div class="block form-row">
+                    <div class="ui-widget noFieldsEditor">
+                        <div class="ui-state-highlight ui-corner-all margin20padding07" >
+                            <p data-localize="SelectDocumentType">
+                                <span class="ui-icon ui-icon-info floatLeftLMargin03"></span>
+                                Select the document type from the combo above to fill the index fields.
+                            </p>
+                        </div>
+                    </div>
+                    <div id="fieldSetEditor">
+                    </div>
+                    <hr>
+                    <div class="ui-widget noTables">
+                        <div class="ui-state-highlight ui-corner-all margin20padding07">
+                            <p data-localize="SelectDocumentTypeTbl">
+                                <span class="ui-icon ui-icon-info floatLeftLMargin03"></span>
+                                Select the document type from the combo above to fill the tables.
+                            </p>
+                        </div>
+                    </div>
+                    <div id="tableSet">
+                    </div>
+                    <hr />
+                    <div id="columnSet">
+
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <span class="context-menu-one ui-button ui-widget ui-corner-all"> Platform Provided Data </span>
-    <input type="checkbox" id="cb-confirm-data">Data validity confirmed</input>
+        <span class="context-menu-one ui-button ui-widget ui-corner-all" data-localize="PlatformProvidedData"> Platform Provided Data </span>
+        <input type="checkbox" id="cb-confirm-data" data-localize="input.dataValidityConfirmed" title="Data validity confirmed">
+        <label for="cb-confirm-data" data-localize="input.dataValidityConfirmed.title"> Data validity confirmed</label>
 
+        <div id="dialog" title="Assign Variable">
+            <div class="ui-widget noVariable">
+                <div class="ui-state-highlight ui-corner-all margin20padding07" >
+                    <p data-localize="NoVariable">
+                        <span class="ui-icon ui-icon-info floatLeftLMargin03"></span>
+                        There is no available variables for the current field.
+                    </p>
+                </div>
+            </div>
+            <div id="radioset">
 
-    <div id="dialog" title="Assign Variable">
-        <div class="ui-widget noVariable">
-            <div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
-                <p>
-                    <span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-                    There is no available variables for the current field.
-                </p>
             </div>
         </div>
-        <div id="radioset">
-
+        <div id="dialogJson" title="Displaying platform provided data Json">
+            <div id="jsoneditorDialog"></div>
         </div>
-    </div>
-    <div id="dialogJson" title="Displaying platform provided data Json">
-        <div id="jsoneditorDialog"></div>
-    </div>
 
-    <div id="dialog-form-doc-type" title="Document type editor">
-        <form>
-            <fieldset>
-                <label for="docTypeName">Name</label>
-                <input type="text" name="docTypeName" id="docTypeName" class="text ui-widget-content ui-corner-all">
-                <label for="docTypeDescription">Description</label>
-                <textarea type="text" name="docTypeDescription" id="docTypeDescription" class="text ui-widget-content ui-corner-all"></textarea>
-                <!-- Allow form submission with keyboard without duplicating the dialog button -->
-                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-            </fieldset>
-        </form>
-    </div>
+        <div id="dialog-form-doc-type" title="Document type editor">
+            <form>
+                <fieldset>
+                    <label for="docTypeName" data-localize="Name">Name</label>
+                    <input type="text" name="docTypeName" id="docTypeName" class="text ui-widget-content ui-corner-all">
+                    <label for="docTypeDescription" data-localize="Description">Description</label>
+                    <textarea type="text" name="docTypeDescription" id="docTypeDescription" class="text ui-widget-content ui-corner-all"></textarea>
+                    <!-- Allow form submission with keyboard without duplicating the dialog button -->
+                    <input class="posAbsTop-1000" type="submit" tabindex="-1">
+                </fieldset>
+            </form>
+        </div>
 
-    <div id="dialog-form-field" title="Index field editor">
-        <form>
-            <fieldset>
-                <label for="fieldName">Name</label>
-                <input type="text" name="fieldName" id="fieldName" class="text ui-widget-content ui-corner-all">
-                <label for="fieldType">Type</label>
-                <select name="fieldType" id="fieldType" class="ui-widget-content ui-corner-all">
-                    <option value="0">String</option>
-                    <option value="1">Double</option>
-                    <option value="2">Boolean</option>
-                    <option value="3">Integer</option>
-                    <option value="4">DateTime</option>
-                    <option value="5">Decimal</option>
-                    <option value="6">Long</option>
-                    <option value="7">Short</option>
-                    <option value="8">Char</option>
-                </select>
-                <label for="filedIsIndex">Is Indexed</label>
-                <input type="checkbox" name="filedIsIndex" id="filedIsIndex" class="text ui-widget-content ui-corner-all">
-                <label id="fieldNameOriginal" style="display:none"></label>
-                <!-- Allow form submission with keyboard without duplicating the dialog button -->
-                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-            </fieldset>
-        </form>
-    </div>
+        <div id="dialog-form-field" title="Index field editor">
+            <form>
+                <fieldset>
+                    <label for="fieldName" data-localize="Name">Name</label>
+                    <input type="text" name="fieldName" id="fieldName" class="text ui-widget-content ui-corner-all">
+                    <label for="fieldType data-localize=" type"="">Type</label>
+                    <select title="fieldType" name="fieldType" id="fieldType" class="ui-widget-content ui-corner-all">
+                        <option value="0">String</option>
+                        <option value="1">Double</option>
+                        <option value="2">Boolean</option>
+                        <option value="3">Integer</option>
+                        <option value="4">DateTime</option>
+                        <option value="5">Decimal</option>
+                        <option value="6">Long</option>
+                        <option value="7">Short</option>
+                        <option value="8">Char</option>
+                    </select>
+                    <label for="filedIsIndex" data-localize="IsIndexed">Is Indexed</label>
+                    <input type="checkbox" name="filedIsIndex" id="filedIsIndex" class="text ui-widget-content ui-corner-all">
+                    <label id="fieldNameOriginal" class="displayNone"></label>
+                    <!-- Allow form submission with keyboard without duplicating the dialog button -->
+                    <input class="posAbsTop-1000" type="submit" tabindex="-1">
+                </fieldset>
+            </form>
+        </div>
 
-    <div id="dialog-form-table" title="Table editor">
-        <form>
-            <fieldset>
-                <label for="tableName">Name</label>
-                <input type="text" name="tableName" id="tableName" class="text ui-widget-content ui-corner-all">
-                <label for="tableDescription">Description</label>
-                <textarea type="text" name="tableDescription" id="tableDescription" class="text ui-widget-content ui-corner-all"></textarea>
-                <label id="tableNameOriginal" style="display:none"></label>
-                <!-- Allow form submission with keyboard without duplicating the dialog button -->
-                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-            </fieldset>
-        </form>
-    </div>
+        <div id="dialog-form-table" title="Table editor">
+            <form>
+                <fieldset>
+                    <label for="tableName" data-localize="Name">Name</label>
+                    <input type="text" name="tableName" id="tableName" class="text ui-widget-content ui-corner-all">
+                    <label for="tableDescription" data-localize="Description">Description</label>
+                    <textarea type="text" name="tableDescription" id="tableDescription" class="text ui-widget-content ui-corner-all"></textarea>
+                    <label id="tableNameOriginal" class="displayNone"></label>
+                    <!-- Allow form submission with keyboard without duplicating the dialog button -->
+                    <input type="submit" class="posAbsTop-1000" tabindex="-1">
+                </fieldset>
+            </form>
+        </div>
 
-    <div id="dialog-form-column" title="Index field editor">
-        <form>
-            <fieldset>
-                <label for="columnName">Name</label>
-                <input type="text" name="columnName" id="columnName" class="text ui-widget-content ui-corner-all">
-                <label for="columnType">Type</label>
-                <select name="columnType" id="columnType" class="ui-widget-content ui-corner-all">
-                    <option value="0">String</option>
-                    <option value="1">Double</option>
-                    <option value="2">Boolean</option>
-                    <option value="3">Integer</option>
-                    <option value="4">DateTime</option>
-                    <option value="5">Decimal</option>
-                    <option value="6">Long</option>
-                    <option value="7">Short</option>
-                    <option value="8">Char</option>
-                </select>
-                <label id="columnNameOriginal" style="display:none"></label>
-                <!-- Allow form submission with keyboard without duplicating the dialog button -->
-                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-            </fieldset>
-        </form>
-    </div>
-</body>
-<footer>
-    <script src="Scripts/activity.js"></script>
-</footer>
+        <div id="dialog-form-column" title="Index field editor">
+            <form>
+                <fieldset>
+                    <label for="columnName" data-localize="Name">Name</label>
+                    <input type="text" name="columnName" id="columnName" class="text ui-widget-content ui-corner-all">
+                    <label for="columnType" data-localize="Type">Type</label>
+                    <select name="columnType" id="columnType" class="ui-widget-content ui-corner-all">
+                        <option value="0">String</option>
+                        <option value="1">Double</option>
+                        <option value="2">Boolean</option>
+                        <option value="3">Integer</option>
+                        <option value="4">DateTime</option>
+                        <option value="5">Decimal</option>
+                        <option value="6">Long</option>
+                        <option value="7">Short</option>
+                        <option value="8">Char</option>
+                    </select>
+                    <label id="columnNameOriginal" class="displayNone"></label>
+                    <!-- Allow form submission with keyboard without duplicating the dialog button -->
+                    <input type="submit" tabindex="-1" class="posAbsTop-1000" >
+                </fieldset>
+            </form>
+        </div>
+    </body>
+    <footer>
+        <script src="Scripts/activity.js"></script>
+    </footer>
 </html>

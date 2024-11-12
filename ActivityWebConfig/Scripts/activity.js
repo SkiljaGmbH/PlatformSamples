@@ -19,6 +19,8 @@ $(function () {
 	//Document ready function; fired when DOM is ready; here set up the activity
 	$(document).ready(function () {
 		//UI stuff
+        //Enable localization. More info here: https://github.com/coderifous/jquery-localize
+        doLocalization();
 		//Enable tabs widget. More info here:https://jqueryui.com/tabs/
 		$("#tabs").tabs();
 		//Enable tool-tip widget. More info here: https://jqueryui.com/tooltip/
@@ -31,12 +33,6 @@ $(function () {
 			height: 400,
 			width: 400,
 			modal: true,
-			buttons: {
-				"Assign": assignVariable,
-				Cancel: function () {
-					dialog.dialog("close");
-				}
-			},
 			close: function () {
 				dialogOwner = null;
 			},
@@ -47,11 +43,6 @@ $(function () {
             height: 400,
             width: 350,
             modal: true,
-            buttons: {
-                Cancel: function () {
-                    dialogDocType.dialog("close");
-                }
-            },
             close: function () {
                 form[0].reset();
                 formfields.removeClass("ui-state-error");
@@ -63,11 +54,6 @@ $(function () {
             height: 400,
             width: 350,
             modal: true,
-            buttons: {
-                Cancel: function () {
-                    dialogField.dialog("close");
-                }
-            },
             close: function () {
                 form[0].reset();
                 formfields.removeClass("ui-state-error");
@@ -79,11 +65,6 @@ $(function () {
             height: 400,
             width: 350,
             modal: true,
-            buttons: {
-                Cancel: function () {
-                    dialogField.dialog("close");
-                }
-            },
             close: function () {
                 form[0].reset();
                 formfields.removeClass("ui-state-error");
@@ -95,11 +76,6 @@ $(function () {
             height: 400,
             width: 350,
             modal: true,
-            buttons: {
-                Cancel: function () {
-                    dialogField.dialog("close");
-                }
-            },
             close: function () {
                 form[0].reset();
                 formfields.removeClass("ui-state-error");
@@ -111,11 +87,6 @@ $(function () {
             height: 400,
             width: 400,
             modal: true,
-            buttons: {
-                Cancel: function () {
-                    jsonDialog.dialog("close");
-                }
-            },
         });
 
         //context menu for platform provided data. More info on : https://swisnl.github.io/jQuery-contextMenu/
@@ -123,18 +94,29 @@ $(function () {
             selector: '.context-menu-one',
             trigger: 'left',
             build: function ($triggerElement, e) {
+                jsonDialog.dialog("option", "buttons", [
+                    {
+                      text:  $.localize.data.activity.jsonDialog.cancel,
+                      click: function () {
+                        jsonDialog.dialog("close");
+                      }
+                    }
+                ]);
                 return {
                     callback: function (key, options) {
                         if (key == "workitem") {
                             jsonEditorDialog.set(bridge.GetActivityInstance());
+                            jsonDialog.dialog("option", "title", $.localize.data.activity.jsonDialog.titleInstance);
                             jsonDialog.dialog("open");
                         } else if (key.indexOf("mt-") == 0) {
                             var name = key.replace("mt-", "");
                             jsonEditorDialog.set(bridge.GetMediaTypeByName(name));
+                            jsonDialog.dialog("option", "title", $.localize.data.activity.jsonDialog.titleMedia);
                             jsonDialog.dialog("open");
                         } else if (key.indexOf("dt-") == 0) {
                             var name = key.replace("dt-", "");
                             jsonEditorDialog.set(bridge.GetDocumentTypeByName(name));
+                            jsonDialog.dialog("option", "title", $.localize.data.activity.jsonDialog.titleDocType);
                             jsonDialog.dialog("open");
                         } else if (key == "versions") {
                             talkToPlatform();
@@ -143,10 +125,10 @@ $(function () {
                         console.log(m) ;
                     },
                     items: {
-                        "workitem": { name: "Work Item" },
-                        "documents": { name: "Documents Types", items: loadDocumentTypes() },
-                        "medias": { name: "Media Types", items: loadMediaTypes() },
-                        "versions": {name: "Count process versions"}
+                        "workitem": { name: $.localize.data.activity.contextMenus.workItems },
+                        "documents": { name: $.localize.data.activity.contextMenus.docTypes, items: loadDocumentTypes() },
+                        "medias": { name: $.localize.data.activity.contextMenus.mediaTypes, items: loadMediaTypes() },
+                        "versions": {name: $.localize.data.activity.contextMenus.versions}
                     }
                 }
             }
@@ -187,6 +169,21 @@ $(function () {
 	});
 });
 
+//Performs localization of the given object to the given language. 
+///If object is not given it assumes entire website,
+/// if language is not given it assumes english. 
+function doLocalization(lang, obj) {
+    if(!lang || lang.length === 0){
+        lang = "en";
+    }
+    if (obj) {
+        obj.find("[data-localize]").localize("activity", { language: lang, pathPrefix: "./Resources/i18n" });
+    } else {
+        $("[data-localize]").localize("activity", { language: lang, pathPrefix: "./Resources/i18n" });
+    }
+    
+}
+
 //Performs a http request to platform using data provided by bridge
 function talkToPlatform() {
     if(bridge.GetPlatformVersion() != "unknown"){
@@ -202,16 +199,18 @@ function talkToPlatform() {
             },
             success: function (result) {
                 console.log(result);
-                var m = "The current process (" + ai.Process.Name + ") has " + result.length + " versions. Note that this information was fetched by issuing the GET request to the designer service.";
+                const template = $.localize.data.activity.alerts.processVersions;
+                var m = template.replace("{0}", ai.Process.Name);
+                m = m.replace("{1}", result.length);
                 alert(m);
              },
              error: function (error) {
                 console.log(result);
-                alert("Uuups, something went wrong. Please check your console for error details.")
+                alert($.localize.data.activity.alerts.uncaughtError )
              }
         });
     } else {
-        alert("This feature is not supported on the current platform version!")
+        alert($.localize.data.activity.alerts.featureNotSupported)
     }
 }
 //loads the platform provided document types as sub-items
@@ -287,7 +286,7 @@ function assignVariable() {
 		return true;
 	} else {
 		//if no variable is selected and OK is pressed ask user to assign variable
-		alert("Please select a variable to assign to a field");
+		alert($.localize.data.activity.alerts.assign);
 		return false;
 	}
 }
@@ -460,12 +459,28 @@ function fillVariablesAndOpenDialog(e) {
 	}
 	//initialize the buttonset widget
 	varSet.buttonset();
-	//open the dialog
+	//localize and open the dialog
+    dialog.dialog( "option", "title",  $.localize.data.activity.varDialog.title );
+    dialog.dialog('option', 'buttons', [
+        {
+            "text": $.localize.data.activity.varDialog.assign,
+            "click": assignVariable
+        }, {
+            "text": $.localize.data.activity.varDialog.cancel,
+            "click": function () {
+                dialog.dialog("close");
+            }
+        }
+    ]);
 	dialog.dialog("open");
 }
 
 //Callback function to be passed to platform API script. Platform bridge calls this function when it receives the activity configuration JSON from platform. The configuration is passed as parameter.
 function LoadedDataCallback(cfg) {
+    const uiLang = getCurrentUILanguage()//fetch the UI language
+    if(uiLang !== 'en'){ //apply the language if exists and not english
+        doLocalization(uiLang);
+    }
 	//store the activity configuration JSON
     activitySettings = cfg;
     //adjust platform provided data in context menus
@@ -547,6 +562,7 @@ function addNewListItem(){
 
 //triggered when row template has been loaded
 function rowTemplateLoaded(index, value, tr){
+    doLocalization(getCurrentUILanguage(), tr);
     //initialize remove variable buttons
 	tr.find(".remVar").button({
 		icon: "ui-icon-circle-close",
@@ -825,6 +841,7 @@ function addDBLookup(order) {
 
 //callback function executed when JQUERY loads the external html. Accepts newly created DIV element
 function templateLoaded(order, div) {
+    doLocalization(getCurrentUILanguage(), $(div));
 	//initialize remove variable buttons
 	$(div).find(".remVar").button({
 		icon: "ui-icon-circle-close",
@@ -941,7 +958,7 @@ function SaveDataCallback(e) {
     if (e) {
         if (!$('#cb-confirm-data').is(":checked")) {
             e.cancel = true;
-            e.reason = "Please check the 'Data validity confirmed' check-box to close the dialog";
+            e.reason = $.localize.data.activity.validation;
             return;
         }
     }
@@ -998,6 +1015,18 @@ function syncPlatformData() {
         //no document type selected; return empty
         activitySettings.IndexFields = "";
     }
+}
+
+//get the current UI language
+function getCurrentUILanguage() {
+    let ret = 'en';
+    if(bridge && typeof bridge['GetCurrentUILanguage'] === 'function'){ //we have the latest bridge providing the function
+        const uiLang = bridge.GetCurrentUILanguage()//fetch the UI language
+        if(uiLang && uiLang.length == 2 && uiLang !== 'en'){ //apply the language if exists and not english
+            ret = uiLang;
+        }
+    }
+    return ret    
 }
 
 //Collect the JSON and update binary settings
@@ -1225,18 +1254,24 @@ function openAddDocTypeDialog() {
     formfields.removeClass("ui-state-error");
 
     //Update OK button function call
-    dialogDocType.dialog('option', 'buttons', {
-        "OK": addDocType,
-        Cancel: function () {
-            dialogDocType.dialog("close");
+    dialogDocType.dialog('option', 'buttons', [
+        {
+            "text": $.localize.data.activity.docTypeDialog.ok,
+            "click": addDocType
+        },{
+            "text": $.localize.data.activity.docTypeDialog.cancel,
+            "click": function () {
+                dialogDocType.dialog("close");
+            }
         }
-    });
+    ]);
     //Add submit event to form
     form = dialogDocType.find("form").on("submit", function (event) {
         event.preventDefault();
         addDocType();
     });
-    //Show the dialog
+    //localize and Show the dialog
+    dialogDocType.dialog("option", "title",  $.localize.data.activity.docTypeDialog.title );
     dialogDocType.dialog("open");
 }
 
@@ -1254,7 +1289,7 @@ function addDocType() {
             dialogDocType.dialog("close");
         } else {
             //Duplicate document type name detected
-            alert("Document type can not be created, a document type with the same name is already assigned to the process.");
+            alert($.localize.data.activity.alerts.docTypeWithNameExists);
         }
     }
 
@@ -1283,12 +1318,17 @@ function openAddFieldDialog(event) {
     formfields.removeClass("ui-state-error");
 
     //Update OK button function call
-    dialogField.dialog('option', 'buttons', {
-        "OK": addField,
-        Cancel: function () {
+    dialogField.dialog('option', 'buttons', [{
+        text: $.localize.data.activity.fieldDialog.ok,
+        click: addField
+    }, {
+        text: $.localize.data.activity.fieldDialog.cancel,
+        click: function () {
             dialogField.dialog("close");
         }
-    });
+    }
+    ]);
+    dialogField.dialog( "option", "title",  $.localize.data.activity.fieldDialog.title );
     //Add submit event to form
     form = dialogField.find("form").on("submit", function (event) {
         event.preventDefault();
@@ -1316,12 +1356,18 @@ function openEditFieldDialog(event, field) {
     fieldIsIndex.prop('checked', field.IsIndexed);
 
     //Update OK button function call
-    dialogField.dialog('option', 'buttons', {
-        "OK": updateField,
-        Cancel: function () {
+    //Update OK button function call
+    dialogField.dialog('option', 'buttons', [{
+        text: $.localize.data.activity.fieldDialog.ok,
+        click: updateField
+    }, {
+        text: $.localize.data.activity.fieldDialog.cancel,
+        click: function () {
             dialogField.dialog("close");
         }
-    });
+    }
+    ]);
+    dialogField.dialog( "option", "title",  $.localize.data.activity.fieldDialog.title );
     //Add submit event to form
     form = dialogField.find("form").on("submit", function (event) {
         event.preventDefault();
@@ -1384,7 +1430,10 @@ function validateField() {
 
 //Event handler for deleting an index field from the document type
 function deleteField(event, docTypeName, fieldName) {
-    if (confirm('Are you sure you want to delete the field "' + fieldName + '" from document type "' + docTypeName + '"')) {
+    let msg = $.localize.data.activity.confirms.delFiled;
+    msg = msg.replace("{0}", fieldName);
+    msg = msg.replace("{1}", docTypeName);
+    if (confirm(msg)) {
         //Delete field
         bridge.DeleteField(docTypeName, fieldName);
         //Refresh UI
@@ -1400,13 +1449,19 @@ function openAddTableDialog(event) {
     //Remove error class
     formfields.removeClass("ui-state-error");
 
-    //Update OK button function call
-    dialogTable.dialog('option', 'buttons', {
-        "OK": addTable,
-        Cancel: function () {
+    //Update OK button function call and loclaize
+    dialogTable.dialog('option', 'buttons', [{
+        text: $.localize.data.activity.tableDialog.ok,
+        click: addTable
+    }, {
+        text: $.localize.data.activity.tableDialog.cancel,
+        click: function () {
             dialogTable.dialog("close");
         }
-    });
+    }
+    ]);
+    dialogTable.dialog( "option", "title",  $.localize.data.activity.tableDialog.title );
+    
     //Add submit event to form
     form = dialogTable.find("form").on("submit", function (event) {
         event.preventDefault();
@@ -1431,13 +1486,18 @@ function openEditTableDialog(event, table) {
     tableName.val(table.Name);
     tableDescription.val(table.Description);
 
-    //Update OK button function call
-    dialogTable.dialog('option', 'buttons', {
-        "OK": updateTable,
-        Cancel: function () {
+    //Update OK button function call and localize
+    dialogTable.dialog('option', 'buttons', [{
+        text: $.localize.data.activity.tableDialog.ok,
+        click: updateTable
+    }, {
+        text: $.localize.data.activity.tableDialog.cancel,
+        click: function () {
             dialogTable.dialog("close");
         }
-    });
+    }
+    ]);
+    dialogTable.dialog( "option", "title",  $.localize.data.activity.tableDialog.title );
     //Add submit event to form
     form = dialogTable.find("form").on("submit", function (event) {
         event.preventDefault();
@@ -1498,7 +1558,10 @@ function validateTable() {
 
 //Event handler for deleting a table from the document type
 function deleteTable(event, docTypeName, tabledName) {
-    if (confirm('Are you sure you want to delete the table "' + tabledName + '" from document type "' + docTypeName + '"')) {
+    let msg = $.localize.data.activity.confirms.delTable;
+    msg = msg.replace("{0}", tabledName);
+    msg = msg.replace("{1}", docTypeName); 
+    if (confirm(msg)) {
         //Delete table
         bridge.DeleteTable(docTypeName, tabledName);
         //Refresh UI
@@ -1514,13 +1577,19 @@ function openAddColumnDialog(event) {
     //Remove error class
     formfields.removeClass("ui-state-error");
 
-    //Update OK button function call
-    dialogColumn.dialog('option', 'buttons', {
-        "OK": addColumn,
-        Cancel: function () {
+    //Update OK button function call and localize
+    dialogColumn.dialog('option', 'buttons', [{
+        text: $.localize.data.activity.columnDialog.ok,
+        click: addColumn
+    }, {
+        text: $.localize.data.activity.columnDialog.cancel,
+        click: function () {
             dialogColumn.dialog("close");
         }
-    });
+    }
+    ]);
+    dialogColumn.dialog( "option", "title",  $.localize.data.activity.columnDialog.title );
+    
     //Add submit event to form
     form = dialogColumn.find("form").on("submit", function (event) {
         event.preventDefault();
@@ -1545,13 +1614,18 @@ function openEditColumnDialog(event, column) {
     columnName.val(column.Name);
     columnType.val(column.FieldType);
 
-    //Update OK button function call
-    dialogColumn.dialog('option', 'buttons', {
-        "OK": updateColumn,
-        Cancel: function () {
+    //Update OK button function call and localize
+    dialogColumn.dialog('option', 'buttons', [{
+        text: $.localize.data.activity.columnDialog.ok,
+        click: updateColumn
+    }, {
+        text: $.localize.data.activity.columnDialog.cancel,
+        click: function () {
             dialogColumn.dialog("close");
         }
-    });
+    }
+    ]);
+    dialogColumn.dialog( "option", "title",  $.localize.data.activity.columnDialog.title );
     //Add submit event to form
     form = dialogColumn.find("form").on("submit", function (event) {
         event.preventDefault();
@@ -1616,7 +1690,11 @@ function validateColumn() {
 
 //Event handler for deleting a column from the document type
 function deleteColumn(event, docTypeName, tableName, columnName) {
-    if (confirm('Are you sure you want to delete the column "' + columnName + '" from table "' + tableName + '" from document type "' + docTypeName + '"')) {
+    let msg = $.localize.data.activity.confirms.delColumn;
+    msg = msg.replace('{0}', columnName);
+    msg = msg.replace('{1}', tableName);
+    msg = msg.replace('{2}', docTypeName);
+    if (confirm(msg)) {
         //Delete column
         bridge.DeleteColumn(docTypeName, tableName, columnName);
         //Refresh UI
