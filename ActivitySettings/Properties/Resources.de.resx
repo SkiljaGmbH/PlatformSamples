@@ -1,0 +1,528 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActivityConfiguration_JSONSettings_Name" xml:space="preserve">
+    <value>JSON-Datei</value>
+  </data>
+  <data name="ActivityConfiguration_JSONSettings_Description" xml:space="preserve">
+    <value>Beispiel einer JSON-Datei</value>
+  </data>
+  <data name="ActivityConfiguration_JSONSettings_GroupName" xml:space="preserve">
+    <value>2. Binärdatei</value>
+  </data>
+  <data name="ActivityConfiguration_JSONSettingsDesc_Name" xml:space="preserve">
+    <value>JSON-Datei Beschreibung</value>
+  </data>
+  <data name="ActivityConfiguration_JSONSettingsDesc_Description" xml:space="preserve">
+    <value>Beispiel einer JSON-Datei</value>
+  </data>
+  <data name="ActivityConfiguration_JSONSettingsDesc_GroupName" xml:space="preserve">
+    <value>2. Binärdatei</value>
+  </data>
+  <data name="ActivityConfiguration_CheckBoxData_Name" xml:space="preserve">
+    <value>Daten des Kontrollkästchens</value>
+  </data>
+  <data name="ActivityConfiguration_CheckBoxData_Description" xml:space="preserve">
+    <value>Muster des Kontrollkästchens</value>
+  </data>
+  <data name="ActivityConfiguration_CheckBoxData_GroupName" xml:space="preserve">
+    <value>1. Abhängige Einstellungen</value>
+  </data>
+  <data name="ActivityConfiguration_CBDependentItem_Name" xml:space="preserve">
+    <value>Kontrollkästchen abhängige Position</value>
+  </data>
+  <data name="ActivityConfiguration_CBDependentItem_Description" xml:space="preserve">
+    <value>Artikel abhängig von einem Kontrollkästchen</value>
+  </data>
+  <data name="ActivityConfiguration_CBDependentItem_GroupName" xml:space="preserve">
+    <value>1. Abhängige Einstellungen</value>
+  </data>
+  <data name="ActivityConfiguration_LstDependent_Name" xml:space="preserve">
+    <value>Checkbox-abhängige Liste</value>
+  </data>
+  <data name="ActivityConfiguration_LstDependent_Description" xml:space="preserve">
+    <value>Artikelliste abhängig von einem Kontrollkästchen</value>
+  </data>
+  <data name="ActivityConfiguration_LstDependent_GroupName" xml:space="preserve">
+    <value>1. Abhängige Einstellungen</value>
+  </data>
+  <data name="ActivityConfiguration_CBDependencyDesc_Name" xml:space="preserve">
+    <value>Abhängigkeit Beschreibung</value>
+  </data>
+  <data name="ActivityConfiguration_CBDependencyDesc_Description" xml:space="preserve">
+    <value>Beispiel einer JSON-Datei</value>
+  </data>
+  <data name="ActivityConfiguration_CBDependencyDesc_GroupName" xml:space="preserve">
+    <value>1. Abhängige Einstellungen</value>
+  </data>
+  <data name="ActivityConfiguration_DatabaseLookup_Name" xml:space="preserve">
+    <value>Datenbank-Suche</value>
+  </data>
+  <data name="ActivityConfiguration_DatabaseLookup_Description" xml:space="preserve">
+    <value>Einstellungen für die Datenbankabfrage</value>
+  </data>
+  <data name="ActivityConfiguration_DatabaseLookup_GroupName" xml:space="preserve">
+    <value>3. Datenbankabfragen (Komplexe Klassen)</value>
+  </data>
+  <data name="ActivityConfiguration_DBLookupDesc_Name" xml:space="preserve">
+    <value>Datenbank Lookup Beschreibung</value>
+  </data>
+  <data name="ActivityConfiguration_DBLookupDesc_Description" xml:space="preserve">
+    <value>Beispiel einer JSON-Datei</value>
+  </data>
+  <data name="ActivityConfiguration_DBLookupDesc_GroupName" xml:space="preserve">
+    <value>3. Datenbankabfragen (Komplexe Klassen)</value>
+  </data>
+  <data name="ActivityConfiguration_MediaType_Name" xml:space="preserve">
+    <value>Medien-Typ-Auswahl</value>
+  </data>
+  <data name="ActivityConfiguration_MediaType_Description" xml:space="preserve">
+    <value>Speichert einen der verfügbaren Medientypen</value>
+  </data>
+  <data name="ActivityConfiguration_MediaType_GroupName" xml:space="preserve">
+    <value>Daten der Plattform</value>
+  </data>
+  <data name="ActivityConfiguration_DocumentType_Name" xml:space="preserve">
+    <value>Auswahl des Dokumenttyps</value>
+  </data>
+  <data name="ActivityConfiguration_DocumentType_Description" xml:space="preserve">
+    <value>Speichert die dem Prozess zugeordneten Dokumenttypen</value>
+  </data>
+  <data name="ActivityConfiguration_DocumentType_GroupName" xml:space="preserve">
+    <value>Daten der Plattform</value>
+  </data>
+  <data name="ActivityConfiguration_IndexFields_Name" xml:space="preserve">
+    <value>Ausgewählte Felder</value>
+  </data>
+  <data name="ActivityConfiguration_IndexFields_Description" xml:space="preserve">
+    <value>Speichert die Untermenge der Felder des obigen Dokumenttyps</value>
+  </data>
+  <data name="ActivityConfiguration_IndexFields_GroupName" xml:space="preserve">
+    <value>Daten der Plattform</value>
+  </data>
+  <data name="ActivityConfiguration_PlatformDataDesc_Name" xml:space="preserve">
+    <value>Plattform Daten Beschreibung</value>
+  </data>
+  <data name="ActivityConfiguration_PlatformDataDesc_Description" xml:space="preserve">
+    <value>Beschreibt die Nutzung der Daten der Plattform</value>
+  </data>
+  <data name="ActivityConfiguration_PlatformDataDesc_GroupName" xml:space="preserve">
+    <value>Daten der Plattform</value>
+  </data>
+  <data name="ExternalSettings_StringProperty_Name" xml:space="preserve">
+    <value>String-Eigenschaft</value>
+  </data>
+  <data name="ExternalSettings_StringProperty_Description" xml:space="preserve">
+    <value>Eigenschaft vom Typ String</value>
+  </data>
+  <data name="ExternalSettings_StringProperty_GroupName" xml:space="preserve">
+    <value>Einfache Eigenschaften</value>
+  </data>
+  <data name="ExternalSettings_PwdProperty_Name" xml:space="preserve">
+    <value>Passwort-Eigenschaft</value>
+  </data>
+  <data name="ExternalSettings_PwdProperty_Description" xml:space="preserve">
+    <value>Eigenschaft vom Typ String mit Passwort-Zeichen</value>
+  </data>
+  <data name="ExternalSettings_PwdProperty_GroupName" xml:space="preserve">
+    <value>Einfache Eigenschaften</value>
+  </data>
+  <data name="ExternalSettings_LongStringProperty_Name" xml:space="preserve">
+    <value>String-Eigenschaft (long)</value>
+  </data>
+  <data name="ExternalSettings_LongStringProperty_Description" xml:space="preserve">
+    <value>Eigenschaft vom Typ String mit Flächeneingabe</value>
+  </data>
+  <data name="ExternalSettings_LongStringProperty_GroupName" xml:space="preserve">
+    <value>Einfache Eigenschaften</value>
+  </data>
+  <data name="ExternalSettings_DoubleProperty_Name" xml:space="preserve">
+    <value>Double-Eigenschaft</value>
+  </data>
+  <data name="ExternalSettings_DoubleProperty_Description" xml:space="preserve">
+    <value>Eigenschaft vom Typ double</value>
+  </data>
+  <data name="ExternalSettings_DoubleProperty_GroupName" xml:space="preserve">
+    <value>Einfache Eigenschaften</value>
+  </data>
+  <data name="ExternalSettings_BooleanProperty_Name" xml:space="preserve">
+    <value>Boolesche Eigenschaft</value>
+  </data>
+  <data name="ExternalSettings_BooleanProperty_Description" xml:space="preserve">
+    <value>Eigenschaft vom Typ Boolean</value>
+  </data>
+  <data name="ExternalSettings_BooleanProperty_GroupName" xml:space="preserve">
+    <value>Einfache Eigenschaften</value>
+  </data>
+  <data name="ExternalSettings_DateTimeProperty_Name" xml:space="preserve">
+    <value>DateTime-Eigenschaft</value>
+  </data>
+  <data name="ExternalSettings_DateTimeProperty_Description" xml:space="preserve">
+    <value>Eigenschaft vom Typ Datum Zeit</value>
+  </data>
+  <data name="ExternalSettings_DateTimeProperty_GroupName" xml:space="preserve">
+    <value>Einfache Eigenschaften</value>
+  </data>
+  <data name="ExternalSettings_ColorProperty_Name" xml:space="preserve">
+    <value>Farbeigenschaft</value>
+  </data>
+  <data name="ExternalSettings_ColorProperty_Description" xml:space="preserve">
+    <value>Eigenschaft vom Typ color</value>
+  </data>
+  <data name="ExternalSettings_ColorProperty_GroupName" xml:space="preserve">
+    <value>Einfache Eigenschaften</value>
+  </data>
+  <data name="ExternalSettings_EnumPropertyCombo_Name" xml:space="preserve">
+    <value>Combo mit Zähler</value>
+  </data>
+  <data name="ExternalSettings_EnumPropertyCombo_Description" xml:space="preserve">
+    <value>Kombinationsfeld für Aufzählungstyp-Eigenschaft</value>
+  </data>
+  <data name="ExternalSettings_EnumPropertyCombo_GroupName" xml:space="preserve">
+    <value>Komplexe Eigenschaften</value>
+  </data>
+  <data name="ExternalSettings_EnumPropertyCombo_Values_0" xml:space="preserve">
+    <value>AufzählerWert1</value>
+  </data>
+  <data name="ExternalSettings_EnumPropertyCombo_Values_1" xml:space="preserve">
+    <value>AufzählerWert2</value>
+  </data>
+  <data name="ExternalSettings_EnumPropertyCombo_Values_2" xml:space="preserve">
+    <value>AufzählerWert3</value>
+  </data>
+  <data name="ExternalSettings_EnumPropertyCombo_Values_3" xml:space="preserve">
+    <value>AufzählerWert4</value>
+  </data>
+  <data name="ExternalSettings_IntegerCombo_Name" xml:space="preserve">
+    <value>Combo mit Wörterbuch</value>
+  </data>
+  <data name="ExternalSettings_IntegerCombo_Description" xml:space="preserve">
+    <value>Kombinationsfeld für Integer-Wörterbuch-Eigenschaft</value>
+  </data>
+  <data name="ExternalSettings_IntegerCombo_GroupName" xml:space="preserve">
+    <value>Komplexe Eigenschaften</value>
+  </data>
+  <data name="ExternalSettings_IntegerCombo_Values_1" xml:space="preserve">
+    <value>Eine</value>
+  </data>
+  <data name="ExternalSettings_IntegerCombo_Values_2" xml:space="preserve">
+    <value>Zwei</value>
+  </data>
+  <data name="ExternalSettings_IntegerCombo_Values_3" xml:space="preserve">
+    <value>Drei</value>
+  </data>
+  <data name="ExternalSettings_CommaDelimitedCombo_Name" xml:space="preserve">
+    <value>Combo Mit durch Komma getrennten Werten</value>
+  </data>
+  <data name="ExternalSettings_CommaDelimitedCombo_Description" xml:space="preserve">
+    <value>Kombinationsfeld für kommagetrennte Strings Eigenschaft</value>
+  </data>
+  <data name="ExternalSettings_CommaDelimitedCombo_GroupName" xml:space="preserve">
+    <value>Komplexe Eigenschaften</value>
+  </data>
+  <data name="ExternalSettings_CommaDelimitedCombo_Values_Option A" xml:space="preserve">
+    <value>Option A</value>
+  </data>
+  <data name="ExternalSettings_CommaDelimitedCombo_Values_Option B" xml:space="preserve">
+    <value>Option B</value>
+  </data>
+  <data name="ExternalSettings_CommaDelimitedCombo_Values_Option C" xml:space="preserve">
+    <value>Option C</value>
+  </data>
+  <data name="ExternalSettings_DocumentTypeSelection_Name" xml:space="preserve">
+    <value>Verfügbare Dokumenttypen</value>
+  </data>
+  <data name="ExternalSettings_DocumentTypeSelection_Description" xml:space="preserve">
+    <value>Dropdown mit den dem Prozess zugeordneten Dokumenttypen</value>
+  </data>
+  <data name="ExternalSettings_DocumentTypeSelection_GroupName" xml:space="preserve">
+    <value>Komplexe Eigenschaften</value>
+  </data>
+  <data name="ExternalSettings_DocumentTypeSelection_Values_document" xml:space="preserve">
+    <value>Dokument</value>
+  </data>
+  <data name="ExternalSettings_MediaTypeSelection_Name" xml:space="preserve">
+    <value>Verfügbare Medientypen</value>
+  </data>
+  <data name="ExternalSettings_MediaTypeSelection_Description" xml:space="preserve">
+    <value>Dropdown-Liste mit allen auf der Plattform verfügbaren Medientypen</value>
+  </data>
+  <data name="ExternalSettings_MediaTypeSelection_GroupName" xml:space="preserve">
+    <value>Komplexe Eigenschaften</value>
+  </data>
+  <data name="ExternalSettings_MediaTypeSelection_Values_media" xml:space="preserve">
+    <value>Medien</value>
+  </data>
+  <data name="ExternalSettings_FileUploadProperty_Name" xml:space="preserve">
+    <value>Datei Importieren</value>
+  </data>
+  <data name="ExternalSettings_FileUploadProperty_Description" xml:space="preserve">
+    <value>Dateiuploader für String-Eigenschaft</value>
+  </data>
+  <data name="ExternalSettings_FileUploadProperty_GroupName" xml:space="preserve">
+    <value>Komplexe Eigenschaften</value>
+  </data>
+  <data name="ExternalSettings_GridProperty_Name" xml:space="preserve">
+    <value>Dummy-Gitter</value>
+  </data>
+  <data name="ExternalSettings_GridProperty_Description" xml:space="preserve">
+    <value>Raster für String-Wörterbuch-Eigenschaft</value>
+  </data>
+  <data name="ExternalSettings_GridProperty_GroupName" xml:space="preserve">
+    <value>Komplexe Eigenschaften</value>
+  </data>
+  <data name="ExternalSettings_NestedClassProperty_Name" xml:space="preserve">
+    <value>Verschachtelte Klasse</value>
+  </data>
+  <data name="ExternalSettings_NestedClassProperty_Description" xml:space="preserve">
+    <value>Verschachtelte Klasse mit Datei-Uploader als Eigenschaft</value>
+  </data>
+  <data name="ExternalSettings_SelectedFields_Name" xml:space="preserve">
+    <value>Multi-Feld-Selektor</value>
+  </data>
+  <data name="ExternalSettings_SelectedFields_Description" xml:space="preserve">
+    <value>Showcase, der zeigt, wie man Felder für die Konfiguration auswählt</value>
+  </data>
+  <data name="ExternalSettings_SelectedFields_Values_multiFieldSelection" xml:space="preserve">
+    <value>multiFieldSelection</value>
+  </data>
+  <data name="ExternalSettings_AssignedFields_Name" xml:space="preserve">
+    <value>Feld-Zuweiser</value>
+  </data>
+  <data name="ExternalSettings_AssignedFields_Description" xml:space="preserve">
+    <value>Showcase, der die Zuweisung von Feldern zur Verwendung in der Konfiguration demonstriert</value>
+  </data>
+  <data name="ExternalSettings_AssignedFields_Values_fieldAssignment" xml:space="preserve">
+    <value>fieldAssignment</value>
+  </data>
+  <data name="ExternalSettings_SelectedField_Name" xml:space="preserve">
+    <value>Einzelfeld-Selektor</value>
+  </data>
+  <data name="ExternalSettings_SelectedField_Description" xml:space="preserve">
+    <value>Showcase, in dem gezeigt wird, wie ein einzelnes Feld zur Verwendung in der Konfiguration ausgewählt wird</value>
+  </data>
+  <data name="ExternalSettings_SelectedField_Values_singleFieldSelection" xml:space="preserve">
+    <value>singleFieldSelection</value>
+  </data>
+  <data name="ExternalSettings_StringMultiValueProperty_Name" xml:space="preserve">
+    <value>Liste der Emails</value>
+  </data>
+  <data name="ExternalSettings_StringMultiValueProperty_Description" xml:space="preserve">
+    <value>Showcase, der zeigt, wie man eine Liste als Eigenschaft verwendet, die die Eingabe von E-Mails akzeptiert. Die Variableneingabe für diese Eigenschaft ist deaktiviert</value>
+  </data>
+  <data name="ExternalSettings_StringMultiValueProperty_GroupName" xml:space="preserve">
+    <value>Komplexe Eigenschaften</value>
+  </data>
+  <data name="ExternalSettings_IntMultiValueProperty_Name" xml:space="preserve">
+    <value>Liste von Integers mit Mindestlänge</value>
+  </data>
+  <data name="ExternalSettings_IntMultiValueProperty_Description" xml:space="preserve">
+    <value>Showcase zur Demonstration der Verwendung einer Liste als Eigenschaft, die die Eingabe von Integer-Zahlen zulässt, die als ungültig betrachtet werden, wenn sie kürzer als 2 Ziffern sind. Dieses Beispiel zeigt auch, dass der Typ der Listeneingabe automatisch erkannt werden kann. Die Variableneingabe für diese Eigenschaft ist deaktiviert.</value>
+  </data>
+  <data name="ExternalSettings_IntMultiValueProperty_GroupName" xml:space="preserve">
+    <value>Komplexe Eigenschaften</value>
+  </data>
+  <data name="ExternalSettings_IntMultiValueProperty_MinLengthAttribute_ErrorMessage" xml:space="preserve">
+    <value>Die Mindestlänge der Listenelemente muss 2 Zeichen betragen.</value>
+  </data>
+  <data name="ExternalSettings_DoubleMultiValueProperty_Name" xml:space="preserve">
+    <value>Liste der Doubles</value>
+  </data>
+  <data name="ExternalSettings_DoubleMultiValueProperty_Description" xml:space="preserve">
+    <value>Showcase zur Demonstration der Verwendung einer Liste als Eigenschaft, die die Eingabe gültiger Zahlen und die Verwendung von Variablen in Listenelementen zulässt.</value>
+  </data>
+  <data name="ExternalSettings_DoubleMultiValueProperty_GroupName" xml:space="preserve">
+    <value>Komplexe Eigenschaften</value>
+  </data>
+  <data name="DatabaseConnection_DatabaseName_Name" xml:space="preserve">
+    <value>Name der Datenbank</value>
+  </data>
+  <data name="DatabaseConnection_DatabaseName_RequiredAttribute_ErrorMessage" xml:space="preserve">
+    <value>Daten sind erforderlich.</value>
+  </data>
+  <data name="DatabaseConnection_IntegratedSecurity_Name" xml:space="preserve">
+    <value>Integrierte Sicherheit</value>
+  </data>
+  <data name="DatabaseConnection_Password_Name" xml:space="preserve">
+    <value>Kennwort</value>
+  </data>
+  <data name="DatabaseConnection_ServerName_Name" xml:space="preserve">
+    <value>Name des Servers</value>
+  </data>
+  <data name="DatabaseConnection_ServerName_RequiredAttribute_ErrorMessage" xml:space="preserve">
+    <value>Daten sind erforderlich.</value>
+  </data>
+  <data name="DatabaseConnection_Username_Name" xml:space="preserve">
+    <value>Benutzername</value>
+  </data>
+  <data name="DatabaseLookup_Columns_Description" xml:space="preserve">
+    <value>Spalten mit Spaltenanzeigename</value>
+  </data>
+  <data name="DatabaseLookup_Columns_Name" xml:space="preserve">
+    <value>Tabellenspalten</value>
+  </data>
+  <data name="DatabaseLookup_DatabaseConnection_Description" xml:space="preserve">
+    <value>Einstellungen für die Datenbankverbindung</value>
+  </data>
+  <data name="DatabaseLookup_DatabaseConnection_Name" xml:space="preserve">
+    <value>Datenbank-Verbindung</value>
+  </data>
+  <data name="DatabaseLookup_FullTextColumns_Description" xml:space="preserve">
+    <value>In der Volltextsuche verwendete Spalten durch Komma getrennt</value>
+  </data>
+  <data name="DatabaseLookup_FullTextColumns_Name" xml:space="preserve">
+    <value>Spalten für die Volltextsuche (kommagetrennt)</value>
+  </data>
+  <data name="DatabaseLookup_FullTextSearch_Description" xml:space="preserve">
+    <value>Unterstützung für Volltextsuche</value>
+  </data>
+  <data name="DatabaseLookup_FullTextSearch_Name" xml:space="preserve">
+    <value>Volltextsuche zulassen</value>
+  </data>
+  <data name="DatabaseLookup_MaxResults_Description" xml:space="preserve">
+    <value>Maximale Anzahl der zurückgegebenen Ergebnisse</value>
+  </data>
+  <data name="DatabaseLookup_MaxResults_Name" xml:space="preserve">
+    <value>Maximal zurückgegebene Ergebnisse</value>
+  </data>
+  <data name="DatabaseLookup_Name_Description" xml:space="preserve">
+    <value>Name der Nachschlagefunktion</value>
+  </data>
+  <data name="DatabaseLookup_Name_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="DatabaseLookup_TableName_Description" xml:space="preserve">
+    <value>Name der Tabelle</value>
+  </data>
+  <data name="DatabaseLookup_TableName_Name" xml:space="preserve">
+    <value>Tabellenname</value>
+  </data>
+  <data name="NestedWithFiles_SelectedField_Description" xml:space="preserve">
+    <value>Showcase, der zeigt, wie man ein einzelnes Feld auswählt, das in der Konfiguration verwendet werden soll</value>
+  </data>
+  <data name="NestedWithFiles_SelectedField_Name" xml:space="preserve">
+    <value>Einzelfeld-Selektor</value>
+  </data>
+  <data name="NestedWithFiles_UploadedFile_Description" xml:space="preserve">
+    <value>Datei-Upload mit File-Objekt-Eigenschaft, die die Einstellung der Variablen ermöglicht</value>
+  </data>
+  <data name="NestedWithFiles_UploadedFile_Name" xml:space="preserve">
+    <value>Datei-Upload mit Objekt</value>
+  </data>
+</root>
