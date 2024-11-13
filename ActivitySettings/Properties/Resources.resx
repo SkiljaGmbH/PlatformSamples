@@ -1,0 +1,528 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActivityConfiguration_JSONSettings_Name" xml:space="preserve">
+    <value>JSON File</value>
+  </data>
+  <data name="ActivityConfiguration_JSONSettings_Description" xml:space="preserve">
+    <value>JSON file sample</value>
+  </data>
+  <data name="ActivityConfiguration_JSONSettings_GroupName" xml:space="preserve">
+    <value>2. Binary File</value>
+  </data>
+  <data name="ActivityConfiguration_JSONSettingsDesc_Name" xml:space="preserve">
+    <value>JSON File Description</value>
+  </data>
+  <data name="ActivityConfiguration_JSONSettingsDesc_Description" xml:space="preserve">
+    <value>JSON file sample</value>
+  </data>
+  <data name="ActivityConfiguration_JSONSettingsDesc_GroupName" xml:space="preserve">
+    <value>2. Binary File</value>
+  </data>
+  <data name="ActivityConfiguration_CheckBoxData_Name" xml:space="preserve">
+    <value>Check box data</value>
+  </data>
+  <data name="ActivityConfiguration_CheckBoxData_Description" xml:space="preserve">
+    <value>Check box sample</value>
+  </data>
+  <data name="ActivityConfiguration_CheckBoxData_GroupName" xml:space="preserve">
+    <value>1. Dependant settings</value>
+  </data>
+  <data name="ActivityConfiguration_CBDependentItem_Name" xml:space="preserve">
+    <value>Check box dependent item</value>
+  </data>
+  <data name="ActivityConfiguration_CBDependentItem_Description" xml:space="preserve">
+    <value>Item dependent on a check box</value>
+  </data>
+  <data name="ActivityConfiguration_CBDependentItem_GroupName" xml:space="preserve">
+    <value>1. Dependant settings</value>
+  </data>
+  <data name="ActivityConfiguration_LstDependent_Name" xml:space="preserve">
+    <value>Check box dependent list</value>
+  </data>
+  <data name="ActivityConfiguration_LstDependent_Description" xml:space="preserve">
+    <value>Item list dependent on a check box</value>
+  </data>
+  <data name="ActivityConfiguration_LstDependent_GroupName" xml:space="preserve">
+    <value>1. Dependant settings</value>
+  </data>
+  <data name="ActivityConfiguration_CBDependencyDesc_Name" xml:space="preserve">
+    <value>Dependency Description</value>
+  </data>
+  <data name="ActivityConfiguration_CBDependencyDesc_Description" xml:space="preserve">
+    <value>JSON file sample</value>
+  </data>
+  <data name="ActivityConfiguration_CBDependencyDesc_GroupName" xml:space="preserve">
+    <value>1. Dependant settings</value>
+  </data>
+  <data name="ActivityConfiguration_DatabaseLookup_Name" xml:space="preserve">
+    <value>Database Lookup</value>
+  </data>
+  <data name="ActivityConfiguration_DatabaseLookup_Description" xml:space="preserve">
+    <value>Database lookup settings</value>
+  </data>
+  <data name="ActivityConfiguration_DatabaseLookup_GroupName" xml:space="preserve">
+    <value>3. Database Lookups (Complex classes)</value>
+  </data>
+  <data name="ActivityConfiguration_DBLookupDesc_Name" xml:space="preserve">
+    <value>Database Lookup Description</value>
+  </data>
+  <data name="ActivityConfiguration_DBLookupDesc_Description" xml:space="preserve">
+    <value>JSON file sample</value>
+  </data>
+  <data name="ActivityConfiguration_DBLookupDesc_GroupName" xml:space="preserve">
+    <value>3. Database Lookups (Complex classes)</value>
+  </data>
+  <data name="ActivityConfiguration_MediaType_Name" xml:space="preserve">
+    <value>Media Type selector</value>
+  </data>
+  <data name="ActivityConfiguration_MediaType_Description" xml:space="preserve">
+    <value>Stores the one of available media types</value>
+  </data>
+  <data name="ActivityConfiguration_MediaType_GroupName" xml:space="preserve">
+    <value>Platform data</value>
+  </data>
+  <data name="ActivityConfiguration_DocumentType_Name" xml:space="preserve">
+    <value>Document Type selector</value>
+  </data>
+  <data name="ActivityConfiguration_DocumentType_Description" xml:space="preserve">
+    <value>Stores the one of document types assigned to the process</value>
+  </data>
+  <data name="ActivityConfiguration_DocumentType_GroupName" xml:space="preserve">
+    <value>Platform data</value>
+  </data>
+  <data name="ActivityConfiguration_IndexFields_Name" xml:space="preserve">
+    <value>Selected fields</value>
+  </data>
+  <data name="ActivityConfiguration_IndexFields_Description" xml:space="preserve">
+    <value>Stores the subset of the fields from the document type above</value>
+  </data>
+  <data name="ActivityConfiguration_IndexFields_GroupName" xml:space="preserve">
+    <value>Platform data</value>
+  </data>
+  <data name="ActivityConfiguration_PlatformDataDesc_Name" xml:space="preserve">
+    <value>Platform Data Description</value>
+  </data>
+  <data name="ActivityConfiguration_PlatformDataDesc_Description" xml:space="preserve">
+    <value>Describes usage of the platform data</value>
+  </data>
+  <data name="ActivityConfiguration_PlatformDataDesc_GroupName" xml:space="preserve">
+    <value>Platform data</value>
+  </data>
+  <data name="ExternalSettings_StringProperty_Name" xml:space="preserve">
+    <value>String Property</value>
+  </data>
+  <data name="ExternalSettings_StringProperty_Description" xml:space="preserve">
+    <value>Property of type string</value>
+  </data>
+  <data name="ExternalSettings_StringProperty_GroupName" xml:space="preserve">
+    <value>Simple properties</value>
+  </data>
+  <data name="ExternalSettings_PwdProperty_Name" xml:space="preserve">
+    <value>Password Property</value>
+  </data>
+  <data name="ExternalSettings_PwdProperty_Description" xml:space="preserve">
+    <value>Property of type string with password characters</value>
+  </data>
+  <data name="ExternalSettings_PwdProperty_GroupName" xml:space="preserve">
+    <value>Simple properties</value>
+  </data>
+  <data name="ExternalSettings_LongStringProperty_Name" xml:space="preserve">
+    <value>String Property (long)</value>
+  </data>
+  <data name="ExternalSettings_LongStringProperty_Description" xml:space="preserve">
+    <value>Property of type string with area input</value>
+  </data>
+  <data name="ExternalSettings_LongStringProperty_GroupName" xml:space="preserve">
+    <value>Simple properties</value>
+  </data>
+  <data name="ExternalSettings_DoubleProperty_Name" xml:space="preserve">
+    <value>Double Property</value>
+  </data>
+  <data name="ExternalSettings_DoubleProperty_Description" xml:space="preserve">
+    <value>Property of type double</value>
+  </data>
+  <data name="ExternalSettings_DoubleProperty_GroupName" xml:space="preserve">
+    <value>Simple properties</value>
+  </data>
+  <data name="ExternalSettings_BooleanProperty_Name" xml:space="preserve">
+    <value>Boolean Property</value>
+  </data>
+  <data name="ExternalSettings_BooleanProperty_Description" xml:space="preserve">
+    <value>Property of type boolean</value>
+  </data>
+  <data name="ExternalSettings_BooleanProperty_GroupName" xml:space="preserve">
+    <value>Simple properties</value>
+  </data>
+  <data name="ExternalSettings_DateTimeProperty_Name" xml:space="preserve">
+    <value>DateTime Property</value>
+  </data>
+  <data name="ExternalSettings_DateTimeProperty_Description" xml:space="preserve">
+    <value>Property of type date time</value>
+  </data>
+  <data name="ExternalSettings_DateTimeProperty_GroupName" xml:space="preserve">
+    <value>Simple properties</value>
+  </data>
+  <data name="ExternalSettings_ColorProperty_Name" xml:space="preserve">
+    <value>Color Property</value>
+  </data>
+  <data name="ExternalSettings_ColorProperty_Description" xml:space="preserve">
+    <value>Property of type color</value>
+  </data>
+  <data name="ExternalSettings_ColorProperty_GroupName" xml:space="preserve">
+    <value>Simple properties</value>
+  </data>
+  <data name="ExternalSettings_EnumPropertyCombo_Name" xml:space="preserve">
+    <value>Combo With Enumerator</value>
+  </data>
+  <data name="ExternalSettings_EnumPropertyCombo_Description" xml:space="preserve">
+    <value>Combo box for enumeration type property</value>
+  </data>
+  <data name="ExternalSettings_EnumPropertyCombo_GroupName" xml:space="preserve">
+    <value>Complex properties</value>
+  </data>
+  <data name="ExternalSettings_EnumPropertyCombo_Values_0" xml:space="preserve">
+    <value>EnumeratorValue1</value>
+  </data>
+  <data name="ExternalSettings_EnumPropertyCombo_Values_1" xml:space="preserve">
+    <value>EnumeratorValue2</value>
+  </data>
+  <data name="ExternalSettings_EnumPropertyCombo_Values_2" xml:space="preserve">
+    <value>EnumeratorValue3</value>
+  </data>
+  <data name="ExternalSettings_EnumPropertyCombo_Values_3" xml:space="preserve">
+    <value>EnumeratorValue4</value>
+  </data>
+  <data name="ExternalSettings_IntegerCombo_Name" xml:space="preserve">
+    <value>Combo With dictionary</value>
+  </data>
+  <data name="ExternalSettings_IntegerCombo_Description" xml:space="preserve">
+    <value>Combo box for integer dictionary property</value>
+  </data>
+  <data name="ExternalSettings_IntegerCombo_GroupName" xml:space="preserve">
+    <value>Complex properties</value>
+  </data>
+  <data name="ExternalSettings_IntegerCombo_Values_1" xml:space="preserve">
+    <value>One</value>
+  </data>
+  <data name="ExternalSettings_IntegerCombo_Values_2" xml:space="preserve">
+    <value>Two</value>
+  </data>
+  <data name="ExternalSettings_IntegerCombo_Values_3" xml:space="preserve">
+    <value>Three</value>
+  </data>
+  <data name="ExternalSettings_CommaDelimitedCombo_Name" xml:space="preserve">
+    <value>Combo With comma delimited values</value>
+  </data>
+  <data name="ExternalSettings_CommaDelimitedCombo_Description" xml:space="preserve">
+    <value>Combo box for comma delimited strings property</value>
+  </data>
+  <data name="ExternalSettings_CommaDelimitedCombo_GroupName" xml:space="preserve">
+    <value>Complex properties</value>
+  </data>
+  <data name="ExternalSettings_CommaDelimitedCombo_Values_Option A" xml:space="preserve">
+    <value>Option A</value>
+  </data>
+  <data name="ExternalSettings_CommaDelimitedCombo_Values_Option B" xml:space="preserve">
+    <value>Option B</value>
+  </data>
+  <data name="ExternalSettings_CommaDelimitedCombo_Values_Option C" xml:space="preserve">
+    <value>Option C</value>
+  </data>
+  <data name="ExternalSettings_DocumentTypeSelection_Name" xml:space="preserve">
+    <value>Available document types</value>
+  </data>
+  <data name="ExternalSettings_DocumentTypeSelection_Description" xml:space="preserve">
+    <value>Drop-down with document types assigned to the process</value>
+  </data>
+  <data name="ExternalSettings_DocumentTypeSelection_GroupName" xml:space="preserve">
+    <value>Complex properties</value>
+  </data>
+  <data name="ExternalSettings_DocumentTypeSelection_Values_document" xml:space="preserve">
+    <value>document</value>
+  </data>
+  <data name="ExternalSettings_MediaTypeSelection_Name" xml:space="preserve">
+    <value>Available media types</value>
+  </data>
+  <data name="ExternalSettings_MediaTypeSelection_Description" xml:space="preserve">
+    <value>Drop down with all media types available in the platform</value>
+  </data>
+  <data name="ExternalSettings_MediaTypeSelection_GroupName" xml:space="preserve">
+    <value>Complex properties</value>
+  </data>
+  <data name="ExternalSettings_MediaTypeSelection_Values_media" xml:space="preserve">
+    <value>media</value>
+  </data>
+  <data name="ExternalSettings_FileUploadProperty_Name" xml:space="preserve">
+    <value>File Upload</value>
+  </data>
+  <data name="ExternalSettings_FileUploadProperty_Description" xml:space="preserve">
+    <value>File uploader for string property</value>
+  </data>
+  <data name="ExternalSettings_FileUploadProperty_GroupName" xml:space="preserve">
+    <value>Complex properties</value>
+  </data>
+  <data name="ExternalSettings_GridProperty_Name" xml:space="preserve">
+    <value>Dummy Grid</value>
+  </data>
+  <data name="ExternalSettings_GridProperty_Description" xml:space="preserve">
+    <value>Grid for string dictionary property</value>
+  </data>
+  <data name="ExternalSettings_GridProperty_GroupName" xml:space="preserve">
+    <value>Complex properties</value>
+  </data>
+  <data name="ExternalSettings_NestedClassProperty_Name" xml:space="preserve">
+    <value>Nested Class</value>
+  </data>
+  <data name="ExternalSettings_NestedClassProperty_Description" xml:space="preserve">
+    <value>Nested class with file uploader as a property</value>
+  </data>
+  <data name="ExternalSettings_SelectedFields_Name" xml:space="preserve">
+    <value>Multi Field Selector</value>
+  </data>
+  <data name="ExternalSettings_SelectedFields_Description" xml:space="preserve">
+    <value>Showcase that demonstrates how to select fields to be used in the configuration</value>
+  </data>
+  <data name="ExternalSettings_SelectedFields_Values_multiFieldSelection" xml:space="preserve">
+    <value>multiFieldSelection</value>
+  </data>
+  <data name="ExternalSettings_AssignedFields_Name" xml:space="preserve">
+    <value>Field Assigner</value>
+  </data>
+  <data name="ExternalSettings_AssignedFields_Description" xml:space="preserve">
+    <value>Showcase that demonstrates how to assign fields to be used in the configuration</value>
+  </data>
+  <data name="ExternalSettings_AssignedFields_Values_fieldAssignment" xml:space="preserve">
+    <value>fieldAssignment</value>
+  </data>
+  <data name="ExternalSettings_SelectedField_Name" xml:space="preserve">
+    <value>Single Field Selector</value>
+  </data>
+  <data name="ExternalSettings_SelectedField_Description" xml:space="preserve">
+    <value>Showcase that demonstrates how to select a single field to be used in the configuration</value>
+  </data>
+  <data name="ExternalSettings_SelectedField_Values_singleFieldSelection" xml:space="preserve">
+    <value>singleFieldSelection</value>
+  </data>
+  <data name="ExternalSettings_StringMultiValueProperty_Name" xml:space="preserve">
+    <value>List Of Emails</value>
+  </data>
+  <data name="ExternalSettings_StringMultiValueProperty_Description" xml:space="preserve">
+    <value>Showcase that demonstrate how to use a list as a property that accepts entering of e-mails. Variable input on this property is disabled</value>
+  </data>
+  <data name="ExternalSettings_StringMultiValueProperty_GroupName" xml:space="preserve">
+    <value>Complex properties</value>
+  </data>
+  <data name="ExternalSettings_IntMultiValueProperty_Name" xml:space="preserve">
+    <value>List of integers with min length</value>
+  </data>
+  <data name="ExternalSettings_IntMultiValueProperty_Description" xml:space="preserve">
+    <value>Showcase that demonstrate how to use a list as a property that accepts entering integer numbers that are considered invalid if they are shorter than 2 digits. This sample also demonstrates that list entry type can be auto-detected Variable input on this property is disabled</value>
+  </data>
+  <data name="ExternalSettings_IntMultiValueProperty_GroupName" xml:space="preserve">
+    <value>Complex properties</value>
+  </data>
+  <data name="ExternalSettings_IntMultiValueProperty_MinLengthAttribute_ErrorMessage" xml:space="preserve">
+    <value>Min length of list items must be 2 characters</value>
+  </data>
+  <data name="ExternalSettings_DoubleMultiValueProperty_Name" xml:space="preserve">
+    <value>List Of Doubles</value>
+  </data>
+  <data name="ExternalSettings_DoubleMultiValueProperty_Description" xml:space="preserve">
+    <value>Showcase that demonstrate how to use a list as a property that accepts entering of valid numbers and usage of variables on list items.</value>
+  </data>
+  <data name="ExternalSettings_DoubleMultiValueProperty_GroupName" xml:space="preserve">
+    <value>Complex properties</value>
+  </data>
+  <data name="DatabaseConnection_DatabaseName_Name" xml:space="preserve">
+    <value>Database name</value>
+  </data>
+  <data name="DatabaseConnection_DatabaseName_RequiredAttribute_ErrorMessage" xml:space="preserve">
+    <value>Data is required.</value>
+  </data>
+  <data name="DatabaseConnection_IntegratedSecurity_Name" xml:space="preserve">
+    <value>Integrated security</value>
+  </data>
+  <data name="DatabaseConnection_Password_Name" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="DatabaseConnection_ServerName_Name" xml:space="preserve">
+    <value>Server name</value>
+  </data>
+  <data name="DatabaseConnection_ServerName_RequiredAttribute_ErrorMessage" xml:space="preserve">
+    <value>Data is required.</value>
+  </data>
+  <data name="DatabaseConnection_Username_Name" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="DatabaseLookup_Columns_Description" xml:space="preserve">
+    <value>Columns with column display name</value>
+  </data>
+  <data name="DatabaseLookup_Columns_Name" xml:space="preserve">
+    <value>Table Columns</value>
+  </data>
+  <data name="DatabaseLookup_DatabaseConnection_Description" xml:space="preserve">
+    <value>Database connection settings</value>
+  </data>
+  <data name="DatabaseLookup_DatabaseConnection_Name" xml:space="preserve">
+    <value>Database Connection</value>
+  </data>
+  <data name="DatabaseLookup_FullTextColumns_Description" xml:space="preserve">
+    <value>Columns used in full text search delimited by comma</value>
+  </data>
+  <data name="DatabaseLookup_FullTextColumns_Name" xml:space="preserve">
+    <value>Full text search columns (comma-separated)</value>
+  </data>
+  <data name="DatabaseLookup_FullTextSearch_Description" xml:space="preserve">
+    <value>Support for full text search</value>
+  </data>
+  <data name="DatabaseLookup_FullTextSearch_Name" xml:space="preserve">
+    <value>Allow full text search</value>
+  </data>
+  <data name="DatabaseLookup_MaxResults_Description" xml:space="preserve">
+    <value>Maximum number of results returned</value>
+  </data>
+  <data name="DatabaseLookup_MaxResults_Name" xml:space="preserve">
+    <value>Max returned results</value>
+  </data>
+  <data name="DatabaseLookup_Name_Description" xml:space="preserve">
+    <value>Lookup name</value>
+  </data>
+  <data name="DatabaseLookup_Name_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="DatabaseLookup_TableName_Description" xml:space="preserve">
+    <value>Table name</value>
+  </data>
+  <data name="DatabaseLookup_TableName_Name" xml:space="preserve">
+    <value>Table name</value>
+  </data>
+  <data name="NestedWithFiles_SelectedField_Description" xml:space="preserve">
+    <value>Showcase that demonstrates how to select single field to be used in the configuration</value>
+  </data>
+  <data name="NestedWithFiles_SelectedField_Name" xml:space="preserve">
+    <value>Single Field Selector</value>
+  </data>
+  <data name="NestedWithFiles_UploadedFile_Description" xml:space="preserve">
+    <value>File upload with File Object property that allows setting of the variables</value>
+  </data>
+  <data name="NestedWithFiles_UploadedFile_Name" xml:space="preserve">
+    <value>File Upload with object</value>
+  </data>
+</root>

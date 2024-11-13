@@ -1,4 +1,5 @@
-﻿using STG.RT.API.Activity;
+﻿using ActivitySettings.Configuration;
+using STG.RT.API.Activity;
 using System;
 using System.Collections.Generic;
 using System.Linq;

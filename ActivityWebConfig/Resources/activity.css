@@ -88,3 +88,23 @@ textarea {
     resize: vertical;
     min-width: 100%;
 }
+.margin20padding07 {
+    margin: 20px;
+    padding: 0.7em;
+}
+.floatLeftLMargin03{
+    float: left; 
+    margin-right: .3em;
+}
+.posAbsTop-1000{
+    position:absolute; 
+    margin-top:-1000px;
+}
+
+.displayNone {
+    display:none;
+}
+
+.floatRight{
+    float: right;
+}

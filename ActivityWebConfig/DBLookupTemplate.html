@@ -2,77 +2,77 @@
 
     <fieldset id="fsDatabaseLookup" class="block database-lookup">
 
-        <legend>Database Lookup</legend>
-        <button type="button" style="float:right;" class="a-button" id="remBtn" title="Remove the DB lookup" onclick="removeDatabaseLookup(this);">X</button>  
+        <legend data-localize="DatabaseLookup">Database Lookup</legend>
+        <button type="button" class="a-button floatRight" id="remBtn" title="Remove the DB lookup" onclick="removeDatabaseLookup(this);">X</button>  
         <fieldset class="block database-connection">
-            <legend>Database Connection</legend>
+            <legend data-localize="DatabaseConnection">Database Connection</legend>
 
             <div class="block form-row">
-                <label for="txtServerName">Server name</label>
+                <label for="txtServerName" data-localize="ServerName">Server name</label>
                 <input type="text" name="ServerName" id="txtServerName" class="txtServerName" value="">
-                <input type="text" disabled name="ServerName" id="txtServerNameVar" value="">
-                <button type="button" id="txtServerNameVarBtn" class="addVar">Variables</button>  
-                <button type="button" id="txtServerNameVarRemBtn" class="remVar">Remove</button>
+                <input type="text" disabled name="ServerName" id="txtServerNameVar" data-localize="input.assignedVar" title="Assigned Variable" value="">
+                <button type="button" id="txtServerNameVarBtn" class="addVar" data-localize="addVar">Variables</button>  
+                <button type="button" id="txtServerNameVarRemBtn" class="remVar" data-localize="remVar">Remove</button>
             </div>
 
             <div class="block form-row">
-                <label for="txtDatabaseName">Database name</label>
+                <label for="txtDatabaseName" data-localize="DatabaseName">Database name</label>
                 <input type="text" name="DatabaseName" id="txtDatabaseName" class="txtDatabaseName" value="">
-                <input type="text" disabled name="DatabaseName" id="txtDatabaseNameVar" value="">
-                <button type="button" id="txtDatabaseNameVarBtn" class="addVar">Variables</button>  
-                <button type="button" id="txtDatabaseNameVarRemBtn" class="remVar">Remove</button>
+                <input type="text" disabled name="DatabaseName" data-localize="input.assignedVar" title="Assigned Variable" id="txtDatabaseNameVar" value="">
+                <button type="button" id="txtDatabaseNameVarBtn" class="addVar" data-localize="addVar">Variables</button>  
+                <button type="button" id="txtDatabaseNameVarRemBtn" class="remVar" data-localize="remVar">Remove</button>
             </div>
 
             <div class="block form-row">
-                <label for="chbIntegratedSecurity">Integrated security</label>
+                <label for="chbIntegratedSecurity" data-localize="IntegratedSecurity">Integrated security</label>
                 <input type="checkbox" name="IntegratedSecurity" id="chbIntegratedSecurity" class="chbIntegratedSecurity" onclick="toggleDiv(this, '.divSqlAuthentication', false);" value="">
             </div>
 
             <div class="divSqlAuthentication">
                 <div class="block form-row">
-                    <label for="txtUsername">Username</label>
+                    <label for="txtUsername" data-localize="Username">Username</label>
                     <input type="text" name="Username" id="txtUsername" class="txtUsername" value="">
-                    <input type="text" disabled name="Username" id="txtUsernameVar" value="">
-                    <button type="button" id="txtUsernameVarBtn" class="addVar">Variables</button>  
-                    <button type="button" id="txtUsernameVarRemBtn" class="remVar">Remove</button>
+                    <input type="text" disabled name="Username" data-localize="input.assignedVar" title="Assigned Variable" id="txtUsernameVar" value="">
+                    <button type="button" id="txtUsernameVarBtn" class="addVar" data-localize="addVar">Variables</button>  
+                    <button type="button" id="txtUsernameVarRemBtn" class="remVar" data-localize="remVar" >Remove</button>
                 </div>
 
                 <div class="block form-row">
-                    <label for="txtPassword">Password</label>
+                    <label for="txtPassword" data-localize="Password">Password</label>
                     <input type="password" name="Password" id="txtPassword" class="txtPassword" value="">
-                    <input type="text" disabled name="Password" id="txtPasswordVar" value="">
-                    <button type="button" id="txtPasswordVarBtn" class="addVar">Variables</button>  
-                    <button type="button" id="txtPasswordVarRemBtn" class="remVar">Remove</button>
+                    <input type="text" disabled name="Password" data-localize="input.assignedVar" title="Assigned Variable" id="txtPasswordVar" value="">
+                    <button type="button" id="txtPasswordVarBtn" class="addVar" data-localize="addVar">Variables</button>  
+                    <button type="button" id="txtPasswordVarRemBtn" class="remVar" data-localize="remVar">Remove</button>
                 </div>
             </div>
         </fieldset>
         <div class="block form-row">
-            <label for="txtName">Lookup name</label>
+            <label for="txtName" data-localize="LookupName">Lookup name</label>
             <input type="text" name="Name" id="txtName" class="txtName" value="">
         </div>
 
         <div class="block form-row">
-            <label for="txtTableName">Table name</label>
+            <label for="txtTableName" data-localize="TableName">Table name</label>
             <input type="text" name="TableName" id="txtTableName" class="txtTableName" value="">
         </div>
 
         <div class="block form-row">
-            <label for="txtColumns">Columns</label>
+            <label for="txtColumns" data-localize="Columns">Columns</label>
             <input type="text" name="Columns" id="txtColumns" class="txtColumns" value="" size="100">
         </div>
 
         <div class="block form-row">
-            <label for="chbFullTextSearch">Allow full text search</label>
+            <label for="chbFullTextSearch" data-localize="FullTextSearch">Allow full text search</label>
             <input type="checkbox" name="FullTextSearch" id="chbFullTextSearch" class="chbFullTextSearch" onclick="toggleDiv(this, '.divFullTextColumns', true);">
         </div>
 
-        <div class="block form-row divFullTextColumns" style="display: none">
-            <label for="txtFullTextColumns">Full text search columns</label>
+        <div class="block form-row divFullTextColumns displayNone">
+            <label for="txtFullTextColumns" data-localize="FullTextColumns">Full text search columns</label>
             <input type="text" name="FullTextColumns" id="txtFullTextColumns" class="txtFullTextColumns" value="" size="100">
         </div>
 
         <div class="block form-row">
-            <label for="numMaxResults">Max returned results</label>
+            <label for="numMaxResults" data-localize="MaxResults">Max returned results</label>
             <input type="number" name="MaxResults" id="numMaxResults" class="numMaxResults" value="">
         </div>
     </fieldset>
