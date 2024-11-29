@@ -1,37 +1,42 @@
 <Project>
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+    <NuGetAuditMode>all</NuGetAuditMode>
   </PropertyGroup>
   <ItemGroup>
+    <PackageVersion Include="coverlet.collector" Version="6.0.2" />
+    <PackageVersion Include="Fody" Version="6.8.1" />
+    <PackageVersion Include="IdentityModel.OidcClient" Version="6.0.0" />
+    <PackageVersion Include="MaterialDesignColors" Version="3.1.0" />
+    <PackageVersion Include="MaterialDesignThemes" Version="5.1.0" />
+    <PackageVersion Include="MaterialDesignThemes.Wpf" Version="1.0.1" />
+    <PackageVersion Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.7" />
+    <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
+    <PackageVersion Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.122" />
+    <PackageVersion Include="Moq" Version="4.20.70" />
+    <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageVersion Include="Node.js.redist" Version="12.13.0" />
+    <PackageVersion Include="NuGet.CommandLine" Version="6.10.1" />
+    <PackageVersion Include="NUnit" Version="4.1.0" />
+    <PackageVersion Include="NUnit.Analyzers" Version="4.2.0" />
+    <PackageVersion Include="NUnit3TestAdapter" Version="4.5.0" />
+    <PackageVersion Include="PropertyChanged.Fody" Version="4.1.0" />
+    <PackageVersion Include="STG.RT.API" Version="4.0.1" />
+    <PackageVersion Include="STG.RT.API.Signaling" Version="4.0.1" />
+    <PackageVersion Include="STG.Tools.ActivityPackaging" Version="4.0.1" />
+    <PackageVersion Include="Stelvio.Classification.ProjectService.Client" Version="4.4.3" />
+    <PackageVersion Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <PackageVersion Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
+    <PackageVersion Include="System.Data.SqlClient" Version="4.8.6" />
+    <PackageVersion Include="System.Drawing.Common" Version="8.0.7" />
+    <PackageVersion Include="System.Memory" Version="4.5.5" />
+    <PackageVersion Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <!--For versioning-->
     <PackageVersion Include="GitInfo" Version="3.3.5" />
     <PackageVersion Include="MinVer" Version="5.0.0" />
-    <PackageVersion Include="STG.RT.API" Version="4.0.1" />
-    <PackageVersion Include="STG.Tools.ActivityPackaging" Version="4.0.1" />
-    <PackageVersion Include="System.ComponentModel.Annotations" Version="5.0.0" />
-    <PackageVersion Include="System.Data.SqlClient" Version="4.8.6" />
-    <PackageVersion Include="IdentityModel.OidcClient" Version="6.0.0" />
-    <PackageVersion Include="MaterialDesignThemes" Version="5.1.0" />
-    <PackageVersion Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.7" />
-    <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageVersion Include="Fody" Version="6.8.1" />
-    <PackageVersion Include="PropertyChanged.Fody" Version="4.1.0" />
-    <PackageVersion Include="Stelvio.Classification.ProjectService.Client" Version="4.4.3" />
-    <PackageVersion Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
-    <PackageVersion Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.122" />
-    <PackageVersion Include="MaterialDesignThemes.Wpf" Version="1.0.1" />
-    <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="8.0.0" />
-    <PackageVersion Include="MaterialDesignColors" Version="3.1.0" />
-    <PackageVersion Include="STG.RT.API.Signaling" Version="4.0.1" />
-    <PackageVersion Include="System.Drawing.Common" Version="8.0.7" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
-    <PackageVersion Include="Moq" Version="4.20.70" />
-    <PackageVersion Include="NUnit" Version="4.1.0" />
-    <PackageVersion Include="NUnit3TestAdapter" Version="4.5.0" />
-    <PackageVersion Include="NUnit.Analyzers" Version="4.2.0" />
-    <PackageVersion Include="coverlet.collector" Version="6.0.2" />
-    <PackageVersion Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
-    <PackageVersion Include="System.Memory" Version="4.5.5" />
-    <PackageVersion Include="NuGet.CommandLine" Version="6.10.1" />
-    <PackageVersion Include="Node.js.redist" Version="12.13.0" />
   </ItemGroup>
 </Project>
