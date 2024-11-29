@@ -6,7 +6,6 @@
   <ItemGroup>
     <PackageReference Include="System.ComponentModel.Annotations" />
     <PackageReference Include="System.Data.SqlClient" />
-    <PackageReference Include="System.Drawing.Common" />
     <PackageReference Include="STG.RT.API">
       <!-- Exclude the STG.RT.API nuget libraries from the output -->
       <ExcludeAssets>runtime;</ExcludeAssets>
