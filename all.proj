@@ -35,14 +35,18 @@
   </Target>
   <Target Name="package" DependsOnTargets="getversion">
     <PropertyGroup>
-      <stgPackagingToolExe>$(PkgSTG_Tools_ActivityPackaging)\tools\STG.ActivityPackaging.Packager.exe</stgPackagingToolExe>
+      <!-- The packaging tool provides the property $(PkgSTG_Tools_ActivityPackaging_Packager) since version 4.1.0:
+      $(PkgSTG_Tools_ActivityPackaging_Packager) runs via `dotnet <path> STG.ActivityPackaging.Packager.dll`.
+      $(PkgSTG_Tools_ActivityPackaging_PackagerExe) points to `$(PkgSTG_Tools_ActivityPackaging)\tools\STG.ActivityPackaging.Packager.exe` (beware of spaces in that path)
+      For older versions than 4.1.0, you have to define the path yourself -->
+      <!-- <stgPackagingToolExe>$(PkgSTG_Tools_ActivityPackaging)\tools\STG.ActivityPackaging.Packager.exe</stgPackagingToolExe> -->
     </PropertyGroup>
-    <!--Package the event driven sample activities-->
-    <Exec Command="&quot;$(stgPackagingToolExe)&quot; -f &quot;.\SampleEventDrivenActivity\activityPackage.json&quot; -version $(FileVersion) $(PublishOutputDirectory)\DemoActivities\SampleEventDrivenActivity.stgpack" />
-    <!--Package sample activities that show-case licensing as well as splitting/merging-->
-    <Exec Command="&quot;$(stgPackagingToolExe)&quot; -f &quot;.\SampleActivities\activityPackage.json&quot; -version $(FileVersion) $(PublishOutputDirectory)\DemoActivities\SampleActivities.stgpack" />
-    <!--Sample demonstrating how to package .NET Framework and .NET8 compatible activity packages-->
-    <Exec Command="&quot;$(stgPackagingToolExe)&quot; -f &quot;.\SampleActivities\backwardsCompatibility.json&quot; -version $(FileVersion) $(PublishOutputDirectory)\DemoActivities\BackwardsCompatibilitySample.stgpack" />
+    <!-- Package the event driven sample activities -->
+    <Exec Command="$(PkgSTG_Tools_ActivityPackaging_Packager) -f &quot;.\SampleEventDrivenActivity\activityPackage.json&quot; -version $(FileVersion) $(PublishOutputDirectory)\DemoActivities\SampleEventDrivenActivity.stgpack" />
+    <!-- Package sample activities that show-case licensing as well as splitting/merging -->
+    <Exec Command="$(PkgSTG_Tools_ActivityPackaging_Packager) -f &quot;.\SampleActivities\activityPackage.json&quot; -version $(FileVersion) $(PublishOutputDirectory)\DemoActivities\SampleActivities.stgpack" />
+    <!-- Sample demonstrating how to package .NET Framework and .NET8 compatible activity packages -->
+    <Exec Command="$(PkgSTG_Tools_ActivityPackaging_Packager) -f &quot;.\SampleActivities\backwardsCompatibility.json&quot; -version $(FileVersion) $(PublishOutputDirectory)\DemoActivities\BackwardsCompatibilitySample.stgpack" />
     <Copy SourceFiles=".\SampleActivities\Readme.md" DestinationFiles="$(PublishOutputDirectory)\DemoActivities\SampleActivities_Readme.md" />
     <Copy SourceFiles="@(Package-Tools-and-Websites)" DestinationFolder="$(PublishOutputDirectory)\DemoActivities\%(Package-Tools-and-Websites.Subfolder)\%(RecursiveDir)" />
   </Target>
