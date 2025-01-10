@@ -20,6 +20,39 @@ The solution Samples.sln provides the following samples corresponding folders:
 - [WebHeartbeatReporter](WebHeartbeatReporter/README.md) - sample for a Web client that provides heartbeat
 - [WorkItemSearchAndLock](WorkItemSearchAndLock/README.md) - sample tool that simulates multiple requests to lock a work item on the Platform
 
+## Activity Packaging How-to
+
+To create activity packages for the platform (*.stgpack), STG.ActivityPackaging.Packager.exe tool is used.
+The nuget package `STG.Tools.ActivityPackaging` is provided to partners and contains that tool.
+With the release of that packaging tool version **4.1.0**,
+we have separated it from the platform, so that only 1 packager version is required to package activities for any platform version.
+
+To use the tool, we recommend adding it to your SDK style build scripts as a PackageReference:
+
+```xml
+<Project DefaultTargets="release" Sdk="Microsoft.Build.NoTargets/3.3.0">
+  <ItemGroup>
+    <PackageReference Include="STG.Tools.ActivityPackaging" />
+  </ItemGroup>
+  <Target Name="_publish" AfterTargets="publish" DependsOnTargets="BuildActivity;package">
+  <Target Name="BuildActivity">
+    <!-- build/prep scripts -->
+  </Target>
+  <Target Name="package" DependsOnTargets="getversion">
+    <!-- Package the event driven sample activities -->
+    <Exec Command="$(PkgSTG_Tools_ActivityPackaging_Packager) -f &quot;.\SampleEventDrivenActivity\activityPackage.json&quot; -version $(FileVersion) $(PublishOutputDirectory)\DemoActivities\SampleEventDrivenActivity.stgpack" />
+  </Target>
+</Project>
+```
+
+The configuration for the activity's assemblies, name, etc., are contained in a json file like `activityPackage.json`.
+Creating a new activity package is then as easy as calling:
+
+```powershell
+msbuild /t:restore
+msbuild /t:publish
+```
+
 ## General Activity Entry Point Requirements
 
 An activity is not only executed by the platform's runtime, but also instantiated during activity registration.
