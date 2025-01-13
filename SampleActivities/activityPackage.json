@@ -38,6 +38,23 @@
     {
       "AssemblyPath": "..\\_build\\SampleActivities\\netstandard2.0\\SampleActivities.dll",
       "IsExternal": false,
+      "ActivityTypeGuid": "A522231A-B53B-4764-9BF1-2D8755ED7468",
+      "IconPath": "icon\\licensedActivity.png",
+      "IsFolder": true,
+      "Name": "Sample required volume counting with validation activity",
+      "Description": "Same as the sample licensed activity, but counting volumes for counter 'RequiredDocumentVolume'. It also demonstrates how to implement activity license validation for the activity.",
+      "Vendor": "Skilja GmbH",
+      "Color": "#5DBCD2",
+      "Version": "1.0.0.1",
+      "DisableOldVersions": false,
+      "EntryPoint": "SampleActivities.LicensedActivityWithRequiredVolume",
+      "HelpPath": null,
+      "ConfigPath": null,
+      "ConfigURL": null
+    },
+    {
+      "AssemblyPath": "..\\_build\\SampleActivities\\netstandard2.0\\SampleActivities.dll",
+      "IsExternal": false,
       "ActivityTypeGuid": "275E89DF-8B8A-4F56-A85B-8CDAD6C81566",
       "IconPath": "icon\\splitActivity.png",
       "IsFolder": true,
