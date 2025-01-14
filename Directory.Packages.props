@@ -35,6 +35,10 @@
     <PackageVersion Include="System.Text.Json" Version="8.0.5" />
     <PackageVersion Include="System.Threading.Tasks.Extensions" Version="4.6.0" />
   </ItemGroup>
+  <!-- Override for a specific project -->
+  <ItemGroup Condition="'$(MSBuildProjectName)' == 'SampleActivities'">
+    <PackageVersion Update="STG.RT.API" Version="4.1.0-beta130661" />
+  </ItemGroup>
   <ItemGroup>
     <!--For versioning-->
     <PackageVersion Include="GitInfo" Version="3.5.0" />
