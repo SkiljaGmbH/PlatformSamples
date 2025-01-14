@@ -16,7 +16,7 @@ using System.Linq;
 
 namespace SampleActivities
 {
-    public class LicensedActivityWithRequiredVolume : STGUnattendedAbstract<LicensedActivityWithVolume.Config>, ISTGLicensedActivity
+    public class LicensedActivityWithRequiredVolume : STGUnattendedAbstract<LicensedActivityWithRequiredVolume.Config>, ISTGLicensedActivity
     {
         private string _secureToken;
         private DtoActivityLicenseData _license;
