@@ -257,7 +257,7 @@ namespace SampleActivities
         }
 
         /// <summary>
-        /// Caleld by the activity host so that the activity license can be loaded and set.
+        /// Called by the activity host so that the activity license can be loaded and set.
         /// This guid is vendor generated and should be unique (at least to this vendor)
         /// </summary>
         public Guid GetLicenseId()
