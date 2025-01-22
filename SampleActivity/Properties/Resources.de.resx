@@ -141,6 +141,12 @@
   <data name="CommonSettings_RoutingCustomValueName_Name" xml:space="preserve">
     <value>Routing Benutzerdefinierter Wert Name</value>
   </data>
+  <data name="ConfigurationValidationSettings_DocumentType_Description" xml:space="preserve">
+    <value>Eigenschaft, die verwendet wird, um die Validierung von zugewiesenen Dokumenttypen zu demonstrieren. Wenn diese Eigenschaft gesetzt ist, schlägt die Validierung fehl, wenn der Dokumenttyp mit dem passenden Namen dem Prozess, der die Aktivität hostet, nicht zugewiesen ist.</value>
+  </data>
+  <data name="ConfigurationValidationSettings_DocumentType_Name" xml:space="preserve">
+    <value>Dokumenttyp</value>
+  </data>
   <data name="ConfigurationValidationSettings_FilePath_Description" xml:space="preserve">
     <value>Nur ein Pfad zu einer Datei</value>
   </data>
@@ -183,8 +189,17 @@
   <data name="ConfigurationValidationSettings_ThisMustNotBeEmpty_Name" xml:space="preserve">
     <value>Das darf nicht leer sein</value>
   </data>
+  <data name="ConfigurationValidationSettings_Validations_DocumentTypeNotAssigned" xml:space="preserve">
+    <value>Der konfigurierte Dokumenttyp '{0}' ist dem aktuellen Prozess nicht zugewiesen.</value>
+  </data>
+  <data name="ConfigurationValidationSettings_Validations_DuplicateColumnDetected" xml:space="preserve">
+    <value>Doppelte Spaltendefinition entdeckt. Die Spalte '{0}' ist in {1} Tabellen der zugeordneten Dokumentart ({2}) definiert. Dies kann zu Problemen bei der Verarbeitung führen.</value>
+  </data>
   <data name="ConfigurationValidationSettings_Validations_FilePath_Missing" xml:space="preserve">
     <value>Die in FilePath angegebene Datei existiert nicht.</value>
+  </data>
+  <data name="ConfigurationValidationSettings_Validations_NoDocumentType" xml:space="preserve">
+    <value>Diese Aktivität erwartet, dass eine Dokumentart konfiguriert wurde, die verwendet werden soll, aber dem Prozess sind keine Dokumentarten zugewiesen.</value>
   </data>
   <data name="ConfigurationValidationSettings_Validations_ThisMustBeInTheFuture_NotInFuture" xml:space="preserve">
     <value>IfThisIsTrue ist wahr, aber ThisMustNotBeEmpty ist leer!</value>

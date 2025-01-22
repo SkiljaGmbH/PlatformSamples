@@ -133,6 +133,24 @@ namespace SampleActivity.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Property used to demonstrate the validation of assigned document types. If this property is set, validation fails if the document type with the matching name is not assignes to the process hosting the activity..
+        /// </summary>
+        public static string ConfigurationValidationSettings_DocumentType_Description {
+            get {
+                return ResourceManager.GetString("ConfigurationValidationSettings_DocumentType_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Document Type.
+        /// </summary>
+        public static string ConfigurationValidationSettings_DocumentType_Name {
+            get {
+                return ResourceManager.GetString("ConfigurationValidationSettings_DocumentType_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Just a path to a file.
         /// </summary>
         public static string ConfigurationValidationSettings_FilePath_Description {
@@ -259,11 +277,38 @@ namespace SampleActivity.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The configured document type &apos;{0}&apos; is not assigned to the current process..
+        /// </summary>
+        public static string ConfigurationValidationSettings_Validations_DocumentTypeNotAssigned {
+            get {
+                return ResourceManager.GetString("ConfigurationValidationSettings_Validations_DocumentTypeNotAssigned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duplicate column definition detected. The column &apos;{0}&apos; is defined in {1} tables of the assigned document type ({2}). This might cause issues in processing..
+        /// </summary>
+        public static string ConfigurationValidationSettings_Validations_DuplicateColumnDetected {
+            get {
+                return ResourceManager.GetString("ConfigurationValidationSettings_Validations_DuplicateColumnDetected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The file specified in FilePath does not exist..
         /// </summary>
         public static string ConfigurationValidationSettings_Validations_FilePath_Missing {
             get {
                 return ResourceManager.GetString("ConfigurationValidationSettings_Validations_FilePath_Missing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This activity expects has configured a document type to be used, but there are no document types assigned to the process.
+        /// </summary>
+        public static string ConfigurationValidationSettings_Validations_NoDocumentType {
+            get {
+                return ResourceManager.GetString("ConfigurationValidationSettings_Validations_NoDocumentType", resourceCulture);
             }
         }
         

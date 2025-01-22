@@ -36,8 +36,8 @@
     <PackageVersion Include="System.Threading.Tasks.Extensions" Version="4.6.0" />
   </ItemGroup>
   <!-- Override for a specific project -->
-  <ItemGroup Condition="'$(MSBuildProjectName)' == 'SampleActivities'">
-    <PackageVersion Update="STG.RT.API" Version="4.1.0-beta130661" />
+  <ItemGroup Condition="'$(MSBuildProjectName)' == 'SampleActivities' Or '$(MSBuildProjectName)' == 'SampleActivity' Or '$(MSBuildProjectName)' == 'SampleActivity.Tests'">
+    <PackageVersion Update="STG.RT.API" Version="4.1.0-beta131133" />
   </ItemGroup>
   <ItemGroup>
     <!--For versioning-->

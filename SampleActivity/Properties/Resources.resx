@@ -358,4 +358,19 @@ With every tick it counts the number of work items that have the SLA status in O
   <data name="ConfigurationValidationSettings_Validations_ThisMustNotBeEmpty_Empty" xml:space="preserve">
     <value>IfThisIsTrue is true, but ThisMustNotBeEmpty is empty!</value>
   </data>
+  <data name="ConfigurationValidationSettings_DocumentType_Description" xml:space="preserve">
+    <value>Property used to demonstrate the validation of assigned document types. If this property is set, validation fails if the document type with the matching name is not assignes to the process hosting the activity.</value>
+  </data>
+  <data name="ConfigurationValidationSettings_DocumentType_Name" xml:space="preserve">
+    <value>Document Type</value>
+  </data>
+  <data name="ConfigurationValidationSettings_Validations_DocumentTypeNotAssigned" xml:space="preserve">
+    <value>The configured document type '{0}' is not assigned to the current process.</value>
+  </data>
+  <data name="ConfigurationValidationSettings_Validations_DuplicateColumnDetected" xml:space="preserve">
+    <value>Duplicate column definition detected. The column '{0}' is defined in {1} tables of the assigned document type ({2}). This might cause issues in processing.</value>
+  </data>
+  <data name="ConfigurationValidationSettings_Validations_NoDocumentType" xml:space="preserve">
+    <value>This activity expects has configured a document type to be used, but there are no document types assigned to the process</value>
+  </data>
 </root>
