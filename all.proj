@@ -43,10 +43,14 @@
     </PropertyGroup>
     <!-- Package the event driven sample activities -->
     <Exec Command="$(PkgSTG_Tools_ActivityPackaging_Packager) -f &quot;.\SampleEventDrivenActivity\activityPackage.json&quot; -version $(FileVersion) $(PublishOutputDirectory)\DemoActivities\SampleEventDrivenActivity.stgpack" />
+    <!-- Package the the old sample activities showing how to implement localization/validation-->
+    <Exec Command="$(PkgSTG_Tools_ActivityPackaging_Packager) -f &quot;.\SampleActivity\activityPackage.json&quot; -version $(FileVersion) $(PublishOutputDirectory)\DemoActivities\LocalizedActivities.stgpack" />
     <!-- Package sample activities that show-case licensing as well as splitting/merging -->
     <Exec Command="$(PkgSTG_Tools_ActivityPackaging_Packager) -f &quot;.\SampleActivities\activityPackage.json&quot; -version $(FileVersion) $(PublishOutputDirectory)\DemoActivities\SampleActivities.stgpack" />
     <!-- Sample demonstrating how to package .NET Framework and .NET8 compatible activity packages -->
     <Exec Command="$(PkgSTG_Tools_ActivityPackaging_Packager) -f &quot;.\SampleActivities\backwardsCompatibility.json&quot; -version $(FileVersion) $(PublishOutputDirectory)\DemoActivities\BackwardsCompatibilitySample.stgpack" />
+    <!-- Sample external activities -->
+    <Exec Command="$(PkgSTG_Tools_ActivityPackaging_Packager) -f &quot;.\ActivitySettings\activityPackage.json&quot; -version $(FileVersion) $(PublishOutputDirectory)\DemoActivities\ExternalActivities.stgpack" />
     <Copy SourceFiles=".\SampleActivities\Readme.md" DestinationFiles="$(PublishOutputDirectory)\DemoActivities\SampleActivities_Readme.md" />
     <Copy SourceFiles="@(Package-Tools-and-Websites)" DestinationFolder="$(PublishOutputDirectory)\DemoActivities\%(Package-Tools-and-Websites.Subfolder)\%(RecursiveDir)" />
   </Target>
