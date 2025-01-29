@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SampleActivity.Settings;
+﻿using SampleActivity.Settings;
 using STG.Common.DTO;
+using STG.Common.Utilities.Settings;
 using STG.RT.API.Activity;
 using STG.RT.API.Document;
-using STG.Common.Utilities.Settings;
 
 namespace SampleActivity
 {

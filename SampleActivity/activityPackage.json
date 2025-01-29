@@ -161,6 +161,28 @@
           "Description": "Zeigt, wie man eine zeitgesteuerte Aktivität erstellt, die ein Wasserzeichen auf das Bild setzt."
         }
       }
+    },
+    {
+      "AssemblyPath": "..\\_build\\SampleActivity\\netstandard2.0\\SampleActivity.dll",
+      "IsExternal": false,
+      "ActivityTypeGuid": "C48EF061-106D-47E3-AE02-AF3EC0DE7C42",
+      "IconPath": "icon\\translate.svg",
+      "IsFolder": true,
+      "Name": "Sample Defaults",
+      "Description": "Demonstrates how to set default settings for an activity and how these defaults respect the UI culture.",
+      "Vendor": "Skilja GmbH",
+      "Version": "1.0.0.0",
+      "Color": "#FFFFFF",
+      "DisableOldVersions": false,
+      "EntryPoint": "SampleActivity.SampleLocalizationDefaults",
+      "HelpPath": null,
+      "ConfigPath": null,
+      "ConfigURL": null,
+      "LocalizedResources": {
+        "de": {
+          "Description": "Demonstriert, wie man Standardwerte für eine Aktivität festlegt und wie diese Standardwerte die UI-Kultur berücksichtigen."
+        }
+      }
     }
   ]
 }

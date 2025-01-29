@@ -134,6 +134,30 @@ It allows the configuration of which settings to retrieve and the custom value k
 - **AppSettingsToOutput**: A comma-separated list of application setting names to retrieve.
 - **OutputCustomValue**: The custom key to store the concatenated settings values in the document.
 
+## SampleLocalizationDefaults
+
+The `SampleLocalizationDefaults` is a external activity that demonstrates how to properly set default values for localized fields in an activity. 
+It showcases different approaches for setting default values and highlights how these values interact with UI language switching.
+
+### Key Features:
+- **Default Value Initialization**: Demonstrates how to set default values in the `Initialize` method.
+- **Localization Awareness**: Ensures that the assigned default values align with the UI culture at the time of activity initialization.
+- **Showcase of Common Mistakes**: Highlights potential pitfalls when setting default values for localized fields.
+
+### Settings Class: `Localizer`
+- **DescFromPrompt**: A properly localized read-only text field using the `Prompt` attribute.
+- **PromptOverride**: A field demonstrating the incorrect practice of overriding the `Prompt` attribute in the constructor.
+- **DescFromCtor**: A field that sets a default value in the constructor, storing it as a constant.
+- **DescFromInLine**: A field where the default value is set inline within the property definition.
+- **DescFromInit**: A field demonstrating how default values can be assigned in the `Initialize` method.
+
+### Implementation Notes:
+- The `Initialize` method assigns a localized default value to `DescFromInit`, ensuring that it respects the UI culture at the time of registration.
+- Once set, these values do not automatically update with UI language switching unless reset in the activity editor.
+
+This sample serves as a reference for properly handling value localization in activity settings.
+
+
 ## Localization of Activity Settings
 
 All of the settings used in the sample activities are fully localized, showcasing how to implement localization in activity settings. By leveraging resource files, each setting can be displayed in different languages based on the current culture of the system.

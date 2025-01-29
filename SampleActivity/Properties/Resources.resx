@@ -373,4 +373,52 @@ With every tick it counts the number of work items that have the SLA status in O
   <data name="ConfigurationValidationSettings_Validations_NoDocumentType" xml:space="preserve">
     <value>This activity expects has configured a document type to be used, but there are no document types assigned to the process</value>
   </data>
+  <data name="Localizer_DescFromCtor_Description" xml:space="preserve">
+    <value>This field demonstrates how to set a default value via the settings class constructor.</value>
+  </data>
+  <data name="Localizer_DescFromCtor_Name" xml:space="preserve">
+    <value>Constructor Value</value>
+  </data>
+  <data name="Localizer_DescFromCtor_Prompt" xml:space="preserve">
+    <value>This value is set in the settings class constructor.</value>
+  </data>
+  <data name="Localizer_DescFromInit_Description" xml:space="preserve">
+    <value>This field demonstrates how a developer can set a field’s default value in the activity’s Initialize method.</value>
+  </data>
+  <data name="Localizer_DescFromInit_Name" xml:space="preserve">
+    <value>Initialize Value</value>
+  </data>
+  <data name="Localizer_DescFromInit_Prompt" xml:space="preserve">
+    <value>This value is set in the activity’s Initialize() method.</value>
+  </data>
+  <data name="Localizer_DescFromInLine_Description" xml:space="preserve">
+    <value>This field demonstrates how to set a default value by assigning it inline in the property definition.</value>
+  </data>
+  <data name="Localizer_DescFromInLine_Name" xml:space="preserve">
+    <value>Inline Value</value>
+  </data>
+  <data name="Localizer_DescFromInLine_Prompt" xml:space="preserve">
+    <value>This value is set by assigning the property value inline.</value>
+  </data>
+  <data name="Localizer_DescFromPrompt_Description" xml:space="preserve">
+    <value>This field demonstrates how to properly use the Prompt attribute to create read-only descriptions that respect UI language switching.</value>
+  </data>
+  <data name="Localizer_DescFromPrompt_Name" xml:space="preserve">
+    <value>Prompt Value</value>
+  </data>
+  <data name="Localizer_DescFromPrompt_Prompt" xml:space="preserve">
+    <value>This value is set via the Prompt attribute and respects UI language switching.</value>
+  </data>
+  <data name="Localizer_PromptOverride_Description" xml:space="preserve">
+    <value>This field demonstrates a common mistake where the Prompt attribute is defined but its value is overridden in the constructor.</value>
+  </data>
+  <data name="Localizer_PromptOverride_Name" xml:space="preserve">
+    <value>Prompt Override</value>
+  </data>
+  <data name="Localizer_PromptOverride_Prompt" xml:space="preserve">
+    <value>This value should not be seen as it is overridden in the constructor.</value>
+  </data>
+  <data name="Localizer_PromptOverride_PromptOverride" xml:space="preserve">
+    <value>This value comes from the constructor and overrides the value defined in the Prompt attribute.</value>
+  </data>
 </root>
