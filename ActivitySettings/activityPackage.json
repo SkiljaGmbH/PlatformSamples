@@ -12,13 +12,36 @@
       "Color": "#FFFFFF",
       "Version": null,
       "DisableOldVersions": false,
-      "EntryPoint": null,
+      "EntryPoint": "ActivitySettings.ExternalActivitySample",
       "HelpPath": null,
       "ConfigPath": "..\\ActivityWebConfig",
       "ConfigURL": null,
+      "MinimalPlatformVersion": "4.0",
       "LocalizedResources": {
         "de": {
           "Description": "Demo für Aktivitätseinstellungen mit externem Dialog."
+        }
+      }
+    },
+    {
+      "AssemblyPath": "..\\_build\\ActivitySettings\\net8.0\\ActivitySettings.dll",
+      "IsExternal": false,
+      "ActivityTypeGuid": "04E3444F-54CC-48AD-8B28-C849BAED9861",
+      "IsFolder": true,
+      "Name": "AllSupportedInputs",
+      "Description": "A demo external activity that shows all the input types one can use in the activity settings and a showcase on how to configure them.",
+      "Vendor": "Skilja GmbH",
+      "Color": "#FFFFFF",
+      "Version": null,
+      "DisableOldVersions": false,
+      "EntryPoint": "ActivitySettings.ExternalActivityWithAllConfiguationSettings",
+      "HelpPath": null,
+      "ConfigPath": null,
+      "ConfigURL": null,
+      "MinimalPlatformVersion": "4.0",
+      "LocalizedResources": {
+        "de": {
+          "Description": "Eine Demo-Externe Aktivität, die alle Eingabetypen zeigt, die man in den Aktivitätseinstellungen verwenden kann, sowie eine Übersicht darüber, wie man sie konfiguriert."
         }
       }
     }

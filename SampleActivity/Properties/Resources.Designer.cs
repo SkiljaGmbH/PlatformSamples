@@ -484,6 +484,150 @@ namespace SampleActivity.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This field demonstrates how to set a default value via the settings class constructor..
+        /// </summary>
+        public static string Localizer_DescFromCtor_Description {
+            get {
+                return ResourceManager.GetString("Localizer_DescFromCtor_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Constructor Value.
+        /// </summary>
+        public static string Localizer_DescFromCtor_Name {
+            get {
+                return ResourceManager.GetString("Localizer_DescFromCtor_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This value is set in the settings class constructor..
+        /// </summary>
+        public static string Localizer_DescFromCtor_Prompt {
+            get {
+                return ResourceManager.GetString("Localizer_DescFromCtor_Prompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This field demonstrates how a developer can set a field’s default value in the activity’s Initialize method..
+        /// </summary>
+        public static string Localizer_DescFromInit_Description {
+            get {
+                return ResourceManager.GetString("Localizer_DescFromInit_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Initialize Value.
+        /// </summary>
+        public static string Localizer_DescFromInit_Name {
+            get {
+                return ResourceManager.GetString("Localizer_DescFromInit_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This value is set in the activity’s Initialize() method..
+        /// </summary>
+        public static string Localizer_DescFromInit_Prompt {
+            get {
+                return ResourceManager.GetString("Localizer_DescFromInit_Prompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This field demonstrates how to set a default value by assigning it inline in the property definition..
+        /// </summary>
+        public static string Localizer_DescFromInLine_Description {
+            get {
+                return ResourceManager.GetString("Localizer_DescFromInLine_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inline Value.
+        /// </summary>
+        public static string Localizer_DescFromInLine_Name {
+            get {
+                return ResourceManager.GetString("Localizer_DescFromInLine_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This value is set by assigning the property value inline..
+        /// </summary>
+        public static string Localizer_DescFromInLine_Prompt {
+            get {
+                return ResourceManager.GetString("Localizer_DescFromInLine_Prompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This field demonstrates how to properly use the Prompt attribute to create read-only descriptions that respect UI language switching..
+        /// </summary>
+        public static string Localizer_DescFromPrompt_Description {
+            get {
+                return ResourceManager.GetString("Localizer_DescFromPrompt_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prompt Value.
+        /// </summary>
+        public static string Localizer_DescFromPrompt_Name {
+            get {
+                return ResourceManager.GetString("Localizer_DescFromPrompt_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This value is set via the Prompt attribute and respects UI language switching..
+        /// </summary>
+        public static string Localizer_DescFromPrompt_Prompt {
+            get {
+                return ResourceManager.GetString("Localizer_DescFromPrompt_Prompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This field demonstrates a common mistake where the Prompt attribute is defined but its value is overridden in the constructor..
+        /// </summary>
+        public static string Localizer_PromptOverride_Description {
+            get {
+                return ResourceManager.GetString("Localizer_PromptOverride_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prompt Override.
+        /// </summary>
+        public static string Localizer_PromptOverride_Name {
+            get {
+                return ResourceManager.GetString("Localizer_PromptOverride_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This value should not be seen as it is overridden in the constructor..
+        /// </summary>
+        public static string Localizer_PromptOverride_Prompt {
+            get {
+                return ResourceManager.GetString("Localizer_PromptOverride_Prompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This value comes from the constructor and overrides the value defined in the Prompt attribute..
+        /// </summary>
+        public static string Localizer_PromptOverride_PromptOverride {
+            get {
+                return ResourceManager.GetString("Localizer_PromptOverride_PromptOverride", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Number of days the work item must be in the overdue SLA status in order to be counted for notification..
         /// </summary>
         public static string OverdueAgentSettings_DaysOverdue_Description {

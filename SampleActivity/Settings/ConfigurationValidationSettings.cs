@@ -93,7 +93,7 @@ namespace SampleActivity.Settings
 
             if (!string.IsNullOrWhiteSpace(DocumentType)) //Document type is set; let us check if document type with the matching name is assigned to process
             {
-                if (options.DocumentTypes != null || options.DocumentTypes.Count == 0)  //No document types assigned to process; warn
+                if (options.DocumentTypes == null || options.DocumentTypes.Count == 0)  //No document types assigned to process; warn
                 {
                     ret.Add(new DtoActivityConfigurationValidationResult()
                     {

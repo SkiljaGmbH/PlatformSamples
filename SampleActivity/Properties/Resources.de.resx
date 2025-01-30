@@ -258,6 +258,54 @@
   <data name="ImportSettings_TiffFilter_Name" xml:space="preserve">
     <value>Tiff Filetr</value>
   </data>
+  <data name="Localizer_DescFromCtor_Description" xml:space="preserve">
+    <value>Dieses Feld zeigt, wie ein Standardwert über den Konstruktor der Einstellungs-Klasse gesetzt wird.</value>
+  </data>
+  <data name="Localizer_DescFromCtor_Name" xml:space="preserve">
+    <value>Konstruktorwert</value>
+  </data>
+  <data name="Localizer_DescFromCtor_Prompt" xml:space="preserve">
+    <value>Dieser Wert wird im Konstruktor der Einstellungs-Klasse gesetzt.</value>
+  </data>
+  <data name="Localizer_DescFromInit_Description" xml:space="preserve">
+    <value>Dieses Feld zeigt, wie ein Entwickler den Standardwert eines Feldes in der Initialize-Methode der Aktivität setzen kann.</value>
+  </data>
+  <data name="Localizer_DescFromInit_Name" xml:space="preserve">
+    <value>Initialisierungswert</value>
+  </data>
+  <data name="Localizer_DescFromInit_Prompt" xml:space="preserve">
+    <value>Dieser Wert wird in der Initialize()-Methode der Aktivität gesetzt.</value>
+  </data>
+  <data name="Localizer_DescFromInLine_Description" xml:space="preserve">
+    <value>Dieses Feld zeigt, wie ein Standardwert direkt in der Eigenschaftsdefinition zugewiesen wird.</value>
+  </data>
+  <data name="Localizer_DescFromInLine_Name" xml:space="preserve">
+    <value>Inline-Wert</value>
+  </data>
+  <data name="Localizer_DescFromInLine_Prompt" xml:space="preserve">
+    <value>Dieser Wert wird direkt in der Eigenschaftsdefinition zugewiesen.</value>
+  </data>
+  <data name="Localizer_DescFromPrompt_Description" xml:space="preserve">
+    <value>Dieses Feld zeigt, wie das Prompt-Attribut richtig verwendet wird, um schreibgeschützte Beschreibungen zu erstellen, die die Sprachumschaltung der Benutzeroberfläche berücksichtigen.</value>
+  </data>
+  <data name="Localizer_DescFromPrompt_Name" xml:space="preserve">
+    <value>Prompt-Wert</value>
+  </data>
+  <data name="Localizer_DescFromPrompt_Prompt" xml:space="preserve">
+    <value>Dieser Wert wird über das Prompt-Attribut gesetzt und berücksichtigt die Sprachumschaltung der Benutzeroberfläche.</value>
+  </data>
+  <data name="Localizer_PromptOverride_Description" xml:space="preserve">
+    <value>Dieses Feld zeigt einen häufigen Fehler, bei dem das Prompt-Attribut definiert ist, sein Wert jedoch im Konstruktor überschrieben wird.</value>
+  </data>
+  <data name="Localizer_PromptOverride_Name" xml:space="preserve">
+    <value>Überschriebener Prompt</value>
+  </data>
+  <data name="Localizer_PromptOverride_Prompt" xml:space="preserve">
+    <value>Dieser Wert sollte nicht sichtbar sein, da er im Konstruktor überschrieben wird.</value>
+  </data>
+  <data name="Localizer_PromptOverride_PromptOverride" xml:space="preserve">
+    <value>Dieser Wert stammt aus dem Konstruktor und überschreibt den im Prompt-Attribut definierten Wert.</value>
+  </data>
   <data name="OverdueAgentSettings_DaysOverdue_Description" xml:space="preserve">
     <value>Anzahl der Tage, die das Workitem im überfälligen SLA-Status sein muß, um für die Benachrichtigung gezählt zu werden.</value>
   </data>
