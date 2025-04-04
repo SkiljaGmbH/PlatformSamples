@@ -27,7 +27,7 @@ or add another repository source to fetch them from.
 You need to build on Windows. Building this repository on Linux is not supported without changes.
 For example, the `EDAClient` uses the target framework `net8.0-windows`, and `SampleActivities` use the target framework `NET472`.
 
-Run the following commands:
+Run the following commands, which executes the script found in `all.proj`:
 
 ```cmd
 msbuild /t:restore
