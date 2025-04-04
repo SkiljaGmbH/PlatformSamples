@@ -33,6 +33,8 @@
   <Target Name="release">
     <MSBuild Projects="src/Samples.sln" Targets="build" Properties="Configuration=release" />
   </Target>
+  <Target Name="_publish" AfterTargets="publish" DependsOnTargets="package">
+  </Target>
   <Target Name="package" DependsOnTargets="getversion">
     <PropertyGroup>
       <!-- The packaging tool provides the property $(PkgSTG_Tools_ActivityPackaging_Packager) since version 4.1.0:
@@ -51,7 +53,7 @@
     <Exec Command="$(PkgSTG_Tools_ActivityPackaging_Packager) -f &quot;.\src\SampleActivities\backwardsCompatibility.json&quot; -version $(FileVersion) $(PublishOutputDirectory)\DemoActivities\BackwardsCompatibilitySample.stgpack" />
     <!-- Sample external activities -->
     <Exec Command="$(PkgSTG_Tools_ActivityPackaging_Packager) -f &quot;.\src\ActivitySettings\activityPackage.json&quot; -version $(FileVersion) $(PublishOutputDirectory)\DemoActivities\ExternalActivities.stgpack" />
-    <Copy SourceFiles=".\SampleActivities\Readme.md" DestinationFiles="$(PublishOutputDirectory)\DemoActivities\SampleActivities_Readme.md" />
+    <Copy SourceFiles=".\src\SampleActivities\Readme.md" DestinationFiles="$(PublishOutputDirectory)\DemoActivities\SampleActivities_Readme.md" />
     <Copy SourceFiles="@(Package-Tools-and-Websites)" DestinationFolder="$(PublishOutputDirectory)\DemoActivities\%(Package-Tools-and-Websites.Subfolder)\%(RecursiveDir)" />
   </Target>
   <Target Name="build-websites">

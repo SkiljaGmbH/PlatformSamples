@@ -20,6 +20,23 @@ The solution Samples.sln provides the following samples corresponding folders:
 - [WebHeartbeatReporter](WebHeartbeatReporter/README.md) - sample for a Web client that provides heartbeat
 - [WorkItemSearchAndLock](WorkItemSearchAndLock/README.md) - sample tool that simulates multiple requests to lock a work item on the Platform
 
+## Building This Repository
+
+To build the sources, you have to first configure the access to either the github nuget repository holding the used packages,
+or add another repository source to fetch them from.
+You need to build on Windows. Building this repository on Linux is not supported without changes.
+For example, the `EDAClient` uses the target framework `net8.0-windows`, and `SampleActivities` use the target framework `NET472`.
+
+Run the following commands:
+
+```cmd
+msbuild /t:restore
+msbuild /t:publish
+```
+
+Activities have then been built and packaged.
+They can be found in `_publish/DemoActivities`.
+
 ## Activity Packaging How-to
 
 To create activity packages for the platform (*.stgpack), STG.ActivityPackaging.Packager.exe tool is used.
