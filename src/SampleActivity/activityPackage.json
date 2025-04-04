@@ -2,7 +2,7 @@
   "PackageName": "Demo Activities",
   "Packages": [
     {
-      "AssemblyPath": "..\\_build\\SampleActivity\\netstandard2.0\\SampleActivity.dll",
+      "AssemblyPath": "..\\..\\_build\\SampleActivity\\netstandard2.0\\SampleActivity.dll",
       "IsExternal": false,
       "ActivityTypeGuid": "82232F6A-E4F5-450A-B936-D84EB04C6F37",
       "IconPath": "icon\\transfer.svg",
@@ -25,7 +25,7 @@
       }
     },
     {
-      "AssemblyPath": "..\\_build\\SampleActivity\\netstandard2.0\\SampleActivity.dll",
+      "AssemblyPath": "..\\..\\_build\\SampleActivity\\netstandard2.0\\SampleActivity.dll",
       "IsExternal": false,
       "ActivityTypeGuid": "26D8DEC7-F499-4EA7-B5D9-ADEA369DEDDC",
       "IconPath": "icon\\validation.svg",
@@ -48,7 +48,7 @@
       }
     },
     {
-      "AssemblyPath": "..\\_build\\SampleActivity\\netstandard2.0\\SampleActivity.dll",
+      "AssemblyPath": "..\\..\\_build\\SampleActivity\\netstandard2.0\\SampleActivity.dll",
       "IsExternal": false,
       "ActivityTypeGuid": "A5D2E891-5020-49A7-B4BB-24CCEBD08216",
       "IconPath": "icon\\import.svg",
@@ -71,7 +71,7 @@
       }
     },
     {
-      "AssemblyPath": "..\\_build\\SampleActivity\\netstandard2.0\\SampleActivity.dll",
+      "AssemblyPath": "..\\..\\_build\\SampleActivity\\netstandard2.0\\SampleActivity.dll",
       "IsExternal": false,
       "ActivityTypeGuid": "B3CBEA35-B2AD-481C-8140-1EB4D92F411D",
       "IconPath": "icon\\export.svg",
@@ -94,7 +94,7 @@
       }
     },
     {
-      "AssemblyPath": "..\\_build\\SampleActivity\\netstandard2.0\\SampleActivity.dll",
+      "AssemblyPath": "..\\..\\_build\\SampleActivity\\netstandard2.0\\SampleActivity.dll",
       "IsExternal": false,
       "ActivityTypeGuid": "A912EE12-7850-452D-A447-63025F850D07",
       "IconPath": "icon\\convert.svg",
@@ -117,7 +117,7 @@
       }
     },
     {
-      "AssemblyPath": "..\\_build\\SampleActivity\\netstandard2.0\\SampleActivity.dll",
+      "AssemblyPath": "..\\..\\_build\\SampleActivity\\netstandard2.0\\SampleActivity.dll",
       "IsExternal": false,
       "ActivityTypeGuid": "737CA3E7-F829-40B0-A3B4-B9559280329E",
       "IconPath": "icon\\overdue.svg",
@@ -140,7 +140,7 @@
       }
     },
     {
-      "AssemblyPath": "..\\_build\\SampleActivity\\netstandard2.0\\SampleActivity.dll",
+      "AssemblyPath": "..\\..\\_build\\SampleActivity\\netstandard2.0\\SampleActivity.dll",
       "IsExternal": false,
       "ActivityTypeGuid": "3E36C2BC-31BD-40E2-8496-7CC7DEBFC123",
       "IconPath": "icon\\watermark.svg",
@@ -163,7 +163,7 @@
       }
     },
     {
-      "AssemblyPath": "..\\_build\\SampleActivity\\netstandard2.0\\SampleActivity.dll",
+      "AssemblyPath": "..\\..\\_build\\SampleActivity\\netstandard2.0\\SampleActivity.dll",
       "IsExternal": false,
       "ActivityTypeGuid": "C48EF061-106D-47E3-AE02-AF3EC0DE7C42",
       "IconPath": "icon\\translate.svg",

@@ -2,10 +2,10 @@
   "PackageName": "Demo Activities",
   "Packages": [
     {
-      "AssemblyPath": "..\\_build\\SampleActivities\\net472\\SampleActivities.dll",
+      "AssemblyPath": "..\\..\\_build\\SampleActivities\\net472\\SampleActivities.dll",
       "AlternativePaths": [
         {
-          "AssemblyPath": "..\\_build\\SampleActivities\\net8.0\\SampleActivities.dll"
+          "AssemblyPath": "..\\..\\_build\\SampleActivities\\net8.0\\SampleActivities.dll"
         }
       ],
       "IsExternal": false,
