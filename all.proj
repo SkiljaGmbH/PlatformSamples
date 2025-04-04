@@ -7,13 +7,13 @@
     <PackageReference Include="Node.js.redist" />
   </ItemGroup>
   <ItemGroup>
-    <Package-Tools-and-Websites Include="$(BuildOutputDirectory)\EDAClient\net8.0-windows\*;" Exclude="">
+    <Package-Tools-and-Websites Include="$(BuildOutputDirectory)/EDAClient/net8.0-windows/*;" Exclude="">
       <Subfolder>EDAClient</Subfolder>
     </Package-Tools-and-Websites>
-    <Package-Tools-and-Websites Include=".\EDAConfirmWeb\dist\**\*;" Exclude="">
+    <Package-Tools-and-Websites Include="./src/EDAConfirmWeb/dist/**/*;" Exclude="">
       <Subfolder>EDAConfirmWeb</Subfolder>
     </Package-Tools-and-Websites>
-    <Package-Tools-and-Websites Include=".\EDAWebClient\dist\**\*;" Exclude="">
+    <Package-Tools-and-Websites Include="./src/EDAWebClient/dist/**/*;" Exclude="">
       <Subfolder>EDAWebClient</Subfolder>
     </Package-Tools-and-Websites>
   </ItemGroup>
@@ -25,13 +25,13 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <Target AfterTargets="restore" Name="restorePackages">
-    <MSBuild Projects="Samples.sln" Targets="restore" />
+    <MSBuild Projects="src/Samples.sln" Targets="restore" />
   </Target>
   <Target Name="debug">
-    <MSBuild Projects="Samples.sln" Targets="build" Properties="Configuration=debug" />
+    <MSBuild Projects="src/Samples.sln" Targets="build" Properties="Configuration=debug" />
   </Target>
   <Target Name="release">
-    <MSBuild Projects="Samples.sln" Targets="build" Properties="Configuration=release" />
+    <MSBuild Projects="src/Samples.sln" Targets="build" Properties="Configuration=release" />
   </Target>
   <Target Name="package" DependsOnTargets="getversion">
     <PropertyGroup>
@@ -64,20 +64,20 @@
     <MSBuild Condition="!Exists('$(npmPath)')" Targets="installNPM" Properties="nodeExe=$(nodeExe)" Projects="$(MSBuildThisFileFullPath)" />
 
 
-    <Exec WorkingDirectory="./EDAWebClient" Command="
+    <Exec WorkingDirectory="./src/EDAWebClient" Command="
 		set PATH=%PATH:C:\Program Files\nodejs=%
         set path=%PATH%;$(nodePath)
 		&quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; install" />
-    <Exec WorkingDirectory="./EDAWebClient" Command="
+    <Exec WorkingDirectory="./src/EDAWebClient" Command="
         set PATH=%PATH:C:\Program Files\nodejs=%
         set path=%PATH%;$(nodePath)
         &quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; run ng build -- --prod --base-href ." />
 
-    <Exec WorkingDirectory="./EDAConfirmWeb" Command="
+    <Exec WorkingDirectory="./src/EDAConfirmWeb" Command="
 		set PATH=%PATH:C:\Program Files\nodejs=%
         set path=%PATH%;$(nodePath)
 		&quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; install" />
-    <Exec WorkingDirectory="./EDAConfirmWeb" Command="
+    <Exec WorkingDirectory="./src/EDAConfirmWeb" Command="
         set PATH=%PATH:C:\Program Files\nodejs=%
         set path=%PATH%;$(nodePath)
         &quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; run ng build -- --prod --base-href ." />
