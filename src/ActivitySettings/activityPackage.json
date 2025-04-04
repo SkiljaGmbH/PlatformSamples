@@ -2,7 +2,7 @@
   "PackageName": "Demo Activity With External Dialog",
   "Packages": [
     {
-      "AssemblyPath": "..\\_build\\ActivitySettings\\net8.0\\ActivitySettings.dll",
+      "AssemblyPath": "..\\..\\_build\\ActivitySettings\\net8.0\\ActivitySettings.dll",
       "IsExternal": false,
       "ActivityTypeGuid": "2ADF71C7-E793-4681-8EFC-AC7A6C4380D0",
       "IsFolder": true,
@@ -24,7 +24,7 @@
       }
     },
     {
-      "AssemblyPath": "..\\_build\\ActivitySettings\\net8.0\\ActivitySettings.dll",
+      "AssemblyPath": "..\\..\\_build\\ActivitySettings\\net8.0\\ActivitySettings.dll",
       "IsExternal": false,
       "ActivityTypeGuid": "04E3444F-54CC-48AD-8B28-C849BAED9861",
       "IsFolder": true,
