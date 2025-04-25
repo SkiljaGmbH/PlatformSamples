@@ -1,55 +1,58 @@
-<div *ngIf="processing==0" >
-  <h5>
+<ng-container [ngTemplateOutlet]="getTemplate(processing)"></ng-container>
+
+<ng-template #communicationTemplate>
+  <div>
+    <h5>
       <ul>
-          <li *ngFor="let step of steps">
-              <fa-icon *ngIf="step.status==0" icon="exclamation-circle"></fa-icon>
-              <fa-icon *ngIf="step.status==1" icon="spinner" [pulse]="true"></fa-icon>
-              <fa-icon *ngIf="step.status==2" icon="check-circle"></fa-icon>
-              <fa-icon *ngIf="step.status==3" icon="times-circle"></fa-icon>
-             {{step.text}}
-             <ul *ngIf="step.status==3">
-                <li *ngFor="let err of step.errors">{{err}}</li>
-             </ul>
-          </li>
-        </ul>
-  </h5>
-</div>
-<div *ngIf="processing==1" style="text-align:center">
-    <h3>
-      Please Log in to the platform!
-    </h3>
+        <li *ngFor="let step of steps">
+          <fa-icon *ngIf="step.status == 0" icon="exclamation-circle"></fa-icon>
+          <fa-icon *ngIf="step.status == 1" icon="spinner" animation="spin"></fa-icon>
+          <fa-icon *ngIf="step.status == 2" icon="check-circle"></fa-icon>
+          <fa-icon *ngIf="step.status == 3" icon="times-circle"></fa-icon>
+          {{ step.text }}
+          <ul *ngIf="step.status == 3">
+            <li *ngFor="let err of step.errors">{{ err }}</li>
+          </ul>
+        </li>
+      </ul>
+    </h5>
+  </div>
+</ng-template>
+
+<!-- Template for processing == 1 -->
+<ng-template #loginTemplate>
+  <div class="center-text">
+    <h3>Please Log in to the platform!</h3>
     <div>
       <button (click)="login()">Log In</button>
     </div>
   </div>
-<div *ngIf="processing==2"  style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="EDA" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB3aWR0aD0iMTc5MiIg&#13;&#10;aGVpZ2h0PSIxNzkyIiB2aWV3Qm94PSIwIDAgMTc5MiAxNzkyIiB4bWxucz0iaHR0cDovL3d3dy53&#13;&#10;My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0xMDA4IDEyMDB2MTYwcTAgMTQtOSAyM3QtMjMgOWgt&#13;&#10;MTYwcS0xNCAwLTIzLTl0LTktMjN2LTE2MHEwLTE0IDktMjN0MjMtOWgxNjBxMTQgMCAyMyA5dDkg&#13;&#10;MjN6bTI1Ni00OTZxMCA1MC0xNSA5MHQtNDUuNSA2OS01MiA0NC01OS41IDM2cS0zMiAxOC00Ni41&#13;&#10;IDI4dC0yNiAyNC0xMS41IDI5djMycTAgMTQtOSAyM3QtMjMgOWgtMTYwcS0xNCAwLTIzLTl0LTkt&#13;&#10;MjN2LTY4cTAtMzUgMTAuNS02NC41dDI0LTQ3LjUgMzktMzUuNSA0MS0yNS41IDQ0LjUtMjFxNTMt&#13;&#10;MjUgNzUtNDN0MjItNDlxMC00Mi00My41LTcxLjV0LTk1LjUtMjkuNXEtNTYgMC05NSAyNy0yOSAy&#13;&#10;MC04MCA4My05IDEyLTI1IDEyLTExIDAtMTktNmwtMTA4LTgycS0xMC03LTEyLTIwdDUtMjNxMTIy&#13;&#10;LTE5MiAzNDktMTkyIDEyOSAwIDIzOC41IDg5LjV0MTA5LjUgMjE0LjV6bS0zNjgtNDQ4cS0xMzAg&#13;&#10;MC0yNDguNSA1MXQtMjA0IDEzNi41LTEzNi41IDIwNC01MSAyNDguNSA1MSAyNDguNSAxMzYuNSAy&#13;&#10;MDQgMjA0IDEzNi41IDI0OC41IDUxIDI0OC41LTUxIDIwNC0xMzYuNSAxMzYuNS0yMDQgNTEtMjQ4&#13;&#10;LjUtNTEtMjQ4LjUtMTM2LjUtMjA0LTIwNC0xMzYuNS0yNDguNS01MXptNzY4IDY0MHEwIDIwOS0x&#13;&#10;MDMgMzg1LjV0LTI3OS41IDI3OS41LTM4NS41IDEwMy0zODUuNS0xMDMtMjc5LjUtMjc5LjUtMTAz&#13;&#10;LTM4NS41IDEwMy0zODUuNSAyNzkuNS0yNzkuNSAzODUuNS0xMDMgMzg1LjUgMTAzIDI3OS41IDI3&#13;&#10;OS41IDEwMyAzODUuNXoiLz48L3N2Zz4=">
-  <h2>{{message}}</h2>
-  <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="20px">
-    <div fxFlex="1 1 auto">
-      <h3 fxLayout="row" fxLayoutAlign="end center">
-        <a  href="" (click)="positiveAnswer($event)">{{yesTitle}}</a>
-      </h3>
-    </div>
-    <div fxFlex="1 1 auto">
-      <h3 fxLayout="row" fxLayoutAlign="start center">
-          <a href="" (click)="negativeAnswer($event)">{{noTitle}}</a>
-      </h3>
+</ng-template>
+
+<ng-template #decisionTemplate>
+  <div class="center-text">
+    <h1>Welcome to {{ title }}!</h1>
+    <img width="300" alt="EDA" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB3aWR0aD0iMTc5MiIg&#13;&#10;aGVpZ2h0PSIxNzkyIiB2aWV3Qm94PSIwIDAgMTc5MiAxNzkyIiB4bWxucz0iaHR0cDovL3d3dy53&#13;&#10;My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0xMDA4IDEyMDB2MTYwcTAgMTQtOSAyM3QtMjMgOWgt&#13;&#10;MTYwcS0xNCAwLTIzLTl0LTktMjN2LTE2MHEwLTE0IDktMjN0MjMtOWgxNjBxMTQgMCAyMyA5dDkg&#13;&#10;MjN6bTI1Ni00OTZxMCA1MC0xNSA5MHQtNDUuNSA2OS01MiA0NC01OS41IDM2cS0zMiAxOC00Ni41&#13;&#10;IDI4dC0yNiAyNC0xMS41IDI5djMycTAgMTQtOSAyM3QtMjMgOWgtMTYwcS0xNCAwLTIzLTl0LTkt&#13;&#10;MjN2LTY4cTAtMzUgMTAuNS02NC41dDI0LTQ3LjUgMzktMzUuNSA0MS0yNS41IDQ0LjUtMjFxNTMt&#13;&#10;MjUgNzUtNDN0MjItNDlxMC00Mi00My41LTcxLjV0LTk1LjUtMjkuNXEtNTYgMC05NSAyNy0yOSAy&#13;&#10;MC04MCA4My05IDEyLTI1IDEyLTExIDAtMTktNmwtMTA4LTgycS0xMC03LTEyLTIwdDUtMjNxMTIy&#13;&#10;LTE5MiAzNDktMTkyIDEyOSAwIDIzOC41IDg5LjV0MTA5LjUgMjE0LjV6bS0zNjgtNDQ4cS0xMzAg&#13;&#10;MC0yNDguNSA1MXQtMjA0IDEzNi41LTEzNi41IDIwNC01MSAyNDguNSA1MSAyNDguNSAxMzYuNSAy&#13;&#10;MDQgMjA0IDEzNi41IDI0OC41IDUxIDI0OC41LTUxIDIwNC0xMzYuNSAxMzYuNS0yMDQgNTEtMjQ4&#13;&#10;LjUtNTEtMjQ4LjUtMTM2LjUtMjA0LTIwNC0xMzYuNS0yNDguNS01MXptNzY4IDY0MHEwIDIwOS0x&#13;&#10;MDMgMzg1LjV0LTI3OS41IDI3OS41LTM4NS41IDEwMy0zODUuNS0xMDMtMjc5LjUtMjc5LjUtMTAz&#13;&#10;LTM4NS41IDEwMy0zODUuNSAyNzkuNS0yNzkuNSAzODUuNS0xMDMgMzg1LjUgMTAzIDI3OS41IDI3&#13;&#10;OS41IDEwMyAzODUuNXoiLz48L3N2Zz4=">
+    <h2>{{ message }}</h2>
+    <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="20px">
+      <div fxFlex="1 1 auto">
+        <h3 fxLayout="row" fxLayoutAlign="end center">
+          <a href="" (click)="positiveAnswer($event)">{{ yesTitle }}</a>
+        </h3>
+      </div>
+      <div fxFlex="1 1 auto">
+        <h3 fxLayout="row" fxLayoutAlign="start center">
+          <a href="" (click)="negativeAnswer($event)">{{ noTitle }}</a>
+        </h3>
+      </div>
     </div>
   </div>
-</div>
-<div *ngIf="processing==3"  style="text-align:center">
-  <h1>
-    Thank you for using the {{title}}!
-  </h1>
-  <h3>
-    Your notification has been processed and the window can be closed now
-  </h3>
-  <button *ngIf="opener != null"  (click)="closeMe()">Click to close</button>
-</div>
- 
+</ng-template>
 
-
+<ng-template #doneTemplate>
+  <div class="center-text">
+    <h1>Thank you for using the {{ title }}!</h1>
+    <h3>Your notification has been processed and the window can be closed now</h3>
+    <button *ngIf="opener != null" (click)="closeMe()">Click to close</button>
+  </div>
+</ng-template>
