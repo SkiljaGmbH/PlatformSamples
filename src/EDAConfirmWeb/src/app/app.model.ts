@@ -28,18 +28,24 @@ export enum DtoWorkItemStatus {
     WaitingMerge = 6,
 }
 
+export class ParametersError extends Error {
+    constructor(message: string) {
+      super(message);
+      this.name = 'ParametersError';
+    }
+  }
 
 export class QueryParams {
-    activityName: string;
-    message: string;
-    approveValue: string;
-    denyValue: string;
-    token: string;
-    runtimeUrl: string;
-    notificationId: number;
-    workItemID: number;
-    fromNotification: boolean;
-    userTracking: boolean;
+    activityName!: string;
+    message!: string;
+    approveValue!: string;
+    denyValue!: string;
+    token!: string;
+    runtimeUrl!: string;
+    notificationId!: number;
+    workItemID!: number;
+    fromNotification!: boolean;
+    userTracking!: boolean;
 }
 
 export interface IDecisionResult {
@@ -65,11 +71,11 @@ export interface IDtoEventDrivenNotification {
     Status: DtoNotificationStatus;
     WorkItemID: number;
     ActivityInstanceID: number;
-    CreationTime: string;
-    ModifiedAt: string;
-    Message: string;
-    RelatedStream: string;
-    TimeStamp: string;
+    CreationTime?: string;
+    ModifiedAt?: string;
+    Message?: string;
+    RelatedStream?: string;
+    TimeStamp?: string;
 }
 
 
@@ -102,4 +108,3 @@ export interface IDtoCustomValue {
     Key: string;
     Value: string;
 }
-
