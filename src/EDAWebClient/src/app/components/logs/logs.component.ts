@@ -66,11 +66,11 @@ export class LogsComponent implements OnDestroy {
   async reconnect() {
     await this.connection.stop();
     await this.connection.start();
-    this.connection.off('OnEventNotification');
+    this.connection.off('OnEventNotificationAsync');
   }
 
   subscribeOnProcessActivity(processId: number) {
-    this.connection.on('OnEventNotification', (data: ResultNotificationItem) => {
+    this.connection.on('OnEventNotificationAsync', (data: ResultNotificationItem) => {
       this.logsList.unshift(data.Message);
     })
     
@@ -85,11 +85,11 @@ export class LogsComponent implements OnDestroy {
   }
 
   joinGroup() {
-    this.connection.invoke('JoinGroup', this.connectedGroup);
+    this.connection.invoke('JoinGroupAsync', this.connectedGroup);
   }
 
   leaveGroup() {
-    this.connection.invoke('LeaveGroup', this.connectedGroup);
+    this.connection.invoke('LeaveGroupAsync', this.connectedGroup);
   }
 
   ngOnDestroy() {

@@ -1,6 +1,6 @@
 import { ConfigService } from './utils/config.service';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 import { StorageService } from './utils/storage.service';
 import { UserDataType} from '../models/auth.model';
 import {ActivityService} from './activity.service';
