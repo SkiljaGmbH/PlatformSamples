@@ -25,7 +25,7 @@
     <PackageVersion Include="PropertyChanged.Fody" Version="4.1.0" />
     <PackageVersion Include="STG.RT.API" Version="4.0.1" />
     <PackageVersion Include="STG.RT.API.Signaling" Version="4.0.1" />
-    <PackageVersion Include="STG.Tools.ActivityPackaging" Version="4.1.0" />
+    <PackageVersion Include="STG.Tools.ActivityPackaging" Version="4.2.0" />
     <PackageVersion Include="Stelvio.Classification.ProjectService.Client" Version="4.4.3" />
     <PackageVersion Include="System.ComponentModel.Annotations" Version="5.0.0" />
     <PackageVersion Include="System.Configuration.ConfigurationManager" Version="8.0.1" />
