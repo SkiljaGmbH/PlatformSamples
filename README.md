@@ -41,8 +41,12 @@ They can be found in `_publish/DemoActivities`.
 
 To create activity packages for the platform (*.stgpack), STG.ActivityPackaging.Packager.exe tool is used.
 The nuget package `STG.Tools.ActivityPackaging` is provided to partners and contains that tool.
-With the release of that packaging tool version **4.1.0**,
+With the release of the packaging tool version **4.1.0**,
 we have separated it from the platform, so that only 1 packager version is required to package activities for any platform version.
+
+> **Note** We recommend to always use the latest available version so that you get all improvements and bugfixes.
+  A platform can require a minimum version of the activity packager.
+  All packagers are backwards compatible to the latest supported platform version (except for x86 support).
 
 To use the tool, we recommend adding it to your SDK style build scripts as a PackageReference:
 
