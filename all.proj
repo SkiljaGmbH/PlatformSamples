@@ -58,9 +58,9 @@
   </Target>
   <Target Name="build-websites">
     <PropertyGroup>
-      <nodePath>$(PkgNode_js_redist)\tools\win-x64\</nodePath>
+      <nodePath>$(PkgNode_js_redist_win)\tools\x64\</nodePath>
       <nodeExe>$(nodePath)node.exe</nodeExe>
-      <npmPath>$(PkgNode_js_redist)\tools\win-x64\package\bin</npmPath>
+      <npmPath>$(PkgNode_js_redist_win)\tools\x64\package\bin</npmPath>
     </PropertyGroup>
 
     <MSBuild Condition="!Exists('$(npmPath)')" Targets="installNPM" Properties="nodeExe=$(nodeExe)" Projects="$(MSBuildThisFileFullPath)" />
@@ -84,7 +84,7 @@
         set path=%PATH%;$(nodePath)
         &quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; run ng build -- --prod --base-href ." />
 
-    <!-- Disabled untill upper two are upgraded to newer version -->
+    <!-- Disabled until upper two are upgraded to newer version -->
     <!--<Exec WorkingDirectory="./WorkItemSearchAndLock"  Command="&quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; install" />-->
     <!--<Exec WorkingDirectory="./WorkItemSearchAndLock"  Command=" 
         set PATH=%PATH:C:\Program Files\nodejs=%
