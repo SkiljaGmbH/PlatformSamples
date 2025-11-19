@@ -41,6 +41,8 @@
     <Exec Command="&quot;$(stgPackagingToolExe)&quot; -f &quot;.\SampleEventDrivenActivity\activityPackage.json&quot; -version $(FileVersion) $(PublishOutputDirectory)\DemoActivities\SampleEventDrivenActivity.stgpack" />
     <!--Package sample activities that show-case licensing as well as splitting/merging-->
     <Exec Command="&quot;$(stgPackagingToolExe)&quot; -f &quot;.\SampleActivities\activityPackage.json&quot; -version $(FileVersion) $(PublishOutputDirectory)\DemoActivities\SampleActivities.stgpack" />
+    <!--Package sample activity that show-case SampleExporter,SampleImportTimer,SampleJpgToTiffConverter etc -->
+    <Exec Command="&quot;$(stgPackagingToolExe)&quot; -f &quot;.\SampleActivity\activityPackage.json&quot; -version $(FileVersion) $(PublishOutputDirectory)\DemoActivities\SampleActivity.stgpack" />
     <!--Sample demonstrating how to package .NET Framework and .NET8 compatible activity packages-->
     <Exec Command="&quot;$(stgPackagingToolExe)&quot; -f &quot;.\SampleActivities\backwardsCompatibility.json&quot; -version $(FileVersion) $(PublishOutputDirectory)\DemoActivities\BackwardsCompatibilitySample.stgpack" />
     <Copy SourceFiles=".\SampleActivities\Readme.md" DestinationFiles="$(PublishOutputDirectory)\DemoActivities\SampleActivities_Readme.md" />
