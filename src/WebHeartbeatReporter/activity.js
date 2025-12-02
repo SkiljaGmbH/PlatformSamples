@@ -20,7 +20,7 @@ PROC_ID = 0; // 32;
 _wi = null;
 USER_TRACK = false;
 
-function rest(method, url, ct, body, okstatus, cb, cberr) {
+function rest(method, url, ct, body, okstatus, cb, cberr, ifMatch) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (xhttp.readyState === XMLHttpRequest.DONE) {
@@ -35,6 +35,9 @@ function rest(method, url, ct, body, okstatus, cb, cberr) {
     xhttp.setRequestHeader("Content-Type", ct);
     if (TOKEN !== null) {
         xhttp.setRequestHeader("authorization", "Bearer " + TOKEN.access_token);
+    }
+    if (ifMatch){
+        xhttp.setRequestHeader("If-Match", ifMatch);
     }
     xhttp.send(body, true);    
 }
@@ -130,7 +133,8 @@ function releaseWorkItem() {
         BASE_RT_URL + "/WorkItems/Move" + (USER_TRACK === true ? "?userTracking=true" : ""),
         "application/json",
         JSON.stringify(_wi),
-        200, cbReleaseWorkItem, cbError
+        200, cbReleaseWorkItem, cbError,
+        "\"" + _wi.TimeStamp + "\""
     );
 }
 
