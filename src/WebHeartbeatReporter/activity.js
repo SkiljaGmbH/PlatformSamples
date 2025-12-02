@@ -144,6 +144,7 @@ function sendHeartbeat(wi) {
     log("Sending Heartbeat in progress ...");
     var hbit = JSON.stringify({
         WorkItemID: wi.WorkItemID,
+        TimeStamp: wi.TimeStamp,
         ReportedAt: new Date(),
         ActivityMessage: "Demo web activity reporting heartbeat."
     });
