@@ -17,6 +17,7 @@
   <ItemGroup>
     <PackageReference Include="System.ComponentModel.Annotations" />
     <PackageReference Include="System.Drawing.Common" />
+    <PackageReference Include="System.Text.Json" />
     <PackageReference Include="STG.RT.API">
       <!-- Exclude the STG.RT.API nuget libraries from the output -->
       <ExcludeAssets>runtime;</ExcludeAssets>

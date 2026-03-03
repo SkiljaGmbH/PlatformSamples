@@ -421,4 +421,22 @@ With every tick it counts the number of work items that have the SLA status in O
   <data name="Localizer_PromptOverride_PromptOverride" xml:space="preserve">
     <value>This value comes from the constructor and overrides the value defined in the Prompt attribute.</value>
   </data>
+  <data name="VertesiaUploaderSettings_ApiKey_Description" xml:space="preserve">
+    <value>API key used to authenticate with the Vertesia STS service to obtain a JWT token.</value>
+  </data>
+  <data name="VertesiaUploaderSettings_ApiKey_Name" xml:space="preserve">
+    <value>API Key</value>
+  </data>
+  <data name="VertesiaUploaderSettings_ApiUrl_Description" xml:space="preserve">
+    <value>Base URL of the Vertesia API (cv_API_URL). Used as the target for upload and object registration requests.</value>
+  </data>
+  <data name="VertesiaUploaderSettings_ApiUrl_Name" xml:space="preserve">
+    <value>API URL</value>
+  </data>
+  <data name="VertesiaUploaderSettings_ContentType_Description" xml:space="preserve">
+    <value>Content type (cv_content_type) used when requesting an upload URL and registering the uploaded object.</value>
+  </data>
+  <data name="VertesiaUploaderSettings_ContentType_Name" xml:space="preserve">
+    <value>Content Type</value>
+  </data>
 </root>

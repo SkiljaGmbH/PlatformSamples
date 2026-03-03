@@ -969,5 +969,59 @@ namespace SampleActivity.Properties {
                 return ResourceManager.GetString("WatermarkSettings_WatermarkText_Name", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to API key used to authenticate with the Vertesia STS service to obtain a JWT token..
+        /// </summary>
+        public static string VertesiaUploaderSettings_ApiKey_Description {
+            get {
+                return ResourceManager.GetString("VertesiaUploaderSettings_ApiKey_Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to API Key.
+        /// </summary>
+        public static string VertesiaUploaderSettings_ApiKey_Name {
+            get {
+                return ResourceManager.GetString("VertesiaUploaderSettings_ApiKey_Name", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Base URL of the Vertesia API (cv_API_URL)..
+        /// </summary>
+        public static string VertesiaUploaderSettings_ApiUrl_Description {
+            get {
+                return ResourceManager.GetString("VertesiaUploaderSettings_ApiUrl_Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to API URL.
+        /// </summary>
+        public static string VertesiaUploaderSettings_ApiUrl_Name {
+            get {
+                return ResourceManager.GetString("VertesiaUploaderSettings_ApiUrl_Name", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Content type (cv_content_type) used when requesting an upload URL and registering the uploaded object..
+        /// </summary>
+        public static string VertesiaUploaderSettings_ContentType_Description {
+            get {
+                return ResourceManager.GetString("VertesiaUploaderSettings_ContentType_Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Content Type.
+        /// </summary>
+        public static string VertesiaUploaderSettings_ContentType_Name {
+            get {
+                return ResourceManager.GetString("VertesiaUploaderSettings_ContentType_Name", resourceCulture);
+            }
+        }
     }
 }
