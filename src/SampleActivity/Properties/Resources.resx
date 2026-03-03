@@ -439,4 +439,16 @@ With every tick it counts the number of work items that have the SLA status in O
   <data name="VertesiaUploaderSettings_ContentType_Name" xml:space="preserve">
     <value>Content Type</value>
   </data>
+  <data name="VertesiaUploaderSettings_InteractionId_Description" xml:space="preserve">
+    <value>ID of the Vertesia interaction to execute (cv_interaction_id) after the object is ready.</value>
+  </data>
+  <data name="VertesiaUploaderSettings_InteractionId_Name" xml:space="preserve">
+    <value>Interaction ID</value>
+  </data>
+  <data name="VertesiaUploaderSettings_ResultMapping_Description" xml:space="preserve">
+    <value>Maps fields from the interaction Results response to custom value names on the child document. Key: field name in Results JSON. Value: custom value name to set on the document.</value>
+  </data>
+  <data name="VertesiaUploaderSettings_ResultMapping_Name" xml:space="preserve">
+    <value>Result Field Mapping</value>
+  </data>
 </root>

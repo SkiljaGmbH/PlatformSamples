@@ -1023,5 +1023,41 @@ namespace SampleActivity.Properties {
                 return ResourceManager.GetString("VertesiaUploaderSettings_ContentType_Name", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to ID of the Vertesia interaction to execute (cv_interaction_id) after the object is ready..
+        /// </summary>
+        public static string VertesiaUploaderSettings_InteractionId_Description {
+            get {
+                return ResourceManager.GetString("VertesiaUploaderSettings_InteractionId_Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Interaction ID.
+        /// </summary>
+        public static string VertesiaUploaderSettings_InteractionId_Name {
+            get {
+                return ResourceManager.GetString("VertesiaUploaderSettings_InteractionId_Name", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Maps fields from the interaction Results response to custom value names on the child document..
+        /// </summary>
+        public static string VertesiaUploaderSettings_ResultMapping_Description {
+            get {
+                return ResourceManager.GetString("VertesiaUploaderSettings_ResultMapping_Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Result Field Mapping.
+        /// </summary>
+        public static string VertesiaUploaderSettings_ResultMapping_Name {
+            get {
+                return ResourceManager.GetString("VertesiaUploaderSettings_ResultMapping_Name", resourceCulture);
+            }
+        }
     }
 }

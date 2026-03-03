@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -64,6 +65,13 @@ namespace SampleActivity
             // Step 5: Poll until the object status is "ready"
             WaitForObjectReady(jwtToken, ActivityConfiguration.ApiUrl, objectId);
             Log.Debug($"Object {objectId} is ready.");
+
+            // Step 6: Execute the configured interaction
+            var results = ExecuteInteraction(jwtToken, ActivityConfiguration.ApiUrl, ActivityConfiguration.InteractionId);
+            Log.Debug($"Interaction {ActivityConfiguration.InteractionId} executed. {results.Count} result field(s) returned.");
+
+            // Step 7: Map result fields to custom values on the child document
+            ApplyResultMapping(childDocument, results, ActivityConfiguration.ResultMapping);
         }
 
         private string GetJwtToken(string apiKey)
@@ -155,6 +163,56 @@ namespace SampleActivity
             }
 
             throw new InvalidOperationException($"Object {objectId} did not reach '{ReadyStatus}' status after {MaxPollAttempts} attempts.");
+        }
+
+        private Dictionary<string, string> ExecuteInteraction(string jwtToken, string apiUrl, string interactionId)
+        {
+            var url = apiUrl.TrimEnd('/') + "/interactions/" + interactionId + "/execute";
+
+            var request = new HttpRequestMessage(HttpMethod.Post, url);
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", jwtToken);
+            request.Content = new StringContent("{}", Encoding.UTF8, "application/json");
+
+            var response = _httpClient.SendAsync(request).GetAwaiter().GetResult();
+            response.EnsureSuccessStatusCode();
+
+            var content = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            var results = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+
+            using (var doc = JsonDocument.Parse(content))
+            {
+                if (doc.RootElement.TryGetProperty("Results", out var resultsElement)
+                    && resultsElement.ValueKind == JsonValueKind.Object)
+                {
+                    foreach (var property in resultsElement.EnumerateObject())
+                    {
+                        results[property.Name] = property.Value.ValueKind == JsonValueKind.String
+                            ? property.Value.GetString()
+                            : property.Value.ToString();
+                    }
+                }
+            }
+
+            return results;
+        }
+
+        private void ApplyResultMapping(STGDocument childDocument, Dictionary<string, string> results, SerializableDictionary<string, string> mapping)
+        {
+            if (mapping == null || results == null)
+                return;
+
+            foreach (var entry in mapping)
+            {
+                if (results.TryGetValue(entry.Key, out var value))
+                {
+                    childDocument.AddCustomValue(entry.Value, value, true);
+                    Log.Debug($"Mapped result field '{entry.Key}' to custom value '{entry.Value}': {value}");
+                }
+                else
+                {
+                    Log.Warn($"Result field '{entry.Key}' not found in interaction response. Custom value '{entry.Value}' was not set.");
+                }
+            }
         }
 
         private class UploadUrlResponse
