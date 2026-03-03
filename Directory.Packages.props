@@ -20,10 +20,7 @@
     <PackageVersion Include="System.Memory" Version="4.6.0" />
     <PackageVersion Include="System.Text.Json" Version="8.0.5" />
   </ItemGroup>
-  <!-- Override for a specific project -->
-  <ItemGroup Condition="'$(MSBuildProjectName)' == 'SampleActivities' Or '$(MSBuildProjectName)' == 'SampleActivity' Or '$(MSBuildProjectName)' == 'SampleActivity.Tests'">
-    <PackageVersion Update="STG.RT.API" Version="4.1.0-beta131133" />
-  </ItemGroup>
+
   <ItemGroup>
     <!--For versioning-->
     <PackageVersion Include="GitInfo" Version="3.5.0" />
