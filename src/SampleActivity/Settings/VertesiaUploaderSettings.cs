@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using SampleActivity.Properties;
 using STG.Common.DTO;
+using STG.Common.DTO.Metadata;
 using STG.RT.API.Activity;
 
 namespace SampleActivity.Settings
