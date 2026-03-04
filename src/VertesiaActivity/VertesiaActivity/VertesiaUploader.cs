@@ -70,25 +70,34 @@ namespace VertesiaActivity
                 return;
             }
 
+            // Build the file name: "<media name>.<extension>" where extension is the
+            // lowercased media type name (e.g. "pdf", "jpg").
+            var extension = media.MediaType?.MediaTypeName?.ToLowerInvariant() ?? "bin";
+            var baseName = string.IsNullOrWhiteSpace(media.Name) ? media.ID.ToString() : media.Name;
+            var mediaFileName = $"{baseName}.{extension}";
+
+            // Use the media type's MIME type (e.g. "application/pdf") for Content-Type
+            // headers and the upload-url request body.
+            var mimeType = media.MediaType?.MimeType
+                        ?? $"application/{extension}";
+
             var jwt = GetJwtToken(ActivityConfiguration.ApiKey);
 
-            var uploadInfo = GetUploadUrl(jwt, ActivityConfiguration.ApiUrl, ActivityConfiguration.ContentType);
+            var uploadInfo = GetUploadUrl(jwt, ActivityConfiguration.ApiUrl, mediaFileName, mimeType);
             Log.Debug($"Got upload URL for object id: {uploadInfo.Id}");
 
             if (media.MediaStream.CanSeek)
                 media.MediaStream.Seek(0, SeekOrigin.Begin);
 
-            UploadDocument(uploadInfo.Url, media.MediaStream, ActivityConfiguration.ContentType);
+            UploadDocument(uploadInfo.Url, media.MediaStream, mimeType);
             Log.Debug($"Uploaded child document {childDocument.ID}.");
 
-            var fileName = $"{childDocument.ID}_{media.ID}";
-            var mimeType = media.MediaType?.MediaTypeName ?? ActivityConfiguration.ContentType;
             var registerResponse = RegisterObject(
                 jwt,
                 ActivityConfiguration.ApiUrl,
                 ActivityConfiguration.ContentType,
                 uploadInfo.Id,
-                fileName,
+                mediaFileName,
                 mimeType);
 
             var objectId = registerResponse?.Id;
@@ -124,14 +133,14 @@ namespace VertesiaActivity
         // Step 2 – Request pre-signed upload URL
         // -------------------------------------------------------------------------
 
-        private UploadUrlResponse GetUploadUrl(string jwt, string apiUrl, string contentType)
+        private UploadUrlResponse GetUploadUrl(string jwt, string apiUrl, string mediaFileName, string mimeType)
         {
             var url = apiUrl.TrimEnd('/') + "/objects/upload-url";
+            var body = JsonSerializer.Serialize(new { name = mediaFileName, mime_type = mimeType });
 
             var request = new HttpRequestMessage(HttpMethod.Post, url);
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", jwt);
-            // The endpoint does not require a request body; content_type is inferred
-            // by the server from the file uploaded in the subsequent PUT request.
+            request.Content = new StringContent(body, Encoding.UTF8, "application/json");
 
             var response = _httpClient.SendAsync(request).GetAwaiter().GetResult();
             response.EnsureSuccessStatusCode();
