@@ -110,7 +110,7 @@ namespace VertesiaActivity
         private string GetJwtToken(string apiKey)
         {
             var request = new HttpRequestMessage(HttpMethod.Post, TokenIssueUrl);
-            request.Headers.Add("Authorization", apiKey);
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
 
             var response = _httpClient.SendAsync(request).GetAwaiter().GetResult();
             response.EnsureSuccessStatusCode();
