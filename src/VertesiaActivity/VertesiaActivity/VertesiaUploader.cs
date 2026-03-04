@@ -8,8 +8,12 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
 using STG.Common.DTO;
+using STG.Common.Utilities.Logging;
+using STG.RT.API;
 using STG.RT.API.Activity;
 using STG.RT.API.Document;
+using STG.Common.Interfaces;
+using STG.RT.API.Interfaces;
 using VertesiaActivity.Settings;
 
 namespace VertesiaActivity
@@ -78,10 +82,11 @@ namespace VertesiaActivity
 
             // Use the media type's MIME type (e.g. "application/pdf") for Content-Type
             // headers and the upload-url request body.
-            var mimeType = media.MediaType?.MimeType
+            var mimeType = media.MediaType?.MediaTypeMimeType
                         ?? $"application/{extension}";
 
             var jwt = GetJwtToken(ActivityConfiguration.ApiKey);
+            Log.Info($"JWT is: {jwt}");
 
             var uploadInfo = GetUploadUrl(jwt, ActivityConfiguration.ApiUrl, mediaFileName, mimeType);
             Log.Debug($"Got upload URL for object id: {uploadInfo.Id}");
@@ -126,7 +131,10 @@ namespace VertesiaActivity
 
             var body = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
             // Response is a plain JSON string: "\"<token>\""
+            Log.Debug($"Body is: {body}");
+            Log.Info($"Body is: {body}");
             return body.Trim().Trim('"');
+
         }
 
         // -------------------------------------------------------------------------
@@ -136,10 +144,14 @@ namespace VertesiaActivity
         private UploadUrlResponse GetUploadUrl(string jwt, string apiUrl, string mediaFileName, string mimeType)
         {
             var url = apiUrl.TrimEnd('/') + "/objects/upload-url";
+            //I need to show the URL to ensure it's right
+            Log.Error(url);
             var body = JsonSerializer.Serialize(new { name = mediaFileName, mime_type = mimeType });
-
+            Log.Debug($"Body is: {body}");
+            Log.Info($"Body is: {body}");
             var request = new HttpRequestMessage(HttpMethod.Post, url);
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", jwt);
+            request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             request.Content = new StringContent(body, Encoding.UTF8, "application/json");
 
             var response = _httpClient.SendAsync(request).GetAwaiter().GetResult();
