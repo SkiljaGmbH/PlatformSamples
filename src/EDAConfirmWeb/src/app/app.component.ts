@@ -1,17 +1,16 @@
-import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { Component, signal, TemplateRef, ViewChild } from '@angular/core';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { FaIconLibrary, FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
 import { faSpinner, faCheckCircle, faTimesCircle, faExclamationCircle  } from '@fortawesome/free-solid-svg-icons';
-import { DtoProcessingStatus, DtoStepStatus, IActivitySettings, IDecisionResult, IDtoDocument, IDtoEventDrivenNotification, IDtoStepItem, IDtoWorkItemData, QueryParams } from './app.model';
+import { DtoProcessingStatus, DtoStepStatus, IActivitySettings, IDecisionResult, IDtoDocument, IDtoEventDrivenNotification, IDtoStepItem, IDtoWorkItemData, QueryParams, DtoWorkItemStatus } from './app.model';
 import { AsyncSubject, BehaviorSubject, firstValueFrom} from 'rxjs';
 import { AppService } from './app.service';
-
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgTemplateOutlet } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule,  FontAwesomeModule],
+  imports: [CommonModule, NgTemplateOutlet, FontAwesomeModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -25,13 +24,24 @@ export class AppComponent {
   yesTitle = 'Yes';
   noTitle = 'No';
   opener = null;
-  steps = new Array<IDtoStepItem>();
+  steps = signal<Array<IDtoStepItem>>([]);
   processing = DtoProcessingStatus.Communication;
   private decisionSource = new AsyncSubject<IDecisionResult>();
   private tokenSource = new BehaviorSubject<string>('');
   private loggingInSource = new AsyncSubject<boolean>();
  
   isAuthenticated = false;
+
+  private iconMap: Record<DtoStepStatus, IconDefinition> = {
+    [DtoStepStatus.Waiting]: faExclamationCircle,
+    [DtoStepStatus.Loading]: faSpinner,
+    [DtoStepStatus.Done]: faCheckCircle,
+    [DtoStepStatus.Error]: faTimesCircle
+  };
+
+  protected getStepIcon(status: DtoStepStatus): IconDefinition {
+    return this.iconMap[status] || faExclamationCircle;
+  }
 
   constructor(library: FaIconLibrary, private appService: AppService, private oidcSecurityService: OidcSecurityService ){
     this.opener = window.opener;
@@ -60,23 +70,26 @@ export class AppComponent {
   }
 
   private buildSteps() {
-    this.steps.push({ text: 'Parsing Parameters', status: DtoStepStatus.Waiting });
-    this.steps.push({ text: 'Logging In', status: DtoStepStatus.Waiting });
-    this.steps.push({ text: 'Locking Notification', status: DtoStepStatus.Waiting });
-    this.steps.push({ text: 'Locking WorkItem', status: DtoStepStatus.Waiting });
-    this.steps.push({ text: 'Loading Settings', status: DtoStepStatus.Waiting });
-    this.steps.push({ text: 'Loading Document', status: DtoStepStatus.Waiting });
-    this.steps.push({ text: 'Awaiting Confirmation', status: DtoStepStatus.Waiting });
-    this.steps.push({ text: 'Saving Document', status: DtoStepStatus.Waiting});
-    this.steps.push({ text: 'Releasing WorkItem', status: DtoStepStatus.Waiting});
-    this.steps.push({ text: 'Acknowledging Notification', status: DtoStepStatus.Waiting});
+    const initialSteps : IDtoStepItem[]=[
+      { text: 'Parsing Parameters', status: DtoStepStatus.Waiting },
+      { text: 'Logging In', status: DtoStepStatus.Waiting },
+      { text: 'Locking Notification', status: DtoStepStatus.Waiting },
+      { text: 'Locking WorkItem', status: DtoStepStatus.Waiting },
+      { text: 'Loading Settings', status: DtoStepStatus.Waiting },
+      { text: 'Loading Document', status: DtoStepStatus.Waiting },
+      { text: 'Awaiting Confirmation', status: DtoStepStatus.Waiting },
+      { text: 'Saving Document', status: DtoStepStatus.Waiting},
+      { text: 'Releasing WorkItem', status: DtoStepStatus.Waiting},
+      { text: 'Acknowledging Notification', status: DtoStepStatus.Waiting}
+    ]
+    this.steps.set(initialSteps);
   }
 
   private execProcessing() {
     this.processing = DtoProcessingStatus.Communication;
     this.updateStepStatus(0, DtoStepStatus.Loading);
   
-    if (this.extractParams(this.steps[0])) {
+    if (this.extractParams(this.steps()[0])) {
       this.updateStepStatus(0, DtoStepStatus.Done);
       this.doLogin()
         .then(result => this.handleLoginSuccess(result))
@@ -136,7 +149,7 @@ export class AppComponent {
   private handleLoginFailure(error: any) {
     this.processing = DtoProcessingStatus.Communication;
     console.error(error);
-    this.reportError(this.steps[1], 'Failed to login to the platform. Reason: ' + error);
+    this.reportError(this.steps()[1], 'Failed to login to the platform. Reason: ' + error);
     this.updateStepStatus(1, DtoStepStatus.Error);
   }
   
@@ -154,7 +167,7 @@ export class AppComponent {
   
   private handleNotificationLockFailure(error: any) {
     console.error(error);
-    this.reportError(this.steps[2], 'Failed to lock the requested notification (' + this.appService.params!.notificationId + '). Reason: ' + error);
+    this.reportError(this.steps()[2], 'Failed to lock the requested notification (' + this.appService.params!.notificationId + '). Reason: ' + error);
     this.updateStepStatus(2, DtoStepStatus.Error);
   }
   
@@ -172,7 +185,7 @@ export class AppComponent {
   
   private handleWorkItemLockFailure(error: any, notification: IDtoEventDrivenNotification) {
     console.error(error);
-    this.reportError(this.steps[3], 'Failed to lock the work item (' + notification.WorkItemID + '). Reason: ' + error);
+    this.reportError(this.steps()[3], 'Failed to lock the work item (' + notification.WorkItemID + '). Reason: ' + error);
     this.updateStepStatus(3, DtoStepStatus.Error);
   }
   
@@ -194,7 +207,7 @@ export class AppComponent {
   
   private handleConfigLoadFailure(error: any, workItem: IDtoWorkItemData) {
     console.error(error);
-    this.reportError(this.steps[4], 'Unable to load the settings for the activity (' + workItem.ActivityName + '). Reason: ' + error);
+    this.reportError(this.steps()[4], 'Unable to load the settings for the activity (' + workItem.ActivityName + '). Reason: ' + error);
     this.updateStepStatus(4, DtoStepStatus.Error);
   }
   
@@ -213,7 +226,7 @@ export class AppComponent {
   
   private handleDocumentLoadFailure(error: any, workItem: IDtoWorkItemData) {
     console.error(error);
-    this.reportError(this.steps[5], 'Unable to load the document (' + workItem.DocumentID + ') for the work item (' + workItem.WorkItemID + '). Reason: ' + error);
+    this.reportError(this.steps()[5], 'Unable to load the document (' + workItem.DocumentID + ') for the work item (' + workItem.WorkItemID + '). Reason: ' + error);
     this.updateStepStatus(5, DtoStepStatus.Error);
   }
   
@@ -232,14 +245,14 @@ export class AppComponent {
       );
     } else {
       this.processing = DtoProcessingStatus.Communication;
-      this.reportError(this.steps[6], 'Undecided result');
+      this.reportError(this.steps()[6], 'Undecided result');
       this.updateStepStatus(6, DtoStepStatus.Error);
     }
   }
   
   private handleDecisionFailure(error: any) {
     console.error(error);
-    this.reportError(this.steps[6], 'Decision failure : ' + error);
+    this.reportError(this.steps()[6], 'Decision failure : ' + error);
     this.updateStepStatus(6, DtoStepStatus.Error);
   }
   
@@ -284,14 +297,14 @@ export class AppComponent {
         }
       );
     } else {
-      this.reportError(this.steps[7], 'Document was not saved!');
+      this.reportError(this.steps()[7], 'Document was not saved!');
       this.updateStepStatus(7, DtoStepStatus.Error);
     }
   }
   
   private handleDocumentSaveFailure(error: any, workItem: IDtoWorkItemData) {
     console.error(error);
-    this.reportError(this.steps[7], 'Unable to save document (' + workItem.DocumentID + '). Reason: ' + error);
+    this.reportError(this.steps()[7], 'Unable to save document (' + workItem.DocumentID + '). Reason: ' + error);
     this.updateStepStatus(7, DtoStepStatus.Error);
   }
   
@@ -307,14 +320,14 @@ export class AppComponent {
         }          
       );
     } else {
-      this.reportError(this.steps[8], 'Work Item was not released!');
+      this.reportError(this.steps()[8], 'Work Item was not released!');
       this.updateStepStatus(8, DtoStepStatus.Error);
     }
   }
   
   private handleWorkItemReleaseFailure(error: any, workItem: IDtoWorkItemData) {
     console.error(error);
-    this.reportError(this.steps[8], 'Unable to Release the work item (' + workItem.WorkItemID + '). Reason: ' + error);
+    this.reportError(this.steps()[8], 'Unable to Release the work item (' + workItem.WorkItemID + '). Reason: ' + error);
     this.updateStepStatus(8, DtoStepStatus.Error);
   }
   
@@ -323,21 +336,25 @@ export class AppComponent {
       this.updateStepStatus(9, DtoStepStatus.Done);
       this.processing = DtoProcessingStatus.Done;
     } else {
-      this.reportError(this.steps[9], 'Notification was not acknowledged!');
+      this.reportError(this.steps()[9], 'Notification was not acknowledged!');
       this.updateStepStatus(9, DtoStepStatus.Error);
     }
   }
   
   private handleNotificationAcknowledgeFailure(error: any, notification: IDtoEventDrivenNotification) {
     console.error(error);
-    this.reportError(this.steps[9], 'Unable to acknowledge the notification (' + notification.ID + '). Reason: ' + error);
+    this.reportError(this.steps()[9], 'Unable to acknowledge the notification (' + notification.ID + '). Reason: ' + error);
     this.updateStepStatus(9, DtoStepStatus.Error);
   }
   
   private updateStepStatus(index: number, status: DtoStepStatus) {
-    if (this.steps[index]) {
-      this.steps[index].status = status;
-    }
+    this.steps.update(oldSteps => {
+      const newSteps = [...oldSteps];
+      if (newSteps[index]) {
+        newSteps[index] = { ...newSteps[index], status: status };
+      }
+      return newSteps;
+    });
   }
   private extractParams(step: IDtoStepItem) {
     try {
@@ -373,12 +390,14 @@ export class AppComponent {
     }
   }
 
-  private reportError (step: IDtoStepItem, errDescription: string) {
-    if (!step.errors) {
-      step.errors = new Array<string>();
-    }
-    step.errors.push(errDescription);
-    step.status = DtoStepStatus.Error;
+  private reportError(step: IDtoStepItem, errDescription: string) {
+    this.steps.update(oldSteps => {
+      return oldSteps.map(s => s === step ? {
+        ...s,
+        status: DtoStepStatus.Error,
+        errors: [...(s.errors || []), errDescription]
+      } : s);
+    });
   }
 
 

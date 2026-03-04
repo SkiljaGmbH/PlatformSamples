@@ -4,16 +4,19 @@
   <div>
     <h5>
       <ul>
-        <li *ngFor="let step of steps">
-          <fa-icon *ngIf="step.status == 0" icon="exclamation-circle"></fa-icon>
-          <fa-icon *ngIf="step.status == 1" icon="spinner" animation="spin"></fa-icon>
-          <fa-icon *ngIf="step.status == 2" icon="check-circle"></fa-icon>
-          <fa-icon *ngIf="step.status == 3" icon="times-circle"></fa-icon>
-          {{ step.text }}
-          <ul *ngIf="step.status == 3">
-            <li *ngFor="let err of step.errors">{{ err }}</li>
-          </ul>
-        </li>
+        @for (step of steps(); track $index) {
+          <li>
+            <fa-icon icon="getStepIcon(step.status)" [animation]="step.status === 1 ? 'spin' : undefined"></fa-icon>
+            {{ step.text }}
+            @if (step.status === 3 && step.errors?.length) {
+              <ul>
+                @for (err of step.errors; track err) {
+                  <li>{{ err }}</li>
+                }
+              </ul>
+            }
+          </li>
+        }
       </ul>
     </h5>
   </div>
@@ -53,6 +56,8 @@
   <div class="center-text">
     <h1>Thank you for using the {{ title }}!</h1>
     <h3>Your notification has been processed and the window can be closed now</h3>
-    <button *ngIf="opener != null" (click)="closeMe()">Click to close</button>
+    @if (opener != null) {
+      <button (click)="closeMe()">Click to close</button>
+    }
   </div>
 </ng-template>
