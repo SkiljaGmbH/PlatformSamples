@@ -127,11 +127,11 @@ namespace VertesiaActivity
         private UploadUrlResponse GetUploadUrl(string jwt, string apiUrl, string contentType)
         {
             var url = apiUrl.TrimEnd('/') + "/objects/upload-url";
-            var body = JsonSerializer.Serialize(new { content_type = contentType });
 
             var request = new HttpRequestMessage(HttpMethod.Post, url);
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", jwt);
-            request.Content = new StringContent(body, Encoding.UTF8, "application/json");
+            // The endpoint does not require a request body; content_type is inferred
+            // by the server from the file uploaded in the subsequent PUT request.
 
             var response = _httpClient.SendAsync(request).GetAwaiter().GetResult();
             response.EnsureSuccessStatusCode();
