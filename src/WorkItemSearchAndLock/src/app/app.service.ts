@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { DtoSTGDataType, IDtoDocumentIndexFilter, IDtoWorkItemData, QueryParams, SearchOperator } from './app.models';
-import { BehaviorSubject, Observable, map, mergeMap } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { OidcSecurityService, OidcConfigService, OpenIdConfiguration } from 'angular-auth-oidc-client';
-import { JsonPipe } from '@angular/common';
+import { DtoSTGDataType, IDtoWorkItemData, QueryParams, SearchOperator } from './app.models';
+import { Observable, firstValueFrom, map,  } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { OidcSecurityService, } from 'angular-auth-oidc-client';
 
-@Injectable()
+
+@Injectable({providedIn: 'root'})
 export class AppService {
 
     params: QueryParams = new QueryParams;
@@ -19,73 +19,73 @@ export class AppService {
     bearerHeader = 'Bearer ';
 
     constructor(
-        private http: HttpClient, 
-        private oidcConfigService: OidcConfigService, 
-        private oidcSecurityService: OidcSecurityService ) {
-            this.oidcConfigService.onConfigurationLoaded.subscribe(data => {
-                let pathName = window.location.pathname;
-                if (pathName.length > 0 && pathName.endsWith('/')) {
-                pathName = pathName.substring(0, pathName.length - 1);
-                }
+        private http: HttpClient,  
+        private oidcSecurityService: OidcSecurityService ) {}
 
-                const config: OpenIdConfiguration = {
-                    stsServer : this.authService,
-                    redirect_url : window.location.origin + pathName,
-                    post_logout_redirect_uri : window.location.origin + pathName,
-                    client_id : this.clientId,
-                    scope : 'openid profile offline_access',
-                    response_type: 'code',
-                    silent_renew: true,
-                    use_refresh_token : true,
-                    log_console_debug_active : true,
-                    log_console_warning_active : true,
-                    disable_iat_offset_validation : true,
-                    ignore_nonce_after_refresh : true,
-                    trigger_authorization_result_event: true
-                };
-      
-                this.oidcSecurityService.setupModule(
-                    config,
-                    data.authWellknownEndpoints
-                );
-            });
+    async prepareConfigFromUrl(): Promise<string>{
+        const url = window.location.href;
+        if (url.includes('?')) {
+            const httpParams = new HttpParams({ fromString: url.split('?')[1] });
+            this.params = this.constructQueryParamObjects(httpParams);
+        }
+
+        if (!this.params.runtimeUrl) {
+            throw new Error("Runtime URL missing in query params ('rt')");
+        }
+
+        const errors = this.validateParams();
+        if (errors.length > 0) {
+            console.error('Validation failed:', errors);
+            throw new Error(errors.join(', ')); 
+        }
+
+        this.Init(this.params);
+
+        const url_get = this.envUrl + '/Authentication';
+        const stsUrl = await firstValueFrom(this.http.get(url_get, { responseType: 'text' }));
+        this.authService = stsUrl;
+    
+        return stsUrl;
     }
+    
+
+    private constructQueryParamObjects(params: HttpParams): QueryParams {
+        const ret = new QueryParams();
+        if (params.has('ai')) ret.activityInstanceID = parseInt(params.get('ai')!);
+        if (params.has('rc')) ret.requestCount = parseInt(params.get('rc')!);
+        if (params.has('rt')) ret.runtimeUrl = params.get('rt')!;
+        if (params.has('t'))  ret.token = params.get('t')!;
+        if (params.has('ut')) ret.userTracking = params.get('ut')!.toLowerCase() === 'true';
+        if (params.has('ord')) ret.orderBy = params.get('ord')!;
+        if (params.has('din')) {
+            ret.enableDocIndex = true;
+            ret.docIndexName = params.get('din')!;
+            ret.docIndexValue = params.get('div')!;
+        }
+        return ret;
+    }
+
+
 
     Init(query: QueryParams) {
         const apiPrefix = '/api/v2.1';
-        const prcAppendix = '/ProcessService';
-        const cfgAppendix = '/ConfigService';
-        const docThinAppendix = '/DocumentService/Thin';
-        const wiAppendix = '/WorkItems';
-        const aiAppendix = '/ActivityInstances';
-        const envAppendix = '/Environment';
-        const docAppendix = '/Document';
-        
         this.params = query;
 
-        const prcUrl = this.params.runtimeUrl + '/processservice' + apiPrefix + prcAppendix;
-        const cfgUrl = this.params.runtimeUrl +  '/configurationservice' + apiPrefix + cfgAppendix;
-        const docUrl = this.params.runtimeUrl +  '/documentservice' + apiPrefix + docThinAppendix;
+        const prcUrl = this.params.runtimeUrl + '/processservice' + apiPrefix + '/ProcessService';
+        const cfgUrl = this.params.runtimeUrl + '/configurationservice' + apiPrefix + '/ConfigService';
+        const docUrl = this.params.runtimeUrl + '/documentservice' + apiPrefix + '/DocumentService/Thin';
 
-        this.wiUrl = prcUrl + wiAppendix;
-        this.aiUrl = cfgUrl + aiAppendix;
-        this.envUrl = cfgUrl + envAppendix;
-        this.docUrl = docUrl + docAppendix;
-    }
-
-    initOAuth() : Promise<boolean>{
-            const url_get = this.envUrl + '/Authentication';
-        return this.http.get<string>(url_get).toPromise().then(data=> {
-                this.authService = data!;
-                this.oidcConfigService.load_using_stsServer(data!);
-            return true;
-        });
+        this.wiUrl = prcUrl + '/WorkItems';
+        this.aiUrl = cfgUrl + '/ActivityInstances';
+        this.envUrl = cfgUrl + '/Environment';
+        this.docUrl = docUrl + '/Document';
     }
 
     createRequestHeaders(ts?: string, wi?: IDtoWorkItemData): HttpHeaders {
 
         let  h =  new HttpHeaders();
-        h = h.set ('authorization',  this.bearerHeader + this.params.token);
+        const token = this.params.token || this.oidcSecurityService.getAccessToken();
+        h = h.set ('authorization',  this.bearerHeader + token);
         h = h.set('content-type', 'application/json; charset=utf-8');
         if (wi) {
             h = h.set('workItemData', JSON.stringify(wi));
@@ -126,10 +126,8 @@ export class AppService {
         }));
     }
 
-    Login() : Promise<string> {
-        return new Promise<string>(resolve=> {
-            resolve(this.oidcSecurityService.getToken());
-        })
+    get token$() : Observable<string> {
+        return this.oidcSecurityService.getAccessToken()
     }
 
     ReleaseWorkItem(workItem: IDtoWorkItemData, userTracking: boolean): Observable<boolean> {
@@ -137,5 +135,13 @@ export class AppService {
         return this.http.post(url, workItem, {headers: this.createRequestHeaders(workItem.TimeStamp)}).pipe(map((response) => {
             return response != null;
         }));
+    }
+
+    validateParams(): string[] {
+        const errors: string[] = [];
+        if (!this.params.runtimeUrl) errors.push('Runtime url (rt) is required.');
+        if (!this.params.activityInstanceID) errors.push('Activity instance ID (ai) is required.');
+        if (!this.params.requestCount || this.params.requestCount <= 0) errors.push('Request count (rc) must be > 0.');
+        return errors;
     }
 }

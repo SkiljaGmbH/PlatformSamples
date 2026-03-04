@@ -44,9 +44,9 @@ export interface IDtoStepItem {
     relatedWi?: IDtoWorkItemData;
     startTime?: Date;
     durationMs?: number;
-    substeps?: Array<IDtoStepItem>;
-    substepDurationAvgMs?: number;
-    substepDurationStdDevMs?: number;
+    subSteps?: Array<IDtoStepItem>;
+    subStepDurationAvgMs?: number;
+    subStepDurationStdDevMs?: number;
 }
 
 export interface IDtoWorkItemData {
