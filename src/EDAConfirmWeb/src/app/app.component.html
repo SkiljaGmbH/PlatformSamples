@@ -4,22 +4,11 @@
   <div>
     <h5>
       <ul>
-        @for (step of steps; track step) {
+        @for (step of steps(); track $index) {
           <li>
-            @if (step.status == 0) {
-              <fa-icon icon="exclamation-circle"></fa-icon>
-            }
-            @if (step.status == 1) {
-              <fa-icon icon="spinner" animation="spin"></fa-icon>
-            }
-            @if (step.status == 2) {
-              <fa-icon icon="check-circle"></fa-icon>
-            }
-            @if (step.status == 3) {
-              <fa-icon icon="times-circle"></fa-icon>
-            }
+            <fa-icon icon="getStepIcon(step.status)" [animation]="step.status === 1 ? 'spin' : undefined"></fa-icon>
             {{ step.text }}
-            @if (step.status == 3) {
+            @if (step.status === 3 && step.errors?.length) {
               <ul>
                 @for (err of step.errors; track err) {
                   <li>{{ err }}</li>
