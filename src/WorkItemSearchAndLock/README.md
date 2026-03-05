@@ -12,6 +12,10 @@ Tool accepts a list of arguments provided as Http GET parameters in URI:
 - `din`: docIndexName - optional document index name filter
 - `div`: docIndexValue - used in combination with docIndexName, document index value filter
 - `t`: token - optional auth token used for overriding the login process
-- `rt`: runtimeUrl
+- `rt`: runtimeUrl - This is actually a url to the configuration service that is used to perform self-discovery
 - `ut`: userTracking - tracking the user who initiated the locking request
 - `ord`: orderBy - ordering used when searching the work item that will be locked
+
+As OIDC requires to know the Auth service upfront, at least the `rt` parameter must be given when application starts. Alternatively, runtime service can be set in config.json file stored in assets.
+
+URL given via `rt` parameter has precedence over configured `runtimeUrl` in config.json file
