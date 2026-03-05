@@ -1,78 +1,218 @@
 <div>
   <div class="mainContainer">
     <table class="filterTable">
-      <tr><td>Runtime URL</td><td><input type="text" size="100" [(ngModel)]="queryParams.runtimeUrl" /></td></tr>
-      <tr><td>Activity instance</td><td><input type="number" [(ngModel)]="queryParams.activityInstanceID" /></td></tr>
-      <tr><td>Request count</td><td><input type="number" [(ngModel)]="queryParams.requestCount" /></td></tr>
-      <tr><td>Enable doc index filter</td><td><input type="checkbox" [(ngModel)]="queryParams.enableDocIndex"></td></tr>
-      <tr><td>Doc index name</td><td><input type="text" size="50" [(ngModel)]="queryParams.docIndexName" [disabled]="!queryParams.enableDocIndex" /></td></tr>
-      <tr><td>Doc index value</td><td><input type="text" size="50" [(ngModel)]="queryParams.docIndexValue" [disabled]="!queryParams.enableDocIndex" /></td></tr>
-      <tr><td>Order by</td><td><input type="text" size="50" [(ngModel)]="queryParams.orderBy" /></td></tr>
-      <tr><td>Enable user tracking</td><td><input type="checkbox" [(ngModel)]="queryParams.userTracking"></td></tr>
+      <tr>
+        <td><label for="rtUrl">Runtime URL</label></td>
+        <td>
+          <input
+            id="rtUrl"
+            type="text"
+            disabled
+            size="100"
+            [(ngModel)]="queryParams.runtimeUrl"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td><label for="instanceId">Activity instance</label></td>
+        <td>
+          <input
+            id="instanceId"
+            type="number"
+            [(ngModel)]="queryParams.activityInstanceID"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td><label for="requests">Request count</label></td>
+        <td>
+          <input
+            id="requests"
+            type="number"
+            [(ngModel)]="queryParams.requestCount"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td><label for="docIdx">Enable doc index filter</label></td>
+        <td>
+          <input
+            id="docIdx"
+            type="checkbox"
+            [(ngModel)]="queryParams.enableDocIndex"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td><label for="idxName">Doc index name</label></td>
+        <td>
+          <input
+            id="idxName"
+            type="text"
+            size="50"
+            [(ngModel)]="queryParams.docIndexName"
+            [disabled]="!queryParams.enableDocIndex"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td><label for="idxValue">Doc index value</label></td>
+        <td>
+          <input
+            id="idxValue"
+            type="text"
+            size="50"
+            [(ngModel)]="queryParams.docIndexValue"
+            [disabled]="!queryParams.enableDocIndex"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td><label for="orderBy">Order by</label></td>
+        <td>
+          <input
+            id="orderBy"
+            type="text"
+            size="50"
+            [(ngModel)]="queryParams.orderBy"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td><label for="track">Enable user tracking</label></td>
+        <td>
+          <input
+            id="track"
+            type="checkbox"
+            [(ngModel)]="queryParams.userTracking"
+          />
+        </td>
+      </tr>
     </table>
-    <div *ngIf="processing==0 || processing==1" style="text-align:center">
-      <h3>
-        Please Log in to the platform!
-      </h3>
-      <div>
-        <button (click)="login()" class="btn">Log In</button>
+    @if (processing == 0 || processing == 1) {
+      <div class="center-align">
+        <h3>Please Log in to the platform!</h3>
+        <div>
+          <button (click)="login()" class="btn">Log In</button>
+        </div>
       </div>
-    </div>
-    <div *ngIf="processing==2">
-      <button (click)="startSearchAndLock($event)" class="btn">Start Work Item Search And Lock</button>
-    </div>
+    }
+    @if (processing == 2) {
+      <div>
+        <button (click)="startSearchAndLock($event)" class="btn">
+          Start Work Item Search And Lock
+        </button>
+      </div>
+    }
     <ul>
-      <li *ngFor="let step of steps">
-        <fa-icon *ngIf="step.status==0" icon="exclamation-circle"></fa-icon>
-        <fa-icon *ngIf="step.status==1" icon="spinner" [pulse]="true"></fa-icon>
-        <fa-icon *ngIf="step.status==2" icon="check-circle"></fa-icon>
-        <fa-icon *ngIf="step.status==3" icon="times-circle"></fa-icon>
-        {{step.text}}
-        <ul *ngIf="step.status==3">
-          <li *ngFor="let err of step.errors">{{err}}</li>
-        </ul>
-        <ul *ngIf="step.substeps?.length ?? 0 > 0" class="substepList">
-          <li *ngIf="step.showDetails">
-            <ul class="statistics">
-              <li><span class="stro">Average substep duration: </span>{{step.substepDurationAvgMs ? step.substepDurationAvgMs.toLocaleString() + " ms" : "" }}</li>
-              <li><span class="stro">StdDev: </span>{{step.substepDurationStdDevMs ? step.substepDurationStdDevMs.toLocaleString() + " ms" : "" }}</li>
-              <li><span class="stro">Total duration: </span>{{step.durationMs ? step.durationMs.toLocaleString() + " ms" : "" }}</li>
+      @for (step of steps; track step) {
+        <li>
+          <fa-icon
+            [icon]="getStepIcon(step.status)"
+            [animation]="step.status === 1 ? 'spin' : undefined"
+          ></fa-icon>
+          {{ step.text }}
+          @if (step.status == 3 && step.errors?.length) {
+            <ul>
+              @for (err of step.errors; track err) {
+                <li>{{ err }}</li>
+              }
             </ul>
-          </li>
-          <li>
-            <table class="substepTable">
-              <ng-container *ngIf="step.showDetails">
-                <tr>
-                  <th></th>
-                  <th>Operation</th>
-                  <th>Work Item</th>
-                  <th>Start Time</th>
-                  <th>Duration</th>
-                </tr>
-              </ng-container>
-              <tr *ngFor="let substep of step.substeps">
-                <td>
-                  <fa-icon *ngIf="substep.status==0" icon="exclamation-circle"></fa-icon>
-                  <fa-icon *ngIf="substep.status==1" icon="spinner" [pulse]="true"></fa-icon>
-                  <fa-icon *ngIf="substep.status==2" icon="check-circle"></fa-icon>
-                  <fa-icon *ngIf="substep.status==3" icon="times-circle"></fa-icon>
-                </td>
-                <td>{{substep.text}}</td>
-                <ng-container *ngIf="step.showDetails">
-                  <td>{{substep.relatedWi ? "ID="+substep.relatedWi.WorkItemID : (substep.status==2 ? "Not Found" : "")}}</td>
-                  <td>{{substep.startTime?.toLocaleString()}}</td>
-                  <td>{{substep.durationMs ? substep.durationMs.toLocaleString()+" ms" : ""}}</td>
-                </ng-container>
-                <td>
-                  <ul *ngIf="substep.status==3">
-                    <li *ngFor="let errsubstep of substep.errors">{{errsubstep}}</li>
+          }
+          @if (step.subSteps?.length ?? 0 > 0) {
+            <ul class="subStepList">
+              @if (step.showDetails) {
+                <li>
+                  <ul class="statistics">
+                    <li>
+                      <span class="strong">Average subStep duration: </span
+                      >{{
+                        step.subStepDurationAvgMs
+                          ? step.subStepDurationAvgMs.toLocaleString() + " ms"
+                          : ""
+                      }}
+                    </li>
+                    <li>
+                      <span class="strong">StdDev: </span
+                      >{{
+                        step.subStepDurationStdDevMs
+                          ? step.subStepDurationStdDevMs.toLocaleString() +
+                            " ms"
+                          : ""
+                      }}
+                    </li>
+                    <li>
+                      <span class="strong">Total duration: </span
+                      >{{
+                        step.durationMs
+                          ? step.durationMs.toLocaleString() + " ms"
+                          : ""
+                      }}
+                    </li>
                   </ul>
-                </td>
-              </tr>
-            </table>
-          </li>
-        </ul>
-      </li>
+                </li>
+              }
+              <li>
+                <table class="subStepTable">
+                  @if (step.showDetails) {
+                    <tr>
+                      <th></th>
+                      <th>Operation</th>
+                      <th>Work Item</th>
+                      <th>Start Time</th>
+                      <th>Duration</th>
+                    </tr>
+                  }
+                  @for (subStep of step.subSteps; track subStep) {
+                    <tr>
+                      <td>
+                        <fa-icon
+                          [icon]="getStepIcon(subStep.status)"
+                          [animation]="
+                            subStep.status === 1 ? 'spin' : undefined
+                          "
+                        ></fa-icon>
+                      </td>
+                      <td>{{ subStep.text }}</td>
+                      @if (step.showDetails) {
+                        <td>
+                          {{
+                            subStep.relatedWi
+                              ? "ID=" + subStep.relatedWi.WorkItemID
+                              : subStep.status == 2
+                                ? "Not Found"
+                                : ""
+                          }}
+                        </td>
+                        <td>{{ subStep.startTime?.toLocaleString() }}</td>
+                        <td>
+                          {{
+                            subStep.durationMs
+                              ? subStep.durationMs.toLocaleString() + " ms"
+                              : ""
+                          }}
+                        </td>
+                      }
+                      <td>
+                        @if (subStep.status == 3 && subStep.errors?.length) {
+                          <ul>
+                            @for (
+                              errSubStep of subStep.errors;
+                              track errSubStep
+                            ) {
+                              <li>{{ errSubStep }}</li>
+                            }
+                          </ul>
+                        }
+                      </td>
+                    </tr>
+                  }
+                </table>
+              </li>
+            </ul>
+          }
+        </li>
+      }
     </ul>
   </div>
 </div>
