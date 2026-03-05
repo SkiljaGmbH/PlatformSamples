@@ -1,12 +1,12 @@
-import { enableProdMode, importProvidersFrom } from '@angular/core';
-import { environment } from './environments/environment';
-import { AppService } from './app/app.service';
-import { from } from 'rxjs';
-import { AuthModule, LogLevel, OpenIdConfiguration, StsConfigHttpLoader, StsConfigLoader } from 'angular-auth-oidc-client';
-import { bootstrapApplication } from '@angular/platform-browser';
-import { AppComponent } from './app/app.component';
 import { provideHttpClient } from '@angular/common/http';
+import { enableProdMode } from '@angular/core';
+import { bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
+import { LogLevel, OpenIdConfiguration, provideAuth, StsConfigHttpLoader, StsConfigLoader } from 'angular-auth-oidc-client';
+import { from } from 'rxjs';
+import { AppComponent } from './app/app.component';
+import { AppService } from './app/app.service';
+import { environment } from './environments/environment';
 
 export const oidcLoaderFactory = (appService: AppService) => {
   const config$ = from(appService.prepareConfigFromUrl().then(stsUrl => {
@@ -37,7 +37,7 @@ export const oidcLoaderFactory = (appService: AppService) => {
 
     };
     return config;
-  })); 
+  }));
 
   return new StsConfigHttpLoader(config$);
 }
@@ -51,21 +51,12 @@ bootstrapApplication(AppComponent, {
     provideHttpClient(),
     provideRouter([{ path: '', component: AppComponent }]),
     AppService,
-    importProvidersFrom(
-      AuthModule.forRoot({
-        loader: {
-          provide: StsConfigLoader,
-          useFactory: oidcLoaderFactory,
-          deps: [AppService],
-        },
-      })
-    ),
-    /*provideAuth({
+    provideAuth({
       loader: {
         provide: StsConfigLoader,
         useFactory: oidcLoaderFactory,
         deps: [AppService],
       },
-    }),*/
+    }),
   ],
 }).catch((err) => console.error(err));
