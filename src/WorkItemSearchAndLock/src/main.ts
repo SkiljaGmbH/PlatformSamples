@@ -1,5 +1,5 @@
 import { provideHttpClient } from '@angular/common/http';
-import { enableProdMode } from '@angular/core';
+import { enableProdMode, provideZoneChangeDetection } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
 import { LogLevel, OpenIdConfiguration, provideAuth, StsConfigHttpLoader, StsConfigLoader } from 'angular-auth-oidc-client';
@@ -32,8 +32,6 @@ export const oidcLoaderFactory = (appService: AppService) => {
       ignoreNonceAfterRefresh: true,
       renewTimeBeforeTokenExpiresInSeconds: 15,
       logLevel: !environment.production ? LogLevel.Debug : LogLevel.Error,
-      // all other properties you want to set
-      //storage: new OIDCStorageService()
 
     };
     return config;
@@ -48,7 +46,7 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent, {
   providers: [
-    provideHttpClient(),
+    provideZoneChangeDetection(), provideHttpClient(),
     provideRouter([{ path: '', component: AppComponent }]),
     AppService,
     provideAuth({

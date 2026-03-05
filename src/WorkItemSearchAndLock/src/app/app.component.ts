@@ -2,8 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { FaIconLibrary, FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
 import { faCheckCircle, faExclamationCircle, faSpinner, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { firstValueFrom } from 'rxjs';
@@ -12,14 +11,14 @@ import { AppService } from './app.service';
 
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css'],
-    imports: [
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+  imports: [
     FormsModule,
     FontAwesomeModule,
     RouterModule
-]
+  ]
 })
 export class AppComponent implements OnInit {
   title = 'WorkItemSearchAndLock';
@@ -27,13 +26,25 @@ export class AppComponent implements OnInit {
   processing = DtoProcessingStatus.Processing;
   queryParams: QueryParams = new QueryParams();
 
+  private iconMap: Record<DtoStepStatus, IconDefinition> = {
+    [DtoStepStatus.Waiting]: faExclamationCircle,
+    [DtoStepStatus.Loading]: faSpinner,
+    [DtoStepStatus.Done]: faCheckCircle,
+    [DtoStepStatus.Error]: faTimesCircle
+  };
+
+  protected getStepIcon(status: DtoStepStatus): IconDefinition {
+    return this.iconMap[status] || faExclamationCircle;
+  }
+
+
   constructor(
     private appService: AppService,
     private oidcSecurityService: OidcSecurityService,
     private lib: FaIconLibrary
   ) {
 
-    this.lib.addIcons(faExclamationCircle, faSpinner as IconDefinition, faCheckCircle as IconDefinition, faTimesCircle as IconDefinition);
+    this.lib.addIcons(faExclamationCircle, faSpinner, faCheckCircle, faTimesCircle);
     this.buildDefaultSteps();
 
   }
