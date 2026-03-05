@@ -1,16 +1,29 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { DtoProcessingStatus, DtoSTGDataType, DtoStepStatus, IDtoStepItem, IDtoWorkItemData, QueryParams, SearchOperator } from './app.models';
-import { AsyncSubject, BehaviorSubject, map, firstValueFrom } from 'rxjs';
+import { HttpClientModule } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { DtoProcessingStatus, DtoStepStatus, IDtoStepItem, IDtoWorkItemData, QueryParams } from './app.models';
+import { firstValueFrom } from 'rxjs';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { AppService } from './app.service';
 import { IconDefinition, library } from '@fortawesome/fontawesome-svg-core';
 import { faCheckCircle, faExclamationCircle, faSpinner, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
-import { HttpParams } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { RouterModule } from '@angular/router';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  standalone: true,
+  imports:[
+    CommonModule,
+    FormsModule,
+    HttpClientModule,
+    FontAwesomeModule,
+    RouterModule
+  ]
 })
 export class AppComponent  implements OnInit {
   title = 'WorkItemSearchAndLock';
@@ -21,9 +34,10 @@ export class AppComponent  implements OnInit {
   constructor(
     private appService: AppService,
     private oidcSecurityService : OidcSecurityService ,
+    private lib : FaIconLibrary
     ) {
     
-    library.add(faExclamationCircle, faSpinner as IconDefinition, faCheckCircle as IconDefinition, faTimesCircle as IconDefinition);
+    this.lib.addIcons(faExclamationCircle, faSpinner as IconDefinition, faCheckCircle as IconDefinition, faTimesCircle as IconDefinition);
     this.buildDefaultSteps();
     
   }

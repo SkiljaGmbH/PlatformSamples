@@ -10,7 +10,7 @@
       <tr><td><label for="orderBy">Order by</label></td><td><input id="orderBy" type="text" size="50" [(ngModel)]="queryParams.orderBy" /></td></tr>
       <tr><td><label for="track">Enable user tracking</label></td><td><input id="track" type="checkbox" [(ngModel)]="queryParams.userTracking"></td></tr>
     </table>
-    <div *ngIf="processing==0 || processing==1" style="text-align:center">
+    <div *ngIf="processing==0 || processing==1" class="center-align">
       <h3>
         Please Log in to the platform!
       </h3>
@@ -31,16 +31,16 @@
         <ul *ngIf="step.status==3">
           <li *ngFor="let err of step.errors">{{err}}</li>
         </ul>
-        <ul *ngIf="step.subSteps?.length ?? 0 > 0" class="substepList">
+        <ul *ngIf="step.subSteps?.length ?? 0 > 0" class="subStepList">
           <li *ngIf="step.showDetails">
             <ul class="statistics">
-              <li><span class="stro">Average subStep duration: </span>{{step.subStepDurationAvgMs ? step.subStepDurationAvgMs.toLocaleString() + " ms" : "" }}</li>
-              <li><span class="stro">StdDev: </span>{{step.subStepDurationStdDevMs ? step.subStepDurationStdDevMs.toLocaleString() + " ms" : "" }}</li>
-              <li><span class="stro">Total duration: </span>{{step.durationMs ? step.durationMs.toLocaleString() + " ms" : "" }}</li>
+              <li><span class="strong">Average subStep duration: </span>{{step.subStepDurationAvgMs ? step.subStepDurationAvgMs.toLocaleString() + " ms" : "" }}</li>
+              <li><span class="strong">StdDev: </span>{{step.subStepDurationStdDevMs ? step.subStepDurationStdDevMs.toLocaleString() + " ms" : "" }}</li>
+              <li><span class="strong">Total duration: </span>{{step.durationMs ? step.durationMs.toLocaleString() + " ms" : "" }}</li>
             </ul>
           </li>
           <li>
-            <table class="substepTable">
+            <table class="subStepTable">
               <ng-container *ngIf="step.showDetails">
                 <tr>
                   <th></th>
