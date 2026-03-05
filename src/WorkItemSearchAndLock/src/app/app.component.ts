@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -16,11 +16,10 @@ import { AppService } from './app.service';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],
     imports: [
-        CommonModule,
-        FormsModule,
-        FontAwesomeModule,
-        RouterModule
-    ]
+    FormsModule,
+    FontAwesomeModule,
+    RouterModule
+]
 })
 export class AppComponent implements OnInit {
   title = 'WorkItemSearchAndLock';
