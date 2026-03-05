@@ -7,6 +7,7 @@
           <input
             id="rtUrl"
             type="text"
+            disabled
             size="100"
             [(ngModel)]="queryParams.runtimeUrl"
           />
@@ -107,7 +108,7 @@
       @for (step of steps; track step) {
         <li>
           <fa-icon
-            icon="getStepIcon(step.status)"
+            [icon]="getStepIcon(step.status)"
             [animation]="step.status === 1 ? 'spin' : undefined"
           ></fa-icon>
           {{ step.text }}
@@ -166,7 +167,7 @@
                     <tr>
                       <td>
                         <fa-icon
-                          icon="getStepIcon(subStep.status)"
+                          [icon]="getStepIcon(subStep.status)"
                           [animation]="
                             subStep.status === 1 ? 'spin' : undefined
                           "

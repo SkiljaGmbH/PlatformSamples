@@ -5,11 +5,11 @@ import { provideRouter } from '@angular/router';
 import { LogLevel, OpenIdConfiguration, provideAuth, StsConfigHttpLoader, StsConfigLoader } from 'angular-auth-oidc-client';
 import { from } from 'rxjs';
 import { AppComponent } from './app/app.component';
-import { AppService } from './app/app.service';
+import { ConfigService } from './app/config.service';
 import { environment } from './environments/environment';
 
-export const oidcLoaderFactory = (appService: AppService) => {
-  const config$ = from(appService.prepareConfigFromUrl().then(stsUrl => {
+export const oidcLoaderFactory = (configService: ConfigService) => {
+  const config$ = from(configService.prepareConfigFromUrl().then(stsUrl => {
     let pathName = window.location.pathname;
     if (!pathName || pathName.length === 0) {
       pathName = '/';
@@ -24,7 +24,7 @@ export const oidcLoaderFactory = (appService: AppService) => {
       authority: stsUrl,
       redirectUrl: redirectUri,
       postLogoutRedirectUri: redirectUri,
-      clientId: appService.clientId,
+      clientId: configService.clientId,
       scope: 'openid profile offline_access procmon',
       responseType: 'code',
       silentRenew: true,
@@ -48,12 +48,12 @@ bootstrapApplication(AppComponent, {
   providers: [
     provideZoneChangeDetection(), provideHttpClient(),
     provideRouter([{ path: '', component: AppComponent }]),
-    AppService,
+    ConfigService,
     provideAuth({
       loader: {
         provide: StsConfigLoader,
         useFactory: oidcLoaderFactory,
-        deps: [AppService],
+        deps: [ConfigService],
       },
     }),
   ],

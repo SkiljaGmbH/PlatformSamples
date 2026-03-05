@@ -5,7 +5,7 @@ export enum DtoProcessingStatus {
     Processing = 2
 }
 
-export enum   DtoStepStatus {
+export enum DtoStepStatus {
     Waiting = 0,
     Loading = 1,
     Done = 2,
@@ -23,6 +23,16 @@ export enum DtoWorkItemStatus {
     WaitingMerge = 6,
 }
 
+export interface ISelfDiscovery {
+    AuthenticationServiceEndpoint: IUriData
+    ConfigurationServiceEndpoint: IUriData
+    ProcessServiceEndpoint: IUriData
+    DocumentServiceEndpoint: IUriData
+}
+
+export interface IUriData {
+    Uri: string
+}
 
 export class QueryParams {
     runtimeUrl!: string;
@@ -70,14 +80,14 @@ export interface IDtoWorkItemData {
     DocumentStorageID?: number;
 }
 
-export enum   DtoSTGDataType {
+export enum DtoSTGDataType {
     STGString = 0,
     STGDouble = 1,
     STGBoolean = 2,
     STGInteger = 3,
 }
 
-export enum   SearchOperator {
+export enum SearchOperator {
     Not = 1,
     Equal = 2,
     Greater = 4,

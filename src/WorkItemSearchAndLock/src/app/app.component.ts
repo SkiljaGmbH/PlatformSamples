@@ -2,12 +2,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { FaIconLibrary, FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
+import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCheckCircle, faExclamationCircle, faSpinner, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { firstValueFrom } from 'rxjs';
 import { DtoProcessingStatus, DtoStepStatus, IDtoStepItem, IDtoWorkItemData, QueryParams } from './app.models';
 import { AppService } from './app.service';
+import { ConfigService } from './config.service';
 
 
 @Component({
@@ -26,20 +27,21 @@ export class AppComponent implements OnInit {
   processing = DtoProcessingStatus.Processing;
   queryParams: QueryParams = new QueryParams();
 
-  private iconMap: Record<DtoStepStatus, IconDefinition> = {
-    [DtoStepStatus.Waiting]: faExclamationCircle,
-    [DtoStepStatus.Loading]: faSpinner,
-    [DtoStepStatus.Done]: faCheckCircle,
-    [DtoStepStatus.Error]: faTimesCircle
+  private iconMap: Record<DtoStepStatus, string> = {
+    [DtoStepStatus.Waiting]: 'exclamation-circle',
+    [DtoStepStatus.Loading]: 'spinner',
+    [DtoStepStatus.Done]: 'check-circle',
+    [DtoStepStatus.Error]: 'times-circle'
   };
 
-  protected getStepIcon(status: DtoStepStatus): IconDefinition {
-    return this.iconMap[status] || faExclamationCircle;
+  protected getStepIcon(status: DtoStepStatus): string {
+    return this.iconMap[status] || 'exclamation-circle';
   }
 
 
   constructor(
     private appService: AppService,
+    private configService: ConfigService,
     private oidcSecurityService: OidcSecurityService,
     private lib: FaIconLibrary
   ) {
@@ -52,7 +54,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.oidcSecurityService.checkAuth().subscribe(({ isAuthenticated, accessToken }) => {
       this.steps[0].status = DtoStepStatus.Done;
-      this.queryParams = this.appService.params;
+      this.queryParams = this.configService.params;
 
       if (isAuthenticated) {
         this.queryParams.token = accessToken;
@@ -152,7 +154,7 @@ export class AppComponent implements OnInit {
 
         let wiReleasePromise =
           firstValueFrom(
-            this.appService.ReleaseWorkItem(wi, this.appService.params.userTracking)
+            this.appService.ReleaseWorkItem(wi, this.configService.params.userTracking)
           )
             .then((wiSaved) => {
               if (wiSaved) {
@@ -195,9 +197,6 @@ export class AppComponent implements OnInit {
     step.subSteps.push(this.validateParam('runtimeUrl', () => !this.queryParams.runtimeUrl ? 'The Runtime url parameter is required' : undefined));
     step.subSteps.push(this.validateParam('activityInstanceID', () => !this.queryParams.activityInstanceID ? 'The activity instance ID parameter is required' : undefined));
     step.subSteps.push(this.validateParam('requestCount', () => !this.queryParams.requestCount ? 'The request count parameter is required' : undefined));
-    if (step.subSteps.some(s => s.status != DtoStepStatus.Done) === false) {
-      this.appService.Init(this.queryParams);
-    }
     return step.subSteps.map(s => Promise.resolve());
   }
 
