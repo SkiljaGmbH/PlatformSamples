@@ -1,6 +1,6 @@
 import {Component, OnDestroy} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 import {MappingUpdateComponent} from '../dialogs/mapping-update/mapping-update.component';
 import {ConfirmComponentData, MappingUpdateComponentData} from '../../models/dialogs.model';
 import {ActivityService} from '../../services/activity.service';

@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { Subscription } from 'rxjs';
 import { HelperService } from '../../helpers/helper.service';
 import { ProcessItem, ResultNotificationItem, WorkItemStatus } from '../../models/activities.model';

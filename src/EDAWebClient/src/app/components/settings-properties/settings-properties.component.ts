@@ -1,7 +1,7 @@
 import {Component, OnDestroy} from '@angular/core';
 import {ConfirmComponent} from '../dialogs/confirm/confirm.component';
-import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 import {PropertyUpdateComponent} from '../dialogs/property-update/property-update.component';
 import {PropertyItem} from '../../models/activities.model';
 import {ConfirmComponentData, PROPERTY_CHANGE, PropertyComponentData} from '../../models/dialogs.model';

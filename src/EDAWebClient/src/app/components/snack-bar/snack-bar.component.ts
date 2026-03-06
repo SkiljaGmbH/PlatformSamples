@@ -1,5 +1,5 @@
 import {Component, OnDestroy} from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import {SnackBarService} from '../../services/snack-bar.service';
 import {SnackTypes} from '../../models/snack-bar.model';
 import {Subscription} from 'rxjs';
