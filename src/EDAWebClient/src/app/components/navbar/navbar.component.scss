@@ -1,41 +1,48 @@
-.navbar {
+.main-navbar {
   padding: 0 1rem;
   height: var(--header-height);
+  background-color: var(--primary-color) !important;
+  color: var(--text-color) !important;
+  display: flex;
+  align-items: center;
 
   .logo {
     height: var(--logo-height);
   }
 
-  .nav-item {
-    outline: none;
+  .navbar-spacer {
+    flex: 1 1 auto;
+  }
 
-    span {
-      vertical-align: text-top;
+  .navbar-actions {
+    display: flex;
+    align-items: center;
+
+    .username-display {
+      vertical-align: middle;
+      font-size: 14px;
     }
   }
 
-  ::ng-deep mat-select .mat-select-value,
-  ::ng-deep mat-select .mat-select-arrow {
-    color: var(--text-color) !important;
-  }
-
-  ::ng-deep .mat-form-field-underline {
-    background-color: var(--text-color) !important;
-  }
-
-  ::ng-deep .mat-focused .mat-form-field-ripple {
-    background-color: var(--text-color) !important;
-    top: 0;
-    height: 1px;
+  ::ng-deep {
+    mat-select {
+      .mat-select-value,
+      .mat-select-arrow {
+        color: var(--text-color) !important;
+      }
+    }
+    .mat-form-field-underline {
+      background-color: var(--text-color) !important;
+    }
+    .mat-focused .mat-form-field-ripple {
+      background-color: var(--text-color) !important;
+      top: 0;
+      height: 1px;
+    }
   }
 }
 
-.navbar {
-  background-color: var(--primary-color);
-  color: var(--text-color);
-}
-
-.fill-primary {
+.fill-white {
   color: var(--text-color);
   fill: var(--text-color);
   path {

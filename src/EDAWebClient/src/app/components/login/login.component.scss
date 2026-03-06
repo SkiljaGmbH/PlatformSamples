@@ -1,15 +1,30 @@
-form {
+.login-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100%;
-}
+  padding: 2rem;
 
-@media(min-width: 768px) {
-  mat-form-field, mat-checkbox {
-    min-width: 500px;
+  .login-title {
+    margin-bottom: 2rem;
+    text-align: center;
+    color: var(--text-color);
+  }
+
+  .login-button {
+    margin-top: 1.5rem;
+    min-width: 200px;
+  }
+
+  mat-form-field {
+    width: 100%;
+    max-width: 500px;
   }
 }
 
-
+@media (min-width: 768px) {
+  .login-form mat-form-field {
+    width: 500px;
+  }
+}

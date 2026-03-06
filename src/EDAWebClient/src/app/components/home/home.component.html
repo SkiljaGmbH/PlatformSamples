@@ -1,28 +1,55 @@
-<div class="row mx-0">
-  <div class="col-md-8">
-    <div class="d-inline-flex mt-2 align-items-center w-100">
-      <div>
-        <mat-form-field class="mat-focused">
-          <mat-select placeholder="Select process" (selectionChange)="onSelectProcess($event.value)" [(value)]="selectedProcessId">
-            <mat-option value="{{option.ProcessID}}" *ngFor="let option of processes">{{option.ProcessName}}</mat-option>
+<div class="home-grid">
+  <div class="main-content">
+    <div class="selection-header">
+      <div class="process-selector">
+        <mat-form-field>
+          <mat-select
+            placeholder="Select process"
+            (selectionChange)="onSelectProcess($event.value)"
+            [(value)]="selectedProcessId"
+          >
+            <mat-option
+              value="{{ option.ProcessID }}"
+              *ngFor="let option of processes"
+              >{{ option.ProcessName }}</mat-option
+            >
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="ellipsis w-100 ml-4" title="{{longDescription || shortDescription}}">
-        <span class="mr-1">Short description:</span>
-        <span *ngIf="shortDescription">{{ shortDescription }}</span>
-        <span *ngIf="!shortDescription && !longDescription" class="empty-description f-14">Empty</span>
+      <div
+        class="description-area"
+        title="{{ longDescription || shortDescription }}"
+      >
+        <span class="label">Short description:</span>
+        <span class="text" *ngIf="shortDescription">{{
+          shortDescription
+        }}</span>
+        <span
+          class="empty-description"
+          *ngIf="!shortDescription && !longDescription"
+          class="empty-description f-14"
+          >Empty</span
+        >
       </div>
     </div>
 
     <app-upload></app-upload>
 
-    <button [disabled]="!isProcessSelected" class="my-3" mat-raised-button color="primary" (click)="retrieveResults()">Retrieve results</button>
+    <div class="actions">
+      <button
+        [disabled]="!isProcessSelected"
+        mat-raised-button
+        color="primary"
+        (click)="retrieveResults()"
+      >
+        Retrieve results
+      </button>
+    </div>
   </div>
-  <div class="col-md-4">
+  <aside class="sidebar-content">
     <app-settings></app-settings>
-  </div>
-  <div class="col-md-12">
+  </aside>
+  <footer class="footer-content">
     <app-logs></app-logs>
-  </div>
+  </footer>
 </div>

@@ -1,42 +1,70 @@
-.mappings {
-  .mappings-container {
-    position: relative;
-    max-height: 300px;
-    overflow: auto;
-  }
+.mappings-wrapper {
+  padding: 0.5rem;
+}
 
-  table {
-    width: 100%;
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
 
-    & th:nth-child(3) {
-      width: 100px;
-    }
-
-    & th:nth-child(3) {
-      text-align: right;
-    }
-  }
-
-  ::ng-deep mat-select .mat-select-value,
-  ::ng-deep mat-select .mat-select-arrow {
-    color: var(--doc-type-select-color) !important;
-  }
-
-  ::ng-deep .mat-form-field-underline {
-    background-color: var(--doc-type-select-color) !important;
-  }
-
-  ::ng-deep .mat-focused .mat-form-field-ripple {
-    background-color: var(--doc-type-select-color) !important;
-    top: 0;
-    height: 1px;
+  button {
+    margin-top: 8px;
+    min-width: 100px;
   }
 }
 
-::ng-deep .fill-primary {
-  color: var(--primary-color);
-  fill: var(--primary-color);
-  path {
-    fill: var(--primary-color);
+.doc-type-select {
+  width: 100%;
+  max-width: 300px;
+
+  ::ng-deep {
+    .mat-select-value,
+    .mat-select-arrow {
+      color: var(--doc-type-select-color) !important;
+    }
+    .mat-form-field-underline {
+      background-color: var(--doc-type-select-color) !important;
+    }
+    .mat-focused .mat-form-field-ripple {
+      background-color: var(--doc-type-select-color) !important;
+    }
   }
+}
+
+.mappings-container {
+  position: relative;
+  max-height: 300px;
+  overflow: auto;
+  border-radius: 4px;
+}
+
+table {
+  width: 100%;
+
+  th.mat-header-cell:last-child,
+  td.mat-cell:last-child {
+    width: 100px;
+    text-align: right;
+    padding-right: 16px;
+  }
+}
+
+.action-icon {
+  cursor: pointer;
+  vertical-align: middle;
+
+  &.fill-primary {
+    color: var(--primary-color);
+    ::ng-deep svg {
+      fill: currentColor;
+      path {
+        fill: currentColor;
+      }
+    }
+  }
+}
+
+.text-right {
+  text-align: right !important;
 }

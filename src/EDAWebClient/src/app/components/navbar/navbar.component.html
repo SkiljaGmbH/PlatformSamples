@@ -1,20 +1,20 @@
-<nav class="navbar navbar-expand-lg">
-  <a class="navbar-brand">
-    <!--<img src="assets/images/logo.png" alt=""/>-->
-  </a>
-  <button class="navbar-toggler" type="button">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<mat-toolbar color="primary" class="main-navbar">
+  <div class="navbar-brand"></div>
 
-  <div class="collapse navbar-collapse">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item mr-4" *ngIf="isLogged">
-        <span>{{username}}</span>
-      </li>
-      <li *ngIf="isLogged" class="nav-item">
-        <mat-icon class="fill-primary cursor-pointer" svgIcon="exit_ico" (click)="logout()" ></mat-icon>
-      </li>
-    </ul>
+  <span class="navbar-spacer"></span>
+
+  <div class="navbar-actions" *ngIf="isLogged">
+    <span class="username-display mr-4">
+      {{ username }}
+    </span>
+
+    <button
+      mat-icon-button
+      (click)="logout()"
+      title="Logout"
+      class="logout-button"
+    >
+      <mat-icon class="fill-white cursor-pointer" svgIcon="exit_ico"></mat-icon>
+    </button>
   </div>
-</nav>
-
+</mat-toolbar>

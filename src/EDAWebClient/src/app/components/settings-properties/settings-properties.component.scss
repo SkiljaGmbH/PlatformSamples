@@ -1,29 +1,62 @@
+.settings-wrapper {
+  padding: 0.5rem;
+}
+
+.button-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+
+  button {
+    min-width: 100px;
+  }
+}
+
+.full-width-field {
+  display: block;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
 .properties-container {
   position: relative;
   max-height: 300px;
   overflow: auto;
+  border-radius: 4px;
 }
 
 table {
   width: 100%;
 
-  & th:nth-child(3) {
+  th.mat-header-cell:last-child,
+  td.mat-cell:last-child {
     width: 100px;
-  }
-
-  & th:nth-child(3) {
     text-align: right;
+    padding-right: 16px;
   }
 
   th.mat-sort-header-sorted {
-    color: black;
+    color: var(--text-color);
   }
 }
 
-::ng-deep .fill-primary {
-  color: var(--primary-color) !important;
-  fill: var(--primary-color) !important;
-  path {
-    fill: var(--primary-color) !important;
+.action-icon {
+  cursor: pointer;
+  vertical-align: middle;
+  margin-left: 8px;
+
+  &.fill-primary {
+    color: var(--primary-color);
+
+    ::ng-deep svg {
+      fill: currentColor;
+      path {
+        fill: currentColor;
+      }
+    }
   }
+}
+
+.text-right {
+  text-align: right !important;
 }

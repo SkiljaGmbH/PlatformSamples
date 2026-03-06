@@ -1,19 +1,18 @@
-import {Component, OnDestroy} from '@angular/core';
-import {ActivityService} from '../../services/activity.service';
+import { Component, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import {ResultComponent} from '../dialogs/result/result.component';
-import {ProcessItem, ResultNotificationItem, WorkItemStatus} from '../../models/activities.model';
-import { saveAs } from 'file-saver';
-import {SnackTypes} from '../../models/snack-bar.model';
-import {SnackBarService} from '../../services/snack-bar.service';
-import {HelperService} from '../../helpers/helper.service';
-import {StorageService} from '../../services/utils/storage.service';
-import {Subscription} from 'rxjs';
+import { Subscription } from 'rxjs';
+import { HelperService } from '../../helpers/helper.service';
+import { ProcessItem, ResultNotificationItem, WorkItemStatus } from '../../models/activities.model';
+import { SnackTypes } from '../../models/snack-bar.model';
+import { ActivityService } from '../../services/activity.service';
+import { SnackBarService } from '../../services/snack-bar.service';
+import { StorageService } from '../../services/utils/storage.service';
+import { ResultComponent } from '../dialogs/result/result.component';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnDestroy {
   shortDescription: string;

@@ -33,7 +33,6 @@
             "assets": ["src/assets"],
             "styles": [
               "src/assets/css/branding.css",
-              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/sass/roboto.scss",
               "src/sass/theme.scss",
               "src/sass/styles.scss"

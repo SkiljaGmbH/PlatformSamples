@@ -1,37 +1,83 @@
-<div class="p-1">
-  <div class="d-flex justify-content-between">
-    <button [disabled]="!isProcessSelected" class="my-2" mat-raised-button color="primary" (click)="onCreate()">New</button>
-    <button [disabled]="!isProcessSelected" class="my-2" mat-raised-button color="warn" (click)="onReset()">Reset</button>
+<div class="settings-wrapper">
+  <div class="button-row">
+    <button
+      [disabled]="!isProcessSelected"
+      mat-raised-button
+      color="primary"
+      (click)="onCreate()"
+    >
+      New
+    </button>
+    <button
+      [disabled]="!isProcessSelected"
+      mat-raised-button
+      color="warn"
+      (click)="onReset()"
+    >
+      Reset
+    </button>
   </div>
 
-  <mat-form-field class="d-block my-1">
-    <input [disabled]="!isProcessSelected" [(ngModel)]="documentName" matInput name="documentName" (ngModelChange)="onDocumentNameChange($event)" placeholder="Document name" required>
+  <mat-form-field class="full-width-field">
+    <mat-label>Document name</mat-label>
+    <input
+      [disabled]="!isProcessSelected"
+      [(ngModel)]="documentName"
+      matInput
+      name="documentName"
+      (ngModelChange)="onDocumentNameChange($event)"
+      required
+    />
   </mat-form-field>
 
   <div class="properties-container" *ngIf="isProcessSelected">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
       <ng-container matColumnDef="key">
-        <th mat-header-cell *matHeaderCellDef> Key </th>
-        <td mat-cell *matCellDef="let element" class="col-m-w ellipsis" title="{{element.key}}">{{element.key}} </td>
+        <th mat-header-cell *matHeaderCellDef>Key</th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          class="col-m-w ellipsis"
+          title="{{ element.key }}"
+        >
+          {{ element.key }}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="value">
-        <th mat-header-cell *matHeaderCellDef> Value </th>
-        <td mat-cell *matCellDef="let element" class="col-m-w ellipsis" title="{{element.value}}"> {{element.value}} </td>
+        <th mat-header-cell *matHeaderCellDef>Value</th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          class="col-m-w ellipsis"
+          title="{{ element.value }}"
+        >
+          {{ element.value }}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef> Actions </th>
-        <td class="text-right" mat-cell *matCellDef="let element; let i = index">
-          <mat-icon class="v-align-middle fill-primary cursor-pointer mr-2" svgIcon="edit_ico" (click)="onEdit(element, i)"></mat-icon>
-          <mat-icon class="v-align-middle fill-primary cursor-pointer" svgIcon="remove_ico" (click)="onDelete(element, i)"></mat-icon>
+        <th mat-header-cell *matHeaderCellDef class="text-right">Actions</th>
+        <td
+          mat-cell
+          *matCellDef="let element; let i = index"
+          class="text-right"
+        >
+          <mat-icon
+            class="action-icon fill-primary"
+            svgIcon="edit_ico"
+            (click)="onEdit(element, i)"
+          ></mat-icon>
+          <mat-icon
+            class="action-icon fill-primary"
+            svgIcon="remove_ico"
+            (click)="onDelete(element, i)"
+          ></mat-icon>
         </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
   </div>
-
 </div>

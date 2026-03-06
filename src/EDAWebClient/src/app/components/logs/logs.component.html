@@ -1,5 +1,11 @@
-<div class="logs-container p-2">
-  <div *ngFor="let log of logsList">
-    <div [innerHTML]="log | urlCustomPipe"></div>
+<div class="logs-wrapper">
+  <div class="logs-container">
+    <div *ngFor="let log of logsList" class="log-entry">
+      <div [innerHTML]="log | urlCustomPipe"></div>
+    </div>
+
+    <div *ngIf="logsList?.length === 0" class="empty-logs">
+      No logs to display.
+    </div>
   </div>
 </div>

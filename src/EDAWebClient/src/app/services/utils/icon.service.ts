@@ -7,7 +7,7 @@ export class IconService {
   constructor(
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer
-  ) {}
+  ) { }
 
   injectIcons() {
     this.matIconRegistry.addSvgIcon(
@@ -21,6 +21,10 @@ export class IconService {
     this.matIconRegistry.addSvgIcon(
       `exit_ico`,
       this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/icons/exit.svg')
+    );
+    this.matIconRegistry.addSvgIcon(
+      `cloud_upload`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/icons/upload_ico.svg')
     );
   }
 }
