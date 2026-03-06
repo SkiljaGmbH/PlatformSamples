@@ -75,90 +75,83 @@ export function loadConfig(oidcConfigService: OidcConfigService, configService: 
 }
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    FormsModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCheckboxModule,
-    MatToolbarModule,
-    MatSelectModule,
-    MatTabsModule,
-    MatTableModule,
-    MatDialogModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatSnackBarModule,
-    NgxFileDropModule,
-    AuthModule.forRoot()
-  ],
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    NavbarComponent,
-    LoginComponent,
-    UploadComponent,
-    LogsComponent,
-    SettingsComponent,
-    SettingsPropertiesComponent,
-    SettingsMappingsComponent,
-    SnackBarComponent,
-    ConfirmComponent,
-    PropertyUpdateComponent,
-    MappingUpdateComponent,
-    ResultComponent,
-    UrlPipe
-  ],
-  exports: [
-    UrlPipe
-  ],
-  entryComponents: [
-    SnackBarComponent,
-    ConfirmComponent,
-    PropertyUpdateComponent,
-    MappingUpdateComponent,
-    ResultComponent
-  ],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: UrlCleanupInterceptor, multi: true },
-    AuthGuard,
-    LoginBanGuard,
-    UrlService,
-    RouterService,
-    AuthService,
-    TranslateService,
-    StorageService,
-    SnackBarService,
-    ActivityService,
-    IconService,
-    UrlPipe,
-    ConfigService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: JwtInterceptor,
-      deps: [SnackBarService, StorageService, AuthService],
-      multi: true
-    },
-    OidcConfigService,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: loadConfig,
-      deps: [OidcConfigService, ConfigService, HttpClient],
-      multi: true,
-    },
-  ],
-  bootstrap: [AppComponent]
+    imports: [
+        BrowserModule,
+        FormsModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        }),
+        MatButtonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatCheckboxModule,
+        MatToolbarModule,
+        MatSelectModule,
+        MatTabsModule,
+        MatTableModule,
+        MatDialogModule,
+        MatIconModule,
+        MatToolbarModule,
+        MatSnackBarModule,
+        NgxFileDropModule,
+        AuthModule.forRoot()
+    ],
+    declarations: [
+        AppComponent,
+        HomeComponent,
+        NavbarComponent,
+        LoginComponent,
+        UploadComponent,
+        LogsComponent,
+        SettingsComponent,
+        SettingsPropertiesComponent,
+        SettingsMappingsComponent,
+        SnackBarComponent,
+        ConfirmComponent,
+        PropertyUpdateComponent,
+        MappingUpdateComponent,
+        ResultComponent,
+        UrlPipe
+    ],
+    exports: [
+        UrlPipe
+    ],
+    providers: [
+        { provide: HTTP_INTERCEPTORS, useClass: UrlCleanupInterceptor, multi: true },
+        AuthGuard,
+        LoginBanGuard,
+        UrlService,
+        RouterService,
+        AuthService,
+        TranslateService,
+        StorageService,
+        SnackBarService,
+        ActivityService,
+        IconService,
+        UrlPipe,
+        ConfigService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: JwtInterceptor,
+            deps: [SnackBarService, StorageService, AuthService],
+            multi: true
+        },
+        OidcConfigService,
+        {
+            provide: APP_INITIALIZER,
+            useFactory: loadConfig,
+            deps: [OidcConfigService, ConfigService, HttpClient],
+            multi: true,
+        },
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
   constructor(
