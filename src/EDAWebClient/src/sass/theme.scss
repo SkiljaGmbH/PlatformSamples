@@ -1,6 +1,7 @@
 // This contains settings for colours in a theme, and should be included at the top
+@use '~@angular/material' as mat;
 @import "theme_settings.scss";
 
-@include mat-core();
+@include mat.core();
 
-@include angular-material-theme($theme);
+@include mat.all-component-themes($theme);

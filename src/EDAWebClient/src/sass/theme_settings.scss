@@ -1,7 +1,8 @@
+@use '~@angular/material' as mat;
 @import "~@angular/material/theming";
 
 //Dummy palette for structure
-$primary: mat-palette($mat-grey, 800);
-$accent: mat-palette($mat-blue, 600);
-$warn: mat-palette($mat-red, 600);
-$theme: mat-light-theme($primary, $accent, $warn);
+$primary: mat.define-palette(mat.$grey-palette, 800);
+$accent: mat.define-palette(mat.$blue-palette, 600);
+$warn: mat.define-palette(mat.$red-palette, 600);
+$theme: mat.define-light-theme($primary, $accent, $warn);
