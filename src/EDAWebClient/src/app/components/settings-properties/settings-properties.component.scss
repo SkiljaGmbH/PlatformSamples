@@ -1,6 +1,3 @@
-@import '../../../sass/variables';
-@import '../../../sass/theme_settings';
-
 .properties-container {
   position: relative;
   max-height: 300px;
@@ -23,12 +20,10 @@ table {
   }
 }
 
-@include oemized-theme {
-  ::ng-deep .fill-primary {
-    color: mat-color($primary);
-    fill: mat-color($primary);
-    path {
-      fill: mat-color($primary);
-    }
+::ng-deep .fill-primary {
+  color: var(--primary-color) !important;
+  fill: var(--primary-color) !important;
+  path {
+    fill: var(--primary-color) !important;
   }
 }

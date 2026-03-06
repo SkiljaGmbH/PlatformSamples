@@ -1,8 +1,6 @@
 // This contains settings for colours in a theme, and should be included at the top
-@import 'theme_settings.scss';
+@import "theme_settings.scss";
 
 @include mat-core();
 
-@include oemized-theme(false) {
-    @include angular-material-theme($theme);
-}
+@include angular-material-theme($theme);

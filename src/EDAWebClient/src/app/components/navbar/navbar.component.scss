@@ -1,12 +1,9 @@
-@import '../../../sass/variables';
-@import '../../../sass/theme_settings';
-
 .navbar {
   padding: 0 1rem;
-  height: $headerHeight;
+  height: var(--header-height);
 
   .logo {
-    height: $logoHeight;
+    height: var(--logo-height);
   }
 
   .nav-item {
@@ -19,31 +16,29 @@
 
   ::ng-deep mat-select .mat-select-value,
   ::ng-deep mat-select .mat-select-arrow {
-    color: $textColor !important;
+    color: var(--text-color) !important;
   }
 
   ::ng-deep .mat-form-field-underline {
-    background-color: $textColor !important;
+    background-color: var(--text-color) !important;
   }
 
   ::ng-deep .mat-focused .mat-form-field-ripple {
-    background-color: $textColor !important;
+    background-color: var(--text-color) !important;
     top: 0;
     height: 1px;
   }
 }
 
-@include oemized-theme {
-  .navbar {
-    background-color: mat-color($primary);
-    color: $textColor;
-  }
+.navbar {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+}
 
-  .fill-primary {
-    color: $textColor;
-    fill: $textColor;
-    path {
-      fill: $textColor;
-    }
+.fill-primary {
+  color: var(--text-color);
+  fill: var(--text-color);
+  path {
+    fill: var(--text-color);
   }
 }

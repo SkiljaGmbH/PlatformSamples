@@ -1,14 +1,25 @@
-@import '~bootstrap/scss/bootstrap-reboot';
-@import '~bootstrap/scss/bootstrap-grid';
+@import "~bootstrap/scss/bootstrap-reboot";
+@import "~bootstrap/scss/bootstrap-grid";
 
-@import 'variables';
-@import 'scrollbar';
-
-body, html
-{
+body,
+html {
   height: 100%;
   padding: 0;
   margin: 0;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 1px var(--scroll-bar-track-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--scroll-bar-thumb-bg-color);
+  outline: 1px solid var(--scroll-bar-thumb-outline-color);
 }
 
 .cursor-pointer {
@@ -35,4 +46,31 @@ body, html
 
 .f-14 {
   font-size: 14px;
+}
+
+.mat-flat-button.mat-primary,
+.mat-raised-button.mat-primary,
+.mat-fab.mat-primary,
+.mat-mini-fab.mat-primary {
+  background-color: var(--primary-color) !important;
+  color: var(--primary-contrast) !important;
+}
+
+.mat-toolbar.mat-primary {
+  background-color: var(--primary-color) !important;
+  color: var(--primary-contrast) !important;
+}
+
+.mat-form-field.mat-focused {
+  .mat-form-field-label {
+    color: var(--primary-color) !important;
+  }
+  .mat-form-field-ripple {
+    background-color: var(--primary-color) !important;
+  }
+}
+
+.mat-checkbox-checked.mat-primary .mat-checkbox-background,
+.mat-radio-button.mat-primary.mat-radio-checked .mat-radio-outer-circle {
+  background-color: var(--primary-color) !important;
 }
