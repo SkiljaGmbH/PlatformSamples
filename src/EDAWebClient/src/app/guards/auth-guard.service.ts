@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
 
 import { AuthService } from '../services/auth.service';
 import { RouterService } from '../services/router.service';
@@ -12,7 +11,7 @@ export class AuthGuard implements CanActivate {
         private routerService: RouterService,
         private router: Router,
         private authenticationService: AuthService
-    ) {}
+    ) { }
     private requestedUrl: string = null;
 
     private static fetchUrl(route: ActivatedRouteSnapshot): string {
@@ -24,8 +23,9 @@ export class AuthGuard implements CanActivate {
         return url.substr(1);
     }
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>|Promise<boolean>|boolean {
-        if (!this.authenticationService.isLogged()) {
+    async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
+        const isAuthenticated = await this.authenticationService.checkAuthentication();
+        if (!isAuthenticated) {
             this.requestedUrl = AuthGuard.fetchUrl(route);
             this.routerService.gotoLogin();
             return false;

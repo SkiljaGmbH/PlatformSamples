@@ -10,7 +10,7 @@ export class RouterService {
         private router: Router,
         private authenticationService: AuthService
     ) {
-        this.authenticationService.loggedSubject.subscribe(value => {
+        this.authenticationService.isLogged$.subscribe(value => {
             if (!value) {
                 this.gotoLogin();
             }

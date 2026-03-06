@@ -1,10 +1,10 @@
-import {Component, OnDestroy} from '@angular/core';
-import {ActivityService} from '../../services/activity.service';
-import {Subscription} from 'rxjs';
-import {AuthService} from '../../services/auth.service';
-import {ResultNotificationItem} from '../../models/activities.model';
-import {UrlService} from '../../services/utils/url.service';
-import {HubConnectionBuilder, HubConnection } from '@microsoft/signalr';
+import { Component, OnDestroy } from '@angular/core';
+import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
+import { Subscription } from 'rxjs';
+import { ResultNotificationItem } from '../../models/activities.model';
+import { ActivityService } from '../../services/activity.service';
+import { AuthService } from '../../services/auth.service';
+import { UrlService } from '../../services/utils/url.service';
 
 
 @Component({
@@ -18,7 +18,7 @@ export class LogsComponent implements OnDestroy {
   private hubName = "eventDrivenNotificationsHub";
   connection: HubConnection;
   connectedGroup: string;
-  
+
   isProcessSelected: boolean;
 
   private subscriptions: Subscription[] = [];
@@ -28,11 +28,11 @@ export class LogsComponent implements OnDestroy {
     private activityService: ActivityService,
     private urlService: UrlService
   ) {
-    if (this.connection ) {
+    if (this.connection) {
       this.connection.stop();
     }
 
-    this.subscriptions.push(this.authService.loggedSubject.subscribe(isLogged => {
+    this.subscriptions.push(this.authService.isLogged$.subscribe(isLogged => {
       if (isLogged) {
         this.connect();
       } else {
@@ -53,12 +53,15 @@ export class LogsComponent implements OnDestroy {
   }
 
   async connect() {
+    const accessTokenFactory = () => {
+      return this.authService.getAuthorizationToken().toPromise()
+    }
     this.connection = new HubConnectionBuilder()
       .withUrl(this.urlService.getSignalRUrl() + '/' + this.hubName,
-       {withCredentials: false, accessTokenFactory: this.authService.getAuthorizationToken})
+        { withCredentials: false, accessTokenFactory: accessTokenFactory })
       .withAutomaticReconnect()
       .build();
-    
+
     await this.reconnect();
     this.logsList.unshift('Established Signal R connection...');
   }
@@ -73,7 +76,7 @@ export class LogsComponent implements OnDestroy {
     this.connection.on('OnEventNotificationAsync', (data: ResultNotificationItem) => {
       this.logsList.unshift(data.Message);
     })
-    
+
     this.logsList.unshift('Start listening messages for process ' + processId);
 
     if (this.connectedGroup) {

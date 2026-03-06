@@ -1,7 +1,7 @@
-import {Component, OnDestroy} from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { ActivityService } from '../../services/activity.service';
 import { AuthService } from '../../services/auth.service';
-import {ActivityService} from '../../services/activity.service';
-import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -19,7 +19,7 @@ export class NavbarComponent implements OnDestroy {
     private activityService: ActivityService
   ) {
 
-    this.subscriptions.push(this.authService.loggedSubject.subscribe(isLogged => {
+    this.subscriptions.push(this.authService.isLogged$.subscribe(isLogged => {
       this.isLogged = isLogged;
 
       if (!isLogged) {

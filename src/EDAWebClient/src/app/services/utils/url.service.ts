@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
-import {StorageService} from './storage.service';
-import {ConfigService} from './config.service';
+import { ConfigService } from './config.service';
 
 @Injectable()
 export class UrlService {
@@ -11,7 +10,6 @@ export class UrlService {
   SIGNALR_SERVICE: string;
 
   constructor(
-    private storageService: StorageService,
     private configService: ConfigService
   ) {
     this.configService.config.subscribe(data => {
@@ -24,26 +22,26 @@ export class UrlService {
     });
   }
 
-  public getLoginUrl(serverUrl: string): string {
+  public getLoginUrl(): string {
     return this.AUTH_SERVICE + '/token';
   }
 
   public getSignalRUrl(): string {
-    return  this.SIGNALR_SERVICE;
+    return this.SIGNALR_SERVICE;
   }
 
   public getProcessUrl(): string {
-    return  this.CONFIG_SERVICE +
+    return this.CONFIG_SERVICE +
       '/EventDrivenActivities/processes?activityTypeFilter=00000000-0000-0000-0000-000000000000';
   }
 
   public getActivitiesUrl(processId: number): string {
-    return  this.CONFIG_SERVICE +
+    return this.CONFIG_SERVICE +
       '/EventDrivenActivities/find?ProcessId=' + processId;
   }
 
   public getPropertiesUrl(activityInstanceId: number): string {
-    return  this.CONFIG_SERVICE +
+    return this.CONFIG_SERVICE +
       '/EventDrivenActivities/' + activityInstanceId + '/definition';
   }
 
@@ -53,7 +51,7 @@ export class UrlService {
   }
 
   public getUploadUrl(activityInstanceId: number): string {
-    return  this.PROCESS_SERVICE +
+    return this.PROCESS_SERVICE +
       '/EventDrivenStreams?activityInstanceId=' + activityInstanceId;
   }
 
