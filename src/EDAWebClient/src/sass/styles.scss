@@ -49,10 +49,10 @@ html {
   font-size: 14px;
 }
 
-.mat-flat-button.mat-primary,
-.mat-raised-button.mat-primary,
-.mat-fab.mat-primary,
-.mat-mini-fab.mat-primary {
+.mat-mdc-unelevated-button.mat-primary,
+.mat-mdc-raised-button.mat-primary,
+.mat-mdc-fab.mat-primary,
+.mat-mdc-mini-fab.mat-primary {
   background-color: var(--primary-color) !important;
   color: var(--primary-contrast) !important;
 }
@@ -62,15 +62,18 @@ html {
   color: var(--primary-contrast) !important;
 }
 
-.mat-form-field.mat-focused {
+.mat-mdc-form-field.mat-focused {
+  /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
   .mat-form-field-label {
     color: var(--primary-color) !important;
   }
+  /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
   .mat-form-field-ripple {
     background-color: var(--primary-color) !important;
   }
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version. */
 .mat-checkbox-checked.mat-primary .mat-checkbox-background,
 .mat-radio-button.mat-primary.mat-radio-checked .mat-radio-outer-circle {
   background-color: var(--primary-color) !important;

@@ -1,14 +1,14 @@
-::ng-deep .mat-snack-bar-container .mat-simple-snackbar span {
+::ng-deep .mat-mdc-snack-bar-container .mat-mdc-simple-snack-bar span {
   word-break: break-all;
 }
 
-::ng-deep .mat-snack-bar-container.error {
+::ng-deep .mat-mdc-snack-bar-container.error {
   background-color: var(--warn-color);
   padding: 0.5rem 1rem;
   color: var(--text-color);
 }
 
-::ng-deep .mat-snack-bar-container.success {
+::ng-deep .mat-mdc-snack-bar-container.success {
   background-color: var(--primary-color);
   padding: 0.5rem 1rem;
   color: var(--text-color);

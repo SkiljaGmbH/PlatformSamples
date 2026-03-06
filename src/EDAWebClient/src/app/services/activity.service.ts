@@ -9,7 +9,7 @@ import {
   PropertyItem, ResultNotificationItem, ResultStream, WorkItemStatus
 } from '../models/activities.model';
 import {HelperService} from '../helpers/helper.service';
-import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import {ResultComponent} from '../components/dialogs/result/result.component';
 import {StorageService} from './utils/storage.service';
 import * as JSZip from 'jszip';

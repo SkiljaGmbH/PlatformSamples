@@ -19,13 +19,16 @@
   max-width: 300px;
 
   ::ng-deep {
+    /* TODO(mdc-migration): The following rule targets internal classes of select that may no longer apply for the MDC version. */
     .mat-select-value,
     .mat-select-arrow {
       color: var(--doc-type-select-color) !important;
     }
+    /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
     .mat-form-field-underline {
       background-color: var(--doc-type-select-color) !important;
     }
+    /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
     .mat-focused .mat-form-field-ripple {
       background-color: var(--doc-type-select-color) !important;
     }
@@ -42,8 +45,8 @@
 table {
   width: 100%;
 
-  th.mat-header-cell:last-child,
-  td.mat-cell:last-child {
+  th.mat-mdc-header-cell:last-child,
+  td.mat-mdc-cell:last-child {
     width: 100px;
     text-align: right;
     padding-right: 16px;
