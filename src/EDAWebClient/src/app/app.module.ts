@@ -17,12 +17,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from './../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { UrlCleanupInterceptor } from './services/utils/urlClenup.interceptor';
-
-
-import { AuthGuard } from './guards/auth-guard.service';
-import { LoginBanGuard } from './guards/login-ban.guard';
 import { JwtInterceptor } from './services/utils/jwt.interceptor';
+import { UrlCleanupInterceptor } from './services/utils/urlClenup.interceptor';
 
 import { UrlPipe } from './helpers/url.pipe';
 import { ActivityService } from './services/activity.service';
@@ -131,8 +127,6 @@ const oidcFactory = (configService: ConfigService) => {
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: UrlCleanupInterceptor, multi: true },
-    AuthGuard,
-    LoginBanGuard,
     UrlService,
     RouterService,
     AuthService,

@@ -3,18 +3,19 @@
 
   <span class="navbar-spacer"></span>
 
-  <div class="navbar-actions" *ngIf="isLogged">
-    <span class="username-display mr-4">
-      {{ username }}
-    </span>
-
-    <button
-      mat-icon-button
-      (click)="logout()"
-      title="Logout"
-      class="logout-button"
-    >
-      <mat-icon class="fill-white cursor-pointer" svgIcon="exit_ico"></mat-icon>
-    </button>
-  </div>
+  @if (isLogged) {
+    <div class="navbar-actions">
+      <span class="username-display mr-4">
+        {{ username }}
+      </span>
+      <button
+        mat-icon-button
+        (click)="logout()"
+        title="Logout"
+        class="logout-button"
+        >
+        <mat-icon class="fill-white cursor-pointer" svgIcon="exit_ico"></mat-icon>
+      </button>
+    </div>
+  }
 </mat-toolbar>
