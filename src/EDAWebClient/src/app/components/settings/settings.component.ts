@@ -7,7 +7,6 @@ import { MatTabGroup, MatTab } from '@angular/material/tabs';
     selector: 'app-settings',
     templateUrl: './settings.component.html',
     styleUrls: ['./settings.component.scss'],
-    standalone: true,
     imports: [MatTabGroup, MatTab, SettingsPropertiesComponent, SettingsMappingsComponent]
 })
 export class SettingsComponent implements OnInit {

@@ -19,7 +19,6 @@ import { MatButton } from '@angular/material/button';
     selector: 'app-settings-properties',
     templateUrl: './settings-properties.component.html',
     styleUrls: ['./settings-properties.component.scss'],
-    standalone: true,
     imports: [MatButton, MatFormField, MatLabel, MatInput, FormsModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatIcon, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow]
 })
 export class SettingsPropertiesComponent implements OnDestroy {

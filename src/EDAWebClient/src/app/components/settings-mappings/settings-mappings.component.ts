@@ -18,7 +18,6 @@ import { MatFormField, MatLabel } from '@angular/material/form-field';
     selector: 'app-settings-mappings',
     templateUrl: './settings-mappings.component.html',
     styleUrls: ['./settings-mappings.component.scss'],
-    standalone: true,
     imports: [MatFormField, MatLabel, MatSelect, MatOption, MatButton, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatIcon, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow]
 })
 export class SettingsMappingsComponent implements OnDestroy {

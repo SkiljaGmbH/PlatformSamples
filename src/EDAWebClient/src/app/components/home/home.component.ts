@@ -20,7 +20,6 @@ import { MatFormField } from '@angular/material/form-field';
     selector: 'app-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss'],
-    standalone: true,
     imports: [
         MatFormField,
         MatSelect,
@@ -29,7 +28,7 @@ import { MatFormField } from '@angular/material/form-field';
         MatButton,
         SettingsComponent,
         LogsComponent,
-    ],
+    ]
 })
 export class HomeComponent implements OnDestroy {
   shortDescription: string;

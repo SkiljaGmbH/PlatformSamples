@@ -10,7 +10,6 @@ import { MatFormField, MatLabel } from '@angular/material/form-field';
     selector: 'app-property-update',
     templateUrl: './property-update.component.html',
     styleUrls: ['./property-update.component.scss'],
-    standalone: true,
     imports: [MatDialogTitle, MatDialogContent, MatFormField, MatLabel, MatInput, FormsModule, MatDialogActions, MatButton]
 })
 export class PropertyUpdateComponent {

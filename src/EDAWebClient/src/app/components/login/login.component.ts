@@ -11,7 +11,6 @@ import { FormsModule } from '@angular/forms';
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
-    standalone: true,
     imports: [FormsModule, MatFormField, MatLabel, MatInput, MatHint, MatButton]
 })
 export class LoginComponent implements OnInit {

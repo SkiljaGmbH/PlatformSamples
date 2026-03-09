@@ -10,7 +10,6 @@ import { MatFormField, MatLabel } from '@angular/material/form-field';
     selector: 'app-mapping-update',
     templateUrl: './mapping-update.component.html',
     styleUrls: ['./mapping-update.component.scss'],
-    standalone: true,
     imports: [MatDialogTitle, MatDialogContent, MatFormField, MatLabel, MatInput, FormsModule, MatDialogActions, MatButton]
 })
 export class MappingUpdateComponent {

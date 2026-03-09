@@ -11,7 +11,6 @@ import { MatIcon } from '@angular/material/icon';
     selector: 'app-upload',
     templateUrl: './upload.component.html',
     styleUrls: ['./upload.component.scss'],
-    standalone: true,
     imports: [MatIcon, MatButton]
 })
 export class UploadComponent {

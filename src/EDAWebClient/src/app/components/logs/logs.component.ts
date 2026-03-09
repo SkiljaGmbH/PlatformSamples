@@ -12,7 +12,6 @@ import { UrlPipe } from '../../helpers/url.pipe';
     selector: 'app-logs',
     templateUrl: './logs.component.html',
     styleUrls: ['./logs.component.scss'],
-    standalone: true,
     imports: [UrlPipe]
 })
 export class LogsComponent implements OnDestroy {
