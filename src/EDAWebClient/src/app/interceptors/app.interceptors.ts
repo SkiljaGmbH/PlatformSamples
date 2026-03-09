@@ -1,9 +1,4 @@
-import {
-    HttpErrorResponse,
-    HttpEvent,
-    HttpInterceptorFn,
-    HttpResponse
-} from '@angular/common/http';
+import { HttpErrorResponse, HttpEvent, HttpInterceptorFn, HttpResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { map, switchMap, take, tap } from 'rxjs/operators';
 import { SnackTypes } from '../models/snack-bar.model';
