@@ -4,11 +4,15 @@ import { HelperService } from '../../helpers/helper.service';
 import { SnackTypes } from '../../models/snack-bar.model';
 import { ActivityService } from '../../services/activity.service';
 import { SnackBarService } from '../../services/snack-bar.service';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-upload',
-  templateUrl: './upload.component.html',
-  styleUrls: ['./upload.component.scss']
+    selector: 'app-upload',
+    templateUrl: './upload.component.html',
+    styleUrls: ['./upload.component.scss'],
+    standalone: true,
+    imports: [MatIcon, MatButton]
 })
 export class UploadComponent {
   isOver = false;

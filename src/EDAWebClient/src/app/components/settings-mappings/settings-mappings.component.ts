@@ -1,6 +1,6 @@
 import {Component, OnDestroy} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
 import {MappingUpdateComponent} from '../dialogs/mapping-update/mapping-update.component';
 import {ConfirmComponentData, MappingUpdateComponentData} from '../../models/dialogs.model';
 import {ActivityService} from '../../services/activity.service';
@@ -8,11 +8,18 @@ import {DocumentItemType, MappingItem} from '../../models/activities.model';
 import {ConfirmComponent} from '../dialogs/confirm/confirm.component';
 import {StorageService} from '../../services/utils/storage.service';
 import {Subscription} from 'rxjs';
+import { MatIcon } from '@angular/material/icon';
+import { MatButton } from '@angular/material/button';
+import { MatOption } from '@angular/material/core';
+import { MatSelect } from '@angular/material/select';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
 
 @Component({
-  selector: 'app-settings-mappings',
-  templateUrl: './settings-mappings.component.html',
-  styleUrls: ['./settings-mappings.component.scss']
+    selector: 'app-settings-mappings',
+    templateUrl: './settings-mappings.component.html',
+    styleUrls: ['./settings-mappings.component.scss'],
+    standalone: true,
+    imports: [MatFormField, MatLabel, MatSelect, MatOption, MatButton, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatIcon, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow]
 })
 export class SettingsMappingsComponent implements OnDestroy {
   displayedColumns: string[] = ['source', 'destination', 'actions'];

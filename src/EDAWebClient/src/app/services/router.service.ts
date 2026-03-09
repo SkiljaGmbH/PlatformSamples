@@ -1,26 +1,32 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ROUTES } from '../app-routing.module';
 import { AuthService } from './auth.service';
 
-@Injectable()
+
+export const APP_ROUTES = {
+    LOGIN: '/login',
+    HOME: '/home'
+};
+
+@Injectable({ providedIn: 'root' })
 export class RouterService {
-    constructor(
-        private router: Router,
-        private authenticationService: AuthService
-    ) {
+    private router = inject(Router);
+    private authenticationService = inject(AuthService);
+
+    constructor() {
         this.authenticationService.isLogged$.subscribe(value => {
             if (!value) {
                 this.gotoLogin();
             }
         });
     }
+
     gotoLogin(): void {
-        this.router.navigate([ROUTES.LOGIN]);
+        this.router.navigateByUrl(APP_ROUTES.LOGIN);
     }
 
     gotoHome(): void {
-        this.router.navigate([ROUTES.HOME]);
+        this.router.navigateByUrl(APP_ROUTES.HOME);
     }
 }

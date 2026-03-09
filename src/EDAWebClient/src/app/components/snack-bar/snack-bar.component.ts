@@ -5,9 +5,10 @@ import {SnackTypes} from '../../models/snack-bar.model';
 import {Subscription} from 'rxjs';
 
 @Component({
-  selector: 'app-snack-bar',
-  templateUrl: './snack-bar.component.html',
-  styleUrls: ['./snack-bar.component.scss']
+    selector: 'app-snack-bar',
+    templateUrl: './snack-bar.component.html',
+    styleUrls: ['./snack-bar.component.scss'],
+    standalone: true
 })
 export class SnackBarComponent implements OnDestroy {
   private subscriptions: Subscription[] = [];

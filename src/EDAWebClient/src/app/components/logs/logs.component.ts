@@ -5,12 +5,15 @@ import { ResultNotificationItem } from '../../models/activities.model';
 import { ActivityService } from '../../services/activity.service';
 import { AuthService } from '../../services/auth.service';
 import { UrlService } from '../../services/utils/url.service';
+import { UrlPipe } from '../../helpers/url.pipe';
 
 
 @Component({
-  selector: 'app-logs',
-  templateUrl: './logs.component.html',
-  styleUrls: ['./logs.component.scss']
+    selector: 'app-logs',
+    templateUrl: './logs.component.html',
+    styleUrls: ['./logs.component.scss'],
+    standalone: true,
+    imports: [UrlPipe]
 })
 export class LogsComponent implements OnDestroy {
   logsList: string[] = [];

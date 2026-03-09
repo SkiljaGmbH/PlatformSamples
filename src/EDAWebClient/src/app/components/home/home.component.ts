@@ -8,11 +8,28 @@ import { ActivityService } from '../../services/activity.service';
 import { SnackBarService } from '../../services/snack-bar.service';
 import { StorageService } from '../../services/utils/storage.service';
 import { ResultComponent } from '../dialogs/result/result.component';
+import { LogsComponent } from '../logs/logs.component';
+import { SettingsComponent } from '../settings/settings.component';
+import { MatButton } from '@angular/material/button';
+import { UploadComponent } from '../upload/upload.component';
+import { MatOption } from '@angular/material/core';
+import { MatSelect } from '@angular/material/select';
+import { MatFormField } from '@angular/material/form-field';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.scss'],
+    standalone: true,
+    imports: [
+        MatFormField,
+        MatSelect,
+        MatOption,
+        UploadComponent,
+        MatButton,
+        SettingsComponent,
+        LogsComponent,
+    ],
 })
 export class HomeComponent implements OnDestroy {
   shortDescription: string;

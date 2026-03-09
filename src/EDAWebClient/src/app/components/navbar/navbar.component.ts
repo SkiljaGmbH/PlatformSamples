@@ -2,11 +2,16 @@ import { Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivityService } from '../../services/activity.service';
 import { AuthService } from '../../services/auth.service';
+import { MatIcon } from '@angular/material/icon';
+import { MatIconButton } from '@angular/material/button';
+import { MatToolbar } from '@angular/material/toolbar';
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+    selector: 'app-navbar',
+    templateUrl: './navbar.component.html',
+    styleUrls: ['./navbar.component.scss'],
+    standalone: true,
+    imports: [MatToolbar, MatIconButton, MatIcon]
 })
 export class NavbarComponent implements OnDestroy {
   isLogged: boolean;

@@ -48,7 +48,7 @@ html {
 .f-14 {
   font-size: 14px;
 }
-
+/*
 .mat-mdc-unelevated-button.mat-primary,
 .mat-mdc-raised-button.mat-primary,
 .mat-mdc-fab.mat-primary,
@@ -63,18 +63,19 @@ html {
 }
 
 .mat-mdc-form-field.mat-focused {
-  /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
+  
   .mat-form-field-label {
     color: var(--primary-color) !important;
   }
-  /* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
+  
   .mat-form-field-ripple {
     background-color: var(--primary-color) !important;
   }
 }
 
-/* TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version. */
+
 .mat-checkbox-checked.mat-primary .mat-checkbox-background,
 .mat-radio-button.mat-primary.mat-radio-checked .mat-radio-outer-circle {
   background-color: var(--primary-color) !important;
 }
+*/

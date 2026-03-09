@@ -2,11 +2,17 @@ import {Component, OnInit} from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import {ConfigService} from '../../services/utils/config.service';
 import {Config} from '../../models/config.model';
+import { MatButton } from '@angular/material/button';
+import { MatInput } from '@angular/material/input';
+import { MatFormField, MatLabel, MatHint } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
+    standalone: true,
+    imports: [FormsModule, MatFormField, MatLabel, MatInput, MatHint, MatButton]
 })
 export class LoginComponent implements OnInit {
   username: string;

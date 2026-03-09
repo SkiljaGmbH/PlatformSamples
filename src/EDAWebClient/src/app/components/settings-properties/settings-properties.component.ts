@@ -1,7 +1,7 @@
 import {Component, OnDestroy} from '@angular/core';
 import {ConfirmComponent} from '../dialogs/confirm/confirm.component';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
 import {PropertyUpdateComponent} from '../dialogs/property-update/property-update.component';
 import {PropertyItem} from '../../models/activities.model';
 import {ConfirmComponentData, PROPERTY_CHANGE, PropertyComponentData} from '../../models/dialogs.model';
@@ -9,11 +9,18 @@ import {ActivityService} from '../../services/activity.service';
 import {HelperService} from '../../helpers/helper.service';
 import {StorageService} from '../../services/utils/storage.service';
 import {Subscription} from 'rxjs';
+import { MatIcon } from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
+import { MatInput } from '@angular/material/input';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatButton } from '@angular/material/button';
 
 @Component({
-  selector: 'app-settings-properties',
-  templateUrl: './settings-properties.component.html',
-  styleUrls: ['./settings-properties.component.scss']
+    selector: 'app-settings-properties',
+    templateUrl: './settings-properties.component.html',
+    styleUrls: ['./settings-properties.component.scss'],
+    standalone: true,
+    imports: [MatButton, MatFormField, MatLabel, MatInput, FormsModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatIcon, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow]
 })
 export class SettingsPropertiesComponent implements OnDestroy {
   displayedColumns: string[] = ['key', 'value', 'actions'];

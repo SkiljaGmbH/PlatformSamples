@@ -1,14 +1,18 @@
 import {Component, Inject} from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogTitle, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
 import {ResultNotificationItem} from '../../../models/activities.model';
 import {SelectionModel} from '@angular/cdk/collections';
 import {ActivityService} from '../../../services/activity.service';
+import { MatButton } from '@angular/material/button';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 @Component({
-  selector: 'app-result',
-  templateUrl: './result.component.html',
-  styleUrls: ['./result.component.scss']
+    selector: 'app-result',
+    templateUrl: './result.component.html',
+    styleUrls: ['./result.component.scss'],
+    standalone: true,
+    imports: [MatDialogTitle, MatDialogContent, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatCheckbox, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatDialogActions, MatButton]
 })
 export class ResultComponent {
   displayedColumns: string[] = ['select', 'CreationTime', 'WorkItemID', 'ActivityInstanceID', 'Message' ];
