@@ -67,13 +67,15 @@
 
   /* === FORM FIELDS (outlined) === */
   --mdc-outlined-text-field-outline-color: var(--primary-color);
-  --mdc-outlined-text-field-focus-outline-color: var(--accent-color);
+  --mdc-outlined-text-field-focus-outline-color: var(--accent-color) !important;
   --mdc-outlined-text-field-hover-outline-color: var(--primary-color);
   --mdc-outlined-text-field-label-text-color: var(--primary-color);
-  --mdc-outlined-text-field-focus-label-text-color: var(--accent-color);
+  --mdc-outlined-text-field-focus-label-text-color: var(
+    --accent-color
+  ) !important;
   --mdc-outlined-text-field-hover-label-text-color: var(--primary-color);
   --mdc-outlined-text-field-input-text-color: var(--primary-color);
-  --mdc-outlined-text-field-caret-color: var(--accent-color);
+  --mdc-outlined-text-field-caret-color: var(--accent-color) !important;
   --mdc-outlined-text-field-error-outline-color: var(--warn-color);
   --mdc-outlined-text-field-error-focus-outline-color: var(--warn-color);
   --mdc-outlined-text-field-error-label-text-color: var(--warn-color);
@@ -256,8 +258,28 @@
   color: var(--primary-color) !important;
 }
 
+.mat-mdc-button:hover .mat-mdc-button-persistent-ripple::before,
+.mat-mdc-button:active .mat-mdc-button-persistent-ripple::before,
+.mat-mdc-button:focus .mat-mdc-button-persistent-ripple::before {
+  background-color: var(--accent-color) !important;
+  opacity: 0.08;
+}
 .mat-mdc-dialog-actions {
   padding: 8px 24px 16px 24px !important;
+}
+
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__leading,
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__notch,
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__trailing {
+  border-color: var(--accent-color) !important;
+}
+
+.mat-mdc-form-field.mat-focused .mdc-floating-label {
+  color: var(--accent-color) !important;
+}
+
+.mdc-tab-indicator__content--underline {
+  border-color: var(--accent-color) !important;
 }
 
 html,
