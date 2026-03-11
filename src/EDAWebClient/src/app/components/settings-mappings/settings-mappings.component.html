@@ -3,11 +3,11 @@
     <mat-form-field class="doc-type-select">
       <mat-label>Select document type</mat-label>
       <mat-select
-        [disabled]="!isProcessSelected"
+        [disabled]="!isProcessSelected()"
         (selectionChange)="onSelectDocumentType($event.value)"
-        [(value)]="selectedDocumentTypeId"
-        >
-        @for (option of documentTypes; track option) {
+        [value]="selectedDocumentTypeId()"
+      >
+        @for (option of documentTypes(); track option.ID) {
           <mat-option [value]="option.ID">
             {{ option.Name }}
           </mat-option>
@@ -16,18 +16,18 @@
     </mat-form-field>
 
     <button
-      [disabled]="!isProcessSelected"
+      [disabled]="!isProcessSelected()"
       mat-raised-button
       color="warn"
       (click)="onReset()"
-      >
+    >
       Reset
     </button>
   </div>
 
-  @if (isProcessSelected) {
+  @if (isProcessSelected()) {
     <div class="mappings-container">
-      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource()" class="mat-elevation-z8">
         <ng-container matColumnDef="source">
           <th mat-header-cell *matHeaderCellDef>Source</th>
           <td
@@ -35,7 +35,7 @@
             *matCellDef="let element"
             class="col-m-w ellipsis"
             title="{{ element.Name }}"
-            >
+          >
             {{ element.Name }}
           </td>
         </ng-container>
@@ -46,7 +46,7 @@
             *matCellDef="let element"
             class="col-m-w ellipsis"
             title="{{ element.Destination }}"
-            >
+          >
             {{ element.Destination }}
           </td>
         </ng-container>

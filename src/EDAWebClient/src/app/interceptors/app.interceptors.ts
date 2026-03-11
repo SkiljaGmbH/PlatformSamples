@@ -17,13 +17,18 @@ export const urlCleanupInterceptor: HttpInterceptorFn = (req, next) => {
 
 
 export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
+
+    if (req.headers.has('skipAuth')) {
+        return next(req);
+    }
+
     const auth = inject(AuthService);
     const snack = inject(SnackBarService);
 
     const handleError = (err: any) => {
         if (err instanceof HttpErrorResponse) {
             if (err.error) {
-                snack.snackBarSubject.next({
+                snack.show({
                     type: SnackTypes.ERROR,
                     message: err.error.error_description || err.message || err.name
                 });
@@ -33,10 +38,6 @@ export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
             }
         }
     };
-
-    if (req.headers.has('skipAuth')) {
-        return next(req);
-    }
 
     return auth.getAuthorizationToken().pipe(
         take(1),

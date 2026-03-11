@@ -29,11 +29,8 @@
               "src/sass/theme.scss",
               "src/sass/styles.scss"
             ],
-            "scripts": [
-              "./node_modules/jquery/dist/jquery.min.js",
-              "./node_modules/signalr/jquery.signalR.js"
-            ],
-            "allowedCommonJsDependencies": ["file-saver"]
+            "scripts": [],
+            "allowedCommonJsDependencies": []
           },
           "configurations": {
             "production": {

@@ -1,27 +1,33 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, computed, effect, OnDestroy, signal } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
-import { Subscription } from 'rxjs';
+import { firstValueFrom, Subscription } from 'rxjs';
+import { UrlPipe } from '../../helpers/url.pipe';
 import { ResultNotificationItem } from '../../models/activities.model';
 import { ActivityService } from '../../services/activity.service';
 import { AuthService } from '../../services/auth.service';
 import { UrlService } from '../../services/utils/url.service';
-import { UrlPipe } from '../../helpers/url.pipe';
 
 
 @Component({
-    selector: 'app-logs',
-    templateUrl: './logs.component.html',
-    styleUrls: ['./logs.component.scss'],
-    imports: [UrlPipe]
+  selector: 'app-logs',
+  templateUrl: './logs.component.html',
+  styleUrls: ['./logs.component.scss'],
+  imports: [UrlPipe]
 })
 export class LogsComponent implements OnDestroy {
-  logsList: string[] = [];
+  private _logsList = signal<string[]>([]);
+
+  readonly logList = this._logsList.asReadonly();
 
   private hubName = "eventDrivenNotificationsHub";
   connection: HubConnection;
   connectedGroup: string;
 
-  isProcessSelected: boolean;
+  isLogged = this.authService.isAuthenticated;
+
+
+  selectedProcess = this.activityService.selectedProcess;
+  isProcessSelected = computed(() => this.selectedProcess() !== null);
 
   private subscriptions: Subscription[] = [];
 
@@ -30,33 +36,32 @@ export class LogsComponent implements OnDestroy {
     private activityService: ActivityService,
     private urlService: UrlService
   ) {
-    if (this.connection) {
-      this.connection.stop();
-    }
 
-    this.subscriptions.push(this.authService.isLogged$.subscribe(isLogged => {
-      if (isLogged) {
-        this.connect();
-      } else {
-        if (this.connection) {
-          this.connection.stop();
+    effect(() => {
+      const logged = this.isLogged()
+      const process = this.selectedProcess();
+
+      if (logged) {
+        if (!this.connection) {
+          this.connect()
+        } else if (process) {
+          this.reconnect().then(() => {
+            this.subscribeOnProcessActivity(process.ProcessID);
+          })
         }
+      } else {
+        this.stopConnection()
       }
-    }));
+    });
+  }
 
-    this.subscriptions.push(this.activityService.selectedProcess.subscribe(process => {
-      this.isProcessSelected = !!process;
-      if (process) {
-        this.reconnect().then(() => {
-          this.subscribeOnProcessActivity(process.ProcessID);
-        });
-      }
-    }));
+  addLog(message: string) {
+    this._logsList.update(logs => [message, ...logs]);
   }
 
   async connect() {
     const accessTokenFactory = () => {
-      return this.authService.getAuthorizationToken().toPromise()
+      return firstValueFrom(this.authService.getAuthorizationToken())
     }
     this.connection = new HubConnectionBuilder()
       .withUrl(this.urlService.getSignalRUrl() + '/' + this.hubName,
@@ -65,7 +70,7 @@ export class LogsComponent implements OnDestroy {
       .build();
 
     await this.reconnect();
-    this.logsList.unshift('Established Signal R connection...');
+    this.addLog('Established Signal R connection...');
   }
 
   async reconnect() {
@@ -76,10 +81,10 @@ export class LogsComponent implements OnDestroy {
 
   subscribeOnProcessActivity(processId: number) {
     this.connection.on('OnEventNotificationAsync', (data: ResultNotificationItem) => {
-      this.logsList.unshift(data.Message);
+      this.addLog(data.Message);
     })
 
-    this.logsList.unshift('Start listening messages for process ' + processId);
+    this.addLog('Start listening messages for process ' + processId);
 
     if (this.connectedGroup) {
       this.leaveGroup();
@@ -97,7 +102,13 @@ export class LogsComponent implements OnDestroy {
     this.connection.invoke('LeaveGroupAsync', this.connectedGroup);
   }
 
+  stopConnection() {
+    if (this.connection) {
+      this.connection.stop();
+    }
+  }
+
   ngOnDestroy() {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    this.stopConnection();
   }
 }

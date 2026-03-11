@@ -1,12 +1,9 @@
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { ApplicationConfig, importProvidersFrom } from '@angular/core';
-import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideRouter, withHashLocation } from '@angular/router';
+import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { AuthModule, LogLevel, StsConfigHttpLoader, StsConfigLoader } from 'angular-auth-oidc-client';
 import { from } from 'rxjs';
 
 import { environment } from '../environments/environment';
-import { routes } from './app.routes';
 import { jwtInterceptor, urlCleanupInterceptor } from './interceptors/app.interceptors';
 import { ConfigService } from './services/utils/config.service';
 
@@ -39,9 +36,8 @@ const oidcFactory = (configService: ConfigService) => {
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        provideAnimations(),
+        provideZoneChangeDetection({ eventCoalescing: true }),
         provideHttpClient(withInterceptors([urlCleanupInterceptor, jwtInterceptor])),
-        provideRouter(routes, withHashLocation()),
         importProvidersFrom(
             AuthModule.forRoot({
                 loader: {

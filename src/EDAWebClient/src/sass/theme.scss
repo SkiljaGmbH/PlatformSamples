@@ -1,9 +1,9 @@
 @use "@angular/material" as mat;
-@import "theme_settings.scss";
+@use "theme_settings";
 
 @include mat.elevation-classes();
 @include mat.app-background();
 
 @include mat.all-component-typographies();
 
-@include mat.all-component-themes($theme);
+@include mat.all-component-themes(theme_settings.$theme);

@@ -1,15 +1,13 @@
 <div class="logs-wrapper">
   <div class="logs-container">
-    @for (log of logsList; track log) {
+    @for (log of logList(); track log) {
       <div class="log-entry">
         <div [innerHTML]="log | urlCustomPipe"></div>
       </div>
     }
 
-    @if (logsList?.length === 0) {
-      <div class="empty-logs">
-        No logs to display.
-      </div>
+    @if (logList()?.length === 0) {
+      <div class="empty-logs">No logs to display.</div>
     }
   </div>
 </div>

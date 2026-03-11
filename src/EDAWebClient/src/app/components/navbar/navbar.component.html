@@ -3,18 +3,21 @@
 
   <span class="navbar-spacer"></span>
 
-  @if (isLogged) {
+  @if (isLogged()) {
     <div class="navbar-actions">
       <span class="username-display mr-4">
-        {{ username }}
+        {{ username() }}
       </span>
       <button
         mat-icon-button
         (click)="logout()"
         title="Logout"
         class="logout-button"
-        >
-        <mat-icon class="fill-white cursor-pointer" svgIcon="exit_ico"></mat-icon>
+      >
+        <mat-icon
+          class="fill-white cursor-pointer"
+          svgIcon="exit_ico"
+        ></mat-icon>
       </button>
     </div>
   }

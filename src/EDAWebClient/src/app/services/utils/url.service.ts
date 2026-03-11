@@ -1,77 +1,57 @@
-import { Injectable } from '@angular/core';
-import 'rxjs/add/operator/map';
+import { computed, Injectable } from '@angular/core';
 import { ConfigService } from './config.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class UrlService {
-  AUTH_SERVICE: string;
-  PROCESS_SERVICE: string;
-  CONFIG_SERVICE: string;
-  SIGNALR_SERVICE: string;
 
-  constructor(
-    private configService: ConfigService
-  ) {
-    this.configService.config.subscribe(data => {
-      if (data) {
-        this.AUTH_SERVICE = data.authService;
-        this.PROCESS_SERVICE = data.processService;
-        this.CONFIG_SERVICE = data.configService;
-        this.SIGNALR_SERVICE = data.signalRUrl;
-      }
-    });
+  readonly AUTH_BASE = computed(() => this.configService.config()?.authService);
+  readonly PROCESS_BASE = computed(() => this.configService.config()?.processService);
+  readonly CONFIG_BASE = computed(() => this.configService.config()?.configService);
+  readonly SIGNALR_BASE = computed(() => this.configService.config()?.signalRUrl);
+
+  constructor(private configService: ConfigService) { }
+
+  getLoginUrl(): string {
+    return `${this.AUTH_BASE()}/token`;
   }
 
-  public getLoginUrl(): string {
-    return this.AUTH_SERVICE + '/token';
+  getSignalRUrl(): string {
+    return this.SIGNALR_BASE() ?? '';
   }
 
-  public getSignalRUrl(): string {
-    return this.SIGNALR_SERVICE;
+  getProcessUrl(): string {
+    return `${this.CONFIG_BASE()}/EventDrivenActivities/processes?activityTypeFilter=00000000-0000-0000-0000-000000000000`;
   }
 
-  public getProcessUrl(): string {
-    return this.CONFIG_SERVICE +
-      '/EventDrivenActivities/processes?activityTypeFilter=00000000-0000-0000-0000-000000000000';
+  getActivitiesUrl(processId: number): string {
+    return `${this.CONFIG_BASE()}/EventDrivenActivities/find?ProcessId=${processId}`;
   }
 
-  public getActivitiesUrl(processId: number): string {
-    return this.CONFIG_SERVICE +
-      '/EventDrivenActivities/find?ProcessId=' + processId;
+  getPropertiesUrl(activityInstanceId: number): string {
+    return `${this.CONFIG_BASE()}/EventDrivenActivities/${activityInstanceId}/definition`;
   }
 
-  public getPropertiesUrl(activityInstanceId: number): string {
-    return this.CONFIG_SERVICE +
-      '/EventDrivenActivities/' + activityInstanceId + '/definition';
+  getProcessDocumentTypesUrl(processId: number): string {
+    return `${this.CONFIG_BASE()}/Processes/${processId}/documenttypes`;
   }
 
-  public getProcessDocumentTypesUrl(processId: number): string {
-    return this.CONFIG_SERVICE +
-      '/Processes/' + processId + '/documenttypes';
+  getUploadUrl(activityInstanceId: number): string {
+    return `${this.PROCESS_BASE()}/EventDrivenStreams?activityInstanceId=${activityInstanceId}`;
   }
 
-  public getUploadUrl(activityInstanceId: number): string {
-    return this.PROCESS_SERVICE +
-      '/EventDrivenStreams?activityInstanceId=' + activityInstanceId;
+  getResultStream(guid: string): string {
+    return `${this.PROCESS_BASE()}/EventDrivenStreams/${guid}/stream`;
   }
 
-  public getResultStream(guid: string): string {
-    return this.PROCESS_SERVICE +
-      '/EventDrivenStreams/' + guid + '/stream';
+  getRetrieveResultsUrl(activityInstanceId: number): string {
+    return `${this.PROCESS_BASE()}/EventDrivenNotifications/find?activityInstanceId=${activityInstanceId}`;
   }
 
-  public getRetrieveResultsUrl(activityInstanceId: number): string {
-    return this.PROCESS_SERVICE +
-      '/EventDrivenNotifications/find?activityInstanceId=' + activityInstanceId;
+  getLockNotificationUrl(notificationId: number): string {
+    return `${this.PROCESS_BASE()}/EventDrivenNotifications/${notificationId}/status`;
   }
 
-  public getLockNotificationUrl(notificationId: number): string {
-    return this.PROCESS_SERVICE +
-      '/EventDrivenNotifications/' + notificationId + '/status';
-  }
-
-  public getDeleteNotificationUrl(notificationId: number): string {
-    return this.PROCESS_SERVICE +
-      '/EventDrivenNotifications/' + notificationId;
+  getDeleteNotificationUrl(notificationId: number): string {
+    return `${this.PROCESS_BASE()}/EventDrivenNotifications/${notificationId}`;
   }
 }

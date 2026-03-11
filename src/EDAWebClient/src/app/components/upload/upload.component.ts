@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
-import * as JSZip from 'jszip';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { strToU8, zipSync } from 'fflate';
+import { lastValueFrom } from 'rxjs';
 import { HelperService } from '../../helpers/helper.service';
 import { SnackTypes } from '../../models/snack-bar.model';
 import { ActivityService } from '../../services/activity.service';
 import { SnackBarService } from '../../services/snack-bar.service';
-import { MatButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
 
 @Component({
-    selector: 'app-upload',
-    templateUrl: './upload.component.html',
-    styleUrls: ['./upload.component.scss'],
-    imports: [MatIcon, MatButton]
+  selector: 'app-upload',
+  templateUrl: './upload.component.html',
+  styleUrls: ['./upload.component.scss'],
+  imports: [MatIcon, MatButton]
 })
 export class UploadComponent {
   isOver = false;
@@ -56,27 +57,27 @@ export class UploadComponent {
   }
 
   isValid(): boolean {
-    const isProcessSelected = this.activityService.selectedProcess.getValue();
+    const isProcessSelected = this.activityService.selectedProcess();
     if (!isProcessSelected) {
-      this.snackBarService.snackBarSubject.next({
+      this.snackBarService.show({
         type: SnackTypes.ERROR,
         message: 'Select process to start!'
       });
       return false;
     }
 
-    const isDocumentNameExist = !!this.activityService.documentName.getValue();
+    const isDocumentNameExist = !!this.activityService.documentName();
     if (!isDocumentNameExist) {
-      this.snackBarService.snackBarSubject.next({
+      this.snackBarService.show({
         type: SnackTypes.ERROR,
         message: 'Document name should not be empty!'
       });
       return false;
     }
 
-    const isPropertiesValid = HelperService.checkPropertiesNotEmpty(this.activityService.properties.getValue());
+    const isPropertiesValid = HelperService.checkPropertiesNotEmpty(this.activityService.properties());
     if (!isPropertiesValid) {
-      this.snackBarService.snackBarSubject.next({
+      this.snackBarService.show({
         type: SnackTypes.ERROR,
         message: 'Properties values should not be empty!'
       });
@@ -86,7 +87,7 @@ export class UploadComponent {
     return true;
   }
 
-  upload(file: File) {
+  async upload(file: File) {
     const MetaData = {
       ClassificationURL: null,
       VCPURL: null,
@@ -95,31 +96,40 @@ export class UploadComponent {
       DoPageClassification: false,
       PageClassificationClassCV: null,
       DocumentType: null,
-      DocumentName: this.activityService.documentName.getValue(),
+      DocumentName: this.activityService.documentName(),
       IndexFields: [],
       Tables: [],
-      CustomValues: HelperService.getCustomValues(this.activityService.properties.getValue())
+      CustomValues: HelperService.getCustomValues(this.activityService.properties())
     };
 
-    if (file.name.toLocaleLowerCase().endsWith('.zip')) {
-      this.activityService.uploadFile(file).subscribe(() => {
-        this.snackBarService.snackBarSubject.next({
-          type: SnackTypes.SUCCESS,
-          message: 'File "' + file.name + '" successfully uploaded!'
-        });
+    try {
+      let uploadContent: Blob | File = file;
+      if (!file.name.toLocaleLowerCase().endsWith('.zip')) {
+        const buffer = await file.arrayBuffer();
+
+        const zipData = {
+          'MetaData.json': strToU8(JSON.stringify(MetaData)),
+          [file.name]: new Uint8Array(buffer)
+        };
+
+        const zipped = zipSync(zipData, { level: 6 });
+        uploadContent = new Blob([zipped.buffer as ArrayBuffer], { type: 'application/zip' });
+      }
+
+      await lastValueFrom(this.activityService.uploadFile(uploadContent));
+
+      this.snackBarService.show({
+        type: SnackTypes.SUCCESS,
+        message: `File "${file.name}" successfully uploaded!`
       });
-    } else {
-      const zip = new JSZip();
-      zip.file('MetaData.json', JSON.stringify(MetaData));
-      zip.file(file.name, file);
-      zip.generateAsync({ type: 'blob' }).then((content) => {
-        this.activityService.uploadFile(content).subscribe(() => {
-          this.snackBarService.snackBarSubject.next({
-            type: SnackTypes.SUCCESS,
-            message: 'File "' + file.name + '" successfully uploaded!'
-          });
-        });
+
+    } catch (error) {
+      console.error('Upload failed:', error);
+      this.snackBarService.show({
+        type: SnackTypes.ERROR,
+        message: `Failed to upload file "${file.name}". Please try again.`
       });
     }
+
   }
 }

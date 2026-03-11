@@ -1,8 +1,11 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, computed, effect, signal } from '@angular/core';
+import { MatButton } from '@angular/material/button';
+import { MatOption } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Subscription } from 'rxjs';
+import { MatFormField } from '@angular/material/form-field';
+import { MatSelect } from '@angular/material/select';
 import { HelperService } from '../../helpers/helper.service';
-import { ProcessItem, ResultNotificationItem, WorkItemStatus } from '../../models/activities.model';
+import { ResultNotificationItem } from '../../models/activities.model';
 import { SnackTypes } from '../../models/snack-bar.model';
 import { ActivityService } from '../../services/activity.service';
 import { SnackBarService } from '../../services/snack-bar.service';
@@ -10,33 +13,29 @@ import { StorageService } from '../../services/utils/storage.service';
 import { ResultComponent } from '../dialogs/result/result.component';
 import { LogsComponent } from '../logs/logs.component';
 import { SettingsComponent } from '../settings/settings.component';
-import { MatButton } from '@angular/material/button';
 import { UploadComponent } from '../upload/upload.component';
-import { MatOption } from '@angular/material/core';
-import { MatSelect } from '@angular/material/select';
-import { MatFormField } from '@angular/material/form-field';
 
 @Component({
-    selector: 'app-home',
-    templateUrl: './home.component.html',
-    styleUrls: ['./home.component.scss'],
-    imports: [
-        MatFormField,
-        MatSelect,
-        MatOption,
-        UploadComponent,
-        MatButton,
-        SettingsComponent,
-        LogsComponent,
-    ]
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss'],
+  imports: [
+    MatFormField,
+    MatSelect,
+    MatOption,
+    UploadComponent,
+    MatButton,
+    SettingsComponent,
+    LogsComponent,
+  ]
 })
-export class HomeComponent implements OnDestroy {
-  shortDescription: string;
-  longDescription: string;
-  isProcessSelected: boolean;
-  processes: ProcessItem[] = [];
-  selectedProcessId: string;
-  private subscriptions: Subscription[] = [];
+export class HomeComponent {
+  data = this.activityService.activityProperties;
+  shortDescription = computed(() => this.data()?.ShortDescription);
+  longDescription = computed(() => this.data()?.LongDescription);;
+  isProcessSelected = computed(() => this.activityService.selectedProcess() !== null);
+  processes = this.activityService.processes
+  selectedProcessId = signal<string | null>(this.storageService.getSelectedProcessId());
 
   constructor(
     private activityService: ActivityService,
@@ -44,68 +43,46 @@ export class HomeComponent implements OnDestroy {
     private snackBarService: SnackBarService,
     private storageService: StorageService
   ) {
-    this.selectedProcessId = this.storageService.getSelectedProcessId();
 
-    this.subscriptions.push(this.activityService.processes.subscribe(data => {
-      if (data && data.length) {
-        this.processes = data;
+    effect(() => {
+      const processes = this.processes()
+      const id = this.selectedProcessId();
 
-        if (this.selectedProcessId) {
-          this.onSelectProcess(this.selectedProcessId);
-        }
+      if (processes?.length > 0 && id && !isNaN(+id)) {
+        this.activityService.selectProcessById(+id)
       }
-    }));
+    })
 
-    this.subscriptions.push(this.activityService.activityProperties.subscribe(data => {
-      if (data) {
-        this.shortDescription = data.ShortDescription;
-        this.longDescription = data.LongDescription;
-      }
-    }));
-
-    this.subscriptions.push(this.activityService.selectedProcess.subscribe(value => {
-      this.isProcessSelected = !!value;
-
-      if (value) {
-        this.selectedProcessId = value.ProcessID.toString();
-      }
-    }));
   }
 
   onSelectProcess(processId: string) {
-    this.storageService.setSelectedProcessId(processId);
-    this.activityService.selectedProcess.next(this.processes.find(process => process.ProcessID === Number(processId)));
-    this.activityService.fetchActivities(Number(processId));
+    if (processId && !isNaN(+processId)) {
+      this.activityService.selectProcessById(+processId)
+    }
   }
 
   retrieveResults() {
-    const isMappingsValid = HelperService.checkMappingsNotEmpty(this.activityService.processDocumentTypes.getValue());
+    const isMappingsValid = HelperService.checkMappingsNotEmpty(this.activityService.processDocumentTypes());
     if (!isMappingsValid) {
-      this.snackBarService.snackBarSubject.next({
+      this.snackBarService.show({
         type: SnackTypes.ERROR,
         message: 'Mappings `Destination` fields should not be empty!'
       });
       return;
     }
 
-    this.activityService.retrieveResults().subscribe((response: ResultNotificationItem[]) => {
-      const list = response.filter(el => el.Status === WorkItemStatus.READY);
-      this.activityService.resultNotifications.next(list);
-      if (list) {
-        if (list.length > 1) {
-          this.dialog.open(ResultComponent, {
-            data: list,
-            width: '90%'
-          });
-        } else if (list.length === 1) {
-          const notification = list[0];
-          this.activityService.fetchResults(notification);
-        }
+    this.activityService.retrieveResults().subscribe((list: ResultNotificationItem[]) => {
+      if (!list || list.length === 0) return;
+      if (list.length > 1) {
+        this.dialog.open(ResultComponent, {
+          data: list,
+          width: '90%'
+        });
+      } else {
+        const notification = list[0];
+        this.activityService.fetchResults(notification);
       }
     });
   }
 
-  ngOnDestroy() {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
-  }
 }
