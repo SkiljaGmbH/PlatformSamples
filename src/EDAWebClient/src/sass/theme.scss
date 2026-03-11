@@ -4,6 +4,8 @@
 @include mat.elevation-classes();
 @include mat.app-background();
 
-@include mat.all-component-typographies();
+html {
+  @include mat.all-component-themes(theme_settings.$theme);
 
-@include mat.all-component-themes(theme_settings.$theme);
+  @include mat.all-component-typographies(theme_settings.$theme);
+}

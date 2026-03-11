@@ -38,6 +38,9 @@
 
 .process-selector {
   min-width: 200px;
+  mat-form-field {
+    margin-bottom: -1.25em;
+  }
 }
 
 .description-area {

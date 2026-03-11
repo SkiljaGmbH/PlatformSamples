@@ -12,8 +12,8 @@
 .dialog-form-content {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
   padding-top: 10px !important;
+  gap: 1rem;
 
   mat-form-field {
     width: 100%;
@@ -22,7 +22,7 @@
 
 ::ng-deep .mat-mdc-dialog-actions {
   margin-bottom: 0 !important;
-  padding: 12px 0 0 0 !important;
+
   min-height: auto !important;
 }
 

@@ -1,17 +1,18 @@
 @use "@angular/material" as mat;
 
-$primary-p: mat.m2-define-palette(mat.$m2-grey-palette, 800);
-$accent-p: mat.m2-define-palette(mat.$m2-blue-palette, 600);
-$warn-p: mat.m2-define-palette(mat.$m2-red-palette, 600);
-
-$theme: mat.m2-define-light-theme(
+$theme: mat.define-theme(
   (
     color: (
-      primary: $primary-p,
-      accent: $accent-p,
-      warn: $warn-p,
+      theme-type: light,
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
     ),
-    typography: mat.m2-define-typography-config(),
-    density: 0,
+    typography: (
+      brand-family: "Roboto, sans-serif",
+      plain-family: "Roboto, sans-serif",
+    ),
+    density: (
+      scale: -5,
+    ),
   )
 );

@@ -2,7 +2,7 @@ import { Component, computed, effect, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatOption } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatFormField } from '@angular/material/form-field';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatSelect } from '@angular/material/select';
 import { HelperService } from '../../helpers/helper.service';
 import { ResultNotificationItem } from '../../models/activities.model';
@@ -23,6 +23,7 @@ import { UploadComponent } from '../upload/upload.component';
     MatFormField,
     MatSelect,
     MatOption,
+    MatLabel,
     UploadComponent,
     MatButton,
     SettingsComponent,

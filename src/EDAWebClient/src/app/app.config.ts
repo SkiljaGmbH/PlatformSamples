@@ -3,6 +3,7 @@ import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } fr
 import { AuthModule, LogLevel, StsConfigHttpLoader, StsConfigLoader } from 'angular-auth-oidc-client';
 import { from } from 'rxjs';
 
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { environment } from '../environments/environment';
 import { jwtInterceptor, urlCleanupInterceptor } from './interceptors/app.interceptors';
 import { ConfigService } from './services/utils/config.service';
@@ -46,6 +47,10 @@ export const appConfig: ApplicationConfig = {
                     deps: [ConfigService],
                 }
             })
-        )
+        ),
+        {
+            provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+            useValue: { appearance: 'outline' }
+        }
     ]
 };

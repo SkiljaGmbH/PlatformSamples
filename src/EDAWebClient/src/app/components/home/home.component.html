@@ -3,8 +3,8 @@
     <div class="selection-header">
       <div class="process-selector">
         <mat-form-field>
+          <mat-label>Select document type</mat-label>
           <mat-select
-            placeholder="Select process"
             (selectionChange)="onSelectProcess($event.value)"
             [(value)]="selectedProcessId"
           >
@@ -18,7 +18,7 @@
       </div>
       <div
         class="description-area"
-        title="{{ longDescription || shortDescription }}"
+        title="{{ longDescription() || shortDescription() }}"
       >
         <span class="label">Short description:</span>
         @if (shortDescription()) {
@@ -36,7 +36,7 @@
 
     <div class="actions">
       <button
-        [disabled]="!isProcessSelected"
+        [disabled]="!isProcessSelected()"
         mat-raised-button
         color="primary"
         (click)="retrieveResults()"
