@@ -1,9 +1,17 @@
-<div *ngIf="isReady">
-  <app-navbar></app-navbar>
-  <div class="root-container">
-    <router-outlet></router-outlet>
+@if (isReady()) {
+  <div class="app-main-wrapper">
+    <app-navbar></app-navbar>
+    <div class="root-container">
+      @if (isAuthorized()) {
+        <app-home></app-home>
+      } @else {
+        <app-login></app-login>
+      }
+    </div>
   </div>
-
-  <app-snack-bar></app-snack-bar>
-</div>
-
+} @else {
+  <div class="splash-screen">
+    <mat-spinner></mat-spinner>
+    <p>Initializing ...</p>
+  </div>
+}

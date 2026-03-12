@@ -1,49 +1,35 @@
-@import '../../../sass/variables';
-@import '../../../sass/theme_settings';
-
-.navbar {
+.main-navbar {
   padding: 0 1rem;
-  height: $headerHeight;
+  height: var(--header-height);
+  background-color: var(--primary-color) !important;
+  color: var(--text-color) !important;
+  display: flex;
+  align-items: center;
 
   .logo {
-    height: $logoHeight;
+    height: var(--logo-height);
   }
 
-  .nav-item {
-    outline: none;
+  .navbar-spacer {
+    flex: 1 1 auto;
+  }
 
-    span {
-      vertical-align: text-top;
+  .navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    .username-display {
+      vertical-align: middle;
+      font-size: 14px;
     }
-  }
-
-  ::ng-deep mat-select .mat-select-value,
-  ::ng-deep mat-select .mat-select-arrow {
-    color: $textColor !important;
-  }
-
-  ::ng-deep .mat-form-field-underline {
-    background-color: $textColor !important;
-  }
-
-  ::ng-deep .mat-focused .mat-form-field-ripple {
-    background-color: $textColor !important;
-    top: 0;
-    height: 1px;
   }
 }
 
-@include oemized-theme {
-  .navbar {
-    background-color: mat-color($primary);
-    color: $textColor;
-  }
-
-  .fill-primary {
-    color: $textColor;
-    fill: $textColor;
-    path {
-      fill: $textColor;
-    }
+.fill-white {
+  color: var(--text-color);
+  fill: var(--text-color);
+  path {
+    fill: var(--text-color);
   }
 }

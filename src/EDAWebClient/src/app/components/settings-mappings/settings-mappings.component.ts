@@ -1,61 +1,61 @@
-import {Component, OnDestroy} from '@angular/core';
+import { Component, computed, effect, signal, untracked } from '@angular/core';
+import { MatButton } from '@angular/material/button';
+import { MatOption } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
-import {MappingUpdateComponent} from '../dialogs/mapping-update/mapping-update.component';
-import {ConfirmComponentData, MappingUpdateComponentData} from '../../models/dialogs.model';
-import {ActivityService} from '../../services/activity.service';
-import {DocumentItemType, MappingItem} from '../../models/activities.model';
-import {ConfirmComponent} from '../dialogs/confirm/confirm.component';
-import {StorageService} from '../../services/utils/storage.service';
-import {Subscription} from 'rxjs';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatSelect } from '@angular/material/select';
+import { MatCell, MatCellDef, MatColumnDef, MatHeaderCell, MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef, MatTable, MatTableDataSource } from '@angular/material/table';
+import { MappingItem } from '../../models/activities.model';
+import { ConfirmComponentData, MappingUpdateComponentData } from '../../models/dialogs.model';
+import { ActivityService } from '../../services/activity.service';
+import { StorageService } from '../../services/utils/storage.service';
+import { ConfirmComponent } from '../dialogs/confirm/confirm.component';
+import { MappingUpdateComponent } from '../dialogs/mapping-update/mapping-update.component';
 
 @Component({
   selector: 'app-settings-mappings',
   templateUrl: './settings-mappings.component.html',
-  styleUrls: ['./settings-mappings.component.scss']
+  styleUrls: ['./settings-mappings.component.scss'],
+  imports: [MatFormField, MatLabel, MatSelect, MatOption, MatButton, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatIcon, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow]
 })
-export class SettingsMappingsComponent implements OnDestroy {
+export class SettingsMappingsComponent {
   displayedColumns: string[] = ['source', 'destination', 'actions'];
 
-  documentTypes: DocumentItemType[] = [];
-  selectedDocumentTypeId: string;
-  mappings: MappingItem[] = [];
-  dataSource = new MatTableDataSource([]);
-  isProcessSelected: boolean;
-  private subscriptions: Subscription[] = [];
+  documentTypes = this.activityService.processDocumentTypes;
+  selectedProcess = this.activityService.selectedProcess;
+
+  private _selectedDocumentTypeId = signal<string | null>(null);
+  readonly selectedDocumentTypeId = this._selectedDocumentTypeId.asReadonly()
+  isProcessSelected = computed(() => !!this.selectedProcess());
+
+  mappings = computed(() => {
+    const types = this.documentTypes();
+    const id = this._selectedDocumentTypeId();
+    if (!types || !id) return [];
+
+    const selectedType = types.find(type => type.ID === id);
+    return selectedType ? selectedType.FieldDefinitions : [];
+  });
+
+  dataSource = computed(() => new MatTableDataSource(this.mappings()));
 
   constructor(
     private dialog: MatDialog,
     private activityService: ActivityService,
     private storageService: StorageService
   ) {
-    this.subscriptions.push(this.activityService.processDocumentTypes.subscribe(data => {
-      if (data) {
-        this.documentTypes = data;
+    effect(() => {
+      this.selectedProcess();
+      untracked(() => {
+        this._selectedDocumentTypeId.set(null);
+      });
+    })
 
-        if (this.selectedDocumentTypeId) {
-          this.initMappings();
-        }
-      }
-    }));
-
-    this.subscriptions.push(this.activityService.selectedProcess.subscribe(process => {
-      this.isProcessSelected = !!process;
-
-      this.selectedDocumentTypeId = null;
-      this.mappings = [];
-      this.dataSource = new MatTableDataSource(this.mappings);
-    }));
   }
 
   onSelectDocumentType(id: string) {
-    this.selectedDocumentTypeId = id;
-    this.initMappings();
-  }
-
-  initMappings() {
-    this.mappings = this.documentTypes.find(type => type.ID === this.selectedDocumentTypeId).FieldDefinitions;
-    this.dataSource = new MatTableDataSource(this.mappings);
+    this._selectedDocumentTypeId.set(id);
   }
 
   onEdit(item: MappingItem) {
@@ -83,26 +83,21 @@ export class SettingsMappingsComponent implements OnDestroy {
 
     dialogRef.beforeClosed().subscribe(confirmed => {
       if (confirmed) {
-        const processID = this.activityService.selectedProcess.getValue().ProcessID;
-
-        this.storageService.removeDocumentTypes(processID);
-        this.activityService.fetchProcessDocumentTypes(processID);
-      } else {
-        event.stopPropagation();
+        const process = this.selectedProcess();
+        if (process) {
+          this.storageService.removeDocumentTypes(process.ProcessID);
+          this.activityService.fetchProcessDocumentTypes(process.ProcessID);
+        }
       }
     });
   }
 
   update(mapping: MappingItem) {
-    const selectedDocumentType = this.documentTypes.find(t => t.ID === this.selectedDocumentTypeId);
-    const mappings = selectedDocumentType ? selectedDocumentType.FieldDefinitions : [];
-    const property = mappings.find(el => el.Name === mapping.Name);
-    property.Destination = mapping.Destination;
+    const docTypeId = this._selectedDocumentTypeId();
 
-    this.activityService.updateDocumentTypes(this.documentTypes);
+    if (docTypeId) {
+      this.activityService.updateDocTypeMapping(docTypeId, mapping);
+    }
   }
 
-  ngOnDestroy() {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
-  }
 }

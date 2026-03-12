@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {UserDataType} from '../../models/auth.model';
-import {DocumentItemType, PropertyItem} from '../../models/activities.model';
+import { Injectable } from '@angular/core';
+import { DocumentItemType, PropertyItem } from '../../models/activities.model';
+import { UserDataType } from '../../models/auth.model';
 
 const STORAGE_KEYS = {
   USERNAME: 'edaUserName',
@@ -10,20 +10,55 @@ const STORAGE_KEYS = {
   KEY_PREFIX: 'eda://'
 };
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class StorageService {
-  private hasLocalStorage = false;
-  private inMemory: any = {};
+  private hasLocalStorage = this.checkStorage();
+  private inMemory: Record<string, string> = {};
 
   constructor() {
+    if (this.hasLocalStorage) {
+      this.migrateLegacyKeys();
+    }
+  }
+
+  private migrateLegacyKeys() {
+    const keysToMigrate: { oldKey: string; newKey: string }[] = [];
+
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key && key.startsWith(STORAGE_KEYS.KEY_PREFIX) && (key.includes('\n') || key.includes(' '))) {
+        const cleanedKey = key.replace(/\s+/g, '');
+        keysToMigrate.push({ oldKey: key, newKey: cleanedKey });
+      }
+    }
+
+    keysToMigrate.forEach(({ oldKey, newKey }) => {
+      const value = localStorage.getItem(oldKey);
+      if (value) {
+        localStorage.setItem(newKey, value);
+        localStorage.removeItem(oldKey);
+      }
+    });
+  }
+
+
+  private checkStorage(): boolean {
     try {
       const x = 'test';
       localStorage.setItem(x, x);
       localStorage.removeItem(x);
-      this.hasLocalStorage = true;
-    } catch (e) {
-      // No localStorage available, will use inmemory storage
+      return true;
+    } catch {
+      return false;
     }
+  }
+
+  private buildKey(type: 'properties' | 'documentTypes' | 'documentName', id: number): string {
+    const server = this.getItem(STORAGE_KEYS.SERVER_URL);
+    const user = this.getItem(STORAGE_KEYS.USERNAME);
+    const idType = type === 'properties' ? 'activityInstanceId' : 'processId';
+    const ret = `${STORAGE_KEYS.KEY_PREFIX}${server}::${user}::${idType}--${id}//${type}`;
+    return ret.replace(/\s+/g, '');;
   }
 
   private setItem(key: string, value: string) {
@@ -32,16 +67,10 @@ export class StorageService {
     } else {
       this.inMemory[key] = value;
     }
-
   }
 
-  private getItem(key: string): string {
-    if (this.hasLocalStorage) {
-      return localStorage.getItem(key);
-    } else {
-      return this.inMemory[key];
-    }
-
+  private getItem(key: string): string | null {
+    return this.hasLocalStorage ? localStorage.getItem(key) : (this.inMemory[key] || null);
   }
 
   private removeItem(key: string) {
@@ -52,11 +81,26 @@ export class StorageService {
     }
   }
 
-  /* STORE USER DATA START*/
+  private setJsonItem(key: string, value: any): void {
+    this.setItem(key, JSON.stringify(value));
+  }
+
+  private getJsonItem<T>(key: string, defaultValue: T): T {
+    try {
+      const data = this.getItem(key);
+      return data ? JSON.parse(data) : defaultValue;
+    } catch {
+      return defaultValue;
+    }
+  }
+
+  // --- PUBLIC API ---
+
+  /* USER DATA */
   getUserData(): UserDataType {
     return {
-      username: this.getItem(STORAGE_KEYS.USERNAME),
-      serverUrl: this.getItem(STORAGE_KEYS.SERVER_URL)
+      username: this.getItem(STORAGE_KEYS.USERNAME) || '',
+      serverUrl: this.getItem(STORAGE_KEYS.SERVER_URL) || ''
     };
   }
 
@@ -66,87 +110,51 @@ export class StorageService {
   }
 
   removeData() {
-    this.removeItem(STORAGE_KEYS.USERNAME);
-    this.removeItem(STORAGE_KEYS.TOKEN);
-    this.removeItem(STORAGE_KEYS.SERVER_URL);
-    this.removeItem(STORAGE_KEYS.SELECTED_PROCESS);
+    [STORAGE_KEYS.USERNAME, STORAGE_KEYS.TOKEN, STORAGE_KEYS.SERVER_URL, STORAGE_KEYS.SELECTED_PROCESS]
+      .forEach(key => this.removeItem(key));
   }
 
-  /* STORE USER DATA END*/
-
-  /* STORE SELECTED PROCESS START*/
-  getSelectedProcessId(): string {
+  /* SELECTED PROCESS */
+  getSelectedProcessId(): string | null {
     return this.getItem(STORAGE_KEYS.SELECTED_PROCESS);
   }
 
-  setSelectedProcessId(ProcessID: string) {
-    this.setItem(STORAGE_KEYS.SELECTED_PROCESS, ProcessID);
-  }
-  /* STORE SELECTED PROCESS END*/
-
-  /* STORE PROPERTIES START*/
-  propertiesKey(ActivityInstanceID: number): string {
-    return `${STORAGE_KEYS.KEY_PREFIX}${this.getItem(STORAGE_KEYS.SERVER_URL)}
-        ::${this.getItem(STORAGE_KEYS.USERNAME)}::activityInstanceId--${ActivityInstanceID}//properties`;
+  setSelectedProcessId(processId: string) {
+    this.setItem(STORAGE_KEYS.SELECTED_PROCESS, processId);
   }
 
-  getProperties(ActivityInstanceID: number): PropertyItem[] {
-    try {
-      return JSON.parse(this.getItem(this.propertiesKey(ActivityInstanceID)));
-    } catch {
-      return [];
-    }
+  /* PROPERTIES (Activity Instance level) */
+  getProperties(activityInstanceId: number): PropertyItem[] {
+    return this.getJsonItem(this.buildKey('properties', activityInstanceId), []);
   }
 
-  setProperties(ActivityInstanceID: number, data: PropertyItem[]) {
-    this.setItem(this.propertiesKey(ActivityInstanceID), JSON.stringify(data));
+  setProperties(activityInstanceId: number, data: PropertyItem[]) {
+    this.setJsonItem(this.buildKey('properties', activityInstanceId), data);
   }
 
-  removeProperties(ActivityInstanceID: number) {
-    this.removeItem(this.propertiesKey(ActivityInstanceID));
+  removeProperties(activityInstanceId: number) {
+    this.removeItem(this.buildKey('properties', activityInstanceId));
   }
 
-  /* STORE PROPERTIES END*/
-
-  /* STORE DOCUMENT TYPES START*/
-  documentTypesKey(ProcessID: number): string {
-    return `${STORAGE_KEYS.KEY_PREFIX}${this.getItem(STORAGE_KEYS.SERVER_URL)}
-        ::${this.getItem(STORAGE_KEYS.USERNAME)}::processId--${ProcessID}//documentTypes`;
+  /* DOCUMENT TYPES (Process level) */
+  getDocumentTypes(processId: number): DocumentItemType[] {
+    return this.getJsonItem(this.buildKey('documentTypes', processId), []);
   }
 
-  getDocumentTypes(ProcessID: number): DocumentItemType[] {
-    try {
-      return JSON.parse(this.getItem(this.documentTypesKey(ProcessID)));
-    } catch {
-      return [];
-    }
+  setDocumentTypes(processId: number, data: DocumentItemType[]) {
+    this.setJsonItem(this.buildKey('documentTypes', processId), data);
   }
 
-  setDocumentTypes(ProcessID: number, data: DocumentItemType[]) {
-    this.setItem(this.documentTypesKey(ProcessID), JSON.stringify(data));
+  removeDocumentTypes(processId: number) {
+    this.removeItem(this.buildKey('documentTypes', processId));
   }
 
-  removeDocumentTypes(ProcessID: number) {
-    this.removeItem(this.documentTypesKey(ProcessID));
-  }
-  /* STORE DOCUMENT TYPES END*/
-
-  /* STORE DOCUMENT NAME START*/
-  documentNameKey(ProcessID: number): string {
-    return `${STORAGE_KEYS.KEY_PREFIX}${this.getItem(STORAGE_KEYS.SERVER_URL)}
-        ::${this.getItem(STORAGE_KEYS.USERNAME)}::processId--${ProcessID}//documentName`;
+  /* DOCUMENT NAME (Process level) */
+  getDocumentName(processId: number): string {
+    return this.getJsonItem(this.buildKey('documentName', processId), '');
   }
 
-  getDocumentName(ProcessID: number): string {
-    try {
-      return JSON.parse(this.getItem(this.documentNameKey(ProcessID)));
-    } catch {
-      return '';
-    }
+  setDocumentName(processId: number, data: string) {
+    this.setJsonItem(this.buildKey('documentName', processId), data);
   }
-
-  setDocumentName(ProcessID: number, data: string) {
-    this.setItem(this.documentNameKey(ProcessID), JSON.stringify(data));
-  }
-  /* STORE DOCUMENT NAME END*/
 }

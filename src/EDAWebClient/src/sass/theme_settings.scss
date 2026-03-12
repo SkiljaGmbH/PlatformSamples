@@ -1,38 +1,18 @@
-// This file contains the settings (colours) to define a theme
-@import '~@angular/material/theming';
-@import 'oem_data';
+@use "@angular/material" as mat;
 
-// Must declare defaults, otherwise that scss doesn't complain
-// Define defaults as gray, so that we notice if something is wrong
-$primary: mat-palette($mat-grey, 800);
-$accent: mat-palette($mat-blue, 600, 200, 900);
-$warn: mat-palette($mat-red, 600, 200, 900);
-$theme: mat-light-theme($primary, $accent, $warn);
-
-// If used in components, $includeHostContext must be true, so that it works on angular components.
-// If used outside components, $includeHostContext should be false, to have css of smaller size
-@mixin oemized-theme($includeHostContext: true) {
-    @each $oemName, $value in $OEMsData {
-        $classSelector: if($includeHostContext, '.#{$oemName}-oem, :host-context(.#{$oemName}-oem)', '.#{$oemName}-oem');
-
-        #{$classSelector}
-        {
-            $old-primary: $primary;
-            $old-accent: $accent;
-            $old-warn: $warn;
-            $old-theme: $theme;
-
-            $primary: map-get($value, primary) !global;
-            $accent: map-get($value, accent) !global;
-            $warn: map-get($value, warn) !global;
-            $theme: mat-light-theme($primary, $accent, $warn) !global;
-
-            @content;
-
-            $primary: $old-primary !global;
-            $accent: $old-accent !global;
-            $warn: $old-warn !global;
-            $theme: $old-theme !global;
-        }
-    }
-}
+$theme: mat.define-theme(
+  (
+    color: (
+      theme-type: light,
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    typography: (
+      brand-family: "Roboto, sans-serif",
+      plain-family: "Roboto, sans-serif",
+    ),
+    density: (
+      scale: -5,
+    ),
+  )
+);

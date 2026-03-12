@@ -1,37 +1,48 @@
-import { ConfigService } from './utils/config.service';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { StorageService } from './utils/storage.service';
-import { UserDataType} from '../models/auth.model';
-import {ActivityService} from './activity.service';
+import { computed, effect, Injectable, signal } from '@angular/core';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { UserDataType } from '../models/auth.model';
+import { ActivityService } from './activity.service';
+import { ConfigService } from './utils/config.service';
+import { StorageService } from './utils/storage.service';
 
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AuthService {
-   
-    loggedSubject = new BehaviorSubject<boolean>(false);
-    userMetaSubject: BehaviorSubject<UserDataType>;
+
+
+    isAuthenticated = computed(() => this.oidcSecurityService.authenticated()?.isAuthenticated);
+    checkDone = signal(false);
+
+    private _userMeta = signal<UserDataType | null>(this.storageService.getUserData());
+    readonly userMeta = this._userMeta.asReadonly();
 
     constructor(
         private storageService: StorageService,
         private activityService: ActivityService,
-        private configService : ConfigService,
+        private configService: ConfigService,
         private oidcSecurityService: OidcSecurityService,
     ) {
-        const userData = this.storageService.getUserData();
-        this.userMetaSubject = new BehaviorSubject<UserDataType>(userData && userData.username && userData.serverUrl  ? {
-          username: userData.username,
-            serverUrl: userData.serverUrl,
-        } : null);
-        this.userMetaSubject.subscribe((userMeta) => {
+        effect(() => {
+            const userMeta = this.userMeta();
+
             if (userMeta) {
-                this.storageService.setUserData({
-                    username: userMeta.username,
-                    serverUrl: userMeta.serverUrl
-                });
-            } 
-        });
+                storageService.setUserData(userMeta);
+            }
+        })
+    }
+
+    async checkAuthentication(notify: boolean = false) {
+        return new Promise<boolean>((resolve) => {
+            this.oidcSecurityService.checkAuth().subscribe(response => {
+                console.log('is Authorized ' + response.isAuthenticated);
+                if (response.isAuthenticated && notify) {
+                    this.NotifyOIDCToken();
+                }
+                this.checkDone.set(true);
+                resolve(response.isAuthenticated)
+            });
+        })
+
     }
 
     login() {
@@ -39,30 +50,32 @@ export class AuthService {
     }
 
     logout() {
-        this.storageService.removeData();
-        this.activityService.selectedProcess.next(null);
-        this.oidcSecurityService.logoff();
+        this.oidcSecurityService.logoff().subscribe(_ => {
+            this.storageService.removeData();
+            this.activityService.selectProcessById(-1);
+        });
+
     }
 
     public getAuthorizationToken = () => {
-        return this.oidcSecurityService.getToken();
-      };
+        return this.oidcSecurityService.getAccessToken();
+    };
 
     NotifyOIDCToken() {
-        this.loggedSubject.next(true);
-        const idToken = this.oidcSecurityService.getIdToken()
-        if (idToken && idToken.length > 0) {
-            const a1 = atob(idToken.split('.')[1]);
-            var id = JSON.parse(a1);
-            this.userMetaSubject.next({
-                serverUrl:  this.configService.config.getValue()?.serverUrl,
-                username : id.name ?? id. username,
-            });
+        this.oidcSecurityService.getIdToken().subscribe({
+            next: (idToken) => {
+                if (idToken && idToken.length > 0) {
+                    const a1 = atob(idToken.split('.')[1]);
+                    var id = JSON.parse(a1);
+                    this._userMeta.set({
+                        serverUrl: this.configService.config()?.serverUrl,
+                        username: id.name ?? id.username,
+                    });
 
-        }
+                }
+            },
+        })
+
     }
 
-    isLogged(): boolean {
-        return this.loggedSubject.getValue();
-    }
 }

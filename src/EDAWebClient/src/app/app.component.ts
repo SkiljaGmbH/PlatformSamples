@@ -1,44 +1,33 @@
-import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { Component, OnInit } from '@angular/core';
-import { IconService } from './services/utils/icon.service';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 import { AuthService } from './services/auth.service';
+import { IconService } from './services/utils/icon.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  imports: [
+    CommonModule,
+    LoginComponent,
+    HomeComponent,
+    NavbarComponent,
+    MatProgressSpinnerModule
+  ]
+
 })
-export class AppComponent implements OnInit {
-  isReady = false;
+export class AppComponent {
+  isReady = this.authService.checkDone;
+  isAuthorized = this.authService.isAuthenticated;
   constructor(
     private iconService: IconService,
-    private oidcSecurityService : OidcSecurityService ,
     private authService: AuthService
   ) {
-    if (this.oidcSecurityService.moduleSetup) {
-      this.doCallbackLogicIfRequired();
-    } else {
-      this.oidcSecurityService.onModuleSetup.subscribe(() => {
-          this.doCallbackLogicIfRequired();
-      });
-    }
-    
-    this.isReady = true;
     this.iconService.injectIcons();
-  }
-
-  ngOnInit() {
-    console.log('token: ' + this.oidcSecurityService.getToken());
-    this.oidcSecurityService.getIsAuthorized().subscribe(auth => {
-      console.log('is Authorized ' + auth);
-      if(auth){
-        this.authService.NotifyOIDCToken();
-      }
-    });
-}
-
-
-  private doCallbackLogicIfRequired() {
-    this.oidcSecurityService.authorizedCallbackWithCode(window.location.toString());
+    this.authService.checkAuthentication(true);
   }
 }

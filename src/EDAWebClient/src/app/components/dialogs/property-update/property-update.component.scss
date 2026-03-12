@@ -1,4 +1,37 @@
-.property-update-container {
-  min-width: 500px;
-  min-height: 260px;
+.property-dialog-container {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  h2[mat-dialog-title] {
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+  }
+}
+
+.dialog-form-content {
+  display: flex;
+  flex-direction: column;
+  padding-top: 10px !important;
+  gap: 1rem;
+
+  mat-form-field {
+    width: 100%;
+  }
+}
+::ng-deep .mat-mdc-dialog-actions {
+  margin-bottom: 0 !important;
+  min-height: auto !important;
+}
+
+@media (min-width: 600px) {
+  .property-dialog-container {
+    min-width: 500px;
+  }
+}
+
+@media (max-width: 599px) {
+  .property-dialog-container {
+    min-width: 90vw;
+  }
 }

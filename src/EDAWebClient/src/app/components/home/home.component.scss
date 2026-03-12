@@ -1,7 +1,66 @@
-@import '../../../sass/variables';
-@import '../../../sass/theme_settings';
+.home-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 0.5rem;
+  column-gap: 1.5rem;
+  padding: 1rem;
 
-.empty-description {
-  font-style: italic;
-  color: grey;
+  @media (min-width: 768px) {
+    grid-template-columns: 8fr 4fr;
+  }
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-content {
+}
+
+.footer-content {
+  grid-column: 1 / -1;
+}
+
+.selection-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  margin-top: 0.5rem;
+  gap: 1rem;
+
+  @media (min-width: 576px) {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.process-selector {
+  min-width: 200px;
+  mat-form-field {
+    margin-bottom: -1.25em;
+  }
+}
+
+.description-area {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  .label {
+    margin-right: 0.25rem;
+    font-weight: 500;
+  }
+
+  .empty-description {
+    font-style: italic;
+    color: var(--empty-message-color);
+    font-size: 14px;
+  }
+}
+
+.actions {
+  margin: 1.5rem 0;
 }

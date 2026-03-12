@@ -1,8 +1,18 @@
-<ngx-file-drop
-  showBrowseBtn="true"
-  customBtnStyling="browse-btn"
-  browseBtnLabel="Click or Drop to upload"
-  (click)="checkIsValid($event)"
-  (onFileDrop)="dropped($event)">
-</ngx-file-drop>
+<div
+  class="upload-container"
+  [class.is-over]="isOver"
+  (drop)="onFileDrop($event)"
+  (dragover)="onDragOver($event)"
+  (dragleave)="onDragLeave($event)"
+  (click)="fileInput.click()"
+>
+  <input type="file" #fileInput (change)="onFileSelected($event)" hidden />
 
+  <div class="upload-content">
+    <mat-icon class="upload-icon" svgIcon="cloud_upload"></mat-icon>
+    <span class="upload-text">Click or Drop to upload</span>
+    <button mat-raised-button color="primary" class="browse-btn">
+      Browse Files
+    </button>
+  </div>
+</div>

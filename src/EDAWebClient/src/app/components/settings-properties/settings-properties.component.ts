@@ -1,48 +1,51 @@
-import {Component, OnDestroy} from '@angular/core';
-import {ConfirmComponent} from '../dialogs/confirm/confirm.component';
+import { CommonModule } from '@angular/common';
+import { Component, computed } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
-import {PropertyUpdateComponent} from '../dialogs/property-update/property-update.component';
-import {PropertyItem} from '../../models/activities.model';
-import {ConfirmComponentData, PROPERTY_CHANGE, PropertyComponentData} from '../../models/dialogs.model';
-import {ActivityService} from '../../services/activity.service';
-import {HelperService} from '../../helpers/helper.service';
-import {StorageService} from '../../services/utils/storage.service';
-import {Subscription} from 'rxjs';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { HelperService } from '../../helpers/helper.service';
+import { PropertyItem } from '../../models/activities.model';
+import { ConfirmComponentData, PROPERTY_CHANGE, PropertyComponentData } from '../../models/dialogs.model';
+import { ActivityService } from '../../services/activity.service';
+import { StorageService } from '../../services/utils/storage.service';
+import { ConfirmComponent } from '../dialogs/confirm/confirm.component';
+import { PropertyUpdateComponent } from '../dialogs/property-update/property-update.component';
 
 @Component({
   selector: 'app-settings-properties',
   templateUrl: './settings-properties.component.html',
-  styleUrls: ['./settings-properties.component.scss']
+  styleUrls: ['./settings-properties.component.scss'],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTableModule,
+    MatIconModule]
 })
-export class SettingsPropertiesComponent implements OnDestroy {
+export class SettingsPropertiesComponent {
   displayedColumns: string[] = ['key', 'value', 'actions'];
-  properties: PropertyItem[] = [];
-  dataSource = new MatTableDataSource([]);
-  documentName: string;
-  isProcessSelected: boolean;
-  private subscriptions: Subscription[] = [];
+  properties = this.activityService.properties;
+  selectedProcess = this.activityService.selectedProcess;
+  dataSource = computed(() => {
+    const data = this.properties();
+    return new MatTableDataSource<PropertyItem>(data);
+  });
+  documentName = this.activityService.documentName;
+  isProcessSelected = computed(() => {
+    return this.selectedProcess() !== null
+  });
 
   constructor(
     private dialog: MatDialog,
     private activityService: ActivityService,
     private storageService: StorageService
-  ) {
-    this.subscriptions.push(this.activityService.selectedProcess.subscribe(value => {
-      this.isProcessSelected = !!value;
-
-      if (this.isProcessSelected) {
-        this.documentName = this.activityService.getDocumentName();
-        this.activityService.updateDocumentName(this.documentName);
-      }
-    }));
-
-    this.subscriptions.push(this.activityService.properties.subscribe(data => {
-      this.properties = data;
-      // @ts-ignore
-      this.dataSource = new MatTableDataSource(data);
-    }));
-  }
+  ) { }
 
   onDocumentNameChange(value: string) {
     this.activityService.updateDocumentName(value);
@@ -91,27 +94,20 @@ export class SettingsPropertiesComponent implements OnDestroy {
     dialogRef.beforeClosed().subscribe(confirmed => {
       if (confirmed) {
         this.delete(item, index);
-      } else {
-        event.stopPropagation();
       }
     });
   }
 
   create(data: PropertyItem) {
-    this.properties.unshift({key: data.key, value: data.value});
-    this.activityService.updateProperties(this.properties);
+    this.activityService.createProperty(data)
   }
 
   update(data: PropertyItem, index: number) {
-    const property = this.properties.find((el, i) => i === index);
-    property.key = data.key;
-    property.value = data.value;
-    this.activityService.updateProperties(this.properties);
-  }
 
-  delete(item: PropertyItem, index: number) {
-    this.properties = this.properties.filter((el, i) => i !== index);
-    this.activityService.updateProperties(this.properties);
+    this.activityService.updateProperty(data, index);
+  }
+  delete(_: PropertyItem, index: number) {
+    this.activityService.deleteProperty(index);
   }
 
   onReset() {
@@ -124,16 +120,11 @@ export class SettingsPropertiesComponent implements OnDestroy {
 
     dialogRef.beforeClosed().subscribe(confirmed => {
       if (confirmed) {
-        const activityInstanceId = HelperService.getActivityExecutionId(this.activityService.processActivities.getValue());
+        const activityInstanceId = HelperService.getActivityExecutionId(this.activityService.processActivities());
         this.storageService.removeProperties(activityInstanceId);
         this.activityService.fetchProperties();
-      } else {
-        event.stopPropagation();
       }
     });
   }
 
-  ngOnDestroy() {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
-  }
 }

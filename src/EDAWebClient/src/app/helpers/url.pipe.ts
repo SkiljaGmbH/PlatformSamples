@@ -1,6 +1,9 @@
 import {PipeTransform, Pipe} from '@angular/core';
 
-@Pipe({ name: 'urlCustomPipe' })
+@Pipe({
+    name: 'urlCustomPipe',
+    standalone: true
+})
 export class UrlPipe implements PipeTransform {
   transform(text: string): string {
     const regExp = new RegExp('((https?:\\/\\/)(www\\.)?|(https?:\\/\\/)?(www\\.))((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+' +

@@ -1,0 +1,288 @@
+:root {
+  --primary-color: #424242;
+  --primary-contrast: #ffffff;
+  --accent-color: #1e88e5;
+  --accent-contrast: #ffffff;
+  --warn-color: #f44336;
+
+  /* === SYSTEM TOKENS === */
+  --mat-sys-primary: var(--primary-color);
+  --mat-sys-on-primary: var(--primary-contrast);
+  --mat-sys-primary-container: var(--primary-color);
+  --mat-sys-on-primary-container: var(--primary-contrast);
+  --mat-sys-secondary: var(--accent-color);
+  --mat-sys-on-secondary: var(--accent-contrast);
+  --mat-sys-secondary-container: var(--accent-color);
+  --mat-sys-on-secondary-container: var(--accent-contrast);
+  --mat-sys-tertiary: var(--accent-color);
+  --mat-sys-on-tertiary: var(--accent-contrast);
+  --mat-sys-error: var(--warn-color);
+  --mat-sys-on-error: var(--primary-contrast);
+  --mat-sys-on-surface: var(--primary-color);
+  --mat-sys-on-surface-variant: var(--primary-color);
+  --mat-sys-outline: var(--primary-color);
+
+  /* === BUTTONS === */
+  --mdc-filled-button-container-color: var(--primary-color);
+  --mdc-filled-button-label-text-color: var(--primary-contrast);
+  --mdc-filled-button-disabled-container-color: rgba(0, 0, 0, 0.12);
+  --mdc-filled-button-disabled-label-text-color: rgba(0, 0, 0, 0.38);
+  --mdc-outlined-button-label-text-color: var(--primary-color);
+  --mdc-outlined-button-outline-color: var(--primary-color);
+  --mdc-outlined-button-disabled-label-text-color: rgba(0, 0, 0, 0.38);
+  --mdc-outlined-button-disabled-outline-color: rgba(0, 0, 0, 0.12);
+  --mdc-text-button-label-text-color: var(--primary-color);
+  --mdc-text-button-disabled-label-text-color: rgba(0, 0, 0, 0.38);
+  --mdc-protected-button-container-color: var(--primary-color);
+  --mdc-protected-button-label-text-color: var(--primary-contrast);
+  --mdc-icon-button-icon-color: var(--primary-color);
+  --mdc-icon-button-disabled-icon-color: rgba(0, 0, 0, 0.38);
+  --mat-icon-button-state-layer-color: var(--primary-color);
+  --mat-text-button-state-layer-color: var(--primary-color);
+  --mat-filled-button-state-layer-color: var(--primary-contrast);
+  --mat-outlined-button-state-layer-color: var(--primary-color);
+
+  /* === FAB === */
+  --mat-fab-foreground-color: var(--primary-contrast);
+  --mat-fab-background-color: var(--primary-color);
+  --mat-fab-state-layer-color: var(--primary-contrast);
+  --mat-mini-fab-foreground-color: var(--primary-contrast);
+  --mat-mini-fab-background-color: var(--primary-color);
+
+  /* === FORM FIELDS (filled) === */
+
+  --mdc-filled-text-field-container-color: rgba(0, 0, 0, 0.04);
+  --mdc-filled-text-field-active-indicator-color: var(--primary-color);
+  --mdc-filled-text-field-focus-active-indicator-color: var(--accent-color);
+  --mdc-filled-text-field-hover-active-indicator-color: var(--primary-color);
+  --mdc-filled-text-field-label-text-color: var(--primary-color);
+  --mdc-filled-text-field-focus-label-text-color: var(--accent-color);
+  --mdc-filled-text-field-hover-label-text-color: var(--primary-color);
+  --mdc-filled-text-field-input-text-color: var(--primary-color);
+  --mdc-filled-text-field-caret-color: var(--accent-color);
+  --mdc-filled-text-field-error-active-indicator-color: var(--warn-color);
+  --mdc-filled-text-field-error-focus-active-indicator-color: var(--warn-color);
+  --mdc-filled-text-field-error-label-text-color: var(--warn-color);
+  --mdc-filled-text-field-error-caret-color: var(--warn-color);
+
+  /* === FORM FIELDS (outlined) === */
+  --mdc-outlined-text-field-outline-color: var(--primary-color);
+  --mdc-outlined-text-field-focus-outline-color: var(--accent-color) !important;
+  --mdc-outlined-text-field-hover-outline-color: var(--primary-color);
+  --mdc-outlined-text-field-label-text-color: var(--primary-color);
+  --mdc-outlined-text-field-focus-label-text-color: var(
+    --accent-color
+  ) !important;
+  --mdc-outlined-text-field-hover-label-text-color: var(--primary-color);
+  --mdc-outlined-text-field-input-text-color: var(--primary-color);
+  --mdc-outlined-text-field-caret-color: var(--accent-color) !important;
+  --mdc-outlined-text-field-error-outline-color: var(--warn-color);
+  --mdc-outlined-text-field-error-focus-outline-color: var(--warn-color);
+  --mdc-outlined-text-field-error-label-text-color: var(--warn-color);
+  --mdc-outlined-text-field-error-caret-color: var(--warn-color);
+
+  /* === FORM FIELD GENERAL === */
+  --mat-form-field-focus-select-arrow-color: var(--accent-color);
+  --mat-form-field-error-text-color: var(--warn-color);
+  --mat-form-field-subscript-text-color: var(--primary-color);
+  --mat-form-field-hint-text-color: var(--primary-color);
+  --mat-form-field-leading-icon-color: var(--primary-color);
+  --mat-form-field-trailing-icon-color: var(--primary-color);
+  --mat-form-field-focus-trailing-icon-color: var(--accent-color);
+  --mat-form-field-error-trailing-icon-color: var(--warn-color);
+
+  /* === SELECT === */
+  --mat-select-trigger-text-color: var(--primary-color);
+  --mat-select-enabled-arrow-color: var(--primary-color);
+  --mat-select-focused-arrow-color: var(--accent-color);
+  --mat-select-invalid-arrow-color: var(--warn-color);
+  --mat-select-panel-background-color: var(--primary-contrast);
+  --mat-option-label-text-color: var(--primary-color);
+  --mat-option-selected-state-label-text-color: var(--accent-color);
+  --mat-option-selected-state-layer-color: var(--accent-color);
+  --mat-option-focus-state-layer-color: rgba(0, 0, 0, 0.08);
+  --mat-option-hover-state-layer-color: rgba(0, 0, 0, 0.08);
+  --mat-optgroup-label-text-color: var(--primary-color);
+
+  /* === TABLE === */
+  --mat-table-background-color: var(--primary-contrast);
+  --mat-table-header-headline-color: var(--primary-color);
+  --mat-table-header-container-height: 56px;
+  --mat-table-row-item-label-text-color: var(--primary-color);
+  --mat-table-row-item-outline-color: rgba(0, 0, 0, 0.12);
+  --mat-table-footer-supporting-text-color: var(--primary-color);
+
+  /* === TABS === */
+  --mdc-secondary-navigation-tab-container-color: var(--primary-contrast);
+  --mat-tab-header-active-label-text-color: var(--primary-color);
+  --mat-tab-header-inactive-label-text-color: var(--primary-color);
+  --mat-tab-header-active-indicator-color: var(--accent-color);
+  --mat-tab-header-active-focus-label-text-color: var(--primary-color);
+  --mat-tab-header-active-hover-label-text-color: var(--primary-color);
+  --mat-tab-header-inactive-focus-label-text-color: var(--primary-color);
+  --mat-tab-header-inactive-hover-label-text-color: var(--primary-color);
+  --mat-tab-header-active-focus-indicator-color: var(--accent-color);
+  --mat-tab-header-active-hover-indicator-color: var(--accent-color);
+  --mat-tab-header-focus-state-layer-color: var(--primary-color);
+  --mat-tab-header-hover-state-layer-color: var(--primary-color);
+  --mat-tab-header-pagination-icon-color: var(--primary-color);
+  --mat-tab-header-disabled-ripple-color: rgba(0, 0, 0, 0.38);
+
+  /* === TOOLBAR === */
+  --mat-toolbar-container-background-color: var(--primary-color);
+  --mat-toolbar-container-text-color: var(--primary-contrast);
+  --mat-toolbar-title-text-color: var(--primary-contrast);
+
+  /* === CHECKBOX === */
+  --mdc-checkbox-selected-icon-color: var(--accent-color);
+  --mdc-checkbox-selected-focus-icon-color: var(--accent-color);
+  --mdc-checkbox-selected-hover-icon-color: var(--accent-color);
+  --mdc-checkbox-selected-pressed-icon-color: var(--accent-color);
+  --mdc-checkbox-selected-checkmark-color: var(--accent-contrast);
+  --mdc-checkbox-selected-focus-state-layer-color: var(--accent-color);
+  --mdc-checkbox-selected-hover-state-layer-color: var(--accent-color);
+  --mdc-checkbox-selected-pressed-state-layer-color: var(--accent-color);
+  --mdc-checkbox-unselected-icon-color: var(--primary-color);
+  --mdc-checkbox-unselected-focus-icon-color: var(--primary-color);
+  --mdc-checkbox-unselected-hover-icon-color: var(--primary-color);
+  --mdc-checkbox-unselected-pressed-icon-color: var(--primary-color);
+  --mdc-checkbox-unselected-focus-state-layer-color: var(--primary-color);
+  --mdc-checkbox-unselected-hover-state-layer-color: var(--primary-color);
+
+  /* === SPINNER === */
+  --mdc-circular-progress-active-indicator-color: var(--accent-color);
+  --mdc-linear-progress-active-indicator-color: var(--accent-color);
+  --mdc-linear-progress-track-color: rgba(0, 0, 0, 0.12);
+
+  /* === DIALOG === */
+  --mat-dialog-container-background-color: var(--primary-contrast);
+  --mat-dialog-container-text-color: var(--primary-color);
+  --mat-dialog-subhead-color: var(--primary-color);
+  --mat-dialog-headline-color: var(--primary-color);
+  --mat-dialog-supporting-text-color: var(--primary-color);
+  --mat-dialog-actions-alignment: end;
+  --mat-dialog-container-shape: 8px;
+
+  /* === ICONS === */
+  --mat-icon-color: var(--primary-color);
+
+  /* === RIPPLE === */
+  --mat-ripple-color: rgba(0, 0, 0, 0.1);
+
+  --text-color: #ffffff;
+  --header-height: 64px;
+  --scroll-bar-track: #000000;
+  --scroll-bar-thumb: #a9a9a9;
+
+  --header-height: 64px;
+  --logo-height: 40px;
+  --text-color: white;
+  --doc-type-select-color: black;
+  --empty-message-color: #ababab;
+  --upload-zone-border-color: #e0e0e0;
+  --upload-zone-hover-bg-color: #e0e0e0;
+  --upload-zone-hover-border-color: #c4c4c4;
+  --upload-zone-text-color: #9e9e9e;
+
+  --scroll-bar-track-color: rgb(0, 0, 0);
+  --scroll-bar-thumb-bg-color: darkgrey;
+  --scroll-bar-thumb-outline-color: slategrey;
+}
+
+.mat-icon {
+  --mat-icon-color: inherit;
+}
+
+.mat-mdc-button,
+.mat-mdc-raised-button,
+.mat-mdc-unelevated-button,
+.mat-mdc-flat-button,
+.mat-mdc-outlined-button {
+  border-radius: 4px !important;
+  --mdc-filled-button-container-shape: 4px !important;
+  --mdc-protected-button-container-shape: 4px !important;
+  --mdc-outlined-button-container-shape: 4px !important;
+  --mdc-text-button-container-shape: 4px !important;
+}
+
+.mat-primary {
+  --mdc-filled-button-container-color: var(--primary-color) !important;
+  --mdc-filled-button-label-text-color: var(--primary-contrast) !important;
+
+  --mat-button-protected-container-color: var(--primary-color) !important;
+  --mat-button-protected-label-text-color: var(--primary-contrast) !important;
+
+  --mdc-outlined-button-label-text-color: var(--primary-color) !important;
+  --mdc-outlined-button-outline-color: var(--primary-color) !important;
+
+  --mdc-text-button-label-text-color: var(--primary-color) !important;
+}
+
+.mat-accent,
+.mat-tertiary {
+  --mdc-filled-button-container-color: var(--accent-color) !important;
+  --mdc-filled-button-label-text-color: var(--accent-contrast) !important;
+
+  --mat-button-protected-container-color: var(--accent-color) !important;
+  --mat-button-protected-label-text-color: var(--accent-contrast) !important;
+
+  &:not(.mat-mdc-outlined-button):not(.mat-mdc-button) {
+    background-color: var(--accent-color) !important;
+    color: var(--accent-contrast) !important;
+  }
+}
+
+.mat-mdc-button.mat-tertiary,
+.mat-mdc-raised-button.mat-tertiary,
+.mat-mdc-flat-button.mat-tertiary {
+  background-color: var(--accent-color);
+  color: var(--accent-contrast);
+}
+
+.mat-mdc-button.mat-primary {
+  --mdc-text-button-label-text-color: var(--primary-color) !important;
+  color: var(--primary-color) !important;
+
+  background-color: transparent !important;
+}
+
+.mat-mdc-button.mat-primary .mat-mdc-button-persistent-ripple::before {
+  background-color: var(--primary-color) !important;
+}
+
+.mat-mdc-button.mat-primary:hover .mat-mdc-button-state-layer {
+  background-color: rgba(66, 66, 66, 0.08) !important;
+}
+
+.mat-mdc-button:not(:disabled) {
+  color: var(--primary-color) !important;
+}
+
+.mat-mdc-button:hover .mat-mdc-button-persistent-ripple::before,
+.mat-mdc-button:active .mat-mdc-button-persistent-ripple::before,
+.mat-mdc-button:focus .mat-mdc-button-persistent-ripple::before {
+  background-color: var(--accent-color) !important;
+  opacity: 0.08;
+}
+.mat-mdc-dialog-actions {
+  padding: 8px 24px 16px 24px !important;
+}
+
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__leading,
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__notch,
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__trailing {
+  border-color: var(--accent-color) !important;
+}
+
+.mat-mdc-form-field.mat-focused .mdc-floating-label {
+  color: var(--accent-color) !important;
+}
+
+.mdc-tab-indicator__content--underline {
+  border-color: var(--accent-color) !important;
+}
+
+html,
+body {
+  font-family: Roboto, sans-serif;
+}
