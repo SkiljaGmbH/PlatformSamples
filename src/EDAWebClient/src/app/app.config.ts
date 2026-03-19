@@ -12,8 +12,8 @@ const oidcFactory = (configService: ConfigService) => {
     const config$ = from(configService.init().then(data => {
         let pathName = window.location.pathname;
         if (!pathName || pathName.length === 0) pathName = '/';
-        if (pathName !== '/' && pathName.length > 0 && pathName.endsWith('/')) {
-            pathName = pathName.substring(0, pathName.length - 1);
+        if (pathName !== '/' && !pathName.endsWith('/')) {
+            pathName = pathName + '/';
         }
         const redirectUri = (window.location.origin + pathName).toLocaleLowerCase();
 

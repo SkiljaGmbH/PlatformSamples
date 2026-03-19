@@ -77,7 +77,8 @@ export class HomeComponent {
       if (list.length > 1) {
         this.dialog.open(ResultComponent, {
           data: list,
-          width: '90%'
+          width: '90vw',
+          maxWidth: '90vw'
         });
       } else {
         const notification = list[0];
