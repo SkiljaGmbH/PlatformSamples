@@ -93,7 +93,7 @@
   </Target>
   <Target Name="installNPM">
     <Copy SourceFiles="NPM_install.js" DestinationFolder="$(PkgNode_js_redist)\tools\win-x64" />
-    <Exec WorkingDirectory="$(PkgNode_js_redist)\tools\win-x64" Command="&quot;$(nodeExe)&quot; NPM_install.js 6.12.0" />
+    <Exec WorkingDirectory="$(PkgNode_js_redist)\tools\win-x64" Command="&quot;$(nodeExe)&quot; NPM_install.js 24.14.1" />
   </Target>
 
 </Project>
