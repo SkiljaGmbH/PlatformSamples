@@ -4,7 +4,7 @@
   <ItemGroup>
     <PackageReference Include="STG.Tools.ActivityPackaging" />
     <PackageReference Include="NuGet.CommandLine" />
-    <PackageReference Include="Node.js.redist" />
+    <PackageReference Include="Node.js.redist.win" />
   </ItemGroup>
   <ItemGroup>
     <Package-Tools-and-Websites Include="$(BuildOutputDirectory)/EDAClient/net8.0-windows/*;" Exclude="">
@@ -58,9 +58,9 @@
   </Target>
   <Target Name="build-websites">
     <PropertyGroup>
-      <nodePath>$(PkgNode_js_redist)\tools\win-x64\</nodePath>
+      <nodePath>$(PkgNode_js_redist_win)\tools\x64\</nodePath>
       <nodeExe>$(nodePath)node.exe</nodeExe>
-      <npmPath>$(PkgNode_js_redist)\tools\win-x64\package\bin</npmPath>
+      <npmPath>$(PkgNode_js_redist_win)\tools\x64\package\bin</npmPath>
     </PropertyGroup>
 
     <MSBuild Condition="!Exists('$(npmPath)')" Targets="installNPM" Properties="nodeExe=$(nodeExe)" Projects="$(MSBuildThisFileFullPath)" />
@@ -73,7 +73,7 @@
     <Exec WorkingDirectory="./src/EDAWebClient" Command="
         set PATH=%PATH:C:\Program Files\nodejs=%
         set path=%PATH%;$(nodePath)
-        &quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; run ng build -- --prod --base-href ." />
+        &quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; run ng build -- --configuration production --base-href ." />
 
     <Exec WorkingDirectory="./src/EDAConfirmWeb" Command="
 		set PATH=%PATH:C:\Program Files\nodejs=%
@@ -82,18 +82,18 @@
     <Exec WorkingDirectory="./src/EDAConfirmWeb" Command="
         set PATH=%PATH:C:\Program Files\nodejs=%
         set path=%PATH%;$(nodePath)
-        &quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; run ng build -- --prod --base-href ." />
+        &quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; run ng build -- --configuration production --base-href ." />
 
     <!-- Disabled untill upper two are upgraded to newer version -->
-    <!--<Exec WorkingDirectory="./WorkItemSearchAndLock"  Command="&quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; install" />-->
-    <!--<Exec WorkingDirectory="./WorkItemSearchAndLock"  Command=" 
+    <Exec WorkingDirectory="./src/WorkItemSearchAndLock"  Command="&quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; install" />
+    <Exec WorkingDirectory="./src/WorkItemSearchAndLock"  Command=" 
         set PATH=%PATH:C:\Program Files\nodejs=%
         set path=%PATH%;$(nodePath)
-        &quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; run ng build " />-->
+        &quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; run ng build -- --configuration production --base-href ." />
   </Target>
   <Target Name="installNPM">
-    <Copy SourceFiles="NPM_install.js" DestinationFolder="$(PkgNode_js_redist)\tools\win-x64" />
-    <Exec WorkingDirectory="$(PkgNode_js_redist)\tools\win-x64" Command="&quot;$(nodeExe)&quot; NPM_install.js 24.14.1" />
+    <Copy SourceFiles="NPM_install.js" DestinationFolder="$(PkgNode_js_redist_win)\tools\x64" />
+    <Exec WorkingDirectory="$(PkgNode_js_redist_win)\tools\x64" Command="&quot;$(nodeExe)&quot; NPM_install.js 11.11.0" />
   </Target>
 
 </Project>
