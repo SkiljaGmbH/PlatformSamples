@@ -10,11 +10,14 @@
     <Package-Tools-and-Websites Include="$(BuildOutputDirectory)/EDAClient/net8.0-windows/*;" Exclude="">
       <Subfolder>EDAClient</Subfolder>
     </Package-Tools-and-Websites>
-    <Package-Tools-and-Websites Include="./src/EDAConfirmWeb/dist/**/*;" Exclude="">
+    <Package-Tools-and-Websites Include="./src/EDAConfirmWeb/dist/eda-confirm-web/browser/**/*;" Exclude="">
       <Subfolder>EDAConfirmWeb</Subfolder>
     </Package-Tools-and-Websites>
-    <Package-Tools-and-Websites Include="./src/EDAWebClient/dist/**/*;" Exclude="">
+    <Package-Tools-and-Websites Include="./src/EDAWebClient/dist/eda/browser/**/*;" Exclude="">
       <Subfolder>EDAWebClient</Subfolder>
+    </Package-Tools-and-Websites>
+    <Package-Tools-and-Websites Include="./src/WorkItemSearchAndLock/dist/work-item-search-and-lock/browser/**/*;" Exclude="">
+      <Subfolder>WorkItemSearchAndLock</Subfolder>
     </Package-Tools-and-Websites>
   </ItemGroup>
   <Target Name="SetGitHubVariables" BeforeTargets="restore">
@@ -67,25 +70,27 @@
 
 
     <Exec WorkingDirectory="./src/EDAWebClient" Command="
-		set PATH=%PATH:C:\Program Files\nodejs=%
+		    set PATH=%PATH:C:\Program Files\nodejs=%
         set path=%PATH%;$(nodePath)
-		&quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; install" />
+  		  &quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; install" />
     <Exec WorkingDirectory="./src/EDAWebClient" Command="
         set PATH=%PATH:C:\Program Files\nodejs=%
         set path=%PATH%;$(nodePath)
         &quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; run ng build -- --configuration production --base-href ." />
 
     <Exec WorkingDirectory="./src/EDAConfirmWeb" Command="
-		set PATH=%PATH:C:\Program Files\nodejs=%
+		    set PATH=%PATH:C:\Program Files\nodejs=%
         set path=%PATH%;$(nodePath)
-		&quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; install" />
+    		&quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; install" />
     <Exec WorkingDirectory="./src/EDAConfirmWeb" Command="
         set PATH=%PATH:C:\Program Files\nodejs=%
         set path=%PATH%;$(nodePath)
         &quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; run ng build -- --configuration production --base-href ." />
 
-    <!-- Disabled untill upper two are upgraded to newer version -->
-    <Exec WorkingDirectory="./src/WorkItemSearchAndLock"  Command="&quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; install" />
+    <Exec WorkingDirectory="./src/WorkItemSearchAndLock"  Command="
+		    set PATH=%PATH:C:\Program Files\nodejs=%
+        set path=%PATH%;$(nodePath)
+		    &quot;$(nodeExe)&quot; &quot;$(npmPath)\npm-cli.js&quot; install" />
     <Exec WorkingDirectory="./src/WorkItemSearchAndLock"  Command=" 
         set PATH=%PATH:C:\Program Files\nodejs=%
         set path=%PATH%;$(nodePath)
