@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using STG.Common.DTO.Metadata;
+﻿using STG.Common.DTO.Metadata;
 using STG.RT.API.Activity;
+using System.ComponentModel.DataAnnotations;
 
 namespace SampleEventDrivenActivity.Configuration
 {
@@ -14,7 +14,12 @@ namespace SampleEventDrivenActivity.Configuration
         [InputType(InputType.checkbox)]
         public bool ExportMedia { get; set; }
 
-        [Display(Name = "Export extensions", Description = "If set, all available extensions on document level are inserted into the resulting package.", Order = 3)]
+
+        [Display(Name = "Export Pages", Description = "If set, all available pages are exported into resulting package. Note that if ExportExtensions is ticked the exported page data contains the page extensions as well", Order = 3)]
+        [InputType(InputType.checkbox)]
+        public bool ExportPages { get; set; }
+
+        [Display(Name = "Export extensions", Description = "If set, all available extensions on document level are inserted into the resulting package.", Order = 4)]
         [InputType(InputType.checkbox)]
         public bool ExportExtensions { get; set; }
     }

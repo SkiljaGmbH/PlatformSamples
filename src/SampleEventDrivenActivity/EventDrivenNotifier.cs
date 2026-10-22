@@ -4,9 +4,11 @@ using STG.Common.DTO;
 using STG.Common.DTO.Document;
 using STG.RT.API.Activity;
 using STG.RT.API.Document;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Text;
 
 namespace SampleEventDrivenActivity
@@ -27,6 +29,7 @@ namespace SampleEventDrivenActivity
             result.ExportCustomExtensions = ActivityConfiguration.ExportExtensions;
             result.ExportFieldsAndTables = ActivityConfiguration.ExportFieldsAndTables;
             result.ExportMedia = ActivityConfiguration.ExportMedia;
+            result.ExportPages = ActivityConfiguration.ExportPages;
 
             var stream = new MemoryStream();
             using (var sw = new StreamWriter(stream, Encoding.UTF8, 1024, true))
@@ -115,6 +118,8 @@ namespace SampleEventDrivenActivity
 
             FillFieldsAndTables(response, document);
 
+            FillPages(response, document);
+
             AddExtensions(response, document);
             return response;
         }
@@ -148,6 +153,40 @@ namespace SampleEventDrivenActivity
 
                     response.Extensions[ext] = txt;
                 }
+            }
+        }
+
+        private void FillPages(ResponseMetaData response, STGDocument document)
+        {
+            if (ActivityConfiguration.ExportPages == false)
+                return;
+
+            foreach (var page in document.Pages)
+            {
+                var pageMd = new Page
+                {
+                    ID = page.ID,
+                    Index = page.PageIndex,
+                    DefaultMedia = page.DefaultMedia?.ID ?? Guid.Empty
+                };
+                pageMd.AssignedMedia.AddRange(page.Media.Select(m => m.ID));
+                if (ActivityConfiguration.ExportExtensions)
+                {
+                    var extTypes = page.GetExtensionTypes();
+                    foreach (var ext in extTypes)
+                    {
+                        // The stream is usually a json and can be used as such
+                        var e = page.GetExtensionData(ext);
+                        using (var streamReader = new StreamReader(e))
+                        {
+                            var txt = streamReader.ReadToEnd();
+
+                            pageMd.PageExtensions[ext] = txt;
+                        }
+                    }
+                }
+
+                response.Pages.Add(pageMd);
             }
         }
 
@@ -192,6 +231,7 @@ namespace SampleEventDrivenActivity
         public bool ExportCustomExtensions { get; set; }
         public bool ExportFieldsAndTables { get; set; }
         public bool ExportMedia { get; set; }
+        public bool ExportPages { get; set; }
         public IReadOnlyCollection<DtoDocumentType> DocumentTypes { get; set; } = new List<DtoDocumentType>();
     }
 }
