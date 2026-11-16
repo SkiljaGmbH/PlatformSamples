@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { lastValueFrom, map } from 'rxjs';
 import { Config } from '../../models/config.model';
+import { assetUrl } from './asset-url';
 
 @Injectable({ providedIn: 'root' })
 export class ConfigService {
@@ -17,7 +18,7 @@ export class ConfigService {
     const headers = new HttpHeaders({ skipAuth: 'true' });
 
     const initialData = await lastValueFrom(
-      this.http.get<Config>('./assets/config.json?@DATA[PRODUCT_VERSION]', { headers })
+      this.http.get<Config>(`${assetUrl('config.json')}?t=${Date.now()}`, { headers })
     );
 
     return await lastValueFrom(this.initAndSelfDiscover(initialData));
