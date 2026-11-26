@@ -183,6 +183,28 @@
           "Description": "Demonstriert, wie man Standardwerte für eine Aktivität festlegt und wie diese Standardwerte die UI-Kultur berücksichtigen."
         }
       }
+    },
+    {
+      "AssemblyPath": "..\\..\\_build\\SampleActivity\\netstandard2.0\\SampleActivity.dll",
+      "IsExternal": false,
+      "ActivityTypeGuid": "57D91F84-430E-49E2-9BC0-D9E455BC61D0",
+      "IconPath": "icon\\heartbeat.svg",
+      "IsFolder": true,
+      "Name": "Sample With Heartbeat",
+      "Description": "Demonstrates how to report the platform heartbeat while the activity is blocked by long running work",
+      "Vendor": "Skilja GmbH",
+      "Version": "1.0.0.0",
+      "Color": "#FFF",
+      "DisableOldVersions": false,
+      "EntryPoint": "SampleActivity.SampleWithHeartbeat",
+      "HelpPath": null,
+      "ConfigPath": null,
+      "ConfigURL": null,
+      "LocalizedResources": {
+        "de": {
+          "Description": "Zeigt, wie der Heartbeat der Plattform gemeldet wird, während die Aktivität durch lang laufende Arbeit blockiert ist."
+        }
+      }
     }
   ]
 }

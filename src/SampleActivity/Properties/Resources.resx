@@ -421,4 +421,25 @@ With every tick it counts the number of work items that have the SLA status in O
   <data name="Localizer_PromptOverride_PromptOverride" xml:space="preserve">
     <value>This value comes from the constructor and overrides the value defined in the Prompt attribute.</value>
   </data>
+  <data name="SampleWithHeartbeatSettings_ProcessingDurationSeconds_Name" xml:space="preserve">
+    <value>Processing Duration (seconds)</value>
+  </data>
+  <data name="SampleWithHeartbeatSettings_ProcessingDurationSeconds_Description" xml:space="preserve">
+    <value>How long the activity keeps the work item in progress. Supported range is 1 to 3600 seconds, any other value falls back to the default of 180 seconds. Use a value above 60 seconds to see the heartbeat in action.</value>
+  </data>
+  <data name="SampleWithHeartbeatSettings_HeartbeatIntervalSeconds_Name" xml:space="preserve">
+    <value>Heartbeat Interval (seconds)</value>
+  </data>
+  <data name="SampleWithHeartbeatSettings_HeartbeatIntervalSeconds_Description" xml:space="preserve">
+    <value>Time between two heartbeat signals. It must stay below the platform heartbeat threshold of 60 seconds, so the supported range is 1 to 59 seconds and any other value falls back to the default of 20 seconds.</value>
+  </data>
+  <data name="SampleWithHeartbeatSettings_HeartbeatMessage_Name" xml:space="preserve">
+    <value>Heartbeat Message</value>
+  </data>
+  <data name="SampleWithHeartbeatSettings_HeartbeatMessage_Description" xml:space="preserve">
+    <value>Custom message that is reported with every heartbeat. An empty value falls back to the default message.</value>
+  </data>
+  <data name="SampleWithHeartbeatSettings_Common_Name" xml:space="preserve">
+    <value>Routing and Filtering Settings</value>
+  </data>
 </root>
