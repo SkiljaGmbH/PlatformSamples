@@ -45,6 +45,8 @@
     <Content Include="icon\overdue.svg" />
     <Content Include="icon\transfer.svg" />
     <Content Include="icon\validation.svg" />
+    <Content Include="icon\translate.svg" />
     <Content Include="icon\watermark.svg" />
+    <Content Include="icon\heartbeat.svg" />
   </ItemGroup>
 </Project>

@@ -386,4 +386,25 @@ Mit jedem Häkchen zählt er die Anzahl der Workitems, die den SLA-Status „üb
   <data name="WatermarkSettings_WatermarkText_Name" xml:space="preserve">
     <value>Text des Wasserzeichens</value>
   </data>
+  <data name="SampleWithHeartbeatSettings_ProcessingDurationSeconds_Name" xml:space="preserve">
+    <value>Verarbeitungsdauer (Sekunden)</value>
+  </data>
+  <data name="SampleWithHeartbeatSettings_ProcessingDurationSeconds_Description" xml:space="preserve">
+    <value>Wie lange die Aktivität das Arbeitselement in Bearbeitung hält. Unterstützt werden 1 bis 3600 Sekunden, bei allen anderen Werten wird der Standardwert von 180 Sekunden verwendet. Werte über 60 Sekunden zeigen die Wirkung des Heartbeats.</value>
+  </data>
+  <data name="SampleWithHeartbeatSettings_HeartbeatIntervalSeconds_Name" xml:space="preserve">
+    <value>Heartbeat-Intervall (Sekunden)</value>
+  </data>
+  <data name="SampleWithHeartbeatSettings_HeartbeatIntervalSeconds_Description" xml:space="preserve">
+    <value>Zeit zwischen zwei Heartbeat-Signalen. Der Wert muss unter dem Heartbeat-Schwellenwert der Plattform von 60 Sekunden liegen, unterstützt werden daher 1 bis 59 Sekunden, bei allen anderen Werten wird der Standardwert von 20 Sekunden verwendet.</value>
+  </data>
+  <data name="SampleWithHeartbeatSettings_HeartbeatMessage_Name" xml:space="preserve">
+    <value>Heartbeat-Nachricht</value>
+  </data>
+  <data name="SampleWithHeartbeatSettings_HeartbeatMessage_Description" xml:space="preserve">
+    <value>Benutzerdefinierte Nachricht, die mit jedem Heartbeat gemeldet und im System Monitor angezeigt wird. Bei einem leeren Wert wird die Standardnachricht verwendet.</value>
+  </data>
+  <data name="SampleWithHeartbeatSettings_Common_Name" xml:space="preserve">
+    <value>Einstellungen für Routing und Filterung</value>
+  </data>
 </root>

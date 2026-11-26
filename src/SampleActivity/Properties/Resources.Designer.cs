@@ -969,5 +969,68 @@ namespace SampleActivity.Properties {
                 return ResourceManager.GetString("WatermarkSettings_WatermarkText_Name", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Routing and Filtering Settings.
+        /// </summary>
+        public static string SampleWithHeartbeatSettings_Common_Name {
+            get {
+                return ResourceManager.GetString("SampleWithHeartbeatSettings_Common_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time between two heartbeat signals. It must stay below the platform heartbeat threshold of 60 seconds.
+        /// </summary>
+        public static string SampleWithHeartbeatSettings_HeartbeatIntervalSeconds_Description {
+            get {
+                return ResourceManager.GetString("SampleWithHeartbeatSettings_HeartbeatIntervalSeconds_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Heartbeat Interval (seconds).
+        /// </summary>
+        public static string SampleWithHeartbeatSettings_HeartbeatIntervalSeconds_Name {
+            get {
+                return ResourceManager.GetString("SampleWithHeartbeatSettings_HeartbeatIntervalSeconds_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom message that is reported with every heartbeat and shown in the System Monitor.
+        /// </summary>
+        public static string SampleWithHeartbeatSettings_HeartbeatMessage_Description {
+            get {
+                return ResourceManager.GetString("SampleWithHeartbeatSettings_HeartbeatMessage_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Heartbeat Message.
+        /// </summary>
+        public static string SampleWithHeartbeatSettings_HeartbeatMessage_Name {
+            get {
+                return ResourceManager.GetString("SampleWithHeartbeatSettings_HeartbeatMessage_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to How long the activity keeps the work item in progress. Use a value above 60 seconds to see the heartbeat in action.
+        /// </summary>
+        public static string SampleWithHeartbeatSettings_ProcessingDurationSeconds_Description {
+            get {
+                return ResourceManager.GetString("SampleWithHeartbeatSettings_ProcessingDurationSeconds_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Processing Duration (seconds).
+        /// </summary>
+        public static string SampleWithHeartbeatSettings_ProcessingDurationSeconds_Name {
+            get {
+                return ResourceManager.GetString("SampleWithHeartbeatSettings_ProcessingDurationSeconds_Name", resourceCulture);
+            }
+        }
     }
 }
